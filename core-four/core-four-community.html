@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devoted to Community — The Core Four</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--surface-3:#212842;--accent:#c4944a;--accent-dim:#7a5420;--accent-lt:#e4b46a;--cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;--border:#232a42;--border-lt:#2e3858;--font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;--font-serif:'Cormorant Garamond',Georgia,serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:28px 0 10px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:40px 40px 32px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:640px){.site-header{grid-template-columns:1fr;gap:28px;padding:32px 24px 28px;}}
+.header-left .header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.header-left .header-title{font-family:var(--font-display);font-size:clamp(22px,4vw,40px);font-weight:700;letter-spacing:2px;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+.header-left .header-title span{color:var(--accent);}
+.header-left .header-verse{font-family:var(--font-serif);font-size:clamp(14px,2vw,18px);font-style:italic;color:var(--cream-dim);line-height:1.65;max-width:520px;}
+.header-left .header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);margin-top:8px;}
+.pillar-stack{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.pillar-item{font-family:var(--font-display);font-size:clamp(10px,1.4vw,13px);letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:3px;white-space:nowrap;text-decoration:none;}
+.pillar-item.active{background:var(--accent);color:#fff;font-weight:700;}
+.pillar-item.inactive{background:transparent;border:1px solid var(--border-lt);color:var(--muted);}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.section-header{margin-bottom:44px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,5vw,50px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:12px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:10px;}.callout p:last-child{margin-bottom:0;}
+.one-another-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:20px 0;}
+.oa-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent-dim);border-radius:4px;padding:16px 18px;}
+.oa-command{font-family:var(--font-display);font-size:13px;color:var(--accent);margin-bottom:6px;letter-spacing:.5px;}
+.oa-ref{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
+.oa-note{font-size:13px;color:var(--cream-dim);line-height:1.55;}
+.reject-accept{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+@media(max-width:540px){.reject-accept{grid-template-columns:1fr;}}
+.ra-col{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;}
+.ra-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
+.ra-label.reject{color:#9a4a4a;}
+.ra-label.accept{color:var(--accent);}
+.ra-item{font-size:14px;color:var(--cream-dim);padding:8px 0;border-bottom:1px solid var(--border);line-height:1.5;}
+.ra-item:last-child{border-bottom:none;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.challenge-block{background:var(--surface);border:1px solid var(--accent-dim);border-radius:6px;padding:32px;margin:36px 0;text-align:center;}
+.challenge-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:16px;}
+.challenge-text{font-family:var(--font-serif);font-size:clamp(18px,3vw,24px);font-style:italic;color:var(--cream);line-height:1.65;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;}
+.ws-original{font-family:var(--font-serif);font-size:clamp(34px,5vw,50px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <div class="header-eyebrow">The Core Four · Pillar 03</div>
+    <div class="header-title"><span>Devoted</span> to Community</div>
+    <div class="header-verse">"And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers."</div>
+    <div class="header-ref">Acts 2:42</div>
+  </div>
+  <div class="pillar-stack">
+    <a class="pillar-item inactive" href="core-four-gospel.html">Gospel</a>
+    <a class="pillar-item inactive" href="core-four-discipleship.html">Discipleship</a>
+    <a class="pillar-item active" href="core-four-community.html">Community</a>
+    <a class="pillar-item inactive" href="core-four-disciplemaking.html">Disciplemaking</a>
+  </div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study',this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+  </div>
+</div>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">The Core Four · Pillar 03</div>
+        <div class="section-title">Community</div>
+        <div class="section-sub">Not just where we gather — who we are to each other</div>
+      </div>
+
+      <h2>The Question Nobody Is Asking</h2>
+      <p>Most conversations about community in the church are about the local church — should you attend, which one, how often. But the New Testament question is different. It's not "are you part of a local church?" The question is: <strong>are you actually in community?</strong></p>
+      <p>You can attend a church for years and not be known by anyone. You can sit in the same room with people every week and have no idea what's actually happening in their lives. That's not community. That's proximity.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers. And awe came upon every soul, and many wonders and signs were being done through the apostles. And all who believed were together and had all things in common."</div>
+        <div class="verse-ref">Acts 2:42–44</div>
+      </div>
+
+      <p>The first church didn't organize small groups or launch a community program. They simply could not stop being together. The gospel had done something to them — bound them to each other in a way that made natural, ordinary life together inevitable.</p>
+
+      <h2>What Devoted Means</h2>
+
+      <div class="callout accent">
+        <div class="callout-label">The Word</div>
+        <p>Acts 2:42 says they <em>devoted</em> themselves — the Greek is <em>proskartereō</em>: to be persistently attentive to, to continue steadfastly in, to hold on to with strength. It's the same word used for soldiers who held their post. Not casual engagement — committed, persistent presence with each other over time.</p>
+      </div>
+
+      <p>Devotion to community is not the same as being friendly, or enjoying church, or showing up reliably. It means your life is actually intertwined with other people's lives — you know their struggles, they know yours, you carry each other's burdens, you celebrate together, you correct each other in love. That kind of community doesn't happen accidentally. It requires decision and devotion.</p>
+
+      <h2>What Real Community Rejects</h2>
+      <p>Many people who attend church are in one of these modes rather than genuine community. Honest self-examination starts here:</p>
+
+      <div class="reject-accept">
+        <div class="ra-col">
+          <div class="ra-label reject">Not This</div>
+          <div class="ra-item">Consuming — taking what you need, contributing nothing</div>
+          <div class="ra-item">Missional attendance — showing up without being present</div>
+          <div class="ra-item">Gathering without relationship — same room, no real knowing</div>
+          <div class="ra-item">Accountability without vulnerability — questions without honesty</div>
+          <div class="ra-item">Stopping when it costs you something</div>
+          <div class="ra-item">Staying only while you agree with everyone</div>
+        </div>
+        <div class="ra-col">
+          <div class="ra-label accept">This</div>
+          <div class="ra-item">Genuine life together — shared joy, shared burden</div>
+          <div class="ra-item">Hospitality — open home, open life</div>
+          <div class="ra-item">Consistent presence — showing up when it's inconvenient</div>
+          <div class="ra-item">Real accountability with honesty on both sides</div>
+          <div class="ra-item">Staying and working through conflict</div>
+          <div class="ra-item">Praying together, not just for each other</div>
+        </div>
+      </div>
+
+      <h2>The One Another Commands</h2>
+      <p>The New Testament contains over 50 "one another" commands — instructions about how members of the body of Christ are to treat each other. They only make sense in the context of real, close, ongoing relationship. You cannot obey them at arm's length.</p>
+
+      <div class="one-another-grid">
+        <div class="oa-card"><div class="oa-command">Love One Another</div><div class="oa-ref">John 13:34–35</div><div class="oa-note">As I have loved you. The standard is the cross. This is the witness to the world — how you treat each other.</div></div>
+        <div class="oa-card"><div class="oa-command">Honor One Another</div><div class="oa-ref">Romans 12:10</div><div class="oa-note">Be devoted, preferring each other in honor. In a culture of self-promotion, the body of Christ competes to honor rather than to be honored.</div></div>
+        <div class="oa-card"><div class="oa-command">Bear One Another's Burdens</div><div class="oa-ref">Galatians 6:2</div><div class="oa-note">You cannot carry someone's burden without being close enough to know what it is. This requires disclosure and trust from both parties.</div></div>
+        <div class="oa-card"><div class="oa-command">Confess to One Another</div><div class="oa-ref">James 5:16</div><div class="oa-note">And pray for each other, that you may be healed. Confession requires someone you trust. It requires a real relationship, not an acquaintance.</div></div>
+        <div class="oa-card"><div class="oa-command">Admonish One Another</div><div class="oa-ref">Romans 15:14; Colossians 3:16</div><div class="oa-note">Instruction, correction, warning. This is only possible — and only received — in the context of established trust and mutual care.</div></div>
+        <div class="oa-card"><div class="oa-command">Encourage One Another</div><div class="oa-ref">1 Thessalonians 5:11; Hebrews 10:25</div><div class="oa-note">Daily, while it is still called today (Hebrews 3:13). Not periodic inspiration — ongoing, daily presence with each other's lives.</div></div>
+        <div class="oa-card"><div class="oa-command">Serve One Another</div><div class="oa-ref">Galatians 5:13</div><div class="oa-note">Through love, be servants of each other. Freedom in Christ expressed as service — the opposite of using the community for your benefit.</div></div>
+        <div class="oa-card"><div class="oa-command">Submit to One Another</div><div class="oa-ref">Ephesians 5:21</div><div class="oa-note">Out of reverence for Christ. Mutual submission is the community's internal structure — not a hierarchy of who gets their way.</div></div>
+        <div class="oa-card"><div class="oa-command">Pray for One Another</div><div class="oa-ref">James 5:16</div><div class="oa-note">Not just for each other — <em>with</em> each other. Praying together is one of the clearest markers of genuine community.</div></div>
+      </div>
+
+      <h2>Hospitality as Community</h2>
+      <p>The New Testament consistently connects community to the practice of hospitality — opening your home, your table, your life. The early church met in homes. The shared meal was not optional; it was where community happened. Romans 12:13 commands it; 1 Peter 4:9 repeats it without grumbling.</p>
+
+      <div class="callout">
+        <div class="callout-label">What Hospitality Is</div>
+        <p>The Greek word is <em>philoxenia</em> — love of strangers. Not just having friends over, but making space for others in your life. An open home produces open relationships. People who practice hospitality have lives that are available — not perfectly curated, but genuinely accessible to others.</p>
+        <p>Consistency matters as much as warmth. An occasional open home is nice. A consistently open life is community.</p>
+      </div>
+
+      <div class="challenge-block">
+        <div class="challenge-label">This Week</div>
+        <div class="challenge-text">Look at the one another list and ask: which of these am I actually practicing with someone? Which require a closer relationship than you currently have? Who could you invite into your home this week — not to impress, but to begin?</div>
+      </div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Acts 2:42–47</span><span class="ref-desc">The first church — devoted, together, sharing all things, daily presence in each other's lives.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 12:9–16</span><span class="ref-desc">The one another life described in practice — honor, hospitality, harmony, weeping together, rejoicing together.</span></div>
+        <div class="ref-item"><span class="ref-book">Hebrews 10:24–25</span><span class="ref-desc">Stir one another up to love and good works. Not neglecting to meet together — and all the more as the day approaches.</span></div>
+        <div class="ref-item"><span class="ref-book">Galatians 6:1–2</span><span class="ref-desc">Restore the one caught in a trespass, bear one another's burdens. Community includes responsibility for each other's holiness.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Peter 4:9–10</span><span class="ref-desc">Show hospitality without grumbling. Each has a gift — use it to serve each other as good stewards of God's grace.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study · Pillar 03</div>
+        <div class="section-title">Fellowship · Body · Devoted</div>
+        <div class="section-sub">What the original words reveal about Christian community</div>
+      </div>
+      <div class="word-study-grid">
+        <div class="word-study">
+          <div class="ws-original">κοινωνία</div>
+          <div class="ws-transliteration">koinōnia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Fellowship; sharing; participation; partnership. From koinos — common, shared. Not a feeling of warmth toward people, but an actual sharing of things held in common — life, resources, struggle, joy. The root idea is joint ownership and participation.</div>
+          <div class="ws-note">Acts 2:42 — they devoted themselves to the koinōnia. 1 John 1:3 — "our fellowship is with the Father and with his Son Jesus Christ." The vertical and horizontal are connected: genuine fellowship with God produces genuine fellowship with each other. You cannot have one while refusing the other.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">σῶμα</div>
+          <div class="ws-transliteration">sōma</div>
+          <div class="ws-pos">noun, neuter — Greek</div>
+          <div class="ws-definition">Body. Paul's primary metaphor for the church — not an organization, not a gathering, but a body. A body is composed of different parts that do different things, are mutually dependent, share one life, and cannot function correctly when a part is missing or diseased.</div>
+          <div class="ws-note">1 Corinthians 12:26 — "If one member suffers, all suffer together; if one member is honored, all rejoice together." This is not a metaphor you can hold at arm's length. In a body, what happens to one part affects all the others. Real community means your pain is felt in the body, and others' pain is felt by you. That requires proximity.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">προσκαρτερέω</div>
+          <div class="ws-transliteration">proskartereō</div>
+          <div class="ws-pos">verb — Greek</div>
+          <div class="ws-definition">To devote oneself to; to be steadfastly attentive to; to continue steadfastly in; to hold fast to something. From pros (toward) + karterō (to be strong, to endure). The word was used of soldiers holding their post — persistent, committed presence that doesn't waver when it's inconvenient.</div>
+          <div class="ws-note">Acts 2:42 — "they devoted themselves." Not "they occasionally gathered" or "they attended when convenient." The first church's community was defined by persistent, faithful presence with each other. The same word appears in Acts 1:14 for the disciples praying together before Pentecost, and in Romans 12:12 for persisting in prayer. It is a word for commitment that holds.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture · Pillar 03</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">The biblical foundation for devoted community</div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The First Church</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers. And awe came upon every soul… And all who believed were together and had all things in common. And they were selling their possessions and belongings and distributing the proceeds to all, as any had need. And day by day, attending the temple together and breaking bread in their homes, they received their food with glad and generous hearts."</div><div class="vc-footer"><span class="vc-ref">Acts 2:42–46</span><span class="vc-note">The template — devotion, fellowship, shared table, prayer, daily life together. Not a program. A life.</span></div></div>
+        </div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Body</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"For just as the body is one and has many members, and all the members of the body, though many, are one body, so it is with Christ… If one member suffers, all suffer together; if one member is honored, all rejoice together."</div><div class="vc-footer"><span class="vc-ref">1 Corinthians 12:12, 26</span><span class="vc-note">One body. What happens to one affects all. This is community — not proximity.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Rather, speaking the truth in love, we are to grow up in every way into him who is the head, into Christ, from whom the whole body, joined and held together by every joint with which it is equipped, when each part is working properly, makes the body grow so that it builds itself up in love."</div><div class="vc-footer"><span class="vc-ref">Ephesians 4:15–16</span><span class="vc-note">Every part working. Every joint connected. The body builds itself up — but only when each part is active.</span></div></div>
+        </div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The One Anothers</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"A new commandment I give to you, that you love one another: just as I have loved you, you also are to love one another. By this all people will know that you are my disciples, if you have love for one another."</div><div class="vc-footer"><span class="vc-ref">John 13:34–35</span><span class="vc-note">The witness to the world is not arguments won — it's love displayed between believers.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"And let us consider how to stir up one another to love and good works, not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near."</div><div class="vc-footer"><span class="vc-ref">Hebrews 10:24–25</span><span class="vc-note">Stir up. Not just show up — actively provoke each other toward love and good works. This requires relationship, not just attendance.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Therefore, confess your sins to one another and pray for one another, that you may be healed."</div><div class="vc-footer"><span class="vc-ref">James 5:16</span><span class="vc-note">Healing happens in community. This is not a private transaction between you and God — it involves another person.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function switchTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+</script>
+</body>
+</html>

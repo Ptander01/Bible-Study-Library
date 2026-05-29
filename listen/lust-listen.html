@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Lust — Listen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--accent:#6b7a9a;--accent-dim:#35405a;--accent-lt:#8b9aba;--cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;--border:#232a42;--border-lt:#2e3858;--font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:var(--bg);color:var(--cream);font-family:var(--font-body);-webkit-tap-highlight-color:transparent;}
+body{display:flex;flex-direction:column;overflow:hidden;}
+.top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid var(--border);}
+.back-btn{font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:6px 0;}
+.back-btn:hover{color:var(--cream-dim);}
+.top-title{font-family:var(--font-display);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);}
+.speed-btn{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--cream-dim);background:var(--surface-2);border:1px solid var(--border);padding:5px 12px;border-radius:20px;cursor:pointer;}
+.section-list{flex-shrink:0;display:flex;gap:0;overflow-x:auto;padding:10px 16px;border-bottom:1px solid var(--border);scrollbar-width:none;}
+.section-list::-webkit-scrollbar{display:none;}
+.sec-btn{flex-shrink:0;font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;cursor:pointer;margin-right:8px;transition:all .2s;white-space:nowrap;}
+.sec-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--cream);}
+.reading-area{flex:1;overflow-y:auto;padding:28px 24px;-webkit-overflow-scrolling:touch;}
+.reading-area::-webkit-scrollbar{display:none;}
+.section-block{display:none;}.section-block.active{display:block;}
+.section-eyebrow{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.section-heading{font-family:var(--font-display);font-size:clamp(20px,5vw,28px);font-weight:600;color:var(--cream);line-height:1.2;margin-bottom:20px;}
+.para{font-size:clamp(15px,3.5vw,17px);line-height:1.85;color:var(--cream-dim);margin-bottom:20px;}
+.verse-listen{background:var(--surface);border-left:3px solid var(--accent);border-radius:4px;padding:20px 22px;margin:24px 0;}
+.verse-listen .vl-text{font-family:'Cormorant Garamond','Lora',Georgia,serif;font-size:clamp(17px,4vw,21px);font-style:italic;color:var(--cream);line-height:1.75;margin-bottom:10px;}
+.verse-listen .vl-ref{font-family:var(--font-display);font-size:10px;letter-spacing:2px;color:var(--accent-dim);}
+.reflection-listen{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:8px;padding:20px 22px;margin:20px 0;}
+.rl-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.rl-question{font-size:clamp(15px,3.5vw,17px);color:var(--cream);line-height:1.7;}
+.rl-pause{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:12px;}
+.callout-listen{background:var(--surface);border:1px solid var(--border-lt);border-radius:6px;padding:18px 22px;margin:18px 0;}
+.cl-inner-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.callout-listen p{font-size:14px;color:var(--cream-dim);line-height:1.65;margin-bottom:10px;}.callout-listen p:last-child{margin-bottom:0;}
+.challenge-listen{text-align:center;background:var(--surface);border:1px solid var(--accent-dim);border-radius:8px;padding:28px 24px;margin:24px 0;}
+.ch-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.ch-text{font-family:'Cormorant Garamond','Lora',Georgia,serif;font-size:clamp(17px,4vw,20px);font-style:italic;color:var(--cream);line-height:1.7;}
+.progress-wrap{flex-shrink:0;padding:0 20px 8px;}
+.progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s;}
+.progress-labels{display:flex;justify-content:space-between;}
+.prog-label{font-family:var(--font-display);font-size:9px;letter-spacing:1px;color:var(--muted);}
+.now-playing{flex-shrink:0;padding:10px 20px 8px;min-height:42px;}
+.np-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.np-text{font-size:13px;color:var(--cream-dim);line-height:1.4;min-height:20px;}
+.np-text.speaking{color:var(--cream);}
+.player{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);padding:16px 24px 28px;display:flex;flex-direction:column;gap:12px;}
+.controls{display:flex;align-items:center;justify-content:center;gap:20px;}
+.ctrl-btn{background:none;border:none;cursor:pointer;color:var(--cream-dim);padding:8px;border-radius:50%;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.ctrl-btn:hover{color:var(--cream);background:var(--surface-2);}
+.ctrl-btn svg{width:24px;height:24px;fill:currentColor;}
+.play-btn{background:var(--accent) !important;color:#fff !important;width:60px;height:60px;border-radius:50% !important;}
+.play-btn:hover{opacity:.85;}
+.play-btn svg{width:28px;height:28px;}
+.ctrl-btn.disabled{opacity:.3;pointer-events:none;}
+.voice-row{display:flex;align-items:center;gap:10px;padding:0 4px;}
+.voice-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+select{flex:1;background:var(--surface-2);border:1px solid var(--border);color:var(--cream-dim);font-family:var(--font-body);font-size:12px;padding:6px 10px;border-radius:6px;outline:none;-webkit-appearance:none;}
+.waveform{display:flex;align-items:center;gap:3px;height:20px;}
+.wave-bar{width:3px;border-radius:2px;background:var(--accent);transform-origin:bottom;}
+.speaking .wave-bar{animation:wave .8s ease-in-out infinite;}
+.wave-bar:nth-child(2){animation-delay:.1s;}.wave-bar:nth-child(3){animation-delay:.2s;}.wave-bar:nth-child(4){animation-delay:.3s;}.wave-bar:nth-child(5){animation-delay:.15s;}
+@keyframes wave{0%,100%{height:4px}50%{height:16px}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <button class="back-btn" onclick="window.history.back()">← Library</button>
+  <div class="top-title">Lust · Listen</div>
+  <button class="speed-btn" id="speedBtn" onclick="cycleSpeed()">1×</button>
+</div>
+<div class="section-list" id="sectionList"></div>
+<div class="reading-area" id="readingArea">
+
+<div class="section-block active" id="sec-0">
+  <div class="section-eyebrow">Resource Study · Men</div>
+  <div class="section-heading">Lust</div>
+  <div class="para">If you're listening to this, you probably already know you have a problem. You may have had it for years. You may have tried to stop multiple times. You may have a lot of shame about it — or you may have stopped feeling shame, which is its own kind of problem.</div>
+  <div class="para">This study isn't going to pile more shame on top of what you're already carrying. Shame, as it turns out, is part of what keeps the cycle going — not what breaks it. What this study is going to do is tell the truth: about what lust actually is, what it costs, why willpower alone never works, and what a real path out looks like.</div>
+  <div class="verse-listen">
+    <div class="vl-text">"And such were some of you. But you were washed, you were sanctified, you were justified in the name of the Lord Jesus Christ and by the Spirit of our God."</div>
+    <div class="vl-ref">1 Corinthians 6:11</div>
+  </div>
+  <div class="para">That word — were. Past tense. The men in Corinth, in one of the most sexually saturated cities in the ancient world, were changed. Not managed. Changed. That's the frame for this whole study. Real freedom, not a coping strategy.</div>
+</div>
+
+<div class="section-block" id="sec-1">
+  <div class="section-eyebrow">Part One</div>
+  <div class="section-heading">What Lust Actually Is</div>
+  <div class="para">The common definition is something like: looking at someone with sexual desire. But that's not quite right — and the imprecision matters. Attraction is not lust. The involuntary noticing of beauty is not lust. God made human beings attractive and gave men eyes. That's not the problem.</div>
+  <div class="para">Jesus' statement in Matthew 5:28 is more specific: everyone who looks at a woman with lustful intent has already committed adultery with her in his heart. The key phrase is "with lustful intent" — the deliberate cultivation of desire for someone you have no right to. The look that is held. The imagination that is entertained. The fantasy that is welcomed and developed.</div>
+  <div class="para">The first glance is not the sin. It's the second. The involuntary is not the issue. What you do with it is. And in the pornography age, most men have trained themselves — through thousands of hours of repetition — to make the second look automatic. The habit is so grooved it doesn't feel like a choice anymore. But it started as one. And it can be unwound.</div>
+  <div class="reflection-listen">
+    <div class="rl-label">Reflect</div>
+    <div class="rl-question">When does temptation most reliably hit you? What's the emotional state you're usually in — stressed, lonely, exhausted, bored, angry? See if you can name it specifically.</div>
+    <div class="rl-pause">Take a minute with that question.</div>
+  </div>
+</div>
+
+<div class="section-block" id="sec-2">
+  <div class="section-eyebrow">Part Two</div>
+  <div class="section-heading">The Shame Cycle — Why It Keeps Going</div>
+  <div class="para">Most men who struggle with lust are caught in a loop. It goes like this. A trigger state — stress, loneliness, exhaustion, anger — opens the door. Then comes indulgence: the fantasy, the image, the pornography. Temporary relief. The brain releases dopamine. Then shame: guilt, self-disgust, promises to stop. And then — this is the critical part — the shame and self-loathing become the new trigger state. And the cycle restarts, often faster than before.</div>
+  <div class="para">Notice what's happening. Shame doesn't break the cycle. Shame feeds the cycle. The man who is drowning in self-loathing after a failure is more isolated, more stressed, more depleted — exactly the conditions that trigger the next episode. This is why "try harder and feel worse about yourself" is not a strategy. It's just the cycle on repeat.</div>
+  <div class="para">The two things that actually interrupt the cycle are honest community — which kills the secrecy shame depends on — and genuine heart change, which transforms the desires rather than just suppressing them. Neither of these is fast. Both of them are real.</div>
+  <div class="reflection-listen">
+    <div class="rl-label">Reflect</div>
+    <div class="rl-question">Is there one person in your life who actually knows the extent of this struggle? Not someone who knows you struggle in general — someone who knows specifically. If the answer is no, that's your first next step.</div>
+    <div class="rl-pause">Sit with that honestly.</div>
+  </div>
+</div>
+
+<div class="section-block" id="sec-3">
+  <div class="section-eyebrow">Part Three</div>
+  <div class="section-heading">The Battle Plan</div>
+  <div class="para">These tools only work alongside genuine heart engagement. Strategies applied to an unchanged heart are just behavior management. They slow the cycle down — they don't break it. That said, you need both. A changed heart with no practical guardrails is idealism. Practical guardrails with no heart change is whitewash.</div>
+  <div class="callout-listen">
+    <div class="cl-inner-label">Tool One — Identify your trigger state</div>
+    <p>Lust rarely hits in a vacuum. For one week, every time you face temptation, ask: what were you feeling right before it hit? You'll see a pattern. Then address the underlying state directly — not by indulging the temptation, but by actually dealing with what you're feeling. Call someone. Exercise. Get sleep. The trigger state is often a legitimate need expressing itself through an illegitimate outlet.</p>
+  </div>
+  <div class="callout-listen">
+    <div class="cl-inner-label">Tool Two — Bounce and flee, don't negotiate</div>
+    <p>The strategy of immediately redirecting when a tempting image appears is a decision made in advance so you don't have to make it in the moment. When the moment comes, the decision is already made: you don't hold the look. You redirect immediately, every time, without negotiation. The negotiation is where you lose. "Just for a second." "It's not that bad." Every man who has been in this battle knows negotiation is always a prelude to surrender. Joseph didn't negotiate. He ran. Train the reflex before the moment comes.</p>
+  </div>
+  <div class="callout-listen">
+    <div class="cl-inner-label">Tool Three — Renew the mind actively</div>
+    <p>The mind that has been fed years of pornographic imagery does not renew itself on autopilot. Philippians 4:8 — whatever is true, honorable, just, pure, lovely — think about these things. Scripture memory specifically for moments of temptation. Daily time in the word. And controlling what you consume — not just pornography, but the slow drip of sexualized content in entertainment and social media that normalizes what Scripture calls sin. What you allow in shapes what you desire.</p>
+  </div>
+  <div class="verse-listen">
+    <div class="vl-text">"Flee from sexual immorality. Every other sin a person commits is outside the body, but the sexually immoral person sins against his own body."</div>
+    <div class="vl-ref">1 Corinthians 6:18</div>
+  </div>
+</div>
+
+<div class="section-block" id="sec-4">
+  <div class="section-eyebrow">Part Four</div>
+  <div class="section-heading">After a Failure — Don't Spiral</div>
+  <div class="para">When you fail — and at some point you will — the next thirty minutes are critical. This is where the cycle either continues or breaks. Most men after a failure experience shame, self-loathing, and isolation — and then use those feelings to justify the next episode. "I've already blown it. Might as well."</div>
+  <div class="para">The alternative is immediate, specific repentance — not self-punishment, but acknowledgment and return. Confess it to God. Confess it to your accountability partner the same day — not at your next meeting, the same day. And then get up.</div>
+  <div class="verse-listen">
+    <div class="vl-text">"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness."</div>
+    <div class="vl-ref">1 John 1:9</div>
+  </div>
+  <div class="para">The cleansing is real. Receive it. Don't wallow. The difference between a man who is gradually winning this battle and a man who is losing it is often just this: the winner gets up faster after a failure. Not because he feels better. Because he knows where forgiveness comes from — and he goes there immediately.</div>
+  <div class="reflection-listen">
+    <div class="rl-label">Reflect</div>
+    <div class="rl-question">After a failure, what do you normally do? Do you confess it — to God and to someone else — the same day? Or do you carry it alone, let shame compound, and spiral back in? What would it look like to break that pattern starting now?</div>
+    <div class="rl-pause">Take your time with this one.</div>
+  </div>
+</div>
+
+<div class="section-block" id="sec-5">
+  <div class="section-eyebrow">Part Five</div>
+  <div class="section-heading">Freedom Is Real</div>
+  <div class="verse-listen">
+    <div class="vl-text">"Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect."</div>
+    <div class="vl-ref">Romans 12:2</div>
+  </div>
+  <div class="para">The word transformed here is metamorphoo — the same word used for Jesus' transfiguration. It's a word for a fundamental change of form from the inside out. And the mechanism Paul names is renewal of the mind — not willpower, not rule-following, but a changed inner world.</div>
+  <div class="para">This transformation is not instant. It is the work of the Spirit over time, through the word, through community, through honesty, through prayer. Men who have found genuine freedom describe it as a slow reorientation — old desires fading, new ones growing, a gradual return to wholeness. It is not a clean line. It is a direction.</div>
+  <div class="para">But it is real. And the "such were some of you" of First Corinthians 6 — that past tense — is the most important phrase in this study. It happened in Corinth. It can happen for you.</div>
+  <div class="challenge-listen">
+    <div class="ch-label">Your Next Step</div>
+    <div class="ch-text">Name one person you will contact today — not someday, today — who will know the real extent of this struggle. That conversation is the beginning. The darkness cannot survive exposure. Make the call.</div>
+  </div>
+</div>
+
+</div>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-labels">
+    <span class="prog-label" id="progCurrent"></span>
+    <span class="prog-label" id="progCount"></span>
+  </div>
+</div>
+<div class="now-playing">
+  <div class="np-label">Now reading</div>
+  <div class="np-text" id="nowPlaying">Press play to begin</div>
+</div>
+<div class="player">
+  <div class="voice-row">
+    <span class="voice-label">Voice</span>
+    <select id="voiceSelect"></select>
+    <div class="waveform" id="waveform">
+      <div class="wave-bar" style="height:4px"></div><div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div><div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn" onclick="prevSection()"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+    <button class="ctrl-btn" onclick="rewind15()"><svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/><text x="12" y="15.5" font-size="5" text-anchor="middle" fill="currentColor">15</text></svg></button>
+    <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()"><svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+    <button class="ctrl-btn" onclick="skip15()"><svg viewBox="0 0 24 24"><path d="M18 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2z"/><text x="12" y="15.5" font-size="5" text-anchor="middle" fill="currentColor">15</text></svg></button>
+    <button class="ctrl-btn" id="nextBtn" onclick="nextSection()"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg></button>
+  </div>
+</div>
+<script>
+const sections=[
+  {id:'sec-0',title:'Introduction',btn:'Intro'},
+  {id:'sec-1',title:'What Lust Is',btn:'What It Is'},
+  {id:'sec-2',title:'The Shame Cycle',btn:'The Cycle'},
+  {id:'sec-3',title:'The Battle Plan',btn:'The Battle'},
+  {id:'sec-4',title:'After a Failure',btn:'After a Fall'},
+  {id:'sec-5',title:'The Freedom',btn:'Freedom'}
+];
+
+const speeds=[0.8,1.0,1.2,1.5,1.8];
+let speedIdx=1,currentSection=0,isPlaying=false,utterances=[],uttIdx=0,voices=[],selectedVoice=null,pauseTimer=null;
+const sl=document.getElementById('sectionList');
+sections.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='sec-btn'+(i===0?' active':'');
+  b.textContent=s.btn;b.id='secbtn-'+i;
+  b.onclick=()=>goToSection(i);
+  sl.appendChild(b);
+});
+function loadVoices(){
+  voices=speechSynthesis.getVoices();
+  const sel=document.getElementById('voiceSelect');sel.innerHTML='';
+  const eng=voices.filter(v=>v.lang.startsWith('en'));
+  const pref=eng.filter(v=>v.name.includes('Enhanced')||v.name.includes('Premium')||v.name.includes('Samantha')||v.name.includes('Alex')||v.name.includes('Daniel')||v.name.includes('Google')||v.name.includes('Neural'));
+  const pool=pref.length>0?pref:eng;
+  pool.forEach((v)=>{
+    const o=document.createElement('option');
+    o.value=voices.indexOf(v);
+    o.textContent=v.name.replace('(Enhanced)','').replace('(Premium)','').trim();
+    sel.appendChild(o);
+  });
+  if(pool.length>0)selectedVoice=pool[0];
+  sel.onchange=()=>{selectedVoice=voices[parseInt(sel.value)];if(isPlaying){stopSpeech();startReading();}};
+}
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=loadVoices;
+setTimeout(loadVoices,200);
+function extractText(idx){
+  const el=document.getElementById(sections[idx].id);
+  const segs=[];
+  el.querySelectorAll('.section-eyebrow,.section-heading,.para,.vl-text,.vl-ref,.rl-label,.rl-question,.rl-pause,.cl-inner-label,.callout-listen p,.ch-label,.ch-text').forEach(node=>{
+    const c=node.className;let text=node.textContent.trim();if(!text)return;
+    let pause=0;
+    if(c.includes('section-eyebrow')){text+='.';pause=300;}
+    if(c.includes('section-heading')){text+='.';pause=600;}
+    if(c.includes('para')){pause=400;}
+    if(c.includes('vl-text')){text='"'+text+'"';pause=500;}
+    if(c.includes('vl-ref')){text='From '+text+'.';pause=700;}
+    if(c.includes('rl-label')){text='Reflection.';pause=800;}
+    if(c.includes('rl-question')){pause=200;}
+    if(c.includes('rl-pause')){text+='. ...';pause=2500;}
+    if(c.includes('cl-inner-label')){text+='.';pause=300;}
+    if(c.includes('ch-label')){text+='.';pause=400;}
+    if(c.includes('ch-text')){pause=800;}
+    segs.push({text,pause});
+  });
+  return segs;
+}
+function buildUtterances(idx){
+  return extractText(idx).map(seg=>{
+    const u=new SpeechSynthesisUtterance(seg.text);
+    u.rate=speeds[speedIdx];u.pitch=1.0;u.volume=1.0;
+    if(selectedVoice)u.voice=selectedVoice;
+    u._pause=seg.pause;u._text=seg.text;
+    return u;
+  });
+}
+function startReading(){utterances=buildUtterances(currentSection);uttIdx=0;speakNext();}
+function speakNext(){
+  if(uttIdx>=utterances.length){
+    if(currentSection<sections.length-1){setTimeout(()=>{nextSection();if(isPlaying)startReading();},1200);}
+    else{stopSpeech();setPlayState(false);}
+    return;
+  }
+  const u=utterances[uttIdx];
+  const d=u._text.length>80?u._text.substring(0,80)+'…':u._text;
+  document.getElementById('nowPlaying').textContent=d;
+  document.getElementById('nowPlaying').className='np-text speaking';
+  document.getElementById('waveform').className='waveform speaking';
+  u.onend=()=>{uttIdx++;if(u._pause>0){pauseTimer=setTimeout(speakNext,u._pause);}else{speakNext();}};
+  u.onerror=()=>{uttIdx++;speakNext();};
+  speechSynthesis.speak(u);
+}
+function stopSpeech(){if(pauseTimer)clearTimeout(pauseTimer);speechSynthesis.cancel();document.getElementById('nowPlaying').className='np-text';document.getElementById('waveform').className='waveform';}
+function setPlayState(p){
+  isPlaying=p;
+  const icon=document.getElementById('playIcon');
+  if(p){icon.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';}
+  else{icon.innerHTML='<path d="M8 5v14l11-7z"/>';document.getElementById('nowPlaying').textContent='Paused';document.getElementById('nowPlaying').className='np-text';document.getElementById('waveform').className='waveform';}
+}
+function togglePlay(){if(isPlaying){stopSpeech();setPlayState(false);}else{setPlayState(true);startReading();}}
+function goToSection(idx){
+  stopSpeech();
+  document.querySelectorAll('.section-block').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.sec-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(sections[idx].id).classList.add('active');
+  document.getElementById('secbtn-'+idx).classList.add('active');
+  currentSection=idx;updateProgress();
+  document.getElementById('readingArea').scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('nowPlaying').textContent=isPlaying?'Loading…':sections[idx].title;
+  if(isPlaying){setTimeout(startReading,100);}
+}
+function nextSection(){if(currentSection<sections.length-1)goToSection(currentSection+1);}
+function prevSection(){if(currentSection>0)goToSection(currentSection-1);}
+function rewind15(){stopSpeech();uttIdx=Math.max(0,uttIdx-2);if(isPlaying)speakNext();}
+function skip15(){stopSpeech();uttIdx=Math.min(utterances.length-1,uttIdx+2);if(isPlaying)speakNext();}
+function cycleSpeed(){speedIdx=(speedIdx+1)%speeds.length;const l=['0.8×','1×','1.2×','1.5×','1.8×'];document.getElementById('speedBtn').textContent=l[speedIdx];if(isPlaying){stopSpeech();startReading();}}
+function updateProgress(){
+  const pct=(currentSection/(sections.length-1))*100;
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progCurrent').textContent=sections[currentSection].title;
+  document.getElementById('progCount').textContent=(currentSection+1)+' of '+sections.length;
+  document.getElementById('prevBtn').className='ctrl-btn'+(currentSection===0?' disabled':'');
+  document.getElementById('nextBtn').className='ctrl-btn'+(currentSection===sections.length-1?' disabled':'');
+}
+updateProgress();
+
+</script>
+</body>
+</html>

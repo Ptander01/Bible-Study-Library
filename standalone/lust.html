@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lust — A Study for Men</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#6b7a9a; --accent-dim:#35405a; --accent-lt:#8b9aba;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858;
+  --warn:#8a4a3a; --warn-dim:#4a2018;
+  --hope:#4a7a5a; --hope-dim:#1a3a28;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:28px 0 10px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+ul{margin:0 0 18px 20px;color:var(--cream-dim);}
+ul li{margin-bottom:8px;line-height:1.6;}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+
+/* Header */
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(28px,5vw,48px);font-weight:700;letter-spacing:3px;line-height:1.1;color:var(--cream);margin-bottom:8px;}
+.header-sub{font-family:var(--font-display);font-size:clamp(10px,1.8vw,14px);letter-spacing:6px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.header-verse{font-family:var(--font-serif);font-size:clamp(15px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:620px;margin:0 auto 8px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+
+/* Navigation */
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* Section header */
+.section-header{margin-bottom:44px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,5vw,50px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:12px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+
+/* Content components */
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout.warn{border-color:var(--warn-dim);background:#100a0a;}
+.callout.hope{border-color:var(--hope-dim);background:#080f0a;}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.callout-label.default{color:var(--accent-dim);}
+.callout-label.warn{color:#b06a5a;}
+.callout-label.hope{color:#6aaa7a;}
+.callout p{margin-bottom:12px;}.callout p:last-child{margin-bottom:0;}
+
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+
+/* Cycle diagram */
+.cycle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+@media(max-width:520px){.cycle{grid-template-columns:1fr;}}
+.cycle-step{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px 20px;position:relative;}
+.cycle-step::after{content:attr(data-arrow);position:absolute;font-size:18px;color:var(--muted);}
+.cycle-step.right::after{right:-18px;top:50%;transform:translateY(-50%);content:'→';}
+.cycle-step.down::after{bottom:-18px;left:50%;transform:translateX(-50%);content:'↓';}
+.cycle-step.left::after{left:-18px;top:50%;transform:translateY(-50%);content:'←';}
+.cycle-step.up::after{top:-18px;left:50%;transform:translateX(-50%);content:'↑';}
+@media(max-width:520px){.cycle-step::after{display:none;}}
+.cycle-num{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--warn);margin-bottom:6px;}
+.cycle-name{font-family:var(--font-display);font-size:14px;color:var(--cream);margin-bottom:6px;}
+.cycle-desc{font-size:13px;color:var(--cream-dim);line-height:1.55;}
+
+/* Battle tools */
+.tool-set{display:flex;flex-direction:column;gap:16px;margin:24px 0;}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;}
+.tool-card.primary{border-top:3px solid var(--accent);}
+.tool-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px;}
+.tool-icon{font-family:var(--font-display);font-size:22px;color:var(--accent);flex-shrink:0;line-height:1;margin-top:2px;}
+.tool-title{font-family:var(--font-display);font-size:14px;letter-spacing:1px;color:var(--cream);margin-bottom:4px;}
+.tool-sub{font-size:12px;color:var(--muted);font-style:italic;}
+.tool-body{font-size:14px;color:var(--cream-dim);line-height:1.7;}
+.tool-body ul{margin:10px 0 0 16px;}
+.tool-body ul li{margin-bottom:6px;}
+
+/* Accountability questions */
+.question-list{display:flex;flex-direction:column;gap:10px;margin:20px 0;}
+.question-item{background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--accent-dim);border-radius:4px;padding:14px 18px;font-size:14px;color:var(--cream-dim);line-height:1.6;}
+.question-item strong{color:var(--cream);display:block;margin-bottom:4px;font-size:13px;font-family:var(--font-display);letter-spacing:.5px;}
+
+/* Memory verse cards */
+.memory-verse{background:var(--surface);border:1px solid var(--accent-dim);border-radius:6px;padding:24px 28px;margin:16px 0;text-align:center;}
+.mv-text{font-family:var(--font-serif);font-size:clamp(18px,3vw,23px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.mv-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);}
+.mv-purpose{font-size:12px;color:var(--muted);margin-top:8px;font-style:italic;}
+
+/* Word study */
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;}
+.ws-original{font-family:var(--font-serif);font-size:clamp(34px,5vw,50px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;}
+
+/* Scripture */
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+
+/* Hope block */
+.hope-block{background:#080f0a;border:1px solid var(--hope-dim);border-radius:6px;padding:32px;margin:36px 0;text-align:center;}
+.hope-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#6aaa7a;margin-bottom:16px;}
+.hope-text{font-family:var(--font-serif);font-size:clamp(18px,3vw,24px);font-style:italic;color:var(--cream);line-height:1.65;}
+
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:160px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Resource Study · Men</div>
+  <div class="header-title">Lust</div>
+  <div class="header-sub">A Study for Men</div>
+  <div class="header-verse">"For this is the will of God, your sanctification: that you abstain from sexual immorality; that each one of you know how to control his own body in holiness and honor."</div>
+  <div class="header-ref">1 Thessalonians 4:3–4</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study',this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('battle',this)">The Battle</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+  </div>
+</div>
+
+<div class="panels">
+
+  <!-- ═══════════════════════════ STUDY -->
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Resource Study · Men</div>
+        <div class="section-title">Lust</div>
+        <div class="section-sub">What it actually is, what it actually costs, and whether freedom is actually possible</div>
+      </div>
+
+      <h2>Starting Honest</h2>
+      <p>If you're reading this, you probably already know you have a problem. You may have had it for years. You may have tried to stop multiple times. You may have a lot of shame about it — or you may have stopped feeling shame, which is its own kind of problem.</p>
+      <p>This study isn't going to pretend lust is a minor issue or dress it up in clinical language to make it easier to talk about. It's also not going to pile more shame on top of what you're already carrying. Shame, as it turns out, is part of what keeps the cycle going — not what breaks it.</p>
+      <p>What this study is going to do is tell the truth: about what lust actually is in Scripture, about what it costs, about why willpower alone never works, and about what a real path out looks like. That last part is the part most men have never actually been given.</p>
+
+      <div class="callout hope">
+        <div class="callout-label hope">Before We Begin</div>
+        <p>"Or do you not know that the unrighteous will not inherit the kingdom of God? Do not be deceived: neither the sexually immoral… nor adulterers… And <strong>such were some of you. But you were washed, you were sanctified, you were justified in the name of the Lord Jesus Christ and by the Spirit of our God.</strong>" — 1 Corinthians 6:9–11</p>
+        <p>Paul lists sexual sin and then immediately says: past tense. <em>Were</em>. The men in Corinth — a city that made Las Vegas look conservative — were changed. Not managed. Changed. That's the frame for this whole study. What we're talking about is real freedom, not a coping strategy.</p>
+      </div>
+
+      <h2>What Lust Actually Is</h2>
+      <p>The common definition is something like "looking at someone with sexual desire." But that's not quite right — and the imprecision matters. Attraction is not lust. The involuntary noticing of beauty is not lust. God made human beings attractive and gave men eyes. That's not the problem.</p>
+      <p>Jesus' statement in Matthew 5:28 is more specific: <em>"Everyone who looks at a woman with lustful intent has already committed adultery with her in his heart."</em> The key phrase is <strong>"with lustful intent"</strong> — the deliberate cultivation of desire for someone you have no right to. The look that is held. The imagination that is entertained. The fantasy that is welcomed and developed.</p>
+
+      <div class="callout accent">
+        <div class="callout-label default">The Greek Word</div>
+        <p>The word Jesus uses is <em>epithumia</em> — strong desire, craving, longing. It's not inherently evil: the same word is used for legitimate desires, for hunger, even for Jesus' desire to share the Passover with his disciples (Luke 22:15). The problem is the direction and the object. Epithumia aimed at what God prohibits is what Scripture calls lust. It is desire that has been turned toward forbidden territory and chosen to stay there.</p>
+      </div>
+
+      <p>This matters because it means the first glance is not the sin — it's the second. The involuntary is not the issue. What you do with it is. And in the pornography age, most men have trained themselves, through thousands of hours of repetition, to make the second look automatic. The habit is so grooved it doesn't feel like a choice anymore. But it started as one, and it can be unwound.</p>
+
+      <h2>Where It Lives</h2>
+
+      <div class="verse-block">
+        <div class="verse-text">"For from within, out of the heart of man, come evil thoughts, sexual immorality, theft, murder, adultery, coveting, wickedness, deceit, sensuality, envy, slander, pride, foolishness."</div>
+        <div class="verse-ref">Mark 7:21–22</div>
+      </div>
+
+      <p>Jesus is clear: the source is the heart, not the environment. This is why filtering software, accountability apps, and avoiding triggers — while all useful — can never be the whole solution. They manage the outside. The problem is inside. The heart is what has to change.</p>
+      <p>This is not discouraging — it's clarifying. If the problem were external, you'd have to control the entire world. Since the problem is internal, there is a target. And that target — the heart, the mind, the inner life — is exactly where Scripture says transformation is possible.</p>
+
+      <h2>The Shame Cycle — Why It Keeps Going</h2>
+      <p>Most men who struggle with lust are caught in a loop that goes something like this:</p>
+
+      <div class="cycle">
+        <div class="cycle-step right">
+          <div class="cycle-num">Stage 01</div>
+          <div class="cycle-name">Trigger</div>
+          <div class="cycle-desc">Stress, boredom, loneliness, exhaustion, anger. The emotional state that opens the door.</div>
+        </div>
+        <div class="cycle-step down">
+          <div class="cycle-num">Stage 02</div>
+          <div class="cycle-name">Indulgence</div>
+          <div class="cycle-desc">The fantasy, the image, the pornography. Temporary relief from the trigger state. The brain releases dopamine.</div>
+        </div>
+        <div class="cycle-step left">
+          <div class="cycle-num">Stage 04</div>
+          <div class="cycle-name">Return to Start</div>
+          <div class="cycle-desc">The shame and self-loathing become the new trigger state. The cycle restarts, often faster than before.</div>
+        </div>
+        <div class="cycle-step up">
+          <div class="cycle-num">Stage 03</div>
+          <div class="cycle-name">Shame</div>
+          <div class="cycle-desc">Guilt, self-disgust, promises to stop. The shame drives the person into hiding — away from God and others.</div>
+        </div>
+      </div>
+
+      <p>Notice what happens: shame doesn't break the cycle. Shame <em>feeds</em> the cycle. The man who is drowning in self-loathing after a failure is more isolated, more stressed, more depleted — exactly the conditions that trigger the next episode. This is why "try harder and feel worse about yourself" is not a strategy. It's just the cycle on repeat.</p>
+      <p>The two things that actually interrupt the cycle are: <strong>honest community</strong> (which kills the secrecy shame depends on) and <strong>genuine heart change</strong> (which transforms the desires rather than just suppressing them). Neither of these is fast. Both of them are real.</p>
+
+      <h2>What It Costs</h2>
+      <p>Lust is not a private sin. It has real costs — most of which are invisible until the damage is done.</p>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">Your Mind</div><div class="use-desc">Pornography rewires neural pathways through repeated association and dopamine release. Over time it changes what you find arousing, raises the threshold for stimulation, and makes real intimacy feel less satisfying by comparison. This is not metaphor — it's neurology.</div></div>
+        <div class="use-row"><div class="use-label">Your Marriage</div><div class="use-desc">Lust trains you to see people as objects and intimacy as performance. It creates unrealistic expectations, emotional distance, and secrecy — all of which corrode the trust that real intimacy requires. Most men who struggle with lust describe increasing emotional disconnection from their wives alongside it.</div></div>
+        <div class="use-row"><div class="use-label">Your Relationship with God</div><div class="use-desc">Isaiah 59:2 — sin creates separation. The man who is actively indulging lust and trying to maintain intimacy with a holy God is living in a contradiction. Most describe prayer feeling hollow, Scripture feeling distant, and worship feeling performative. The double life is exhausting and spiritually deadening.</div></div>
+        <div class="use-row"><div class="use-label">Your Integrity</div><div class="use-desc">Lust requires secrecy, and secrecy requires deception — of your wife, your accountability partners, your community. A man who is hiding a sexual sin is also hiding himself. Over time, the hiding becomes its own layer of identity. You forget what it felt like to be known.</div></div>
+        <div class="use-row"><div class="use-label">Others</div><div class="use-desc">Pornography is not victimless. The people on those screens are real human beings made in the image of God, many of whom are themselves victims of exploitation, addiction, or trafficking. Demand creates supply. This is not incidental — it's something every man who uses pornography should reckon with directly.</div></div>
+      </div>
+
+      <h2>Joseph's Response — and What It Teaches</h2>
+
+      <div class="verse-block">
+        <div class="verse-text">"But he refused and said to his master's wife, 'How then can I do this great wickedness and sin against God?' And as she spoke to Joseph day after day, he would not listen to her, to lie beside her or to be with her."</div>
+        <div class="verse-ref">Genesis 39:8–10</div>
+      </div>
+
+      <p>Joseph's response to Potiphar's wife has three elements worth noting. First, he <strong>defined the sin theologically</strong> — not "this would be wrong" but "this is wickedness against God." The clarity of what it is shaped his refusal. Second, he <strong>maintained his refusal daily</strong> — the text says "day after day." This wasn't a one-time decision. It was renewed every morning. Third, when the situation became physically dangerous, <strong>he fled</strong> (Genesis 39:12). He didn't negotiate. He didn't stay to reason with her. He ran.</p>
+      <p>Paul picks this up in 1 Corinthians 6:18: <em>"Flee sexual immorality."</em> Not resist. Not manage. Flee. There is wisdom in the flight — the recognition that some situations are not to be engaged but escaped.</p>
+
+      <h2>Freedom Is Real</h2>
+
+      <div class="hope-block">
+        <div class="hope-label">The Promise</div>
+        <div class="hope-text">"Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect."<br><br><span style="font-family:var(--font-display);font-size:12px;letter-spacing:2px;color:#6aaa7a;">Romans 12:2</span></div>
+      </div>
+
+      <p>The word <em>transformed</em> is <em>metamorphoō</em> — the same word used for Jesus' transfiguration. It is a word for a fundamental change of form from the inside out. And the mechanism Paul names is <strong>renewal of the mind</strong> — not willpower, not rule-following, but a changed inner world.</p>
+      <p>This transformation is not instant. It is the work of the Spirit over time, through the word, through community, through honesty, through prayer. Men who have found genuine freedom describe it as a slow reorientation — old desires fading, new ones growing, a gradual return to wholeness. It is not a clean line. It is a direction.</p>
+      <p>But it is real. And for men who have never believed freedom was possible — the "such were some of you" of 1 Corinthians 6 is the most important sentence in this study.</p>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Matthew 5:27–30</span><span class="ref-desc">Jesus on lust — the second look, the heart as the location of sin, the radical surgery required.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Corinthians 6:9–20</span><span class="ref-desc">"Such were some of you" — the past-tense freedom. The body as temple. Flee sexual immorality.</span></div>
+        <div class="ref-item"><span class="ref-book">Genesis 39:6–12</span><span class="ref-desc">Joseph's model — theological clarity, daily renewal, and flight when necessary.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 12:1–2</span><span class="ref-desc">Transformation through renewal of the mind — the mechanism of genuine change.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Thessalonians 4:3–8</span><span class="ref-desc">God's will is your sanctification. Control your body in holiness and honor. This is not optional.</span></div>
+        <div class="ref-item"><span class="ref-book">Psalm 51</span><span class="ref-desc">David after his sin — the theology of repentance, the cry for a clean heart, the honesty God honors.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ THE BATTLE -->
+  <div class="panel" id="panel-battle">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Practical Tools</div>
+        <div class="section-title">The Battle</div>
+        <div class="section-sub">Specific, honest strategies — because information without application changes nothing</div>
+      </div>
+
+      <h2>Before the Strategies</h2>
+      <p>These tools only work in combination with genuine heart engagement — reading the Study tab and sitting with the word honestly. Strategies applied to an unchanged heart are just behavior management. They slow the cycle down; they don't break it.</p>
+      <p>That said: you need both. A changed heart with no practical guardrails is idealism. Practical guardrails with no heart change is whitewash. Both are required.</p>
+
+      <h2>The Non-Negotiable: Honest Community</h2>
+
+      <div class="callout accent">
+        <div class="callout-label default">The Single Most Important Tool</div>
+        <p>James 5:16 — "Confess your sins to one another and pray for one another, that you may be healed." Healing is connected to confession. Not just to God — to another person. The darkness cannot survive exposure. Lust thrives in secrecy and dies in the light.</p>
+        <p>Every man who has found lasting freedom from sexual sin names accountability as the thing that finally worked. Not accountability as a checkbox — someone who asks you a question once a month and moves on. <strong>Real accountability</strong>: someone who knows your actual struggle, who asks specific questions, who can call you and be called, who will not be satisfied with a vague "doing better."</p>
+        <p>If you don't have that person, the first step in your battle plan is finding one. Not reading more about lust — finding the person. That is step one.</p>
+      </div>
+
+      <h2>Practical Tools</h2>
+
+      <div class="tool-set">
+        <div class="tool-card primary">
+          <div class="tool-header">
+            <div class="tool-icon">I</div>
+            <div>
+              <div class="tool-title">Identify Your Trigger State</div>
+              <div class="tool-sub">Know when you're most vulnerable — and address the underlying state</div>
+            </div>
+          </div>
+          <div class="tool-body">
+            <p>Lust rarely hits in a vacuum. For most men it is reliably connected to a specific emotional state: stress, loneliness, exhaustion, anger, boredom, or feeling rejected. Identifying your trigger state is the first act of warfare — you can't defend what you can't see coming.</p>
+            <p>For one week, every time you face temptation, write down: <em>what were you feeling right before it hit?</em> You will see a pattern. Then address the underlying state directly — not by indulging the temptation, but by actually dealing with what you're feeling. Call someone. Pray specifically about the loneliness, the stress, the anger. Exercise. Get sleep. The trigger state is often a legitimate need expressing itself through an illegitimate outlet.</p>
+          </div>
+        </div>
+
+        <div class="tool-card primary">
+          <div class="tool-header">
+            <div class="tool-icon">II</div>
+            <div>
+              <div class="tool-title">Bounce and Flee — Not Negotiate</div>
+              <div class="tool-sub">The second look is the decision. Make the decision before the moment comes.</div>
+            </div>
+          </div>
+          <div class="tool-body">
+            <p>The strategy of "bouncing the eyes" — immediately redirecting when a tempting image appears — is not prudishness. It's a decision made in advance so you don't have to make it in the moment. When the moment comes, the decision is already made: you don't hold the look. You redirect immediately, every time, without negotiation.</p>
+            <p>The negotiation is where you lose. "Just for a second." "It's not that bad." "I'll stop in a minute." Every man who has been in this battle knows that negotiation is always a prelude to surrender. Joseph didn't negotiate. He ran. Build the reflex before the moment comes — because in the moment, you don't think, you react. Train the reaction.</p>
+          </div>
+        </div>
+
+        <div class="tool-card primary">
+          <div class="tool-header">
+            <div class="tool-icon">III</div>
+            <div>
+              <div class="tool-title">Renew the Mind — Actively</div>
+              <div class="tool-sub">Romans 12:2 is not passive — renewal is something you do</div>
+            </div>
+          </div>
+          <div class="tool-body">
+            <p>The mind that has been fed years of pornographic imagery does not renew itself on autopilot. It requires active, sustained investment in what goes in. Philippians 4:8 — whatever is true, honorable, just, pure, lovely, commendable — think about these things. This is a discipline, not a feeling.</p>
+            <ul>
+              <li><strong>Scripture memory</strong> — specifically anti-lust passages (see below). A verse in your mind is a weapon in your hand when the moment comes.</li>
+              <li><strong>Daily Scripture engagement</strong> — Psalm 119:9–11. The man who is in the word is less susceptible. Not immune — less susceptible.</li>
+              <li><strong>Controlling what you consume</strong> — not just pornography, but the slow drip of sexualized content in entertainment, social media, and advertising that normalizes what Scripture calls sin. What you allow in shapes what you desire.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tool-card primary">
+          <div class="tool-header">
+            <div class="tool-icon">IV</div>
+            <div>
+              <div class="tool-title">Practical Barriers</div>
+              <div class="tool-sub">Wisdom builds fences. Integrity removes opportunities for failure.</div>
+            </div>
+          </div>
+          <div class="tool-body">
+            <p>Proverbs 4:23 — "Keep your heart with all vigilance, for from it flow the springs of life." Keeping involves guarding — and guarding involves structure. These are not substitutes for heart change, but they are expressions of it: a man who genuinely wants freedom will remove what enables failure.</p>
+            <ul>
+              <li><strong>Filtering software</strong> — Covenant Eyes, Canopy, or similar. The point is not to make sin impossible — it's to introduce friction and accountability into the moment of temptation.</li>
+              <li><strong>Device discipline</strong> — phone out of the bedroom. Laptop in common areas. No screens after a certain hour. Know your patterns and structure against them.</li>
+              <li><strong>Activity-based accountability</strong> — not just "did you fail?" but "how many times did you face temptation and flee?" Tracking the battles fought, not just the battles lost, builds a different kind of momentum.</li>
+              <li><strong>Internet history shared</strong> — with your accountability partner. Not reviewed occasionally — shared by default. The knowledge that someone will see it changes behavior.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tool-card primary">
+          <div class="tool-header">
+            <div class="tool-icon">V</div>
+            <div>
+              <div class="tool-title">After a Failure — Don't Spiral</div>
+              <div class="tool-sub">Shame is the cycle's fuel. Repentance breaks it.</div>
+            </div>
+          </div>
+          <div class="tool-body">
+            <p>When you fail — and at some point you will — the next thirty minutes are critical. This is where the cycle either continues or breaks. Most men after a failure experience shame, self-loathing, and isolation — and then use those feelings to justify the next episode. "I've already blown it. Might as well."</p>
+            <p>The alternative is immediate, specific repentance — not self-punishment, but acknowledgment and return. Psalm 51: "against you only have I sinned." Confess it to God, confess it to your accountability partner (same day — not "at our next meeting"), and then get up. 1 John 1:9 — "If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness." The cleansing is real. Receive it. Don't wallow.</p>
+            <p>The difference between a man who is gradually winning this battle and a man who is losing it is often just this: the winner gets up faster after a failure.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Accountability Questions</h2>
+      <p>These are specific questions for use with an accountability partner — someone who knows your struggle and has permission to ask directly. Vague questions produce vague answers. Use these or adapt them.</p>
+
+      <div class="question-list">
+        <div class="question-item"><strong>Since we last talked —</strong> Have you looked at pornography or sexual content? If yes: what were the circumstances, and what was your emotional state beforehand?</div>
+        <div class="question-item"><strong>Where have you chosen to look away</strong> this week — a specific moment where you fled instead of indulging? Name one.</div>
+        <div class="question-item"><strong>What was your trigger state</strong> this week — stress, loneliness, exhaustion, conflict? How did you handle it other than through lust?</div>
+        <div class="question-item"><strong>How is your marriage or key relationships</strong> — is there distance, resentment, or avoided conversation that needs to be addressed?</div>
+        <div class="question-item"><strong>What Scripture are you memorizing</strong>, and have you used it in a moment of temptation this week?</div>
+        <div class="question-item"><strong>Are you hiding anything</strong> from me right now that you haven't named? (This question is the most important one — ask it every time.)</div>
+      </div>
+
+      <h2>Verses to Memorize</h2>
+      <p>These are specifically chosen for the moment of temptation — short enough to recall under pressure, specific enough to land.</p>
+
+      <div class="memory-verse">
+        <div class="mv-text">"Flee from sexual immorality. Every other sin a person commits is outside the body, but the sexually immoral person sins against his own body."</div>
+        <div class="mv-ref">1 Corinthians 6:18</div>
+        <div class="mv-purpose">For the moment of temptation — flee, don't negotiate.</div>
+      </div>
+      <div class="memory-verse">
+        <div class="mv-text">"How can a young man keep his way pure? By guarding it according to your word. I have stored up your word in my heart, that I might not sin against you."</div>
+        <div class="mv-ref">Psalm 119:9, 11</div>
+        <div class="mv-purpose">For daily renewal — the word stored in advance is the weapon in the moment.</div>
+      </div>
+      <div class="memory-verse">
+        <div class="mv-text">"No temptation has overtaken you that is not common to man. God is faithful, and he will not let you be tempted beyond your ability, but with the temptation he will also provide the way of escape, that you may be able to endure it."</div>
+        <div class="mv-ref">1 Corinthians 10:13</div>
+        <div class="mv-purpose">For the lie that says "I can't stop" — there is always a way of escape. Find it and take it.</div>
+      </div>
+      <div class="memory-verse">
+        <div class="mv-text">"Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect."</div>
+        <div class="mv-ref">Romans 12:2</div>
+        <div class="mv-purpose">For the long view — transformation is possible; renewal is how it happens.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ WORD STUDY -->
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study</div>
+        <div class="section-title">Desire · Immorality · Purity</div>
+        <div class="section-sub">What the original words reveal about the nature of lust and freedom from it</div>
+      </div>
+
+      <div class="word-study-grid">
+        <div class="word-study">
+          <div class="ws-original">ἐπιθυμία</div>
+          <div class="ws-transliteration">epithumia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Strong desire; craving; longing. From epi (upon, toward) + thumos (passion, life-force). Not inherently evil — it describes intensity of desire, which can be directed toward good or evil. The same word is used for hunger, legitimate longing, and the desires of the Spirit (Galatians 5:17).</div>
+          <div class="ws-note">The problem is never desire itself — God made men to desire. The problem is epithumia aimed at what God has prohibited and welcomed to stay there. Galatians 5:16 — "walk by the Spirit, and you will not gratify the desires (epithumia) of the flesh." The answer to misdirected desire is not to kill desire — it's to redirect it toward its proper objects through life in the Spirit.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">πορνεία</div>
+          <div class="ws-transliteration">porneia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Sexual immorality; illicit sexual activity; fornication. The broadest Greek term for sexual sin, covering any sexual activity outside of marriage. The root of the English word "pornography." Paul uses it consistently as one of the defining sins of the old life — and one from which Christians are called to flee, not manage.</div>
+          <div class="ws-note">1 Corinthians 6:18 — "Flee porneia." The verb is pheugō: to run, to escape, to take flight. The same word used when Joseph literally ran from Potiphar's wife. Paul doesn't say "resist" porneia or "manage" it — the instruction is flight. This is not weakness; it is wisdom. Some battles are won by running.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">ἁγιασμός</div>
+          <div class="ws-transliteration">hagiasmos</div>
+          <div class="ws-pos">noun, masculine — Greek</div>
+          <div class="ws-definition">Sanctification; holiness; the process of being set apart. From hagios — holy, set apart, consecrated. Not a static state but an ongoing process. 1 Thessalonians 4:3 — "This is the will of God, your hagiasmos." Sanctification in the area of sexuality is explicitly named as God's will — not a religious extra, but the center of what he wants for you.</div>
+          <div class="ws-note">The same verse continues: "that you abstain from porneia; that each one of you know how to control his own body in holiness and honor." The word for "control" (ktaomai) means to acquire possession of — to take ownership of your own body and govern it. This is not repression; it is reclamation. A man who controls his body in holiness is more himself, not less.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">μετανοέω</div>
+          <div class="ws-transliteration">metanoeō</div>
+          <div class="ws-pos">verb — Greek</div>
+          <div class="ws-definition">To repent; to change one's mind and direction; to turn around. From meta (after, change) + noeō (to think, to perceive). Repentance is not remorse — remorse is feeling bad about sin. Repentance is changing direction. It is an active turning toward God and away from sin, made possible by grace and sustained by the Spirit.</div>
+          <div class="ws-note">The shame cycle thrives on remorse without repentance — a man feels terrible, promises to do better, and returns to the same behavior. Genuine metanoia breaks the cycle because it is a real change of direction, not just a change of feeling. It includes confession, restitution where possible, and structural change — removing what enables the sin and putting in place what supports the new direction.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">ἀνακαίνωσις</div>
+          <div class="ws-transliteration">anakainōsis</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Renewal; renovation; making new. From ana (again, anew) + kainos (new, fresh, unused). Romans 12:2 — "transformed by the renewal (anakainōsis) of your mind." Not repair of the old mind but renovation — new thinking patterns, new default responses, new desires gradually replacing old ones. This is what transformation actually looks like from the inside.</div>
+          <div class="ws-note">Anakainōsis is not instantaneous. It is the slow work of the Spirit through the word, through prayer, through community, through repeated choices in the right direction over time. Every man who has found lasting freedom describes a process — months, sometimes years — of the mind being gradually reoriented. The new desires don't arrive all at once; they grow as the old ones are starved and the Spirit is given access to what was hidden.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ SCRIPTURE -->
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">The biblical foundation — diagnosis, cost, path, and freedom</div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Diagnosis — What Jesus Actually Said</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"You have heard that it was said, 'You shall not commit adultery.' But I say to you that everyone who looks at a woman with lustful intent has already committed adultery with her in his heart. If your right eye causes you to sin, tear it out and throw it away. For it is better that you lose one of your members than that your whole body be thrown into hell."</div>
+            <div class="vc-footer"><span class="vc-ref">Matthew 5:27–29</span><span class="vc-note">The heart as the location. The radical surgery metaphor — Jesus is saying: treat this as seriously as you would a life-threatening physical emergency.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"For from within, out of the heart of man, come evil thoughts, sexual immorality, theft, murder, adultery, coveting, wickedness, deceit, sensuality, envy, slander, pride, foolishness. All these evil things come from within, and they defile a person."</div>
+            <div class="vc-footer"><span class="vc-ref">Mark 7:21–23</span><span class="vc-note">The source is internal. This is why external controls alone never work — and why the heart is what must change.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">God's Will — Sanctification Is Not Optional</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"For this is the will of God, your sanctification: that you abstain from sexual immorality; that each one of you know how to control his own body in holiness and honor, not in the passion of lust like the Gentiles who do not know God."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Thessalonians 4:3–5</span><span class="vc-note">God's will is named explicitly: sanctification in the area of sexuality. Control of the body in holiness. This is not peripheral; it is central.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Or do you not know that your body is a temple of the Holy Spirit within you, whom you have from God? You are not your own, for you were bought with a price. So glorify God in your body."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Corinthians 6:19–20</span><span class="vc-note">The body belongs to God. Sexual sin is not a private matter — it involves what the Spirit inhabits.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Model — Joseph</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"But he refused and said to his master's wife, 'How then can I do this great wickedness and sin against God?' And as she spoke to Joseph day after day, he would not listen to her… But one day, when he went into the house to do his work and none of the men of the house was there in the house, she caught him by his garment, saying, 'Lie with me.' But he left his garment in her hand and fled and got out of the house."</div>
+            <div class="vc-footer"><span class="vc-ref">Genesis 39:8–12</span><span class="vc-note">Theological clarity. Daily renewal. Physical flight when necessary. The three elements of Joseph's response.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Path — Flee, Renew, Be Transformed</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"Flee from sexual immorality. Every other sin a person commits is outside the body, but the sexually immoral person sins against his own body."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Corinthians 6:18</span><span class="vc-note">Flee — not manage, not negotiate. The instruction is flight. Build the reflex before the moment arrives.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect."</div>
+            <div class="vc-footer"><span class="vc-ref">Romans 12:2</span><span class="vc-note">Transformation through renewal — not suppression, but a genuine change of the inner life over time.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"No temptation has overtaken you that is not common to man. God is faithful, and he will not let you be tempted beyond your ability, but with the temptation he will also provide the way of escape, that you may be able to endure it."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Corinthians 10:13</span><span class="vc-note">There is always a way of escape. Always. The lie that says "I couldn't help it" is contradicted by this verse directly.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"How can a young man keep his way pure? By guarding it according to your word. With my whole heart I seek you; let me not wander from your commandments! I have stored up your word in my heart, that I might not sin against you."</div>
+            <div class="vc-footer"><span class="vc-ref">Psalm 119:9–11</span><span class="vc-note">The word stored in advance is the weapon in the moment. Memorization is warfare preparation.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Freedom — "Such Were Some of You"</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"Or do you not know that the unrighteous will not inherit the kingdom of God? Do not be deceived: neither the sexually immoral, nor idolaters, nor adulterers… will inherit the kingdom of God. And such were some of you. But you were washed, you were sanctified, you were justified in the name of the Lord Jesus Christ and by the Spirit of our God."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Corinthians 6:9–11</span><span class="vc-note">"Were" — past tense. The men in Corinth, in one of the most sexually saturated cities in the ancient world, were changed. Not managed. This is the promise.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness."</div>
+            <div class="vc-footer"><span class="vc-ref">1 John 1:9</span><span class="vc-note">After a failure — this is the verse. Confess specifically. Receive the cleansing. Get up. Don't spiral.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come."</div>
+            <div class="vc-footer"><span class="vc-ref">2 Corinthians 5:17</span><span class="vc-note">The identity that makes freedom possible — not trying harder as the old man, but living as the new one. The old self does not have to win.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">Confession and Community</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"Therefore, confess your sins to one another and pray for one another, that you may be healed. The prayer of a righteous person has great power as it is working."</div>
+            <div class="vc-footer"><span class="vc-ref">James 5:16</span><span class="vc-note">Healing is connected to confession — to another person, not just to God. The darkness cannot survive exposure.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"But exhort one another every day, as long as it is called 'today,' that none of you may be hardened by the deceitfulness of sin."</div>
+            <div class="vc-footer"><span class="vc-ref">Hebrews 3:13</span><span class="vc-note">Daily. Not monthly check-ins — daily connection that keeps the heart soft and the sin exposed.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

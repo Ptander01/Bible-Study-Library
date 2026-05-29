@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sin — First Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#7a7a8a; --accent-dim:#40404e; --accent-lt:#9a9aaa;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858; --warning-dim:#6b2c2c;
+  --guide-bg:#0d1a0d; --guide-border:#1a3a1a; --guide-accent:#4a8a4a;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);} p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;} .panel{display:none;} .panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;gap:0;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;position:relative;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:160px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);display:flex;align-items:center;}
+.progression{display:flex;flex-direction:column;margin:24px 0;}
+.prog-step{display:flex;gap:20px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.prog-step:last-child{border-bottom:none;}
+.prog-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--accent-dim);opacity:.5;line-height:1;flex-shrink:0;width:32px;padding-top:4px;}
+.prog-body strong{display:block;color:var(--cream);font-size:15px;margin-bottom:4px;}
+.prog-body p{font-size:14px;margin:0;}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.guide-block{display:none;}
+.guide-active .guide-block{display:block;background:var(--guide-bg);border:1px solid var(--guide-border);border-left:3px solid var(--guide-accent);border-radius:4px;padding:16px 20px;margin:12px 0;}
+.guide-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--guide-accent);margin-bottom:10px;}
+.guide-tip{font-size:13px;color:#6aaa6a;margin-bottom:8px;line-height:1.6;}
+.guide-tip:last-child{margin-bottom:0;}
+.guide-active .tab-bar-wrap{box-shadow:inset 0 -2px 0 var(--guide-border);}
+#guide-toggle{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--guide-bg);border:1px solid var(--guide-border);color:var(--guide-accent);font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:background .2s,border-color .2s;opacity:.6;}
+#guide-toggle:hover{opacity:1;}
+.guide-active #guide-toggle{background:#1a3a1a;border-color:var(--guide-accent);opacity:1;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent);border-top-color:var(--accent);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+.sin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0;}
+.sin-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:18px 20px;}
+.sin-name{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:4px;}
+.sin-original{font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:2px;line-height:1.3;}
+.sin-transliteration{font-size:12px;font-style:italic;color:var(--muted);margin-bottom:10px;}
+.sin-definition{font-size:13px;color:var(--cream-dim);line-height:1.6;margin-bottom:8px;}
+.sin-source{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);}
+@media print{body{background:white;color:#111;}body::before{display:none;}.tab-bar-wrap,#guide-toggle{display:none;}.panel{display:block!important;page-break-before:always;}.panel:first-child{page-break-before:avoid;}}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">First Principles · Study 4</div>
+  <div class="header-title">Sin</div>
+  <div class="header-verse">"For all have sinned and fall short of the glory of God."</div>
+  <div class="header-ref">Romans 3:23</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study', this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('reference', this)">Sin Reference</button>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+    
+  </div>
+</div>
+
+<button id="guide-toggle" onclick="toggleGuideMode()">◎ Guide Mode</button>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">First Principles · Study 4</div>
+        <div class="section-title">Sin</div>
+        <div class="section-sub">The honest diagnosis before the cure can mean anything</div>
+      </div>
+      
+      <div class="guide-block"><div class="guide-label">Guide Note — Purpose</div>
+      <p class="guide-tip">This is the most personal study in the series. The goal is not to make someone feel guilty — it's to help them see themselves clearly in the mirror of Scripture. Without a real understanding of sin, the cross is just a historical event and repentance is just a mood shift.</p>
+      <p class="guide-tip">You will need to have established trust before this conversation. Share your own story — your own sins, not in graphic detail, but honestly. "I had to look at these lists and name specific things. That's what this study calls for."</p>
+      <p class="guide-tip">If someone becomes defensive, don't press. Slow down. The Spirit does the convicting. Your job is to open the word, not to argue someone into confession.</p></div>
+
+      <h2>The Universal Diagnosis</h2>
+      <div class="verse-block"><div class="verse-text">"For all have sinned and fall short of the glory of God."</div><div class="verse-ref">Romans 3:23</div></div>
+      <p>The word "all" leaves no exceptions. Religious background, good intentions, community standing, Southern manners — none of these change the diagnosis. Every person who has ever lived, except Jesus, has sinned.</p>
+
+      <div class="callout accent"><div class="callout-label">The Consequence</div>
+      <p style="font-family:var(--font-serif);font-size:20px;font-style:italic;color:var(--cream);line-height:1.6;">"For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord." — Romans 6:23</p></div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — What Sin Actually Is</div>
+      <p class="guide-tip">Most people think of sin as "bad things" — lying, cheating, murder. But the Greek word hamartia means missing the mark. The mark is God's character and God's glory. Every time we fall short of what God designed us to be, that's sin. This is broader and more personal than a list of bad behaviors.</p>
+      <p class="guide-tip">Ask: "When you think about sin, what comes to mind? Is it mostly things other people do, or things you do?" This question surfaces whether they've personally owned the diagnosis.</p></div>
+
+      <h2>Sin Is Personal</h2>
+      <p>The lists in Scripture are not meant to be read clinically. They are meant to be read personally — with a specific name attached to each one.</p>
+      <div class="verse-block"><div class="verse-text">"Now the works of the flesh are evident: sexual immorality, impurity, sensuality, idolatry, sorcery, enmity, strife, jealousy, fits of anger, rivalries, dissensions, divisions, envy, drunkenness, orgies, and things like these."</div><div class="verse-ref">Galatians 5:19–21</div></div>
+      <p>See the <strong>Sin Reference</strong> tab for the full Greek definitions of each sin across Galatians 5, Colossians 3, 2 Timothy 3, and Ephesians 5.</p>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — Using the Sin Lists</div>
+      <p class="guide-tip">Go through the lists slowly. For each sin: "What does this word actually mean?" Then: "Is this something you've struggled with?" Don't rush. Share your own examples. This is the most important and most uncomfortable part of the series — give it space.</p>
+      <p class="guide-tip">The person needs to leave this study with specific sins they've named, not a general sense of being "imperfect." Specificity is necessary for real repentance.</p></div>
+
+      <h2>The Separation Sin Creates</h2>
+      <div class="verse-block"><div class="verse-text">"But your iniquities have made a separation between you and your God, and your sins have hidden his face from you so that he does not hear."</div><div class="verse-ref">Isaiah 59:2</div></div>
+      <p>Sin doesn't just produce guilt. It creates distance from God — a real, relational rupture. The seeking we talked about in Study 1 is frustrated by sin we haven't honestly faced.</p>
+
+      <h2>The Challenge</h2>
+      <div class="callout accent"><div class="callout-label">This Week</div>
+      <p>Read through the Sin Reference tab. Slowly. With a pen. Mark every sin you recognize in your own life — past or present. Don't minimize. Don't rationalize. Just name it honestly before God. Come ready to talk about what you found.</p></div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Romans 3:23</span><span class="ref-desc">All have sinned — the universal diagnosis.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 6:23</span><span class="ref-desc">The wages of sin is death — the consequence.</span></div>
+        <div class="ref-item"><span class="ref-book">Isaiah 59:2</span><span class="ref-desc">Sin creates separation between us and God.</span></div>
+        <div class="ref-item"><span class="ref-book">Galatians 5:19–21</span><span class="ref-desc">Works of the flesh — a specific, personal list.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 1:28–32</span><span class="ref-desc">The breadth of sin — beyond just the obvious.</span></div>
+        <div class="ref-item"><span class="ref-book">James 4:17</span><span class="ref-desc">Sins of omission — knowing the right thing and not doing it.</span></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-reference">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Sin Reference</div><div class="section-title">The Lists</div><div class="section-sub">Greek definitions of sins named in Scripture — for honest self-examination</div></div>
+      <p style="color:var(--cream-dim);margin-bottom:28px;">These are not meant to be read quickly. Read each one slowly. Ask honestly: Is this me? The specificity is the point.</p>
+
+      <div class="scripture-section"><div class="scripture-section-title">Galatians 5:19–21 — Works of the Flesh</div>
+      <div class="sin-grid">
+        <div class="sin-card"><div class="sin-name">Sexual Immorality</div><div class="sin-original">πορνεία</div><div class="sin-transliteration">porneia</div><div class="sin-definition">Any sexual activity outside of marriage between a husband and wife. Broad term covering all sexual sin.</div><div class="sin-source">Galatians 5:19</div></div>
+        <div class="sin-card"><div class="sin-name">Impurity</div><div class="sin-original">ἀκαθαρσία</div><div class="sin-transliteration">akatharsia</div><div class="sin-definition">Moral uncleanness; filthiness in thought, word, or deed. Includes but is broader than sexual sin.</div><div class="sin-source">Galatians 5:19</div></div>
+        <div class="sin-card"><div class="sin-name">Sensuality</div><div class="sin-original">ἀσέλγεια</div><div class="sin-transliteration">aselgeia</div><div class="sin-definition">Licentiousness; indecency; unrestrained indulgence in desires without shame or regard for others.</div><div class="sin-source">Galatians 5:19</div></div>
+        <div class="sin-card"><div class="sin-name">Idolatry</div><div class="sin-original">εἰδωλολατρία</div><div class="sin-transliteration">eidōlolatria</div><div class="sin-definition">Worship of anything other than God — not just statues, but money, status, comfort, relationships as ultimate things.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Enmity</div><div class="sin-original">ἔχθρα</div><div class="sin-transliteration">echthra</div><div class="sin-definition">Hostility, hatred toward others. Active ill-will — not just dislike, but ongoing antagonism.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Strife</div><div class="sin-original">ἔρις</div><div class="sin-transliteration">eris</div><div class="sin-definition">Contention, quarreling, discord. The habit of creating conflict and division rather than pursuing peace.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Jealousy</div><div class="sin-original">ζῆλος</div><div class="sin-transliteration">zēlos</div><div class="sin-definition">Burning envy; resentment at another's advantages. Desire to have what others have, at their expense.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Fits of Anger</div><div class="sin-original">θυμοί</div><div class="sin-transliteration">thymoi</div><div class="sin-definition">Outbursts of rage; violent passion. Anger that erupts and destroys rather than being governed and directed.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Rivalries</div><div class="sin-original">ἐριθεῖαι</div><div class="sin-transliteration">eritheiai</div><div class="sin-definition">Selfish ambition; putting yourself forward at others' expense. Motivated by self-interest, not love.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Dissensions</div><div class="sin-original">διχοστασίαι</div><div class="sin-transliteration">dichostasiai</div><div class="sin-definition">Division, standing apart. Creating factions and splits within communities that should be unified.</div><div class="sin-source">Galatians 5:20</div></div>
+        <div class="sin-card"><div class="sin-name">Envy</div><div class="sin-original">φθόνοι</div><div class="sin-transliteration">phthonoi</div><div class="sin-definition">Ill-will toward another because of their advantage. Distinguished from jealousy in that envy actively wants others to lose what they have.</div><div class="sin-source">Galatians 5:21</div></div>
+        <div class="sin-card"><div class="sin-name">Drunkenness</div><div class="sin-original">μέθαι</div><div class="sin-transliteration">methai</div><div class="sin-definition">Intoxication; being controlled by alcohol or substances. Loss of self-control through substance.</div><div class="sin-source">Galatians 5:21</div></div>
+      </div></div>
+      <div class="scripture-section"><div class="scripture-section-title">Colossians 3:5–9 — Put These to Death</div>
+      <div class="sin-grid">
+        <div class="sin-card"><div class="sin-name">Covetousness</div><div class="sin-original">πλεονεξία</div><div class="sin-transliteration">pleonexia</div><div class="sin-definition">Greediness; wanting more, always more. Paul calls it idolatry — it makes possessions and acquisition your god.</div><div class="sin-source">Colossians 3:5</div></div>
+        <div class="sin-card"><div class="sin-name">Anger</div><div class="sin-original">ὀργή</div><div class="sin-transliteration">orgē</div><div class="sin-definition">Deep-seated anger; settled, ongoing wrath. Not a sudden eruption but a sustained, smoldering hostility.</div><div class="sin-source">Colossians 3:8</div></div>
+        <div class="sin-card"><div class="sin-name">Malice</div><div class="sin-original">κακία</div><div class="sin-transliteration">kakia</div><div class="sin-definition">Wickedness; vicious disposition toward others. The desire to harm, to see others suffer.</div><div class="sin-source">Colossians 3:8</div></div>
+        <div class="sin-card"><div class="sin-name">Slander</div><div class="sin-original">βλασφημία</div><div class="sin-transliteration">blasphēmia</div><div class="sin-definition">Evil speaking; damaging another's reputation. Using words as weapons to tear down.</div><div class="sin-source">Colossians 3:8</div></div>
+        <div class="sin-card"><div class="sin-name">Obscene Talk</div><div class="sin-original">αἰσχρολογία</div><div class="sin-transliteration">aischrologia</div><div class="sin-definition">Filthy language; shameful speech. Words that degrade and corrupt rather than build up.</div><div class="sin-source">Colossians 3:8</div></div>
+        <div class="sin-card"><div class="sin-name">Lying</div><div class="sin-original">ψεύδεσθε</div><div class="sin-transliteration">pseudesthe</div><div class="sin-definition">Falsehood; deliberate deception. Not just outright lies but any communication intended to mislead.</div><div class="sin-source">Colossians 3:9</div></div>
+      </div></div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Word Study</div><div class="section-title">Sin · Flesh · Death</div><div class="section-sub">What the original words reveal about sin's nature</div></div>
+      <div class="word-study-grid">
+        <div class="word-study"><div class="ws-original">ἁμαρτία</div><div class="ws-transliteration">hamartia</div><div class="ws-pos">noun, feminine — Greek</div><div class="ws-definition">Sin; missing the mark. The general NT word for sin. From a root meaning to miss the target — originally an archery term. The mark is God's character and glory.</div><div class="ws-note">The most common NT word for sin. Not primarily about rule-breaking — about falling short of what God designed us to be. This makes sin both universal (everyone misses) and personal (each person's miss is specific).</div></div>
+        <div class="word-study"><div class="ws-original">παράπτωμα</div><div class="ws-transliteration">paraptōma</div><div class="ws-pos">noun, neuter — Greek</div><div class="ws-definition">Trespass, transgression, a false step. From para (beside) + piptō (to fall). The image is of stepping off the right path — deviation from the way.</div><div class="ws-note">Used in Ephesians 2:1 — "dead in your trespasses and sins." Not just bad choices, but a fundamental wrong direction. The person who is trespassing isn't just lost — they're in territory they were never meant to be in.</div></div>
+        <div class="word-study"><div class="ws-original">חָטָא</div><div class="ws-transliteration">chata</div><div class="ws-pos">verb — Hebrew</div><div class="ws-definition">To sin, to miss, to go wrong. The primary OT word for sin — same concept as hamartia: missing the mark, failing to hit the target. Also used to describe Saul's army missing stones with slings (Judges 20:16).</div><div class="ws-note">The word's original use (missing a target with a sling) is instructive: sin is not always deliberate rebellion. Sometimes it's simply missing what we were aimed at. Both kinds count. Both matter to God.</div></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">Supporting scriptures for this study</div>
+      </div>
+      <p style="color:var(--cream-dim);">See the reference tab for the full content. Additional cross-references to be expanded in a future revision.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let guideMode = false;
+function toggleGuideMode() {
+  guideMode = !guideMode;
+  document.body.classList.toggle('guide-active', guideMode);
+  document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
+}
+
+</script>
+</body>
+</html>

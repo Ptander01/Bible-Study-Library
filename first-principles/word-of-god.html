@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Word of God — First Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#c9a84c; --accent-dim:#7a6230; --accent-lt:#e8c46a;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858; --warning-dim:#6b2c2c;
+  --guide-bg:#0d1a0d; --guide-border:#1a3a1a; --guide-accent:#4a8a4a;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);} p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;} .panel{display:none;} .panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;gap:0;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;position:relative;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:160px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);display:flex;align-items:center;}
+.progression{display:flex;flex-direction:column;margin:24px 0;}
+.prog-step{display:flex;gap:20px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.prog-step:last-child{border-bottom:none;}
+.prog-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--accent-dim);opacity:.5;line-height:1;flex-shrink:0;width:32px;padding-top:4px;}
+.prog-body strong{display:block;color:var(--cream);font-size:15px;margin-bottom:4px;}
+.prog-body p{font-size:14px;margin:0;}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.guide-block{display:none;}
+.guide-active .guide-block{display:block;background:var(--guide-bg);border:1px solid var(--guide-border);border-left:3px solid var(--guide-accent);border-radius:4px;padding:16px 20px;margin:12px 0;}
+.guide-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--guide-accent);margin-bottom:10px;}
+.guide-tip{font-size:13px;color:#6aaa6a;margin-bottom:8px;line-height:1.6;}
+.guide-tip:last-child{margin-bottom:0;}
+.guide-active .tab-bar-wrap{box-shadow:inset 0 -2px 0 var(--guide-border);}
+#guide-toggle{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--guide-bg);border:1px solid var(--guide-border);color:var(--guide-accent);font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:background .2s,border-color .2s;opacity:.6;}
+#guide-toggle:hover{opacity:1;}
+.guide-active #guide-toggle{background:#1a3a1a;border-color:var(--guide-accent);opacity:1;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent);border-top-color:var(--accent);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+.sin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0;}
+.sin-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:18px 20px;}
+.sin-name{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:4px;}
+.sin-original{font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:2px;line-height:1.3;}
+.sin-transliteration{font-size:12px;font-style:italic;color:var(--muted);margin-bottom:10px;}
+.sin-definition{font-size:13px;color:var(--cream-dim);line-height:1.6;margin-bottom:8px;}
+.sin-source{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);}
+@media print{body{background:white;color:#111;}body::before{display:none;}.tab-bar-wrap,#guide-toggle{display:none;}.panel{display:block!important;page-break-before:always;}.panel:first-child{page-break-before:avoid;}}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">First Principles · Study 2</div>
+  <div class="header-title">The <span>Word</span> of God</div>
+  <div class="header-verse">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness."</div>
+  <div class="header-ref">2 Timothy 3:16</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study', this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+    
+  </div>
+</div>
+
+<button id="guide-toggle" onclick="toggleGuideMode()">◎ Guide Mode</button>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">First Principles · Study 2</div>
+        <div class="section-title">The Word of God</div>
+        <div class="section-sub">Why we trust this book — and what we do with it</div>
+      </div>
+      
+      <div class="guide-block"><div class="guide-label">Guide Note — Purpose</div>
+      <p class="guide-tip">Before someone can be shaped by Scripture, they need to settle whether it's trustworthy. This study isn't a defense of inerrancy — it's an invitation to treat the Bible as what it claims to be: God's own word. The goal is confidence, not just intellectual assent.</p>
+      <p class="guide-tip">Many people have a low-grade suspicion that the Bible is just a human book full of good advice. This study confronts that directly. Don't rush past the God-breathed concept — it's the hinge everything else turns on.</p></div>
+
+      <h2>What Kind of Book Is This?</h2>
+      <p>Most people treat the Bible like an ancient self-help book — inspiring, occasionally useful, but ultimately a human product shaped by its time. That's not what it claims to be.</p>
+      <div class="callout accent"><div class="callout-label">The Central Claim</div>
+      <p style="font-family:var(--font-serif);font-size:20px;font-style:italic;color:var(--cream);line-height:1.6;">This book did not originate with men. It originated with God — and it is useful precisely because of that.</p></div>
+
+      <div class="verse-block"><div class="verse-text">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness."</div><div class="verse-ref">2 Timothy 3:16</div></div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — On Theo-pneustos</div>
+      <p class="guide-tip">Spend time on the word "breathed out." God spoke the universe into existence. The same creative breath is behind Scripture. It's not that God approved what humans wrote — it's that God produced it through them. That's a different claim entirely.</p>
+      <p class="guide-tip">Ask: "If this book really is God speaking — not just about God, but God actually speaking — how would that change how you read it?"</p></div>
+
+      <h2>How Did God Produce It?</h2>
+      <div class="verse-block"><div class="verse-text">"For no prophecy was ever produced by the will of man, but men spoke from God as they were carried along by the Holy Spirit."</div><div class="verse-ref">2 Peter 1:21</div></div>
+      <p>God worked through the authors' own personalities, experiences, and writing styles. The origin is divine. The delivery is human. Both are true at the same time.</p>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">Teaching</div><div class="use-desc">Establishes what is true — the foundation for faith and life.</div></div>
+        <div class="use-row"><div class="use-label">Reproof</div><div class="use-desc">Confronts what is wrong — sin, error, dangerous patterns of thinking.</div></div>
+        <div class="use-row"><div class="use-label">Correcting</div><div class="use-desc">Shows how to get back on track — restoration and realignment.</div></div>
+        <div class="use-row"><div class="use-label">Training</div><div class="use-desc">Equips for ongoing growth — developing godly character over time.</div></div>
+      </div>
+
+      <h2>How Jesus Treated Scripture</h2>
+      <p>The most compelling evidence for the Bible's authority is how Jesus himself handled it.</p>
+      <div class="progression">
+        <div class="prog-step"><div class="prog-num">1</div><div class="prog-body"><strong>He quoted it in temptation</strong><p>"It is written..." — three times in Matthew 4. Jesus did not reason his way through Satan's attacks. He quoted Scripture as settled authority.</p></div></div>
+        <div class="prog-step"><div class="prog-num">2</div><div class="prog-body"><strong>He declared it unbreakable</strong><p>"Scripture cannot be broken" (John 10:35). Not "Scripture is generally reliable." Not "most of Scripture." Cannot be broken.</p></div></div>
+        <div class="prog-step"><div class="prog-num">3</div><div class="prog-body"><strong>He opened it to the disciples</strong><p>Luke 24:27 — beginning with Moses and all the prophets, he interpreted to them what concerned himself in all the Scriptures.</p></div></div>
+      </div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — The Practical Question</div>
+      <p class="guide-tip">Circle back to usefulness: "Paul says it's profitable. What would it look like to actually use it — in your marriage, your decisions, how you handle conflict? Or are you currently going to other sources first?" This connects the theological claim to the daily reality.</p></div>
+
+      <h2>The Challenge</h2>
+      <div class="callout accent"><div class="callout-label">This Week</div>
+      <p>Read one chapter of John each day this week. Before you read, pray Psalm 119:18: <em>"Open my eyes, that I may behold wondrous things out of your law."</em> Come back ready to share one thing you noticed.</p></div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">2 Timothy 3:16–17</span><span class="ref-desc">God-breathed and useful for four specific purposes.</span></div>
+        <div class="ref-item"><span class="ref-book">2 Peter 1:20–21</span><span class="ref-desc">Men spoke from God, carried along by the Spirit.</span></div>
+        <div class="ref-item"><span class="ref-book">Hebrews 4:12</span><span class="ref-desc">Living and active — sharper than any two-edged sword.</span></div>
+        <div class="ref-item"><span class="ref-book">Matthew 4:4</span><span class="ref-desc">Man does not live by bread alone — Jesus treated Scripture as food.</span></div>
+        <div class="ref-item"><span class="ref-book">John 10:35</span><span class="ref-desc">Scripture cannot be broken — Jesus' own declaration.</span></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Word Study</div><div class="section-title">Breath · Prophecy</div><div class="section-sub">The original words behind Scripture's authority claims</div></div>
+      <div class="word-study-grid">
+        <div class="word-study"><div class="ws-original">θεόπνευστος</div><div class="ws-transliteration">theopneustos</div><div class="ws-pos">adjective — Greek</div><div class="ws-definition">God-breathed; divinely inspired. Compound of theos (God) + pneō (to breathe or blow). The same root as pneuma — Spirit, breath, wind.</div><div class="ws-note">Used only once in the NT — 2 Timothy 3:16. The word choice is remarkable: not "approved by God" or "about God" — but breathed out from God himself. The same creative breath that spoke the cosmos into existence.</div></div>
+        <div class="word-study"><div class="ws-original">γραφή</div><div class="ws-transliteration">graphē</div><div class="ws-pos">noun, feminine — Greek</div><div class="ws-definition">Writing, Scripture. Used 51 times in the NT — always referring to the sacred writings of the Old Testament, treated by Jesus and the apostles as authoritative and binding.</div><div class="ws-note">"Scripture cannot be broken" (John 10:35) uses this word. The graphē is not a collection of wise thoughts — it is a binding, unbreakable word. Jesus treated it that way.</div></div>
+        <div class="word-study"><div class="ws-original">דָּבָר</div><div class="ws-transliteration">dabar</div><div class="ws-pos">noun, masculine — Hebrew</div><div class="ws-definition">Word, thing, matter, event. God's dabar is not merely speech — it is effective action. When God speaks, things happen. His word does not return empty (Isaiah 55:11).</div><div class="ws-note">The same word used for "In the beginning God said..." (Genesis 1). The word of God creates reality. Scripture is not advice — it is the creative, governing word of the Creator.</div></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Scripture</div><div class="section-title">God Speaks</div><div class="section-sub">What the Bible says about its own nature and authority</div></div>
+      <div class="scripture-section"><div class="scripture-section-title">What Scripture Claims About Itself</div><div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness."</div><div class="vc-footer"><span class="vc-ref">2 Timothy 3:16</span><span class="vc-note">The foundational claim — origin and purpose together</span></div></div>
+        <div class="verse-card"><div class="vc-text">"For the word of God is living and active, sharper than any two-edged sword, piercing to the division of soul and of spirit, of joints and of marrow, and discerning the thoughts and intentions of the heart."</div><div class="vc-footer"><span class="vc-ref">Hebrews 4:12</span><span class="vc-note">Not a dead document — it reads you as you read it</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Heaven and earth will pass away, but my words will not pass away."</div><div class="vc-footer"><span class="vc-ref">Matthew 24:35</span><span class="vc-note">Jesus — the Word outlasts the created order</span></div></div>
+      </div></div>
+      <div class="scripture-section"><div class="scripture-section-title">How Jesus Treated Scripture</div><div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"It is written, 'Man shall not live by bread alone, but by every word that comes from the mouth of God.'"</div><div class="vc-footer"><span class="vc-ref">Matthew 4:4</span><span class="vc-note">Jesus quoting Deuteronomy to resist temptation</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Scripture cannot be broken."</div><div class="vc-footer"><span class="vc-ref">John 10:35</span><span class="vc-note">Jesus' own declaration — absolute and unqualified</span></div></div>
+        <div class="verse-card"><div class="vc-text">"And beginning with Moses and all the Prophets, he interpreted to them in all the Scriptures the things concerning himself."</div><div class="vc-footer"><span class="vc-ref">Luke 24:27</span><span class="vc-note">The risen Jesus teaching — all Scripture points to him</span></div></div>
+      </div></div>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let guideMode = false;
+function toggleGuideMode() {
+  guideMode = !guideMode;
+  document.body.classList.toggle('guide-active', guideMode);
+  document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
+}
+
+</script>
+</body>
+</html>

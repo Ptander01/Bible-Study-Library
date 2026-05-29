@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saturated in the Gospel — The Core Four</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#5a8ab0; --accent-dim:#2e5070; --accent-lt:#7aaad0;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:28px 0 10px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+
+/* ── Pillar Header ── */
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:40px 40px 32px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:640px){.site-header{grid-template-columns:1fr;gap:28px;padding:32px 24px 28px;}}
+.header-left .header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.header-left .header-title{font-family:var(--font-display);font-size:clamp(22px,4vw,40px);font-weight:700;letter-spacing:2px;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+.header-left .header-title span{color:var(--accent);}
+.header-left .header-verse{font-family:var(--font-serif);font-size:clamp(14px,2vw,18px);font-style:italic;color:var(--cream-dim);line-height:1.65;max-width:520px;}
+.header-left .header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);margin-top:8px;}
+
+/* Pillar Stack Visual */
+.pillar-stack{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.pillar-item{font-family:var(--font-display);font-size:clamp(10px,1.4vw,13px);letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:3px;white-space:nowrap;transition:all .2s;text-decoration:none;}
+.pillar-item.active{background:var(--accent);color:#fff;font-weight:700;}
+.pillar-item.inactive{background:transparent;border:1px solid var(--border-lt);color:var(--muted);}
+.pillar-item.inactive:hover{border-color:var(--border-lt);color:var(--cream-dim);}
+
+/* Navigation */
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* Section header */
+.section-header{margin-bottom:44px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,5vw,50px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:12px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+
+/* Components */
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:10px;}.callout p:last-child{margin-bottom:0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+@media(max-width:540px){.two-col{grid-template-columns:1fr;}}
+.col-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:20px;}
+.col-card-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.col-card-title{font-family:var(--font-display);font-size:15px;color:var(--cream);margin-bottom:10px;}
+.col-card p{font-size:14px;margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);display:flex;align-items:center;}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.challenge-block{background:var(--surface);border:1px solid var(--accent-dim);border-radius:6px;padding:32px;margin:36px 0;text-align:center;}
+.challenge-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:16px;}
+.challenge-text{font-family:var(--font-serif);font-size:clamp(18px,3vw,24px);font-style:italic;color:var(--cream);line-height:1.65;}
+
+/* Word study */
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;}
+.ws-original{font-family:var(--font-serif);font-size:clamp(34px,5vw,50px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;}
+
+/* Scripture */
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <div class="header-eyebrow">The Core Four · Pillar 01</div>
+    <div class="header-title"><span>Saturated</span> in the Gospel</div>
+    <div class="header-verse">"Paul, a servant of Christ Jesus, called to be an apostle, set apart for the gospel of God… concerning his Son, Jesus Christ our Lord."</div>
+    <div class="header-ref">Romans 1:1–3</div>
+  </div>
+  <div class="pillar-stack">
+    <a class="pillar-item active" href="core-four-gospel.html">Gospel</a>
+    <a class="pillar-item inactive" href="core-four-discipleship.html">Discipleship</a>
+    <a class="pillar-item inactive" href="core-four-community.html">Community</a>
+    <a class="pillar-item inactive" href="core-four-disciplemaking.html">Disciplemaking</a>
+  </div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study',this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+  </div>
+</div>
+
+<div class="panels">
+
+  <!-- STUDY -->
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">The Core Four · Pillar 01</div>
+        <div class="section-title">The Gospel</div>
+        <div class="section-sub">What it actually is — and why most people have only heard half of it</div>
+      </div>
+
+      <h2>What Is the Gospel?</h2>
+      <p>Ask most Christians what the gospel is and you'll get something like: "God loves you, Jesus died for your sins, believe and go to heaven." That's not wrong — but it's incomplete. And incomplete gospels produce incomplete disciples.</p>
+      <p>The word <em>gospel</em> — euangelion in Greek — means <strong>royal announcement</strong>. It's the word used in the Roman world when a general won a battle, or when a new king came to power. A herald would run ahead of the army and announce: "The king has come. The battle is won. Everything has changed." That's what the gospel is.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"The time is fulfilled, and the kingdom of God is at hand; repent and believe in the gospel."</div>
+        <div class="verse-ref">Mark 1:15 — Jesus' opening proclamation</div>
+      </div>
+
+      <p>Jesus didn't open with "God loves you." He opened with a royal announcement: the Kingdom has arrived. Repent and believe the news. The gospel is the announcement that <strong>Jesus is King</strong> and his Kingdom is now available to all who will enter it.</p>
+
+      <div class="callout accent">
+        <div class="callout-label">What Christ Means</div>
+        <p>"Christ" is not Jesus' last name. It is a title — the Greek translation of the Hebrew <em>Mashiach</em> (Messiah), meaning <strong>Anointed One</strong>. Anointing in the Old Testament commissioned kings, priests, and prophets. To call Jesus "Christ" is to declare him King, High Priest, and Prophet all in one. When Paul opens every letter "from Paul, a servant of Christ Jesus" — he is placing himself as a servant of a King.</p>
+      </div>
+
+      <h2>The Gospel Paul Preached</h2>
+
+      <div class="verse-block">
+        <div class="verse-text">"Now I would remind you, brothers, of the gospel I preached to you… that Christ died for our sins in accordance with the Scriptures, that he was buried, that he was raised on the third day in accordance with the Scriptures."</div>
+        <div class="verse-ref">1 Corinthians 15:1–4</div>
+      </div>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">He Was Born</div><div class="use-desc">The eternal Son of God entered human history — not as an observer but as a participant. He lived the life we were supposed to live, in full obedience to the Father, as the true image-bearing human.</div></div>
+        <div class="use-row"><div class="use-label">He Died</div><div class="use-desc">For the sins of his people. Not as a martyr or a victim — as a sacrifice. The righteous for the unrighteous. He absorbed the full weight of the world's sin and the full wrath of a holy God.</div></div>
+        <div class="use-row"><div class="use-label">He Rose</div><div class="use-desc">On the third day — declared Son of God with power (Romans 1:4). The resurrection is the Father's verdict: the sacrifice was accepted. Death is defeated. He is who he said he was.</div></div>
+        <div class="use-row"><div class="use-label">He Reigns</div><div class="use-desc">Ascended and seated at the right hand of the Father. All authority in heaven and on earth belongs to him (Matthew 28:18). This is the part most people leave out — and it's what makes the gospel news rather than just a nice story.</div></div>
+      </div>
+
+      <h2>The Gospel vs. The Benefits of the Gospel</h2>
+      <p>Here's where things go wrong. Most of what gets preached as "the gospel" is actually <em>the benefits of the gospel</em> — what you receive when you receive the King. These are real and wonderful:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Benefits — Real but Secondary</div>
+          <div class="col-card-title">What you receive</div>
+          <p>Adoption and purpose<br>Forgiveness of sins<br>The indwelling Holy Spirit<br>Entrance into the Kingdom<br>Freedom from bondage<br>Eternal life with God</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">The Gospel — The Announcement</div>
+          <div class="col-card-title">What has happened</div>
+          <p>Jesus is King<br>The Kingdom has come<br>Death is defeated<br>The world is being restored<br>There is a new humanity<br>Everything has changed</p>
+        </div>
+      </div>
+
+      <p>When we lead with the benefits and omit the announcement, we produce consumers — people who come to Jesus for what he gives rather than for who he is. A gospel-saturated disciple has heard and received <em>both</em>: the announcement that King Jesus reigns, and the personal reality of what that means for them.</p>
+
+      <div class="callout">
+        <div class="callout-label">The Expectation That Follows</div>
+        <p>The gospel is not merely information to be believed. It is an announcement that demands a response. When a new king comes to power, you don't simply acknowledge him intellectually — you align yourself with his kingdom. The call of the gospel is not "agree with this" but <strong>repent and believe</strong> — turn your whole life toward the King and his Kingdom.</p>
+        <p>Matthew 4:17–19: Jesus says "Repent, for the kingdom of heaven is at hand" — and immediately calls fishermen to leave their nets. Follow me. The announcement produces followers, not just believers.</p>
+      </div>
+
+      <h2>What "Saturated" Means</h2>
+      <p>The first of the Core Four is not merely "knows the gospel" — it's <em>saturated</em> in it. The difference matters. A person who knows the gospel can recite it. A person saturated in the gospel is shaped by it — it is the lens through which they see everything else.</p>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">In Identity</div><div class="use-desc">A gospel-saturated person knows they are defined by what God says, not what they've done or what others think. Adoption replaces performance. Security replaces striving.</div></div>
+        <div class="use-row"><div class="use-label">In Relationships</div><div class="use-desc">Because they've received grace they didn't earn, they give grace they're not owed. Forgiveness flows from the gospel — "as God in Christ forgave you" (Ephesians 4:32).</div></div>
+        <div class="use-row"><div class="use-label">In Suffering</div><div class="use-desc">The resurrection means the worst thing is never the last thing. A saturated disciple faces hard things with hope — not denial, but the deep confidence that God is at work and death doesn't win.</div></div>
+        <div class="use-row"><div class="use-label">In Mission</div><div class="use-desc">People saturated in the gospel want others to have what they have. Acts 8:4 — "those who were scattered went about preaching the word." The gospel announced produces people who announce the gospel.</div></div>
+      </div>
+
+      <div class="challenge-block">
+        <div class="challenge-label">This Week</div>
+        <div class="challenge-text">Read Romans 1:1–17 slowly. Notice how Paul frames the gospel before he gets to sin, justification, or any of the theology we typically lead with. What comes first? What does that order tell you?</div>
+      </div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Romans 1:1–4</span><span class="ref-desc">Paul's summary — the gospel concerning the Son, declared King by the resurrection.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Corinthians 15:1–8</span><span class="ref-desc">The gospel of first importance — died, buried, raised, appeared. The core events.</span></div>
+        <div class="ref-item"><span class="ref-book">Mark 1:14–15</span><span class="ref-desc">Jesus' opening proclamation — Kingdom, repentance, belief. The royal announcement.</span></div>
+        <div class="ref-item"><span class="ref-book">Acts 8:4–5, 12</span><span class="ref-desc">Philip preaching "the good news about the kingdom of God and the name of Jesus Christ."</span></div>
+        <div class="ref-item"><span class="ref-book">Matthew 28:18–20</span><span class="ref-desc">All authority belongs to the risen King — the commission flows from his reign.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORD STUDY -->
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study · Pillar 01</div>
+        <div class="section-title">Gospel · King · Kingdom</div>
+        <div class="section-sub">The original words behind the royal announcement</div>
+      </div>
+      <div class="word-study-grid">
+        <div class="word-study">
+          <div class="ws-original">εὐαγγέλιον</div>
+          <div class="ws-transliteration">euangelion</div>
+          <div class="ws-pos">noun, neuter — Greek</div>
+          <div class="ws-definition">Gospel; good news; royal announcement. From eu (good) + angelos (messenger). In the Roman world, a euangelion was the official announcement of a military victory or the accession of a new emperor. Not a private letter — a public proclamation that changed the political reality for everyone who heard it.</div>
+          <div class="ws-note">This is why Paul says he is "not ashamed of the gospel" (Romans 1:16) — the word itself was associated with Roman imperial power. Paul is announcing a greater King and a greater kingdom. The gospel is not a self-help message; it is a royal decree.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">Χριστός</div>
+          <div class="ws-transliteration">Christos</div>
+          <div class="ws-pos">noun, masculine — Greek</div>
+          <div class="ws-definition">Anointed One; Messiah; King. The Greek translation of the Hebrew Mashiach. In the Old Testament, anointing was the ceremony that commissioned kings (1 Samuel 16:13), priests (Exodus 29:7), and prophets (1 Kings 19:16). To call Jesus "Christ" is to declare him all three.</div>
+          <div class="ws-note">By the time of Paul's letters, "Christ" was already being used almost as a name — many of his Gentile readers may not have known its meaning. Paul in Romans 1:1–4 takes time to unpack it: this is the gospel "concerning his Son… declared to be the Son of God in power… Jesus Christ our Lord." The title carries the full weight of Israel's royal expectation.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">βασιλεία</div>
+          <div class="ws-transliteration">basileia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Kingdom; reign; royal rule. Not primarily a territory but an exercise of authority. The kingdom of God is wherever God's rule is acknowledged and operative. Jesus announced its arrival — not as something entirely future, but as a present reality breaking into the world through him.</div>
+          <div class="ws-note">Matthew 4:17 — "Repent, for the kingdom of heaven is at hand." The word translated "at hand" (ēngiken) means it has drawn near, has arrived at your doorstep. Jesus' miracles are signs of the kingdom's presence — disease fleeing, demons expelled, the dead raised. The kingdom is not just something to wait for. It is something to enter now.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTURE -->
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture · Pillar 01</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">The biblical foundation for the gospel as royal announcement</div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">What the Gospel Is</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"Paul, a servant of Christ Jesus, called to be an apostle, set apart for the gospel of God, which he promised beforehand through his prophets in the holy Scriptures, concerning his Son, who was descended from David according to the flesh and was declared to be the Son of God in power according to the Spirit of holiness by his resurrection from the dead, Jesus Christ our Lord."</div><div class="vc-footer"><span class="vc-ref">Romans 1:1–4</span><span class="vc-note">Paul's opening definition — the gospel is about a person, a resurrection, a declaration of Kingship.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"The time is fulfilled, and the kingdom of God is at hand; repent and believe in the gospel."</div><div class="vc-footer"><span class="vc-ref">Mark 1:15</span><span class="vc-note">Jesus' first public words — a royal announcement, not a therapy offer.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"For I delivered to you as of first importance what I also received: that Christ died for our sins in accordance with the Scriptures, that he was buried, that he was raised on the third day in accordance with the Scriptures."</div><div class="vc-footer"><span class="vc-ref">1 Corinthians 15:3–4</span><span class="vc-note">The core events — the "of first importance" gospel that Paul received and passed on.</span></div></div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Response the Gospel Demands</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"And Jesus came and said to them, 'All authority in heaven and on earth has been given to me. Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you.'"</div><div class="vc-footer"><span class="vc-ref">Matthew 28:18–20</span><span class="vc-note">The commission flows from the reign. Because he is King over everything, go make subjects.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Philip went down to the city of Samaria and proclaimed to them the Christ… But when they believed Philip as he preached good news about the kingdom of God and the name of Jesus Christ, they were baptized, both men and women."</div><div class="vc-footer"><span class="vc-ref">Acts 8:5, 12</span><span class="vc-note">Note what Philip preached: the kingdom of God AND the name of Jesus. Both together. That's the full gospel.</span></div></div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Benefits That Follow</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"In him we have redemption through his blood, the forgiveness of our trespasses, according to the riches of his grace… In him you also, when you heard the word of truth, the gospel of your salvation, and believed in him, were sealed with the promised Holy Spirit."</div><div class="vc-footer"><span class="vc-ref">Ephesians 1:7, 13</span><span class="vc-note">Forgiveness, adoption, the Spirit — real benefits, flowing from the King.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"The Spirit of the Lord is upon me, because he has anointed me to proclaim good news to the poor. He has sent me to proclaim liberty to the captives and recovering of sight to the blind, to set at liberty those who are oppressed."</div><div class="vc-footer"><span class="vc-ref">Luke 4:18</span><span class="vc-note">Jesus quoting Isaiah 61 — the gospel brings liberation. Freedom is a benefit, not the announcement itself.</span></div></div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">Saturated — Living in the Gospel</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"For I am not ashamed of the gospel, for it is the power of God for salvation to everyone who believes, to the Jew first and also to the Greek."</div><div class="vc-footer"><span class="vc-ref">Romans 1:16</span><span class="vc-note">The gospel is not a private comfort — it is the power of God, publicly announced.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Now those who were scattered because of the persecution that arose over Stephen traveled as far as Phoenicia and Cyprus and Antioch, speaking the word to no one except Jews. But there were some of them… who on coming to Antioch spoke to the Hellenists also, preaching the Lord Jesus."</div><div class="vc-footer"><span class="vc-ref">Acts 11:19–20</span><span class="vc-note">Saturated people can't help it — everywhere they go, the announcement follows them.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function switchTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+</script>
+</body>
+</html>

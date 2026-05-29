@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeking God — First Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SEEKING GOD — First Principles Study 1
+   Fully self-contained. Accent: Warm Neutral #a89880
+   ============================================================ */
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #a89880;
+  --accent-dim:   #5e5040;
+  --accent-lt:    #c8b8a0;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --guide-bg:     #0d1a0d;
+  --guide-border: #1a3a1a;
+  --guide-accent: #4a8a4a;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+
+/* ===== TYPOGRAPHY ===== */
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+
+/* ===== LAYOUT ===== */
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ===== SITE HEADER ===== */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #0f1625 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ===== TAB BAR ===== */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; gap: 0; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; position: relative; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ===== SECTION HEADER ===== */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ===== VERSE BLOCK ===== */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ===== CALLOUT ===== */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ===== USES GRID ===== */
+.uses-grid { display: grid; grid-template-columns: 1fr; gap: 2px; margin: 24px 0; border: 1px solid var(--border-lt); border-radius: 6px; overflow: hidden; }
+.use-row { display: grid; grid-template-columns: 140px 1fr; background: var(--surface); }
+.use-row:nth-child(even) { background: var(--surface-2); }
+.use-label { padding: 16px 20px; font-family: var(--font-display); font-size: 12px; letter-spacing: 1px; font-weight: 600; color: var(--accent); border-right: 1px solid var(--border); display: flex; align-items: center; }
+.use-desc { padding: 16px 20px; font-size: 14px; color: var(--cream-dim); display: flex; align-items: center; }
+@media (max-width: 500px) { .use-row { grid-template-columns: 1fr; } .use-label { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 8px; } }
+
+/* ===== QUENCHERS ===== */
+.quencher-list { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+.quencher { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning-dim); border-radius: 4px; padding: 16px 20px; }
+.quencher strong { color: var(--cream); display: block; font-size: 14px; margin-bottom: 4px; }
+.quencher p { font-size: 13px; margin: 0; }
+
+/* ===== SCRIPTURE REFS ===== */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); white-space: nowrap; min-width: 140px; padding-top: 2px; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); }
+
+/* ===== VERSE CARDS ===== */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ===== GUIDE MODE ===== */
+.guide-block { display: none; }
+.guide-active .guide-block { display: block; background: var(--guide-bg); border: 1px solid var(--guide-border); border-left: 3px solid var(--guide-accent); border-radius: 4px; padding: 16px 20px; margin: 12px 0; }
+.guide-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--guide-accent); margin-bottom: 10px; }
+.guide-tip { font-size: 13px; color: #6aaa6a; margin-bottom: 8px; line-height: 1.6; }
+.guide-tip:last-child { margin-bottom: 0; }
+.guide-active .tab-bar-wrap { box-shadow: inset 0 -2px 0 var(--guide-border); }
+#guide-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 100; background: var(--guide-bg); border: 1px solid var(--guide-border); color: var(--guide-accent); font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 10px 18px; border-radius: 4px; cursor: pointer; transition: background .2s, border-color .2s; opacity: .6; }
+#guide-toggle:hover { opacity: 1; }
+.guide-active #guide-toggle { background: #1a3a1a; border-color: var(--guide-accent); opacity: 1; }
+
+/* ===== WORD STUDY ===== */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent-dim); border-radius: 6px; padding: 28px 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent); border-top-color: var(--accent); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(36px, 5vw, 52px); color: var(--accent); line-height: 1.1; margin-bottom: 8px; letter-spacing: -1px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 14px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
+
+/* ===== STUDY-SPECIFIC: Heart condition selector ===== */
+.heart-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 24px 0; }
+.heart-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px 16px; cursor: pointer; text-align: center; transition: border-color .2s, background .2s; color: inherit; font-family: inherit; }
+.heart-btn:hover { border-color: var(--accent-dim); background: var(--surface-2); }
+.heart-btn.selected { border-color: var(--accent); border-top: 3px solid var(--accent); background: var(--surface-2); }
+.heart-icon { font-size: 30px; margin-bottom: 12px; }
+.heart-name { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); margin-bottom: 8px; }
+.heart-desc { font-size: 12px; color: var(--cream-dim); line-height: 1.55; }
+.heart-content { display: none; margin-top: 28px; animation: fadeIn .3s ease; }
+.heart-content.visible { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== Promise split card ===== */
+.promise-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+@media (max-width: 560px) { .promise-row { grid-template-columns: 1fr; } }
+.promise-side { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.promise-side-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+.promise-side-label.condition { color: var(--accent-dim); }
+.promise-side-label.result { color: #4a8a4a; }
+.promise-side p { font-size: 14px; color: var(--cream-dim); margin: 0; line-height: 1.7; }
+
+/* ===== SVG illustration ===== */
+.illustration { margin: 36px 0; text-align: center; }
+.caption { font-family: var(--font-body); font-size: 12px; font-style: italic; color: var(--muted); margin-top: 12px; }
+
+/* ===== PRINT ===== */
+@media print {
+  body { background: white; color: #111; }
+  body::before { display: none; }
+  .tab-bar-wrap, #guide-toggle { display: none; }
+  .panel { display: block !important; page-break-before: always; }
+  .panel:first-child { page-break-before: avoid; }
+  .verse-block, .callout, .word-study { border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">First Principles · Study 1</div>
+  <div class="header-title">Seeking <span>God</span></div>
+  <div class="header-verse">"You will seek me and find me, when you seek me with all your heart."</div>
+  <div class="header-ref">Jeremiah 29:13</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study', this)">Study</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+  </div>
+</div>
+
+<button id="guide-toggle" onclick="toggleGuideMode()">◎ Guide Mode</button>
+
+<div class="panels">
+
+  <!-- ===== STUDY ===== -->
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">First Principles · Study 1</div>
+        <div class="section-title">Seeking God</div>
+        <div class="section-sub">The starting point — before anything else can be built</div>
+      </div>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Purpose of This Study</div>
+        <p class="guide-tip">This study surfaces whether someone is genuinely open to investigating who God is, or operating on assumptions they've never examined. Skip it for someone clearly already seeking. Use it for someone culturally Christian, religiously passive, or casually curious.</p>
+        <p class="guide-tip">Tone: warm, unhurried, genuinely curious about them. You are not selling something. You are asking a real question together.</p>
+        <p class="guide-tip">Opener: "Before we look at any of this — where are you starting from? Do you believe in God, are you not sure, or have you kind of assumed you do without thinking much about it?" Let them answer. Their answer tells you which section to lean into.</p>
+      </div>
+
+      <h2>Where Does This Begin?</h2>
+      <p>Before any study of what the Bible says — before any conversation about Jesus or the church — there is a prior question. It's the question every other question traces back to:</p>
+
+      <div class="callout accent">
+        <div class="callout-label">The First Question</div>
+        <p style="font-family:var(--font-serif);font-size:22px;font-style:italic;color:var(--cream);line-height:1.6;">Is there a God — and if there is, am I looking for him?</p>
+      </div>
+
+      <p>Everything in these studies assumes this question is being taken seriously. Not that it's been answered — but that it's open. A person who has genuinely decided the answer is no, and is not willing to reconsider, won't get much from any of this. A person who doesn't know but wants to — that's exactly where this is designed to start.</p>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Watch For</div>
+        <p class="guide-tip">The person who says "yes of course I believe in God" reflexively but has no active relationship. That's often cultural Christianity, not genuine seeking. Don't challenge it directly — let the study surface it.</p>
+        <p class="guide-tip">The person who uses intellectual objections as a shield. Many objections to God aren't really intellectual — they're moral. "I can't believe in a God who would..." often means "I don't want to be accountable to a God who..." That's honest to name, but gently and much later in the relationship.</p>
+      </div>
+
+      <h2>Is There a God?</h2>
+      <p>Scripture doesn't spend much time arguing for God's existence — it assumes it. But it does point to evidence God has built into creation itself.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"For what can be known about God is plain to them, because God has shown it to them. For his invisible attributes, namely, his eternal power and divine nature, have been clearly perceived, ever since the creation of the world, in the things that have been made."</div>
+        <div class="verse-ref">Romans 1:19–20</div>
+      </div>
+
+      <p>Paul's argument: creation makes God knowable — not fully, not personally, but enough. The universe's existence, its fine-tuned constants for life, the existence of consciousness, of beauty, of moral intuition — none of these are accidents that explain themselves.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"The heavens declare the glory of God, and the sky above proclaims his handiwork."</div>
+        <div class="verse-ref">Psalm 19:1</div>
+      </div>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Handling Skepticism Here</div>
+        <p class="guide-tip">If someone pushes back with science or evolution: "That's worth exploring. But let me ask — what would it take for you to believe? If no possible evidence could change your mind, that's not skepticism — that's a closed case. Real intellectual honesty has to be open in both directions."</p>
+        <p class="guide-tip">The goal isn't to win an argument. It's to help them see the question is genuinely open — and worth pursuing honestly.</p>
+      </div>
+
+      <h2>What Kind of God?</h2>
+      <p>The God of Scripture is not a distant force or impersonal origin. He is a God who acts in history, who speaks — and who wants to be found.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"And he made from one man every nation of mankind to live on all the face of the earth, having determined allotted periods and the boundaries of their dwelling place, that they should seek God, and perhaps feel their way toward him and find him. Yet he is actually not far from each one of us."</div>
+        <div class="verse-ref">Acts 17:26–27</div>
+      </div>
+
+      <p>Paul speaks to a room of sophisticated Athens skeptics and makes a bold claim: God arranged the entire arc of human history so that people would seek him. And he is not far.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;width:100%;">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#a89880" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#a89880" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="600" height="180" fill="#0c0f18" rx="8"/>
+          <ellipse cx="300" cy="90" rx="130" ry="70" fill="url(#glow)"/>
+          <!-- Left person -->
+          <circle cx="80" cy="90" r="26" fill="#13182a" stroke="#2e3858" stroke-width="1.5"/>
+          <text x="80" y="87" text-anchor="middle" fill="#a09a8e" font-family="Lora,serif" font-size="11">You</text>
+          <text x="80" y="102" text-anchor="middle" fill="#5c6078" font-family="Lora,serif" font-size="10" font-style="italic">anywhere</text>
+          <!-- Right person -->
+          <circle cx="520" cy="90" r="26" fill="#13182a" stroke="#2e3858" stroke-width="1.5"/>
+          <text x="520" y="87" text-anchor="middle" fill="#a09a8e" font-family="Lora,serif" font-size="11">You</text>
+          <text x="520" y="102" text-anchor="middle" fill="#5c6078" font-family="Lora,serif" font-size="10" font-style="italic">anywhere</text>
+          <!-- God center -->
+          <circle cx="300" cy="90" r="38" fill="#1a2035" stroke="#a89880" stroke-width="1.5"/>
+          <text x="300" y="84" text-anchor="middle" fill="#a89880" font-family="Cinzel,serif" font-size="12" letter-spacing="2">GOD</text>
+          <text x="300" y="102" text-anchor="middle" fill="#5e5040" font-family="Cinzel,serif" font-size="9" letter-spacing="1">NOT FAR</text>
+          <!-- Arrows -->
+          <line x1="112" y1="90" x2="252" y2="90" stroke="#5e5040" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <polygon points="252,86 264,90 252,94" fill="#5e5040"/>
+          <line x1="488" y1="90" x2="348" y2="90" stroke="#5e5040" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <polygon points="348,86 336,90 348,94" fill="#5e5040"/>
+          <!-- Caption -->
+          <text x="300" y="162" text-anchor="middle" fill="#5c6078" font-family="Lora,serif" font-size="11" font-style="italic">"He is actually not far from each one of us."  — Acts 17:27</text>
+        </svg>
+      </div>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — The God Who Wants to Be Found</div>
+        <p class="guide-tip">Many people carry an image of God as distant, demanding, or hard to reach — someone you perform for before he'll engage. Acts 17 directly contradicts that. Ask: "When you picture God, what does he look like to you — close or far? Interested or indifferent?" Let them say it. Then read Acts 17:27 slowly: "He is actually not far from each one of us."</p>
+      </div>
+
+      <h2>What Does It Mean to Seek?</h2>
+      <p>"Seek" in Scripture is never passive. It's not vague spirituality or general openness to religion. It carries the quality of active pursuit — someone who genuinely wants to find and adjusts their life accordingly.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you. For everyone who asks receives, and the one who seeks finds, and to the one who knocks it will be opened."</div>
+        <div class="verse-ref">Matthew 7:7–8</div>
+      </div>
+
+      <p>Jesus uses three escalating verbs. Each is more active than the last. This is not waiting to see if God happens to show up. This is someone who goes looking.</p>
+
+      <div class="uses-grid">
+        <div class="use-row">
+          <div class="use-label">Ask</div>
+          <div class="use-desc">Acknowledging you don't have the answer — directing your need upward. Humility before God.</div>
+        </div>
+        <div class="use-row">
+          <div class="use-label">Seek</div>
+          <div class="use-desc">Active investigation — reading, asking questions, showing up. Not waiting to see what happens.</div>
+        </div>
+        <div class="use-row">
+          <div class="use-label">Knock</div>
+          <div class="use-desc">Persistent engagement — not giving up when the first attempt doesn't produce immediate results.</div>
+        </div>
+      </div>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Testing the Posture</div>
+        <p class="guide-tip">Ask: "On a scale of 1–10, how actively are you actually looking? Or has it been more passive — open if God shows up, but not really pursuing it?" Most people land in the middle. That's honest. Help them see that seeking is something you do, not something that happens to you.</p>
+        <p class="guide-tip">Be careful not to shame. This question is diagnostic, not accusatory.</p>
+      </div>
+
+      <h2>The Condition: With All Your Heart</h2>
+      <p>The promise of Jeremiah 29:13 has a condition attached. Not "you will seek me and find me" — full stop. But "when you seek me with all your heart."</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"You will seek me and find me, when you seek me with all your heart."</div>
+        <div class="verse-ref">Jeremiah 29:13</div>
+      </div>
+
+      <div class="promise-row">
+        <div class="promise-side">
+          <div class="promise-side-label condition">The Condition</div>
+          <p>Seek with all your heart — not a corner of it, not when convenient, not alongside everything else competing for the same space. Whole-heart seeking.</p>
+        </div>
+        <div class="promise-side">
+          <div class="promise-side-label result">The Promise</div>
+          <p>You will find. This is not a maybe. God does not hide from the person who genuinely looks. The promise is certain — the condition is the variable.</p>
+        </div>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"And without faith it is impossible to please him, for whoever would draw near to God must believe that he exists and that he rewards those who seek him."</div>
+        <div class="verse-ref">Hebrews 11:6</div>
+      </div>
+
+      <p>Two things required to draw near to God: believing he exists, and believing he rewards those who seek him. Not certainty — but enough belief to act on. God rewards that kind of seeking.</p>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — The Divided Heart</div>
+        <p class="guide-tip">The "whole heart" phrase is worth time. Most people are seeking God with part of their heart — the part not occupied by comfort, reputation, relationships, money, or habits they don't want examined. That's not seeking with all your heart.</p>
+        <p class="guide-tip">Plant the seed: "Is there anything you're holding back from this investigation? Anything you're hoping you won't have to deal with if this turns out to be true?" Let them sit with it. Some will name it immediately. Others won't until several sessions in. Either is fine — don't excavate it aggressively.</p>
+      </div>
+
+      <h2>Where Are You Starting From?</h2>
+      <p>People come to this conversation from very different places. Select the one that most honestly describes where you are right now.</p>
+
+      <div class="heart-grid">
+        <button class="heart-btn" onclick="showHeart('skeptic', this)">
+          <div class="heart-icon">🔍</div>
+          <div class="heart-name">Skeptic</div>
+          <div class="heart-desc">I'm not sure God exists, or I have doubts I haven't resolved.</div>
+        </button>
+        <button class="heart-btn" onclick="showHeart('assumed', this)">
+          <div class="heart-icon">🌫️</div>
+          <div class="heart-name">Assumed</div>
+          <div class="heart-desc">I grew up believing but have never really examined it for myself.</div>
+        </button>
+        <button class="heart-btn" onclick="showHeart('distant', this)">
+          <div class="heart-icon">📡</div>
+          <div class="heart-name">Distant</div>
+          <div class="heart-desc">I believe in God but wouldn't say we have an active relationship.</div>
+        </button>
+        <button class="heart-btn" onclick="showHeart('ready', this)">
+          <div class="heart-icon">🔥</div>
+          <div class="heart-name">Ready</div>
+          <div class="heart-desc">I genuinely want to find God and I'm willing to follow wherever that leads.</div>
+        </button>
+      </div>
+
+      <div class="heart-content" id="heart-skeptic">
+        <div class="callout">
+          <div class="callout-label">For the Honest Skeptic</div>
+          <p>Doubt is not the enemy of faith — incuriosity is. Job accused God of injustice. David asked why God was sleeping. Thomas refused to believe without evidence. Asaph nearly walked away entirely (Psalm 73). Real doubt, honestly brought, is the beginning of real discovery — not an obstacle to it.</p>
+        </div>
+        <div class="verse-block">
+          <div class="verse-text">"Immediately the father of the child cried out and said, 'I believe; help my unbelief!'"</div>
+          <div class="verse-ref">Mark 9:24</div>
+        </div>
+        <p>This man did not resolve his doubts before coming to Jesus. He brought them with him. Jesus did not turn him away. The honest prayer — "I'm not sure, but help me" — is a prayer God has answered a thousand times.</p>
+      </div>
+
+      <div class="heart-content" id="heart-assumed">
+        <div class="callout">
+          <div class="callout-label">For the Cultural Christian</div>
+          <p>Growing up in the church, in a Christian family, in the Bible Belt — none of these make someone a Christian. What you inherited is a vocabulary, a set of habits, and probably genuine affection for the idea of God. What may be missing is a personal reckoning: What do I actually believe? Have I ever genuinely sought this for myself?</p>
+        </div>
+        <div class="verse-block">
+          <div class="verse-text">"Not everyone who says to me, 'Lord, Lord,' will enter the kingdom of heaven, but the one who does the will of my Father who is in heaven."</div>
+          <div class="verse-ref">Matthew 7:21</div>
+        </div>
+        <p>Jesus describes people who were religious, who used the right language, who expected to be recognized. The question he presses: not "Did you go to church?" but "Did you do the will of my Father?" That's worth sitting with honestly.</p>
+      </div>
+
+      <div class="heart-content" id="heart-distant">
+        <div class="callout">
+          <div class="callout-label">For the Believer Who Has Drifted</div>
+          <p>You believe. You've believed for years. Somewhere the distance grew — through busyness, disappointment, sin, or simply neglect — and now the relationship that once felt alive feels more like a distant memory. The good news is that God has not moved.</p>
+        </div>
+        <div class="verse-block">
+          <div class="verse-text">"Return to me, and I will return to you, says the Lord of hosts."</div>
+          <div class="verse-ref">Malachi 3:7</div>
+        </div>
+        <p>The return is always available. But it requires more than nostalgia for an easier time. It requires the same whole-heart seeking Jeremiah 29 describes — active, deliberate, and honest about how far the drift has gone.</p>
+      </div>
+
+      <div class="heart-content" id="heart-ready">
+        <div class="callout">
+          <div class="callout-label">For the One Who Is Ready</div>
+          <p>Not because you have everything figured out — but because you're willing to follow wherever the investigation leads, even if it costs you something. That kind of openness is rare and it's exactly what Scripture calls "seeking with all your heart."</p>
+        </div>
+        <div class="verse-block">
+          <div class="verse-text">"But seek first the kingdom of God and his righteousness, and all these things will be added to you."</div>
+          <div class="verse-ref">Matthew 6:33</div>
+        </div>
+        <p>The promise is not that seeking God solves all your problems. It's that when you put first things first, everything else lands in its proper place. The cost of seeking is real. So is the reward.</p>
+      </div>
+
+      <h2>What Gets in the Way</h2>
+      <div class="quencher-list">
+        <div class="quencher">
+          <strong>Comfort and Competing Loves</strong>
+          <p>What most people protect when they avoid genuine seeking isn't their intellect — it's their lifestyle. If this is true, something has to change. That's the real obstacle for most people.</p>
+        </div>
+        <div class="quencher">
+          <strong>Inherited Religion Without Personal Reckoning</strong>
+          <p>Assuming you've settled the question because your parents settled it for you. This can look like faith but has no roots — and won't survive pressure.</p>
+        </div>
+        <div class="quencher">
+          <strong>Intellectual Deflection</strong>
+          <p>Using unresolved theological questions as a reason not to engage. Every worldview has hard questions. The question is whether you're genuinely investigating or using the questions as cover.</p>
+        </div>
+        <div class="quencher">
+          <strong>Passivity</strong>
+          <p>Waiting for God to show up dramatically before committing to seek him. But Matthew 7 says seeking comes before finding — not after.</p>
+        </div>
+      </div>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Finding the Real Obstacle</div>
+        <p class="guide-tip">By now you should have a sense of which of these applies. The real obstacle is rarely the one named first. Intellectual objections often cover something more personal: a relationship they'd have to address, a habit they'd have to give up, a pride they'd have to lay down.</p>
+        <p class="guide-tip">Ask: "Of these four, which most honestly describes what gets in the way for you?" Then listen without filling the silence.</p>
+      </div>
+
+      <h2>The Promise That Holds</h2>
+      <div class="verse-block">
+        <div class="verse-text">"For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope. Then you will call upon me and come and pray to me, and I will hear you. You will seek me and find me, when you seek me with all your heart."</div>
+        <div class="verse-ref">Jeremiah 29:11–13</div>
+      </div>
+
+      <p>Jeremiah wrote this to people in exile — people with every reason to believe God had abandoned them. Into that situation, God makes a promise: I have not forgotten you. I have plans for you. When you seek me, you will find me.</p>
+      <p>That promise has not expired.</p>
+
+      <div class="guide-block">
+        <div class="guide-label">Guide Note — Closing the Conversation</div>
+        <p class="guide-tip">End with one direct, simple question: "Are you willing to seek? Not to commit to anything yet. Not to agree with everything we've said. Just to genuinely look?" If yes, move to the challenge and agree on next steps. If unsure, affirm the honesty: "That's fair. What would need to be different for you to be willing?"</p>
+        <p class="guide-tip">If someone is clearly not seeking and unwilling to start, don't force it. Leave the door open. The series is for people who choose to engage — not people being dragged through it.</p>
+      </div>
+
+      <h2>The Challenge</h2>
+      <div class="callout accent">
+        <div class="callout-label">This Week</div>
+        <p>Read the Gospel of John — starting at chapter 1. Don't read it as a document to evaluate. Read it as a story about a real person and ask one question as you go: <em>Who is this?</em> Come back ready to talk about what you found.</p>
+      </div>
+
+      <div class="ref-list" style="margin-top:36px;">
+        <div class="ref-item"><span class="ref-book">Jeremiah 29:11–13</span><span class="ref-desc">The anchor promise — seek with all your heart and you will find.</span></div>
+        <div class="ref-item"><span class="ref-book">Acts 17:26–27</span><span class="ref-desc">God arranged history so people would seek him. He is not far.</span></div>
+        <div class="ref-item"><span class="ref-book">Matthew 7:7–8</span><span class="ref-desc">Ask, seek, knock — the promise belongs to those who pursue.</span></div>
+        <div class="ref-item"><span class="ref-book">Hebrews 11:6</span><span class="ref-desc">He rewards those who seek him — not those who wait.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 1:19–20</span><span class="ref-desc">God has made himself knowable through creation itself.</span></div>
+        <div class="ref-item"><span class="ref-book">Deuteronomy 4:29</span><span class="ref-desc">You will find him if you search with all your heart and soul.</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== WORD STUDY ===== -->
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study</div>
+        <div class="section-title">Seek · Heart</div>
+        <div class="section-sub">The original words behind the key terms of this study</div>
+      </div>
+
+      <p>Two words carry the weight of everything in this study: the word for <em>seek</em> and the word for <em>heart</em>. In both Hebrew and Greek, these words are richer and more demanding than their English translations suggest.</p>
+
+      <h2>On Seeking</h2>
+      <div class="word-study-grid">
+
+        <div class="word-study">
+          <div class="ws-original">דָּרַשׁ</div>
+          <div class="ws-transliteration">darash</div>
+          <div class="ws-pos">verb — Hebrew</div>
+          <div class="ws-definition">To seek, to inquire, to investigate with care. From a root meaning to tread or to frequent — implying repeated, persistent return rather than a single glance.</div>
+          <div class="ws-note">Used in Jeremiah 29:13 and Deuteronomy 4:29. The word pictures someone who returns again and again to a place — not someone who checks once and moves on. This is the seeking God requires.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">בָּקַשׁ</div>
+          <div class="ws-transliteration">baqash</div>
+          <div class="ws-pos">verb — Hebrew</div>
+          <div class="ws-definition">To seek, to search for, to desire earnestly. Implies an urgent, intentional search — like someone looking for something they need and cannot do without.</div>
+          <div class="ws-note">Used throughout the Psalms for seeking God's face. The word carries the weight of longing — not casual interest, but genuine need. "As the deer pants for water" (Psalm 42) is baqash territory.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">ζητέω</div>
+          <div class="ws-transliteration">zēteō</div>
+          <div class="ws-pos">verb — Greek</div>
+          <div class="ws-definition">To seek, to look for, to strive to find. Active pursuit with effort and intention. Used by Jesus in Matthew 7:7 ("seek and you will find") and Matthew 6:33 ("seek first the kingdom").</div>
+          <div class="ws-note">The same word describes a woman searching her house for a lost coin (Luke 15:8) — overturning everything until it's found. That quality of searching is what Jesus commends.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">ἐκζητέω</div>
+          <div class="ws-transliteration">ekzēteō</div>
+          <div class="ws-pos">verb — Greek, intensive form</div>
+          <div class="ws-definition">To seek out diligently, to search for earnestly. The prefix ek- intensifies the base — seeking that goes to the full extent, leaving nothing unsearched.</div>
+          <div class="ws-note">Used in Hebrews 11:6 — "he rewards those who seek him." The reward is not for casual interest. It belongs to the one whose seeking is thorough and sustained.</div>
+        </div>
+
+      </div>
+
+      <h2>On the Heart</h2>
+      <div class="word-study-grid">
+
+        <div class="word-study">
+          <div class="ws-original">לֵבָב</div>
+          <div class="ws-transliteration">levav</div>
+          <div class="ws-pos">noun, masculine — Hebrew</div>
+          <div class="ws-definition">The heart — the seat of the entire inner life: intellect, will, emotion, conscience. Not merely feeling, but the deepest center of who a person is.</div>
+          <div class="ws-note">When Scripture says "with all your heart," it means with your whole inner person — not just emotions. What you think, what you choose, and what you feel are all included. "All" leaves nothing out.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">καρδία</div>
+          <div class="ws-transliteration">kardia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">The heart — center of the spiritual and moral life. The place from which thought, desire, purpose, and decision flow. What a person truly is at their core.</div>
+          <div class="ws-note">Jesus says "out of the heart come evil thoughts, murder, adultery..." (Matt 15:19). The heart is the real person — not the public self, not the performed self. God seeks access to this, not the performance.</div>
+        </div>
+
+      </div>
+
+      <div class="callout" style="margin-top:36px;">
+        <div class="callout-label">What This Means Together</div>
+        <p>Seeking God "with all your heart" — levav or kardia — is not primarily an emotional experience. It is a whole-person orientation. You bring your intellect: you actually investigate. You bring your will: you choose to pursue even when it costs you. You bring your affection: you begin to desire finding him, not just the idea of him. When all three engage together — that's seeking with all your heart.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTURE ===== -->
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture</div>
+        <div class="section-title">God Is Found</div>
+        <div class="section-sub">What the Bible says about seeking — and finding</div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Promise — God Rewards Seeking</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"You will seek me and find me, when you seek me with all your heart."</div>
+            <div class="vc-footer"><span class="vc-ref">Jeremiah 29:13</span><span class="vc-note">The anchor promise — conditional and certain</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"But from there you will seek the Lord your God and you will find him, if you search after him with all your heart and with all your soul."</div>
+            <div class="vc-footer"><span class="vc-ref">Deuteronomy 4:29</span><span class="vc-note">Moses to Israel in exile — same promise across centuries</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"And without faith it is impossible to please him, for whoever would draw near to God must believe that he exists and that he rewards those who seek him."</div>
+            <div class="vc-footer"><span class="vc-ref">Hebrews 11:6</span><span class="vc-note">Two requirements: believe he exists, believe he rewards seekers</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you."</div>
+            <div class="vc-footer"><span class="vc-ref">Matthew 7:7</span><span class="vc-note">Jesus — the promise is active, not passive</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">God's Intent — He Arranged This</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"That they should seek God, and perhaps feel their way toward him and find him. Yet he is actually not far from each one of us."</div>
+            <div class="vc-footer"><span class="vc-ref">Acts 17:27</span><span class="vc-note">God designed history for this — and is not far</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"For what can be known about God is plain to them, because God has shown it to them. For his invisible attributes, namely, his eternal power and divine nature, have been clearly perceived, ever since the creation of the world."</div>
+            <div class="vc-footer"><span class="vc-ref">Romans 1:19–20</span><span class="vc-note">Creation itself is God's first revelation of himself</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"The Lord looks down from heaven on the children of man, to see if there are any who understand, who seek after God."</div>
+            <div class="vc-footer"><span class="vc-ref">Psalm 14:2</span><span class="vc-note">God is actively looking for those who seek — a two-way search</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Priority — Seek First</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"But seek first the kingdom of God and his righteousness, and all these things will be added to you."</div>
+            <div class="vc-footer"><span class="vc-ref">Matthew 6:33</span><span class="vc-note">Seeking God is not one priority among many — it is the first one</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"One thing have I asked of the Lord, that will I seek after: that I may dwell in the house of the Lord all the days of my life."</div>
+            <div class="vc-footer"><span class="vc-ref">Psalm 27:4</span><span class="vc-note">David's singular pursuit — one thing, not a list</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Seek the Lord while he may be found; call upon him while he is near."</div>
+            <div class="vc-footer"><span class="vc-ref">Isaiah 55:6</span><span class="vc-note">The urgency of now — seeking has a window</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Warning — What Happens Without Seeking</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"Not everyone who says to me, 'Lord, Lord,' will enter the kingdom of heaven, but the one who does the will of my Father who is in heaven."</div>
+            <div class="vc-footer"><span class="vc-ref">Matthew 7:21</span><span class="vc-note">Religious language without genuine pursuit is not enough</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"The Lord looks down from heaven... to see if there are any who understand, who seek after God. They have all turned aside; together they have become corrupt; there is none who does good, not even one."</div>
+            <div class="vc-footer"><span class="vc-ref">Psalm 14:2–3</span><span class="vc-note">The default human posture is not seeking — it is turning away</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let guideMode = false;
+function toggleGuideMode() {
+  guideMode = !guideMode;
+  document.body.classList.toggle('guide-active', guideMode);
+  document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
+}
+function showHeart(id, btn) {
+  document.querySelectorAll('.heart-content').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.heart-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('heart-' + id).classList.add('visible');
+  btn.classList.add('selected');
+  setTimeout(() => document.getElementById('heart-' + id).scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+</script>
+</body>
+</html>

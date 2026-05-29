@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passionate Disciplemakers — The Core Four</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--surface-3:#212842;--accent:#9a6ab0;--accent-dim:#5a3a70;--accent-lt:#ba8ad0;--cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;--border:#232a42;--border-lt:#2e3858;--font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;--font-serif:'Cormorant Garamond',Georgia,serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:28px 0 10px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:40px 40px 32px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:640px){.site-header{grid-template-columns:1fr;gap:28px;padding:32px 24px 28px;}}
+.header-left .header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.header-left .header-title{font-family:var(--font-display);font-size:clamp(22px,4vw,40px);font-weight:700;letter-spacing:2px;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+.header-left .header-title span{color:var(--accent);}
+.header-left .header-verse{font-family:var(--font-serif);font-size:clamp(14px,2vw,18px);font-style:italic;color:var(--cream-dim);line-height:1.65;max-width:520px;}
+.header-left .header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);margin-top:8px;}
+.pillar-stack{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.pillar-item{font-family:var(--font-display);font-size:clamp(10px,1.4vw,13px);letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:3px;white-space:nowrap;text-decoration:none;}
+.pillar-item.active{background:var(--accent);color:#fff;font-weight:700;}
+.pillar-item.inactive{background:transparent;border:1px solid var(--border-lt);color:var(--muted);}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.section-header{margin-bottom:44px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,5vw,50px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:12px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:10px;}.callout p:last-child{margin-bottom:0;}
+.method-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0;}
+.method-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:22px 20px;}
+.method-title{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:8px;}
+.method-body{font-size:14px;color:var(--cream-dim);line-height:1.65;}
+.gen-chain{display:flex;align-items:center;gap:0;margin:24px 0;overflow-x:auto;padding-bottom:4px;}
+.gen-node{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:16px 18px;min-width:140px;text-align:center;flex-shrink:0;}
+.gen-node.highlight{border-top-color:var(--accent);border-color:var(--accent-dim);}
+.gen-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.gen-name{font-family:var(--font-display);font-size:13px;color:var(--cream);}
+.gen-arrow{font-size:20px;color:var(--accent-dim);padding:0 8px;flex-shrink:0;}
+.progression{display:flex;flex-direction:column;margin:24px 0;}
+.prog-step{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border);}
+.prog-step:last-child{border-bottom:none;}
+.prog-num{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--accent-dim);opacity:.4;line-height:1;flex-shrink:0;width:36px;padding-top:2px;}
+.prog-body strong{display:block;color:var(--cream);font-size:16px;margin-bottom:6px;}
+.prog-body p{font-size:14px;margin:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:160px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.challenge-block{background:var(--surface);border:1px solid var(--accent-dim);border-radius:6px;padding:32px;margin:36px 0;text-align:center;}
+.challenge-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:16px;}
+.challenge-text{font-family:var(--font-serif);font-size:clamp(18px,3vw,24px);font-style:italic;color:var(--cream);line-height:1.65;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;}
+.ws-original{font-family:var(--font-serif);font-size:clamp(34px,5vw,50px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <div class="header-eyebrow">The Core Four · Pillar 04</div>
+    <div class="header-title"><span>Passionate</span> Disciplemakers</div>
+    <div class="header-verse">"And what you have heard from me in the presence of many witnesses entrust to faithful people who will be able to teach others also."</div>
+    <div class="header-ref">2 Timothy 2:2</div>
+  </div>
+  <div class="pillar-stack">
+    <a class="pillar-item inactive" href="core-four-gospel.html">Gospel</a>
+    <a class="pillar-item inactive" href="core-four-discipleship.html">Discipleship</a>
+    <a class="pillar-item inactive" href="core-four-community.html">Community</a>
+    <a class="pillar-item active" href="core-four-disciplemaking.html">Disciplemaking</a>
+  </div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study',this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+  </div>
+</div>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">The Core Four · Pillar 04</div>
+        <div class="section-title">Disciplemaking</div>
+        <div class="section-sub">The fourth pillar — and the one that proves the other three are real</div>
+      </div>
+
+      <h2>The Logic of the Four</h2>
+      <p>The Core Four build on each other. A person saturated in the gospel understands what they've received and who they serve. A person committed to unconditional discipleship is being formed into the image of Christ. A person devoted to community has a life intertwined with others. All three of those eventually produce the fourth: someone who cannot help but bring others along.</p>
+      <p>Disciplemaking is not a program or a role — it is the natural outcome of the first three pillars working in someone's life. People who are genuinely living in the gospel, genuinely following Jesus, genuinely in community with others — those people are making disciples, whether or not they call it that.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"And what you have heard from me in the presence of many witnesses entrust to faithful people who will be able to teach others also."</div>
+        <div class="verse-ref">2 Timothy 2:2</div>
+      </div>
+
+      <p>Four generations in one verse: Paul → Timothy → faithful people → others also. This is the shape of disciplemaking — not addition (you plus one), but multiplication. Each person who is genuinely discipled becomes capable of discipling others. The math changes everything.</p>
+
+      <h2>The Generational Vision</h2>
+
+      <div class="gen-chain">
+        <div class="gen-node highlight">
+          <div class="gen-label">Generation 1</div>
+          <div class="gen-name">Paul</div>
+        </div>
+        <div class="gen-arrow">→</div>
+        <div class="gen-node highlight">
+          <div class="gen-label">Generation 2</div>
+          <div class="gen-name">Timothy</div>
+        </div>
+        <div class="gen-arrow">→</div>
+        <div class="gen-node">
+          <div class="gen-label">Generation 3</div>
+          <div class="gen-name">Faithful People</div>
+        </div>
+        <div class="gen-arrow">→</div>
+        <div class="gen-node">
+          <div class="gen-label">Generation 4</div>
+          <div class="gen-name">Others Also</div>
+        </div>
+      </div>
+
+      <p>Paul never met most of the people his ministry reached. He didn't have to — he invested deeply in Timothy, who invested in faithful people, who taught others. The kingdom grows through this pattern. Every generation of disciples who disciples others is participating in something that extends far beyond what they can see.</p>
+
+      <h2>The Three Methods</h2>
+      <p>Disciplemaking is not complicated. Jesus modeled three methods, and they work as simply now as they did in the first century. They don't require a curriculum, a formal program, or specialized training. They require intention, honesty, and time.</p>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-title">Model Life</div>
+          <div class="method-body">The most powerful teaching you do is not what you say — it's what you are. Paul tells the Corinthians: "Be imitators of me, as I am of Christ" (1 Corinthians 11:1). That requires you to be willing to be known — to let someone close enough to actually see your life. You can't model what you hide.</div>
+        </div>
+        <div class="method-card">
+          <div class="method-title">Pray Together</div>
+          <div class="method-body">Disciplemaking is not your work — it is God's. You are not the one doing the changing. Prayer keeps you honest about that. Praying together with the person you're discipling is both a practice of community (Pillar 3) and a declaration of dependence: we need the Spirit to do what we cannot. It also models prayer as a normal, non-performative part of life.</div>
+        </div>
+        <div class="method-card">
+          <div class="method-title">Teach to Obey</div>
+          <div class="method-body">Matthew 28:20 — not "teach them to know" but "teach them to observe all that I have commanded." The goal of your teaching is not their comprehension — it's their obedience. Every conversation, every study, every passage should end with: so what do you do with this? Accountability is not optional; it's the follow-through of teaching.</div>
+        </div>
+      </div>
+
+      <h2>What Disciplemaking Requires</h2>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">Reflection</div><div class="use-desc">You can't give what you haven't received. Before you can help someone else examine their life, you have to have examined your own. Disciplemaking starts with honest self-awareness — not perfection, but genuine engagement with your own growth.</div></div>
+        <div class="use-row"><div class="use-label">Courage</div><div class="use-desc">It requires courage to enter someone's life at depth. To ask hard questions. To say true things. To follow up when they don't follow through. To stay when it's awkward. Most people avoid disciplemaking not because they don't believe in it, but because it's uncomfortable.</div></div>
+        <div class="use-row"><div class="use-label">Honesty</div><div class="use-desc">You must be honest about your own life — your failures, your struggles, your ongoing formation. A disciplemaker who projects perfection is not useful. The person you're discipling needs to see someone who is genuinely being changed, not someone who pretends they've arrived.</div></div>
+        <div class="use-row"><div class="use-label">Consistency</div><div class="use-desc">Disciplemaking works through sustained relationship over time. A single intense conversation accomplishes less than regular, ordinary presence. Show up. Keep showing up. The long faithfulness is what forms people.</div></div>
+      </div>
+
+      <h2>The Methods Are Simple</h2>
+
+      <div class="callout accent">
+        <div class="callout-label">A Word on Complexity</div>
+        <p>There is an industry built around discipleship tools, programs, and curricula. Some of them are useful. None of them is the point. Jesus made disciples with no curriculum and no program — he walked with people, ate with people, let people watch him pray, asked hard questions, and sent them out to try what they'd learned.</p>
+        <p>The teaching methods of disciplemaking are simple. They are intended for two or three people in a living room or across a table, not for a stage. What they require is not sophistication. They require reflection, courage, and honesty — in you first, then offered to others.</p>
+      </div>
+
+      <div class="progression">
+        <div class="prog-step">
+          <div class="prog-num">01</div>
+          <div class="prog-body">
+            <strong>I Do, You Watch</strong>
+            <p>Jesus let his disciples watch him. He prayed in front of them, healed in front of them, confronted Pharisees in front of them. Effective disciplemaking starts here — invite someone into your actual life, not a polished presentation of it.</p>
+          </div>
+        </div>
+        <div class="prog-step">
+          <div class="prog-num">02</div>
+          <div class="prog-body">
+            <strong>I Do, You Help</strong>
+            <p>Then you bring them alongside — they participate while you lead. Peter is present at the Transfiguration. The disciples help distribute the loaves. Involvement before independence produces better formation than information before involvement.</p>
+          </div>
+        </div>
+        <div class="prog-step">
+          <div class="prog-num">03</div>
+          <div class="prog-body">
+            <strong>You Do, I Help</strong>
+            <p>Then the roles shift. Jesus sends the Twelve out in pairs (Luke 9) and the Seventy-Two (Luke 10) — before his resurrection, before Pentecost, before they fully understand what they're doing. They learn by doing with oversight. Debrief is essential: what happened? What did you learn?</p>
+          </div>
+        </div>
+        <div class="prog-step">
+          <div class="prog-num">04</div>
+          <div class="prog-body">
+            <strong>You Do, I Watch</strong>
+            <p>Eventually the disciple is doing what the disciplemaker was doing — and the disciplemaker steps back. This is the goal: not dependency, but reproduction. The fully formed disciple is one who can disciple others. 2 Timothy 2:2 — entrust to faithful people who will be able to teach others also.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="challenge-block">
+        <div class="challenge-label">This Week</div>
+        <div class="challenge-text">Name one person in your life who is one step behind you in faith. Not someone who needs everything — someone who needs what you have right now. What would it look like to intentionally bring them alongside you this week — not to teach, but just to include?</div>
+      </div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">2 Timothy 2:2</span><span class="ref-desc">Four generations in one verse — the multiplication pattern of disciplemaking.</span></div>
+        <div class="ref-item"><span class="ref-book">Matthew 28:18–20</span><span class="ref-desc">Make disciples, baptize, teach to obey. The commission that drives the fourth pillar.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Corinthians 11:1</span><span class="ref-desc">Be imitators of me, as I am of Christ. The permission — and the call — to say "follow my example."</span></div>
+        <div class="ref-item"><span class="ref-book">Luke 9:1–6</span><span class="ref-desc">Jesus sends the Twelve before they're ready. Disciplemaking requires release, not just retention.</span></div>
+        <div class="ref-item"><span class="ref-book">Colossians 1:28–29</span><span class="ref-desc">Warning and teaching everyone with wisdom — the goal: present everyone mature in Christ. Paul labors for this.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study · Pillar 04</div>
+        <div class="section-title">Entrust · Faithful · Multiply</div>
+        <div class="section-sub">The original words behind the multiplication vision</div>
+      </div>
+      <div class="word-study-grid">
+        <div class="word-study">
+          <div class="ws-original">παρατίθημι</div>
+          <div class="ws-transliteration">paratithēmi</div>
+          <div class="ws-pos">verb — Greek</div>
+          <div class="ws-definition">To entrust; to deposit; to hand over for safekeeping. Used for depositing valuables with a trustworthy person, as a banker or guardian. In 2 Timothy 2:2, Paul tells Timothy to entrust what he has received to others — as if passing along something precious and irreplaceable.</div>
+          <div class="ws-note">The word implies the gospel is not yours to keep — it was deposited with you to be passed on. A disciple who receives the gospel and holds it without passing it forward has misunderstood the nature of what was given. What is entrusted is meant to be re-entrusted. Disciplemaking is the logic of paratithēmi.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">πιστός</div>
+          <div class="ws-transliteration">pistos</div>
+          <div class="ws-pos">adjective — Greek</div>
+          <div class="ws-definition">Faithful; trustworthy; reliable. From pisteuō — to believe, to trust. A pistos person is one who can be trusted with something — whose life and character make them a reliable vessel for what you give them. Paul doesn't say "entrust to talented people" or "gifted people" — faithful people.</div>
+          <div class="ws-note">This reframes what you look for in a person to disciple. The question is not: "who is most capable?" but "who is most faithful?" A faithful person with limited gifts will reproduce more faithfully than a talented person with divided loyalty. Jesus chose fishermen, not theologians. Faithfulness is the soil in which discipleship takes root.</div>
+        </div>
+        <div class="word-study">
+          <div class="ws-original">καρποφορέω</div>
+          <div class="ws-transliteration">karpophoreō</div>
+          <div class="ws-pos">verb — Greek</div>
+          <div class="ws-definition">To bear fruit; to be fruitful; to produce results. From karpos (fruit) + phoreō (to bear, to wear). Jesus uses the agricultural metaphor consistently — the vine and the branches, the sower and the soil, the fig tree. Fruitfulness is expected of a disciple, and the fruit is not primarily personal transformation — it is other disciples.</div>
+          <div class="ws-note">John 15:16 — "I chose you and appointed you that you should go and bear fruit and that your fruit should abide." The fruit that abides is not feelings or experiences — it is other people changed by the gospel, now following Jesus themselves. The disciplemaker's life is measured by this: not what they've accumulated, but what they've passed on.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture · Pillar 04</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">The biblical foundation for passionate disciplemaking</div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Commission</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"All authority in heaven and on earth has been given to me. Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age."</div><div class="vc-footer"><span class="vc-ref">Matthew 28:18–20</span><span class="vc-note">The command to make disciples is the direct consequence of the King's authority. It cannot be outsourced to professionals.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"And what you have heard from me in the presence of many witnesses entrust to faithful people who will be able to teach others also."</div><div class="vc-footer"><span class="vc-ref">2 Timothy 2:2</span><span class="vc-note">Four generations in one sentence. The vision is multiplication, not addition.</span></div></div>
+        </div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Method</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"Be imitators of me, as I am of Christ."</div><div class="vc-footer"><span class="vc-ref">1 Corinthians 11:1</span><span class="vc-note">The disciplemaker's permission — and their accountability. You must be able to say this honestly.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Him we proclaim, warning everyone and teaching everyone with all wisdom, that we may present everyone mature in Christ. For this I toil, struggling with all his energy that he powerfully works within me."</div><div class="vc-footer"><span class="vc-ref">Colossians 1:28–29</span><span class="vc-note">Everyone. Mature in Christ. Paul labors for this — not performs it. Disciplemaking is hard work done in dependence on God's energy.</span></div></div>
+        </div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Sending</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"And he called the twelve and began to send them out two by two, and gave them authority over the unclean spirits… So they went out and proclaimed that people should repent."</div><div class="vc-footer"><span class="vc-ref">Mark 6:7, 12</span><span class="vc-note">Sent before fully formed. The sending is part of the formation — you learn by going, not just by watching.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"I chose you and appointed you that you should go and bear fruit and that your fruit should abide, so that whatever you ask the Father in my name, he may give it to you."</div><div class="vc-footer"><span class="vc-ref">John 15:16</span><span class="vc-note">Fruit that abides — not momentary results but lasting transformation in others. This is the disciplemaker's goal.</span></div></div>
+        </div>
+      </div>
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Foundation</div>
+        <div class="verse-cards">
+          <div class="verse-card"><div class="vc-text">"So we, though many, are one body in Christ, and individually members one of another. Having gifts that differ according to the grace given to us, let us use them."</div><div class="vc-footer"><span class="vc-ref">Romans 12:5–6</span><span class="vc-note">Disciplemaking happens in the body. What you have been given is for others — use it.</span></div></div>
+          <div class="verse-card"><div class="vc-text">"Follow the pattern of the sound words that you have heard from me, in the faith and love that are in Christ Jesus. By the Holy Spirit who dwells within us, guard the good deposit entrusted to you."</div><div class="vc-footer"><span class="vc-ref">2 Timothy 1:13–14</span><span class="vc-note">Guard the deposit — and pass it on. Both. The disciplemaker is a faithful steward, not an owner.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function switchTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+</script>
+</body>
+</html>

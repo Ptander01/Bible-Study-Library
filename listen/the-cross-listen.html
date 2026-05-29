@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>The Cross — Listen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035;
+  --accent:#9a3a3a; --accent-dim:#5a1a1a; --accent-lt:#ba5a5a;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:var(--bg);color:var(--cream);font-family:var(--font-body);-webkit-tap-highlight-color:transparent;}
+body{display:flex;flex-direction:column;overflow:hidden;}
+
+/* Top bar */
+.top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:1px solid var(--border);}
+.back-btn{font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:6px 0;}
+.back-btn:hover{color:var(--cream-dim);}
+.top-title{font-family:var(--font-display);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);}
+.speed-btn{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--cream-dim);background:var(--surface-2);border:1px solid var(--border);padding:5px 12px;border-radius:20px;cursor:pointer;}
+.speed-btn:hover{border-color:var(--border-lt);}
+
+/* Section list */
+.section-list{flex-shrink:0;display:flex;gap:0;overflow-x:auto;padding:10px 16px;border-bottom:1px solid var(--border);scrollbar-width:none;}
+.section-list::-webkit-scrollbar{display:none;}
+.sec-btn{flex-shrink:0;font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;cursor:pointer;margin-right:8px;transition:all .2s;white-space:nowrap;}
+.sec-btn:hover{color:var(--cream-dim);border-color:var(--border-lt);}
+.sec-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--cream);}
+
+/* Reading area */
+.reading-area{flex:1;overflow-y:auto;padding:28px 24px;-webkit-overflow-scrolling:touch;}
+.reading-area::-webkit-scrollbar{display:none;}
+
+.section-block{display:none;}
+.section-block.active{display:block;}
+
+.section-eyebrow{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.section-heading{font-family:var(--font-display);font-size:clamp(20px,5vw,28px);font-weight:600;color:var(--cream);line-height:1.2;margin-bottom:20px;}
+
+.para{font-size:clamp(15px,3.5vw,17px);line-height:1.85;color:var(--cream-dim);margin-bottom:20px;}
+.para.current{color:var(--cream);}
+
+.verse-listen{background:var(--surface);border-left:3px solid var(--accent);border-radius:4px;padding:20px 22px;margin:24px 0;}
+.verse-listen .vl-text{font-family:'Cormorant Garamond','Lora',Georgia,serif;font-size:clamp(17px,4vw,21px);font-style:italic;color:var(--cream);line-height:1.75;margin-bottom:10px;}
+.verse-listen .vl-ref{font-family:var(--font-display);font-size:10px;letter-spacing:2px;color:var(--accent-dim);}
+
+.reflection-listen{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:8px;padding:20px 22px;margin:20px 0;}
+.rl-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.rl-question{font-size:clamp(15px,3.5vw,17px);color:var(--cream);line-height:1.7;}
+.rl-pause{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:12px;}
+
+.evidence-listen{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent-dim);border-radius:6px;padding:18px 20px;margin:14px 0;}
+.el-num{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.el-title{font-family:var(--font-display);font-size:14px;color:var(--cream);margin-bottom:8px;}
+.el-body{font-size:14px;color:var(--cream-dim);line-height:1.65;}
+
+.challenge-listen{text-align:center;background:var(--surface);border:1px solid var(--accent-dim);border-radius:8px;padding:28px 24px;margin:24px 0;}
+.cl-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.cl-text{font-family:'Cormorant Garamond','Lora',Georgia,serif;font-size:clamp(17px,4vw,20px);font-style:italic;color:var(--cream);line-height:1.7;}
+
+/* Progress bar */
+.progress-wrap{flex-shrink:0;padding:0 20px 8px;}
+.progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s;}
+.progress-labels{display:flex;justify-content:space-between;}
+.prog-label{font-family:var(--font-display);font-size:9px;letter-spacing:1px;color:var(--muted);}
+
+/* Now playing */
+.now-playing{flex-shrink:0;padding:10px 20px 8px;min-height:42px;}
+.np-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.np-text{font-size:13px;color:var(--cream-dim);line-height:1.4;min-height:20px;}
+.np-text.speaking{color:var(--cream);}
+
+/* Player controls */
+.player{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);padding:16px 24px 28px;display:flex;flex-direction:column;gap:12px;}
+.controls{display:flex;align-items:center;justify-content:center;gap:20px;}
+.ctrl-btn{background:none;border:none;cursor:pointer;color:var(--cream-dim);padding:8px;border-radius:50%;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.ctrl-btn:hover{color:var(--cream);background:var(--surface-2);}
+.ctrl-btn svg{width:24px;height:24px;fill:currentColor;}
+.ctrl-btn.lg svg{width:32px;height:32px;}
+.play-btn{background:var(--accent) !important;color:#fff !important;width:60px;height:60px;border-radius:50% !important;}
+.play-btn:hover{background:var(--accent-lt) !important;}
+.play-btn svg{width:28px;height:28px;}
+.ctrl-btn.disabled{opacity:.3;pointer-events:none;}
+
+/* Voice selector */
+.voice-row{display:flex;align-items:center;gap:10px;padding:0 4px;}
+.voice-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+select{flex:1;background:var(--surface-2);border:1px solid var(--border);color:var(--cream-dim);font-family:var(--font-body);font-size:12px;padding:6px 10px;border-radius:6px;outline:none;-webkit-appearance:none;appearance:none;}
+select:focus{border-color:var(--border-lt);}
+
+/* Waveform animation */
+.waveform{display:flex;align-items:center;gap:3px;height:20px;justify-content:center;}
+.wave-bar{width:3px;border-radius:2px;background:var(--accent);animation:none;transform-origin:bottom;}
+.speaking .wave-bar{animation:wave .8s ease-in-out infinite;}
+.wave-bar:nth-child(2){animation-delay:.1s;}
+.wave-bar:nth-child(3){animation-delay:.2s;}
+.wave-bar:nth-child(4){animation-delay:.3s;}
+.wave-bar:nth-child(5){animation-delay:.15s;}
+@keyframes wave{0%,100%{height:4px}50%{height:16px}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <button class="back-btn" onclick="window.history.back()">← Library</button>
+  <div class="top-title">The Cross · Listen</div>
+  <button class="speed-btn" id="speedBtn" onclick="cycleSpeed()">1×</button>
+</div>
+
+<div class="section-list" id="sectionList"></div>
+
+<div class="reading-area" id="readingArea">
+
+  <!-- SECTION 0: Introduction -->
+  <div class="section-block active" id="sec-0">
+    <div class="section-eyebrow">First Principles · Study 6</div>
+    <div class="section-heading">The Cross</div>
+    <div class="verse-listen">
+      <div class="vl-text">"But God shows his love for us in that while we were still sinners, Christ died for us."</div>
+      <div class="vl-ref">Romans 5:8</div>
+    </div>
+    <div class="para">This is the study at the center of everything. The cross is not just one topic among many — it is the event that makes every other truth in the Christian faith meaningful. The resurrection, forgiveness, adoption, purpose — they all trace back here.</div>
+    <div class="para">Take your time with this one. You don't need to rush. The goal isn't to finish — it's to let the weight of this land. If something stops you, stay there. That's where the Spirit is working.</div>
+  </div>
+
+  <!-- SECTION 1: The Problem -->
+  <div class="section-block" id="sec-1">
+    <div class="section-eyebrow">Part One</div>
+    <div class="section-heading">The Problem the Cross Solves</div>
+    <div class="para">By now the problem is clear: sin has created a separation between humanity and God. The wages of sin is death — not as punishment from an angry God, but as the natural consequence of cutting yourself off from the source of life.</div>
+    <div class="para">A just God cannot simply overlook sin. But a loving God cannot abandon the people he made. The cross is where justice and love meet.</div>
+    <div class="verse-listen">
+      <div class="vl-text">"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."</div>
+      <div class="vl-ref">John 3:16</div>
+    </div>
+    <div class="para">The great exchange at the heart of the gospel: he became what we are so we could become what he is. He took our sin so we could receive his righteousness.</div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflect</div>
+      <div class="rl-question">Before going further — does the problem feel real to you? Not just intellectually — personally. Do you feel the weight of what sin has actually cost?</div>
+      <div class="rl-pause">Pause and sit with this.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: What the Cross Accomplished -->
+  <div class="section-block" id="sec-2">
+    <div class="section-eyebrow">Part Two</div>
+    <div class="section-heading">What the Cross Accomplished</div>
+    <div class="verse-listen">
+      <div class="vl-text">"For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God."</div>
+      <div class="vl-ref">2 Corinthians 5:21</div>
+    </div>
+    <div class="para">The cross accomplished five things — and each one is worth dwelling on separately.</div>
+    <div class="para"><strong>Forgiveness.</strong> The debt of sin is paid. God can forgive without overlooking justice — because the penalty was fully borne by Jesus. Colossians 2:14 pictures the legal record of our debt being nailed to the cross and canceled.</div>
+    <div class="para"><strong>Reconciliation.</strong> The separation Isaiah 59 describes is overcome. The wall between a holy God and sinful humanity is torn down. Access to God is restored — not as a right we earned, but as a gift we receive.</div>
+    <div class="para"><strong>Redemption.</strong> We were slaves to sin. Jesus paid the price to buy us back — not with silver or gold, but with his life. The word ransom was used in the Roman world for the price that frees a slave.</div>
+    <div class="para"><strong>Justification.</strong> God declares us not guilty — not because we're innocent, but because the penalty has been fully paid. Romans 5:1 — therefore, since we have been justified by faith, we have peace with God through our Lord Jesus Christ.</div>
+    <div class="para"><strong>Resurrection.</strong> Death is not the end. The resurrection is the Father's declaration that the sacrifice was accepted — and that death itself is defeated. A dead savior saves no one. The resurrection changes everything.</div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflect</div>
+      <div class="rl-question">If Jesus did all of this — specifically for you — what does that require of you? Not theologically. Personally. What would be an appropriate response to this?</div>
+      <div class="rl-pause">Don't move on yet. Sit with that question.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: The Resurrection -->
+  <div class="section-block" id="sec-3">
+    <div class="section-eyebrow">Part Three</div>
+    <div class="section-heading">The Resurrection — Why Everything Depends on It</div>
+    <div class="verse-listen">
+      <div class="vl-text">"And if Christ has not been raised, your faith is futile and you are still in your sins. Then those also who have fallen asleep in Christ have perished. If in Christ we have hope in this life only, we are of all people most to be pitied."</div>
+      <div class="vl-ref">1 Corinthians 15:17–19</div>
+    </div>
+    <div class="para">Paul doesn't soften this: if the resurrection didn't happen, Christianity is a lie and Christians are fools. The resurrection is not a postscript to the cross. It is the Father's declaration that the sacrifice was accepted — and that death itself has been defeated.</div>
+    <div class="para">The evidence for the resurrection is serious historical evidence. Here are six lines of it.</div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence One</div>
+      <div class="el-title">The Empty Tomb</div>
+      <div class="el-body">All four gospels record the empty tomb. Neither the Jewish leaders nor the Roman authorities ever produced a body — despite having every motivation to do so. A body would have ended Christianity immediately. Instead, the authorities paid soldiers to claim the disciples stole it. They didn't deny the tomb was empty. They tried to explain it.</div>
+    </div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence Two</div>
+      <div class="el-title">Five Hundred Eyewitnesses</div>
+      <div class="el-body">Paul's letter to the Corinthians — written within 20 years of the crucifixion — lists specific appearances: to Peter, to the Twelve, to more than 500 people at once. "Most of whom are still alive," Paul notes. That is not legend-language. It is an invitation to go ask them.</div>
+    </div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence Three</div>
+      <div class="el-title">The Disciples' Transformation</div>
+      <div class="el-body">On the night of the arrest, every disciple fled. Peter denied Jesus three times. They hid behind locked doors in fear. Within weeks, these same men were publicly proclaiming the resurrection in Jerusalem — the city where it happened — and willing to die for it. People die for things they genuinely believe. Almost no one dies for something they know is a lie.</div>
+    </div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence Four</div>
+      <div class="el-title">Hostile Attestation</div>
+      <div class="el-body">The earliest Jewish response to the resurrection claim was not "this is absurd — there was no empty tomb." It was "the disciples stole the body." This is your opponents conceding the facts while disputing the interpretation. The empty tomb was not contested by those with the most reason to contest it.</div>
+    </div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence Five</div>
+      <div class="el-title">The Conversion of James</div>
+      <div class="el-body">During Jesus' ministry, his own brothers didn't believe in him. James is listed among the skeptics. After the resurrection, James becomes a leader of the Jerusalem church and is eventually martyred for his faith. Paul records a specific resurrection appearance to James. What changed his mind? He says: he saw his brother alive.</div>
+    </div>
+    <div class="evidence-listen">
+      <div class="el-num">Evidence Six</div>
+      <div class="el-title">The Conversion of Paul</div>
+      <div class="el-body">Saul of Tarsus was not a confused agnostic. He was actively hunting and imprisoning Christians — convinced they were dangerous heretics. He was present at Stephen's execution. Then something happened on the road to Damascus that changed his entire life and eventually cost him his life. His account: he saw the risen Jesus.</div>
+    </div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflect</div>
+      <div class="rl-question">What do you make of this evidence? Is this something you could dismiss? If the resurrection actually happened — if Jesus is actually alive right now — what does that require of you?</div>
+      <div class="rl-pause">Take your time here.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: What This Requires -->
+  <div class="section-block" id="sec-4">
+    <div class="section-eyebrow">Part Four</div>
+    <div class="section-heading">What This Requires of You</div>
+    <div class="verse-listen">
+      <div class="vl-text">"He died for all, that those who live might no longer live for themselves but for him who for their sake died and was raised."</div>
+      <div class="vl-ref">2 Corinthians 5:15</div>
+    </div>
+    <div class="para">The cross is not primarily information. It is an act — a sacrifice made, a debt paid, a death entered — on your behalf. If it is true, then it requires something. You cannot receive a gift of this magnitude and remain unchanged.</div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflection One</div>
+      <div class="rl-question">Before this study, what did the cross mean to you — if anything? How has that changed, or deepened, or been challenged today?</div>
+      <div class="rl-pause">Take a full minute with this one.</div>
+    </div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflection Two</div>
+      <div class="rl-question">Romans 5:8 says that while we were still sinners, Christ died for us. The initiative was entirely God's. What does it mean to you personally that you didn't have to earn this — that it was given before you deserved it?</div>
+      <div class="rl-pause">Pause and sit with that.</div>
+    </div>
+    <div class="reflection-listen">
+      <div class="rl-label">Reflection Three</div>
+      <div class="rl-question">Second Corinthians 5:15 says those who receive what Christ did no longer live for themselves. What in your life would have to change if you took that seriously?</div>
+      <div class="rl-pause">Be honest. Not theological — personal.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Challenge -->
+  <div class="section-block" id="sec-5">
+    <div class="section-eyebrow">This Week</div>
+    <div class="section-heading">The Challenge</div>
+    <div class="challenge-listen">
+      <div class="cl-label">Before You Finish</div>
+      <div class="cl-text">Read Isaiah 53 slowly — the suffering servant, written 700 years before Jesus. Then read it again, inserting your own name where it says "our" and "we." Sit with what it means that this was done for you, personally. Not for humanity in general. For you.</div>
+    </div>
+    <div class="verse-listen">
+      <div class="vl-text">"But he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed."</div>
+      <div class="vl-ref">Isaiah 53:5</div>
+    </div>
+    <div class="para">That's the end of this study. But it's not really an end — it's an invitation. The cross stands open. What will you do with it?</div>
+  </div>
+
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-labels">
+    <span class="prog-label" id="progCurrent">Introduction</span>
+    <span class="prog-label" id="progCount">1 of 6</span>
+  </div>
+</div>
+
+<!-- Now playing -->
+<div class="now-playing">
+  <div class="np-label">Now reading</div>
+  <div class="np-text" id="nowPlaying">Press play to begin</div>
+</div>
+
+<!-- Player -->
+<div class="player">
+  <div class="voice-row">
+    <span class="voice-label">Voice</span>
+    <select id="voiceSelect"></select>
+    <div class="waveform" id="waveform">
+      <div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div>
+      <div class="wave-bar" style="height:4px"></div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn" onclick="prevSection()" title="Previous section">
+      <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+    </button>
+    <button class="ctrl-btn" onclick="rewind15()" title="Back 15 seconds">
+      <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/><text x="12" y="16" font-size="5" text-anchor="middle" fill="currentColor">15</text></svg>
+    </button>
+    <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()" title="Play / Pause">
+      <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="ctrl-btn" onclick="skip15()" title="Forward 15 seconds">
+      <svg viewBox="0 0 24 24"><path d="M18 13c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v4l5-5-5-5v4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8h-2z"/><text x="12" y="16" font-size="5" text-anchor="middle" fill="currentColor">15</text></svg>
+    </button>
+    <button class="ctrl-btn" id="nextBtn" onclick="nextSection()" title="Next section">
+      <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const sections = [
+  { id: 'sec-0', title: 'Introduction',           btn: 'Intro' },
+  { id: 'sec-1', title: 'The Problem',             btn: 'Problem' },
+  { id: 'sec-2', title: 'What It Accomplished',    btn: 'Accomplished' },
+  { id: 'sec-3', title: 'The Resurrection',        btn: 'Resurrection' },
+  { id: 'sec-4', title: 'What This Requires',      btn: 'Application' },
+  { id: 'sec-5', title: 'This Week\'s Challenge',  btn: 'Challenge' },
+];
+
+const speeds = [0.8, 1.0, 1.2, 1.5, 1.8];
+let speedIdx = 1;
+let currentSection = 0;
+let isPlaying = false;
+let utterances = [];
+let uttIdx = 0;
+let voices = [];
+let selectedVoice = null;
+let charOffset = 0;
+let charLen = 0;
+
+// Build section buttons
+const sl = document.getElementById('sectionList');
+sections.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.className = 'sec-btn' + (i === 0 ? ' active' : '');
+  b.textContent = s.btn;
+  b.id = 'secbtn-' + i;
+  b.onclick = () => goToSection(i);
+  sl.appendChild(b);
+});
+
+// Voice loading
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+  const sel = document.getElementById('voiceSelect');
+  sel.innerHTML = '';
+  // Prefer English voices — prioritize premium/enhanced
+  const engVoices = voices.filter(v => v.lang.startsWith('en'));
+  const preferred = engVoices.filter(v =>
+    v.name.includes('Enhanced') || v.name.includes('Premium') ||
+    v.name.includes('Samantha') || v.name.includes('Alex') ||
+    v.name.includes('Daniel') || v.name.includes('Karen') ||
+    v.name.includes('Google') || v.name.includes('Neural')
+  );
+  const pool = preferred.length > 0 ? preferred : engVoices;
+  pool.forEach((v, i) => {
+    const o = document.createElement('option');
+    o.value = voices.indexOf(v);
+    o.textContent = v.name.replace('(Enhanced)', '').replace('(Premium)', '').trim();
+    sel.appendChild(o);
+  });
+  if (pool.length > 0) selectedVoice = pool[0];
+  sel.onchange = () => {
+    selectedVoice = voices[parseInt(sel.value)];
+    if (isPlaying) { stopSpeech(); startReading(); }
+  };
+}
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+setTimeout(loadVoices, 200);
+
+// Extract readable text from a section
+function extractText(secIdx) {
+  const el = document.getElementById(sections[secIdx].id);
+  const segments = [];
+  // Process in order: eyebrow, heading, then children
+  el.querySelectorAll('.section-eyebrow, .section-heading, .para, .vl-text, .vl-ref, .rl-label, .rl-question, .rl-pause, .el-num, .el-title, .el-body, .cl-label, .cl-text').forEach(node => {
+    const tag = node.className;
+    let text = node.textContent.trim();
+    if (!text) return;
+    let pause = 0;
+    if (tag.includes('section-eyebrow')) { text = text + '.'; pause = 300; }
+    if (tag.includes('section-heading')) { text = text + '.'; pause = 600; }
+    if (tag.includes('para')) { pause = 400; }
+    if (tag.includes('vl-text')) { text = '"' + text + '"'; pause = 500; }
+    if (tag.includes('vl-ref')) { text = 'From ' + text + '.'; pause = 700; }
+    if (tag.includes('rl-label')) { text = 'Reflection question.'; pause = 800; }
+    if (tag.includes('rl-question')) { pause = 200; }
+    if (tag.includes('rl-pause')) { pause = 2000; text = text + ' ...'; }
+    if (tag.includes('el-num')) { text = text + '.'; pause = 300; }
+    if (tag.includes('el-title')) { text = text + '.'; pause = 200; }
+    if (tag.includes('el-body')) { pause = 600; }
+    if (tag.includes('cl-label')) { text = text + '.'; pause = 400; }
+    if (tag.includes('cl-text')) { pause = 800; }
+    segments.push({ text, pause });
+  });
+  return segments;
+}
+
+function buildUtterances(secIdx) {
+  const segs = extractText(secIdx);
+  return segs.map(seg => {
+    const u = new SpeechSynthesisUtterance(seg.text);
+    u.rate = speeds[speedIdx];
+    u.pitch = 1.0;
+    u.volume = 1.0;
+    if (selectedVoice) u.voice = selectedVoice;
+    u._pause = seg.pause;
+    u._text = seg.text;
+    return u;
+  });
+}
+
+let pauseTimer = null;
+
+function startReading() {
+  utterances = buildUtterances(currentSection);
+  uttIdx = 0;
+  speakNext();
+}
+
+function speakNext() {
+  if (uttIdx >= utterances.length) {
+    // Section finished
+    if (currentSection < sections.length - 1) {
+      setTimeout(() => {
+        nextSection();
+        if (isPlaying) startReading();
+      }, 1200);
+    } else {
+      stopSpeech();
+      setPlayState(false);
+    }
+    return;
+  }
+  const u = utterances[uttIdx];
+  const displayText = u._text.length > 80 ? u._text.substring(0, 80) + '…' : u._text;
+  document.getElementById('nowPlaying').textContent = displayText;
+  document.getElementById('nowPlaying').className = 'np-text speaking';
+  document.getElementById('waveform').className = 'waveform speaking';
+  u.onend = () => {
+    uttIdx++;
+    if (u._pause > 0) {
+      pauseTimer = setTimeout(speakNext, u._pause);
+    } else {
+      speakNext();
+    }
+  };
+  u.onerror = () => { uttIdx++; speakNext(); };
+  speechSynthesis.speak(u);
+}
+
+function stopSpeech() {
+  if (pauseTimer) clearTimeout(pauseTimer);
+  speechSynthesis.cancel();
+  document.getElementById('nowPlaying').className = 'np-text';
+  document.getElementById('waveform').className = 'waveform';
+}
+
+function setPlayState(playing) {
+  isPlaying = playing;
+  const icon = document.getElementById('playIcon');
+  if (playing) {
+    icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+  } else {
+    icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    document.getElementById('nowPlaying').textContent = isPlaying ? '' : 'Paused';
+    document.getElementById('nowPlaying').className = 'np-text';
+    document.getElementById('waveform').className = 'waveform';
+  }
+}
+
+function togglePlay() {
+  if (isPlaying) {
+    stopSpeech();
+    setPlayState(false);
+  } else {
+    setPlayState(true);
+    startReading();
+  }
+}
+
+function goToSection(idx) {
+  stopSpeech();
+  document.querySelectorAll('.section-block').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sec-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(sections[idx].id).classList.add('active');
+  document.getElementById('secbtn-' + idx).classList.add('active');
+  currentSection = idx;
+  updateProgress();
+  document.getElementById('readingArea').scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('nowPlaying').textContent = isPlaying ? 'Loading…' : sections[idx].title;
+  if (isPlaying) { setTimeout(startReading, 100); }
+}
+
+function nextSection() {
+  if (currentSection < sections.length - 1) goToSection(currentSection + 1);
+}
+function prevSection() {
+  if (currentSection > 0) goToSection(currentSection - 1);
+}
+
+function rewind15() {
+  stopSpeech();
+  uttIdx = Math.max(0, uttIdx - 2);
+  if (isPlaying) speakNext();
+}
+function skip15() {
+  stopSpeech();
+  uttIdx = Math.min(utterances.length - 1, uttIdx + 2);
+  if (isPlaying) speakNext();
+}
+
+function cycleSpeed() {
+  speedIdx = (speedIdx + 1) % speeds.length;
+  const labels = ['0.8×', '1×', '1.2×', '1.5×', '1.8×'];
+  document.getElementById('speedBtn').textContent = labels[speedIdx];
+  if (isPlaying) { stopSpeech(); startReading(); }
+}
+
+function updateProgress() {
+  const pct = (currentSection / (sections.length - 1)) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progCurrent').textContent = sections[currentSection].title;
+  document.getElementById('progCount').textContent = (currentSection + 1) + ' of ' + sections.length;
+  document.getElementById('prevBtn').className = 'ctrl-btn' + (currentSection === 0 ? ' disabled' : '');
+  document.getElementById('nextBtn').className = 'ctrl-btn' + (currentSection === sections.length - 1 ? ' disabled' : '');
+}
+
+updateProgress();
+</script>
+</body>
+</html>

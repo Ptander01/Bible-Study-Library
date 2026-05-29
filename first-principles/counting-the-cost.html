@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counting the Cost — First Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#b89a50; --accent-dim:#6a5a28; --accent-lt:#d8ba70;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858; --warning-dim:#6b2c2c;
+  --guide-bg:#0d1a0d; --guide-border:#1a3a1a; --guide-accent:#4a8a4a;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);} p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;} .panel{display:none;} .panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;gap:0;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;position:relative;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:160px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);display:flex;align-items:center;}
+.progression{display:flex;flex-direction:column;margin:24px 0;}
+.prog-step{display:flex;gap:20px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.prog-step:last-child{border-bottom:none;}
+.prog-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--accent-dim);opacity:.5;line-height:1;flex-shrink:0;width:32px;padding-top:4px;}
+.prog-body strong{display:block;color:var(--cream);font-size:15px;margin-bottom:4px;}
+.prog-body p{font-size:14px;margin:0;}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.guide-block{display:none;}
+.guide-active .guide-block{display:block;background:var(--guide-bg);border:1px solid var(--guide-border);border-left:3px solid var(--guide-accent);border-radius:4px;padding:16px 20px;margin:12px 0;}
+.guide-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--guide-accent);margin-bottom:10px;}
+.guide-tip{font-size:13px;color:#6aaa6a;margin-bottom:8px;line-height:1.6;}
+.guide-tip:last-child{margin-bottom:0;}
+.guide-active .tab-bar-wrap{box-shadow:inset 0 -2px 0 var(--guide-border);}
+#guide-toggle{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--guide-bg);border:1px solid var(--guide-border);color:var(--guide-accent);font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:background .2s,border-color .2s;opacity:.6;}
+#guide-toggle:hover{opacity:1;}
+.guide-active #guide-toggle{background:#1a3a1a;border-color:var(--guide-accent);opacity:1;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent);border-top-color:var(--accent);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+.sin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0;}
+.sin-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:18px 20px;}
+.sin-name{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:4px;}
+.sin-original{font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:2px;line-height:1.3;}
+.sin-transliteration{font-size:12px;font-style:italic;color:var(--muted);margin-bottom:10px;}
+.sin-definition{font-size:13px;color:var(--cream-dim);line-height:1.6;margin-bottom:8px;}
+.sin-source{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);}
+@media print{body{background:white;color:#111;}body::before{display:none;}.tab-bar-wrap,#guide-toggle{display:none;}.panel{display:block!important;page-break-before:always;}.panel:first-child{page-break-before:avoid;}}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">First Principles · Study 10</div>
+  <div class="header-title">Counting the <span>Cost</span></div>
+  <div class="header-verse">"For which of you, desiring to build a tower, does not first sit down and count the cost, whether he has enough to complete it?"</div>
+  <div class="header-ref">Luke 14:28</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study', this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+    
+  </div>
+</div>
+
+<button id="guide-toggle" onclick="toggleGuideMode()">◎ Guide Mode</button>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">First Principles · Study 10</div>
+        <div class="section-title">Counting the Cost</div>
+        <div class="section-sub">The final question — not can you, but will you</div>
+      </div>
+      
+      <div class="guide-block"><div class="guide-label">Guide Note — Purpose</div>
+      <p class="guide-tip">This is the final study of the series — the summation and the invitation. Everything has been laid out: what Scripture is, who God is, who you are, what repentance means, what the cross accomplished, what it means to say Jesus is Lord, and what the church requires. Now the question is simple and total: Will you follow?</p>
+      <p class="guide-tip">Jesus himself urges people to count the cost before committing. This study takes that seriously. Don't rush to a decision. Don't manufacture one. But do make the question clear and direct: this is what it costs. Are you in?</p>
+      <p class="guide-tip">This study is sometimes the end of the series for someone who isn't ready. That's okay. Leave the door open. A "not yet" that's honest is far better than a "yes" that falls apart in six months.</p></div>
+
+      <h2>Jesus Urges You to Count First</h2>
+      <div class="verse-block"><div class="verse-text">"For which of you, desiring to build a tower, does not first sit down and count the cost, whether he has enough to complete it? Otherwise, when he has laid a foundation and is not able to finish, all who see it begin to mock him, saying, 'This man began to build and was not able to finish.'"</div><div class="verse-ref">Luke 14:28–30</div></div>
+
+      <p>This is remarkable: Jesus is actively discouraging impulsive commitment. He doesn't want people following him halfway and then stopping. A half-built tower is worse than no tower — it becomes a monument to failure. Jesus wants counted, deliberate, fully-informed commitment.</p>
+
+      <div class="callout accent"><div class="callout-label">What This Series Has Shown</div>
+      <p style="font-family:var(--font-serif);font-size:18px;font-style:italic;color:var(--cream);line-height:1.7;">The Bible is God's word — trustworthy and authoritative. You are a sinner in need of rescue. Jesus died for your sin and rose from the dead. Repentance means turning completely. Baptism is dying with Christ and rising to new life. The church is a body you belong to. Jesus is Lord of everything. This is what you're saying yes to.</p></div>
+
+      <h2>What It Will Cost</h2>
+      <div class="verse-block"><div class="verse-text">"So therefore, any one of you who does not renounce all that he has cannot be my disciple."</div><div class="verse-ref">Luke 14:33</div></div>
+
+      <div class="quencher-list">
+        <div class="quencher"><strong>Your self-sovereignty</strong><p>You are no longer the final authority in your own life. Jesus is Lord — which means his word governs your decisions, not just informs them.</p></div>
+        <div class="quencher"><strong>Some relationships</strong><p>"Do not be deceived: Bad company ruins good morals" (1 Corinthians 15:33). Some relationships will be strained. Some may end. Others will be transformed.</p></div>
+        <div class="quencher"><strong>Your comfort</strong><p>"In the world you will have tribulation" (John 16:33). Following Jesus is not a promise of ease. It is a promise of his presence in difficulty.</p></div>
+        <div class="quencher"><strong>Your reputation</strong><p>"If they persecuted me, they will also persecute you" (John 15:20). In some contexts, identifying with Jesus has real social cost.</p></div>
+      </div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — The Real Cost</div>
+      <p class="guide-tip">After going through the costs, ask: "Which one of these is the actual sticking point for you?" Let them name it. Then sit with it — don't immediately offer a workaround or a reassurance. The cost is real. Jesus said so. Let the weight of it land.</p>
+      <p class="guide-tip">Then: "Now consider what you're holding onto instead. What is your life without Jesus — actually, not theoretically?" The cost of not following is also worth counting.</p></div>
+
+      <h2>What It Is Worth</h2>
+      <div class="verse-block"><div class="verse-text">"The kingdom of heaven is like treasure hidden in a field, which a man found and covered up. Then in his joy he goes and sells all that he has and buys that field."</div><div class="verse-ref">Matthew 13:44</div></div>
+
+      <p>The man doesn't sell everything reluctantly. He sells everything in his joy — because he has found something worth more than everything he's giving up. The cost is real. So is what it buys.</p>
+
+      <div class="verse-block"><div class="verse-text">"I consider that the sufferings of this present time are not worth comparing with the glory that is to be revealed to us."</div><div class="verse-ref">Romans 8:18</div></div>
+
+      <h2>The Final Question</h2>
+      <div class="callout accent"><div class="callout-label">The Only Question Left</div>
+      <p style="font-family:var(--font-serif);font-size:22px;font-style:italic;color:var(--cream);line-height:1.6;">You've counted the cost. You know what it requires. You know what it's worth. Will you follow?</p></div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — The Response</div>
+      <p class="guide-tip">If yes: don't delay. Walk through what happens next — repentance, baptism, and receiving the Holy Spirit. If they haven't been baptized as a believer who understands what they're doing, that's the next step. Today if possible.</p>
+      <p class="guide-tip">If not yet: honor the honesty. Ask what specific thing is still unresolved. Keep the relationship. Leave the door open. Some people need another pass through one of the earlier studies. Some need time. Don't manufacture a yes — but don't let the conversation end without clarity about what they're choosing and what they're walking away from.</p>
+      <p class="guide-tip">If no: be honest about what that means. They are choosing to remain in darkness. Name that without condemnation — but name it clearly. You are not doing them a favor by softening it. Jesus didn't soften it. "No one who puts his hand to the plow and looks back is fit for the kingdom of God" (Luke 9:62).</p></div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Luke 14:25–33</span><span class="ref-desc">Count the cost — Jesus' own instruction before committing.</span></div>
+        <div class="ref-item"><span class="ref-book">Matthew 13:44–46</span><span class="ref-desc">The treasure in the field — the joy of finding something worth everything.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 8:18</span><span class="ref-desc">Not worth comparing — present suffering vs. coming glory.</span></div>
+        <div class="ref-item"><span class="ref-book">Luke 9:57–62</span><span class="ref-desc">No looking back — the radical nature of the commitment Jesus requires.</span></div>
+        <div class="ref-item"><span class="ref-book">Philippians 3:7–8</span><span class="ref-desc">Paul: I count everything as loss compared to knowing Christ.</span></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Word Study</div><div class="section-title">Cost · Treasure</div><div class="section-sub">The original words behind counting the cost and finding the treasure</div></div>
+      <div class="word-study-grid">
+        <div class="word-study"><div class="ws-original">ψηφίζω</div><div class="ws-transliteration">psēphizō</div><div class="ws-pos">verb — Greek</div><div class="ws-definition">To count, to calculate, to reckon. From psēphos — a pebble used as a counting stone in ancient accounting. The precise, deliberate act of tallying — making sure you have enough before you begin.</div><div class="ws-note">Luke 14:28 — "sit down and count the cost." The sitting down matters. This is not an impulsive decision made in an emotional moment. Jesus wants deliberate, informed, calculated commitment — not enthusiasm that evaporates when difficulty arrives.</div></div>
+        <div class="word-study"><div class="ws-original">θησαυρός</div><div class="ws-transliteration">thēsauros</div><div class="ws-pos">noun, masculine — Greek</div><div class="ws-definition">Treasure, storehouse, something of great value stored away. The word behind "thesaurus" — a storehouse of words. In Matthew 13:44, the treasure hidden in a field — what the kingdom of heaven is worth.</div><div class="ws-note">The man who finds the treasure doesn't agonize over selling everything. He sells "in his joy." The cost only looks like loss from the outside. From inside — when you've found the treasure — the math is obvious. Everything you give up is less valuable than what you've found.</div></div>
+        <div class="word-study"><div class="ws-original">τελέω</div><div class="ws-transliteration">teleō</div><div class="ws-pos">verb — Greek</div><div class="ws-definition">To complete, to finish, to bring to an end. From telos — the end, the goal, the purpose. Jesus uses this word in the tower-building parable: the danger is starting and not being able to finish. The same root as tetelestai — "It is finished" — on the cross.</div><div class="ws-note">The half-built tower in Luke 14 is a monument to failed commitment. Jesus uses the same root word for "finishing" that he uses at the cross when the work of salvation is completed. He finished his work. The question is whether you will finish yours.</div></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Scripture</div><div class="section-title">All In</div><div class="section-sub">What the Bible says about the cost of following and what it is worth</div></div>
+      <div class="scripture-section"><div class="scripture-section-title">The Cost — Jesus' Own Words</div><div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"For which of you, desiring to build a tower, does not first sit down and count the cost, whether he has enough to complete it?"</div><div class="vc-footer"><span class="vc-ref">Luke 14:28</span><span class="vc-note">Jesus urges deliberate counting — not impulsive commitment</span></div></div>
+        <div class="verse-card"><div class="vc-text">"So therefore, any one of you who does not renounce all that he has cannot be my disciple."</div><div class="vc-footer"><span class="vc-ref">Luke 14:33</span><span class="vc-note">The standard is total — not partial</span></div></div>
+        <div class="verse-card"><div class="vc-text">"No one who puts his hand to the plow and looks back is fit for the kingdom of God."</div><div class="vc-footer"><span class="vc-ref">Luke 9:62</span><span class="vc-note">No looking back — the commitment is forward only</span></div></div>
+      </div></div>
+      <div class="scripture-section"><div class="scripture-section-title">The Worth — What You Find</div><div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"The kingdom of heaven is like treasure hidden in a field, which a man found and covered up. Then in his joy he goes and sells all that he has and buys that field."</div><div class="vc-footer"><span class="vc-ref">Matthew 13:44</span><span class="vc-note">In his joy — not reluctantly. The treasure makes the cost obvious.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Indeed, I count everything as loss because of the surpassing worth of knowing Christ Jesus my Lord."</div><div class="vc-footer"><span class="vc-ref">Philippians 3:8</span><span class="vc-note">Paul — after counting, the verdict is clear</span></div></div>
+        <div class="verse-card"><div class="vc-text">"I consider that the sufferings of this present time are not worth comparing with the glory that is to be revealed to us."</div><div class="vc-footer"><span class="vc-ref">Romans 8:18</span><span class="vc-note">Not worth comparing — present cost vs. coming glory</span></div></div>
+      </div></div>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let guideMode = false;
+function toggleGuideMode() {
+  guideMode = !guideMode;
+  document.body.classList.toggle('guide-active', guideMode);
+  document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
+}
+
+</script>
+</body>
+</html>

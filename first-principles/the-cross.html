@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cross — First Principles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#0c0f18; --surface:#13182a; --surface-2:#1a2035; --surface-3:#212842;
+  --accent:#9a3a3a; --accent-dim:#5a1a1a; --accent-lt:#ba5a5a;
+  --cream:#ede8dc; --cream-dim:#a09a8e; --muted:#5c6078;
+  --border:#232a42; --border-lt:#2e3858; --warning-dim:#6b2c2c;
+  --guide-bg:#0d1a0d; --guide-border:#1a3a1a; --guide-accent:#4a8a4a;
+  --font-body:'Lora',Georgia,serif; --font-display:'Cinzel',serif;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);} p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;} .panel{display:none;} .panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;gap:0;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;position:relative;}
+.tab-btn:hover{color:var(--cream-dim);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:160px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);display:flex;align-items:center;}
+.progression{display:flex;flex-direction:column;margin:24px 0;}
+.prog-step{display:flex;gap:20px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.prog-step:last-child{border-bottom:none;}
+.prog-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--accent-dim);opacity:.5;line-height:1;flex-shrink:0;width:32px;padding-top:4px;}
+.prog-body strong{display:block;color:var(--cream);font-size:15px;margin-bottom:4px;}
+.prog-body p{font-size:14px;margin:0;}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
+.ref-desc{font-size:14px;color:var(--cream-dim);}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.guide-block{display:none;}
+.guide-active .guide-block{display:block;background:var(--guide-bg);border:1px solid var(--guide-border);border-left:3px solid var(--guide-accent);border-radius:4px;padding:16px 20px;margin:12px 0;}
+.guide-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--guide-accent);margin-bottom:10px;}
+.guide-tip{font-size:13px;color:#6aaa6a;margin-bottom:8px;line-height:1.6;}
+.guide-tip:last-child{margin-bottom:0;}
+.guide-active .tab-bar-wrap{box-shadow:inset 0 -2px 0 var(--guide-border);}
+#guide-toggle{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--guide-bg);border:1px solid var(--guide-border);color:var(--guide-accent);font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:background .2s,border-color .2s;opacity:.6;}
+#guide-toggle:hover{opacity:1;}
+.guide-active #guide-toggle{background:#1a3a1a;border-color:var(--guide-accent);opacity:1;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent);border-top-color:var(--accent);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);color:var(--accent);line-height:1.1;margin-bottom:8px;}
+.ws-transliteration{font-family:var(--font-body);font-size:14px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+.sin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0;}
+.sin-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:18px 20px;}
+.sin-name{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:4px;}
+.sin-original{font-family:var(--font-serif);font-size:22px;color:var(--cream);margin-bottom:2px;line-height:1.3;}
+.sin-transliteration{font-size:12px;font-style:italic;color:var(--muted);margin-bottom:10px;}
+.sin-definition{font-size:13px;color:var(--cream-dim);line-height:1.6;margin-bottom:8px;}
+.sin-source{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);}
+@media print{body{background:white;color:#111;}body::before{display:none;}.tab-bar-wrap,#guide-toggle{display:none;}.panel{display:block!important;page-break-before:always;}.panel:first-child{page-break-before:avoid;}}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">First Principles · Study 6</div>
+  <div class="header-title">The <span>Cross</span></div>
+  <div class="header-verse">"But God shows his love for us in that while we were still sinners, Christ died for us."</div>
+  <div class="header-ref">Romans 5:8</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('study', this)">Study</button>
+    <button class="tab-btn" onclick="switchTab('medical', this)">Medical Account</button>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+    
+  </div>
+</div>
+
+<button id="guide-toggle" onclick="toggleGuideMode()">◎ Guide Mode</button>
+
+<div class="panels">
+
+  <div class="panel active" id="panel-study">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">First Principles · Study 6</div>
+        <div class="section-title">The Cross</div>
+        <div class="section-sub">The center of everything — what it cost and what it accomplished</div>
+      </div>
+      
+      <div class="guide-block"><div class="guide-label">Guide Note — Purpose</div>
+      <p class="guide-tip">This is the theological and emotional center of the series. Everything before it led here. Everything after it flows from here. The cross is not background — it is the point. Take more time with this study than any other. Don't rush past the weight of what happened.</p>
+      <p class="guide-tip">The Medical Account tab exists to make the crucifixion physically real — not to be graphic for shock value, but because the cross is often too familiar, too abstract. Read it together slowly before studying the theological meaning. Let the physical reality land first.</p></div>
+
+      <h2>The Problem the Cross Solves</h2>
+      <p>By now the problem is clear: sin has created a separation between humanity and God. The wages of sin is death. A just God cannot simply overlook it. But a loving God cannot abandon the people he made. The cross is where justice and love meet.</p>
+
+      <div class="verse-block"><div class="verse-text">"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."</div><div class="verse-ref">John 3:16</div></div>
+
+      <div class="callout accent"><div class="callout-label">The Great Exchange</div>
+      <p style="font-family:var(--font-serif);font-size:20px;font-style:italic;color:var(--cream);line-height:1.6;">He became what we are so we could become what he is. He took our sin so we could receive his righteousness.</p></div>
+
+      <h2>What the Cross Accomplished</h2>
+      <div class="verse-block"><div class="verse-text">"For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God."</div><div class="verse-ref">2 Corinthians 5:21</div></div>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">Forgiveness</div><div class="use-desc">The debt of sin is paid. God can forgive without overlooking justice — because the penalty was borne.</div></div>
+        <div class="use-row"><div class="use-label">Reconciliation</div><div class="use-desc">The separation Isaiah 59:2 describes is overcome. Access to God is restored.</div></div>
+        <div class="use-row"><div class="use-label">Redemption</div><div class="use-desc">We were slaves to sin. Jesus paid the price to buy us back — not with silver, but with his life.</div></div>
+        <div class="use-row"><div class="use-label">Resurrection</div><div class="use-desc">Death is not the end. The resurrection validates everything — Jesus is who he claimed to be, and death is defeated.</div></div>
+      </div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — Making It Personal</div>
+      <p class="guide-tip">It's easy to discuss the atonement theologically without it landing personally. After going through what the cross accomplished, ask: "If Jesus did all of this — specifically for you — what does that require of you? What would be an appropriate response to this?" Don't answer for them. Let them sit with it.</p>
+      <p class="guide-tip">The cross is not primarily a doctrine to be understood. It is a person to be responded to. Keep pressing toward: "What does this mean for you, personally, today?"</p></div>
+
+      <h2>The Resurrection: Why It Matters</h2>
+      <div class="verse-block"><div class="verse-text">"And if Christ has not been raised, your faith is futile and you are still in your sins."</div><div class="verse-ref">1 Corinthians 15:17</div></div>
+      <p>The resurrection is not a bonus to the Christian story. It is the validation of everything. A dead savior saves no one. The resurrection declares that Jesus is exactly who he claimed to be — and that everything he promised is available.</p>
+
+      <h2>See the Medical Account tab</h2>
+      <p>Read the Medical Account tab together before — or during — this study. The physical reality of crucifixion is often the moment something shifts from theological knowledge to genuine grief and gratitude. Don't skip it.</p>
+
+      <h2>The Challenge</h2>
+      <div class="callout accent"><div class="callout-label">This Week</div>
+      <p>Read Isaiah 53 slowly — the suffering servant, written 700 years before Jesus. Then read it again, inserting your own name where it says "our" and "we." Sit with what it means that this was done for you, personally.</p></div>
+
+      <div class="ref-list">
+        <div class="ref-item"><span class="ref-book">Romans 5:8</span><span class="ref-desc">While we were still sinners — the initiative was God's, not ours.</span></div>
+        <div class="ref-item"><span class="ref-book">Isaiah 53</span><span class="ref-desc">The suffering servant — the cross foretold 700 years in advance.</span></div>
+        <div class="ref-item"><span class="ref-book">2 Corinthians 5:21</span><span class="ref-desc">The great exchange — he became sin so we could become righteousness.</span></div>
+        <div class="ref-item"><span class="ref-book">1 Corinthians 15:3–8</span><span class="ref-desc">The resurrection — validated by 500 witnesses.</span></div>
+        <div class="ref-item"><span class="ref-book">Colossians 2:13–14</span><span class="ref-desc">The record of debt canceled — nailed to the cross.</span></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-medical">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Medical Account</div><div class="section-title">What Crucifixion Was</div><div class="section-sub">The physical reality of what Jesus endured — from medical and historical sources</div></div>
+      <p style="color:var(--cream-dim);margin-bottom:28px;">Read this slowly. The cross is often too familiar — too abstract. The physical reality is part of the weight of what "he loved us" actually means.</p>
+
+      <div class="callout"><div class="callout-label">Before the Cross — The Flogging</div>
+      <p>Roman flogging (flagellatio) was done with a flagellum — a whip with multiple leather straps embedded with pieces of bone and metal. The condemned man was stripped, bound to a post, and beaten across the back, buttocks, and legs. The metal and bone tore through the skin, exposing muscle, cutting blood vessels, and sometimes exposing bone. Many men died from flogging alone before reaching crucifixion. By the time Jesus reached Golgotha, he was in severe hypovolemic shock — massive blood loss, low blood pressure, rapid shallow breathing, intense thirst.</p></div>
+
+      <div class="callout"><div class="callout-label">The Nails</div>
+      <p>The nails were tapered iron spikes, 5–7 inches long. They were driven not through the palms (which cannot support body weight) but through the wrists — between the radius and ulna — striking the median nerve. The pain was immediate and explosive. In Greek, the word is "the hands" — but ancient usage included the wrist. The feet were nailed through the metatarsals, often with one nail through both feet together.</p></div>
+
+      <div class="callout"><div class="callout-label">Death by Asphyxiation</div>
+      <p>Crucifixion killed primarily by asphyxiation. To exhale, the victim had to push up on the nailed feet — an agonizing movement that tore the wounds wider and triggered the nerve pain again. Breathing in required the same movement. Exhaustion eventually made it impossible to push up — and the victim could no longer breathe. The process typically took 6–24 hours. Jesus died in approximately 6 hours — unusually quickly, consistent with the severity of the pre-cross flogging and the trauma to his heart (John 19:34 — the blood and water from the spear wound indicates pericardial effusion, fluid around the heart).</p></div>
+
+      <div class="callout"><div class="callout-label">What He Said</div>
+      <p>In this state — after the flogging, after the nails, struggling to breathe, in agony — Jesus said: "Father, forgive them, for they know not what they do" (Luke 23:34). And: "It is finished" (John 19:30). The Greek is tetelestai — a word used in the ancient world to mark a debt as paid in full. Not "I am finished." The work is finished. The debt is paid.</p></div>
+
+      <div class="verse-block"><div class="verse-text">"But God shows his love for us in that while we were still sinners, Christ died for us."</div><div class="verse-ref">Romans 5:8</div></div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-words">
+    <div class="content-wrap">
+      
+      <div class="section-header"><div class="section-eyebrow">Word Study</div><div class="section-title">Atonement · Redemption</div><div class="section-sub">The original words behind what the cross accomplished</div></div>
+      <div class="word-study-grid">
+        <div class="word-study"><div class="ws-original">ἱλαστήριον</div><div class="ws-transliteration">hilastērion</div><div class="ws-pos">noun, neuter — Greek</div><div class="ws-definition">Propitiation; the mercy seat; the place where atonement is made. In the OT, the cover of the ark where God met his people. In the NT, applied to Jesus — he is the place where God's wrath is satisfied and mercy flows.</div><div class="ws-note">Romans 3:25 — "God put forward [Jesus] as a propitiation by his blood." Jesus is not just the sacrifice — he is the place where God meets sinful humanity in mercy. The same word used for the mercy seat in Hebrews 9:5.</div></div>
+        <div class="word-study"><div class="ws-original">λύτρον</div><div class="ws-transliteration">lytron</div><div class="ws-pos">noun, neuter — Greek</div><div class="ws-definition">Ransom; the price paid to free a slave or prisoner. From lyō — to loose, to set free. Jesus said he came "to give his life as a ransom for many" (Matthew 20:28).</div><div class="ws-note">The word was used in the Roman world for the price paid to free a slave. We were slaves to sin. Jesus paid the price — not with money, but with his life. Redemption is not just forgiveness — it's liberation.</div></div>
+        <div class="word-study"><div class="ws-original">כָּפַר</div><div class="ws-transliteration">kaphar</div><div class="ws-pos">verb — Hebrew</div><div class="ws-definition">To atone, to cover, to make reconciliation. The root of Yom Kippur — the Day of Atonement. The idea of covering sin so it no longer stands between the person and God.</div><div class="ws-note">The OT sacrificial system was built around kaphar — repeated, animal sacrifices that covered sin temporarily. Jesus' death is the final, once-for-all kaphar. Hebrews 10:10 — "we have been sanctified through the offering of the body of Jesus Christ once for all."</div></div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="panel" id="panel-scripture">
+    <div class="content-wrap">
+      <div class="section-header">
+        <div class="section-eyebrow">Scripture</div>
+        <div class="section-title">Key Passages</div>
+        <div class="section-sub">Supporting scriptures for this study</div>
+      </div>
+      <p style="color:var(--cream-dim);">See the reference tab for the full content. Additional cross-references to be expanded in a future revision.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+let guideMode = false;
+function toggleGuideMode() {
+  guideMode = !guideMode;
+  document.body.classList.toggle('guide-active', guideMode);
+  document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
+}
+
+</script>
+</body>
+</html>
