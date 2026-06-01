@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Womanhood & Calling — Women's Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--surface-3:#212842;
+  --accent:#a07080;--accent-dim:#5a3545;--accent-lt:#c090a0;
+  --cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;
+  --border:#232a42;--border-lt:#2e3858;--warning-dim:#6b2c2c;
+  --font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;--font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#130f18 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);min-width:140px;max-width:180px;padding-top:2px;flex-shrink:0;}
+.ref-desc{font-size:14px;color:var(--cream-dim);min-width:0;}@media(max-width:520px){.ref-item{flex-direction:column;gap:6px;}.ref-book{max-width:100%;}}
+.reflection-set{display:flex;flex-direction:column;gap:20px;margin:20px 0;}
+.reflection-card{background:var(--surface);border:1px solid var(--border-lt);border-radius:6px;padding:20px 24px;}
+.reflection-q{font-family:var(--font-serif);font-size:17px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.reflection-card textarea{width:100%;min-height:90px;background:var(--surface-2);border:1px solid var(--border-lt);border-radius:4px;color:var(--cream-dim);font-family:var(--font-body);font-size:14px;padding:12px 14px;resize:vertical;line-height:1.6;}
+.reflection-card textarea:focus{outline:none;border-color:var(--accent-dim);}
+.reflection-card textarea::placeholder{color:var(--muted);}
+.dq-list{list-style:none;margin:16px 0;counter-reset:dq;}
+.dq-item{counter-increment:dq;display:flex;gap:18px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.dq-item:last-child{border-bottom:none;}
+.dq-num{font-family:var(--font-display);font-size:13px;color:var(--accent-dim);flex-shrink:0;width:24px;padding-top:3px;}
+.dq-num::before{content:counter(dq);}
+.dq-text{font-size:15px;color:var(--cream-dim);line-height:1.7;}
+.prayer-box{background:linear-gradient(135deg,var(--surface-2),var(--surface-3));border:1px solid var(--accent-dim);border-radius:8px;padding:36px;text-align:center;margin-top:40px;}
+.prayer-box .prayer-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:18px;}
+.prayer-box .verse-text{font-family:var(--font-serif);font-size:clamp(20px,3.5vw,28px);font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.prayer-box .verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.prayer-instruction{font-size:13px;color:var(--muted);margin-top:14px;font-style:italic;}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent-dim);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(28px,4vw,40px);color:var(--accent);line-height:1.2;margin-bottom:6px;}
+.ws-transliteration{font-family:var(--font-body);font-size:13px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.65;margin-bottom:10px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:10px;margin-top:10px;}
+
+/* ── NOISE GRID — two distortions ── */
+.noise-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0;}
+@media(max-width:560px){.noise-grid{grid-template-columns:1fr;}}
+.noise-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;}
+.noise-card.left{border-top:3px solid #7a3060;}
+.noise-card.right{border-top:3px solid #304a7a;}
+.noise-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.noise-card.left .noise-label{color:#a06080;}
+.noise-card.right .noise-label{color:#6080a0;}
+.noise-title{font-family:var(--font-display);font-size:13px;color:var(--cream);margin-bottom:10px;}
+.noise-card ul{list-style:none;}
+.noise-card ul li{font-size:13px;color:var(--cream-dim);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.5;display:flex;gap:8px;}
+.noise-card ul li:last-child{border-bottom:none;}
+.noise-card ul li::before{content:'·';color:var(--muted);flex-shrink:0;}
+
+/* ── WOMEN OF SCRIPTURE CALLING CARDS ── */
+.calling-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:24px 0;}
+.calling-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px;position:relative;overflow:hidden;}
+.calling-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-dim);}
+.calling-name{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--accent);margin-bottom:3px;}
+.calling-ref{font-family:var(--font-display);font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:10px;}
+.calling-role{font-size:12px;color:var(--accent-lt);font-style:italic;margin-bottom:10px;}
+.calling-desc{font-size:13px;color:var(--cream-dim);line-height:1.6;}
+
+/* ── DISCERNMENT STEPS ── */
+.discern-stack{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0;}
+.discern-row{display:grid;grid-template-columns:64px 1fr;border-bottom:1px solid var(--border);}
+.discern-row:last-child{border-bottom:none;}
+.discern-num{background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--accent);border-right:1px solid var(--border);}
+.discern-content{background:var(--surface);padding:18px 22px;}
+.discern-title{font-family:var(--font-display);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);margin-bottom:6px;}
+.discern-desc{font-size:14px;color:var(--cream-dim);line-height:1.6;margin:0;}
+
+/* ── TITUS 2 GRID ── */
+.titus-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:24px 0;}
+@media(max-width:560px){.titus-grid{grid-template-columns:1fr;}}
+.titus-col{padding:22px 24px;}
+.titus-col:first-child{background:var(--surface);border-right:1px solid var(--border);}
+.titus-col:last-child{background:var(--surface-2);}
+.titus-label{font-family:var(--font-display);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.titus-col ul{list-style:none;}
+.titus-col ul li{font-size:13px;color:var(--cream-dim);padding:8px 0;border-bottom:1px solid var(--border);line-height:1.55;display:flex;gap:10px;}
+.titus-col ul li:last-child{border-bottom:none;}
+.titus-col ul li::before{content:'—';color:var(--accent-dim);flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Women's Study · Calling & Vocation</div>
+  <div class="header-title">Womanhood <span>&amp; Calling</span></div>
+  <div class="header-verse">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+  <div class="header-ref">Ephesians 2:10 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('women',this)">Women of Scripture</button>
+    <button class="tab-btn" onclick="switchTab('titus2',this)">Titus 2</button>
+    <button class="tab-btn" onclick="switchTab('discernment',this)">Discerning Your Calling</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ════ THE STUDY ════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Women's Study · Calling & Vocation</div>
+      <div class="section-title">Womanhood &amp; Calling</div>
+      <div class="section-sub">What you are for — beyond the noise of two equally loud and equally wrong voices</div>
+    </div>
+
+    <h2>The Question You Can't Escape</h2>
+    <p>Every woman in the modern world navigates a loud, relentless conversation about what womanhood means and what she is supposed to do with her life. The conversation comes from two directions — both confident, both cultural, both frequently framed in moral language — and neither one is primarily shaped by Scripture.</p>
+    <p>The question of calling is downstream from identity. Before you can understand what you are for, you need to know who you are. If you haven't worked through the Identity study, the foundation here will feel unstable — calling built on a shaky identity produces either drivenness (I must perform my calling to justify my existence) or paralysis (if I choose wrong, I lose myself). The right order: identity first, calling second. You are a child of God before you are anything else. What follows is what that child is called to do.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Starting Point</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Calling is not what you do to earn your worth. It is what you do because your worth is already settled. The difference between those two foundations produces two completely different women — and two completely different lives.</p>
+    </div>
+
+    <h2>The Two Distortions — And Why Both Are Wrong</h2>
+    <p>Scripture occupies a position that neither cultural voice is offering. Understanding both distortions is the first step toward finding the actual biblical ground.</p>
+
+    <div class="noise-grid">
+      <div class="noise-card left">
+        <div class="noise-label">Distortion One</div>
+        <div class="noise-title">Gender is Irrelevant — You Can Be Anything</div>
+        <ul>
+          <li>Womanhood has no specific shape — it is purely a biological category with no moral or spiritual content</li>
+          <li>Any suggestion of distinct female calling is oppression dressed in religious language</li>
+          <li>Ambition, achievement, and self-actualization are the primary measures of a life well lived</li>
+          <li>Home, family, and service are fine if you choose them — but choosing them is settling</li>
+          <li>The body and its capacities (including motherhood) are incidental to identity, not constitutive of it</li>
+        </ul>
+      </div>
+      <div class="noise-card right">
+        <div class="noise-label">Distortion Two</div>
+        <div class="noise-title">Women Belong at Home — Everything Else Is Compromise</div>
+        <ul>
+          <li>A woman's calling is exclusively domestic — any ambition beyond the home is suspect</li>
+          <li>Work outside the home is a concession to feminism, not a legitimate vocation</li>
+          <li>Spiritual gifts in women are real but must be contained to certain approved contexts</li>
+          <li>The ideal woman is defined entirely by her domestic roles — wife, mother, homemaker</li>
+          <li>Women who don't fit this template (single, childless, professionally gifted) are treated as incomplete or problematic</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>Scripture gives neither of these. It affirms that womanhood has a distinct, God-designed shape — which the first distortion denies. And it presents women of extraordinary range, public impact, and varied calling — which the second distortion cannot account for. The biblical picture is richer, more varied, and more demanding than either cultural option.</p>
+
+    <h2>What Scripture Actually Establishes</h2>
+    <p>Genesis 1:27 — male and female are both made in the image of God, equally. There is no hierarchy of worth or dignity. Both are called to bear his image in the world, to be fruitful, to steward creation. The equal dignity of men and women is not a modern achievement — it is the first chapter of the first book.</p>
+    <p>Genesis 2 goes further — the woman is created as <em>ezer kenegdo</em>: a helper who is the equal and counterpart of the man. Not a subordinate assistant. Not a lesser being. The word <em>ezer</em> is used sixteen times in the Old Testament — fifteen of those times it refers to God himself as the helper of Israel. The <em>ezer</em> is strong, necessary, and irreplaceable.</p>
+    <p>And yet — male and female are genuinely different. Not in worth, not in dignity, not in access to God. But in design, in capacity, and in the ways those differences are expressed in the community of the church and the home. The differences are not accidental. They are intentional, good, and meant to be celebrated rather than flattened.</p>
+
+    <h2>The Shape of Female Calling in Scripture</h2>
+    <p>When you read Scripture without a predetermined cultural framework, the women who emerge are striking in their range:</p>
+    <div class="uses-grid">
+      <div class="use-row">
+        <div class="use-label">Judge &amp; Prophet</div>
+        <div class="use-desc">Deborah judged Israel, settled disputes, and commanded the military response to Sisera (Judges 4–5). Huldah the prophetess was consulted by the king when the Book of the Law was found (2 Kings 22). Both operated in public, authoritative roles in the community of God's people.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Businesswoman</div>
+        <div class="use-desc">Lydia was a dealer in purple cloth — a significant commercial enterprise — who hosted the first church in Philippi (Acts 16). The Proverbs 31 woman buys fields, runs a small business, and manages a household. Work and commerce are not in tension with female calling in Scripture.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Teacher &amp; Minister</div>
+        <div class="use-desc">Priscilla instructed Apollos — one of the most gifted preachers of the early church — more accurately in the way of God (Acts 18:26). Phoebe was a deacon of the church at Cenchreae (Romans 16:1). Junia was noted among the apostles (Romans 16:7). Women were the first witnesses and heralds of the resurrection.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Intercessor &amp; Reformer</div>
+        <div class="use-desc">Esther risked her life to save her people — acting in the public sphere with political courage. Hannah's prayer in 1 Samuel 1 is one of the most theologically rich intercessory prayers in Scripture. Mary of Bethany sat at Jesus' feet as a disciple — in a posture reserved for male students of a rabbi — and was commended for it.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Mother &amp; Homemaker</div>
+        <div class="use-desc">Ruth's faithfulness and Boaz's recognition of her virtue. The mother in Proverbs 31 whose household management is a form of wisdom and leadership. Mary of Nazareth whose primary calling was to bear and raise the Son of God. Motherhood in Scripture is never presented as lesser — it is presented as one of the most significant callings available to a human being.</div>
+      </div>
+    </div>
+
+    <p>The range is the point. Scripture does not present one template for a faithful woman. It presents faithful women in every conceivable context — political, domestic, prophetic, commercial, relational, and maternal — all serving God from the same foundation of identity in him, in the specific assignment he gave each of them.</p>
+
+    <h2>Calling vs. Role</h2>
+    <p>A role is a function you fill in a particular context. A calling is what God has specifically designed and summoned you toward — it may express itself through multiple roles over a lifetime, but it is not reducible to any single one. The confusion of calling with role produces the identity problems explored in the Identity study. The distinction liberates.</p>
+    <p>Your calling is the intersection of how God has wired you, what he has gifted you to do, what the community around you needs, and what you have been specifically placed in a position to accomplish. It changes shape across seasons. It does not change in essence.</p>
+
+    <h2>The Hard Questions</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>What about work and home?</strong>
+        <p>Scripture does not prohibit women from working outside the home — Lydia, the Proverbs 31 woman, and Priscilla all did so. It does establish that the home and family are primary stewardship responsibilities that cannot be abandoned for professional ambition. The question is not "work or home" but "am I faithful in my primary stewardships, and does my work serve or undermine them?"</p>
+      </div>
+      <div class="quencher">
+        <strong>What about women without husbands or children?</strong>
+        <p>The single woman, the childless woman, the widow — each is a full person with a full calling. Paul commends singleness as a gift that allows undivided devotion to God (1 Corinthians 7:34). The church that treats unmarried or childless women as incomplete has misread Scripture and failed its members. Calling does not require a husband or children to be fulfilled.</p>
+      </div>
+      <div class="quencher">
+        <strong>What about spiritual gifts in women?</strong>
+        <p>1 Corinthians 12 distributes gifts to the body without reference to gender. Women prophesy (Acts 21:9, 1 Corinthians 11:5). Women teach (Titus 2:3–4, Acts 18:26). Women serve, give, lead, and intercede. The question of what specific contexts those gifts operate in is a legitimate theological conversation — but the gifts themselves are not in question.</p>
+      </div>
+      <div class="quencher">
+        <strong>What if my calling is not visible or celebrated?</strong>
+        <p>Most callings are not visible or celebrated. The woman who raises children faithfully, who prays without ceasing for her family, who loves her neighbor quietly, who serves without recognition — this calling is not lesser. The measure of a calling in Scripture is faithfulness, not visibility. Colossians 3:23 — "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."</p>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the two distortions has had more influence on how you think about your own calling — the "gender is irrelevant" voice or the "women belong only at home" voice? Where did you absorb it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What are you doing right now that feels like calling — not just a role you fill, but something you are specifically wired and placed to do? If nothing comes to mind, what does that absence tell you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Are you living your calling from a foundation of settled identity — or are you performing it to justify yourself? How do you tell the difference in practice?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is the one thing God has uniquely positioned you to do in this season — that no one else in your immediate circle is doing — and are you doing it?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion Questions</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Which cultural voice about womanhood have you found most compelling — and how has it shaped what you believe God is calling you toward?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The women of Scripture operate in an extraordinary range of callings — judge, prophet, businesswoman, mother, teacher, reformer. Which of these surprises you most? Why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What is the difference between a role and a calling in your own life right now? Can you name both?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Has the church in your experience tended more toward distortion one (gender irrelevant) or distortion two (women only at home)? What has that cost the women in it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Colossians 3:23 — work at everything as working for the Lord, not for people. How does that reframe the callings that are invisible and uncelebrated?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What would it look like for you to pursue your specific calling this week — not perfectly, but faithfully?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing — Read Aloud Together</div>
+      <div class="verse-text">"She is clothed with strength and dignity; she can laugh at the days to come. She speaks with wisdom, and faithful instruction is on her tongue."</div>
+      <div class="verse-ref">Proverbs 31:25–26 · NIV</div>
+      <div class="prayer-instruction">Pray for each woman by name — for clarity about her specific calling, and for the courage to pursue it from a foundation of settled identity in Christ.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WOMEN OF SCRIPTURE ════ -->
+<div class="panel" id="panel-women">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Biblical Examples</div>
+      <div class="section-title">Women of Scripture</div>
+      <div class="section-sub">The range of female calling in the biblical narrative — wider than either cultural distortion allows</div>
+    </div>
+
+    <p>The women Scripture commends are not a type. They are not variations on a single approved template. They are women of radically different circumstances, gifts, stations, and callings — each faithful to what God specifically placed before her. The range is itself the teaching: there is no single mold, and forcing women into one is a distortion of the biblical picture.</p>
+
+    <div class="calling-grid">
+
+      <div class="calling-card">
+        <div class="calling-name">Deborah</div>
+        <div class="calling-ref">Judges 4–5</div>
+        <div class="calling-role">Judge, Prophet, Military Leader</div>
+        <div class="calling-desc">She held court under the Palm of Deborah, settling disputes for all Israel. She summoned Barak, delivered God's battle strategy, and prophesied the outcome. When Barak refused to go without her, she went — and credited the final victory to another woman, Jael. Public authority, prophetic office, military command — Scripture presents this without apology or qualification.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Ruth</div>
+        <div class="calling-ref">Book of Ruth</div>
+        <div class="calling-role">Faithful Daughter, Gleaner, Ancestress of David</div>
+        <div class="calling-desc">Her calling was not glamorous: loyalty to a grieving mother-in-law, physical labor in fields, faithfulness in obscurity. Yet she is in the genealogy of Christ. She is commended for her <em>chesed</em> — steadfast covenant love — in circumstances where no one was watching. Her calling was invisible by the world's measure and eternal by God's.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Esther</div>
+        <div class="calling-ref">Book of Esther</div>
+        <div class="calling-role">Queen, Intercessor, Deliverer</div>
+        <div class="calling-desc">"For such a time as this" — Mordecai's challenge to Esther is one of the clearest calling statements in Scripture. She was placed in a position of influence for a specific moment. She risked her life, used every political and relational skill available to her, and saved her people. Her calling required strategic wisdom, personal courage, and willingness to die for others.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Mary of Nazareth</div>
+        <div class="calling-ref">Luke 1–2</div>
+        <div class="calling-role">Servant, Mother of the Lord</div>
+        <div class="calling-desc">"I am the Lord's servant. May it be done to me according to your word." The most world-altering calling in history — and it came to a young, unknown woman in an obscure village. Her calling was not publicly impressive. It was privately total. She bore and raised the Son of God. Her Magnificat (Luke 1:46–55) is one of the most theologically rich passages in the New Testament.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Mary of Bethany</div>
+        <div class="calling-ref">Luke 10:38–42 · John 12:1–8</div>
+        <div class="calling-role">Disciple, Worshipper</div>
+        <div class="calling-desc">She sat at Jesus' feet — the posture of a disciple, reserved for male students of a rabbi. Jesus defended her choice when her sister objected. She later anointed him for burial — an act Jesus said would be remembered wherever the gospel is preached. Her calling was attentiveness to Christ: not service, not productivity, but presence. Jesus called it the one thing necessary.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Priscilla</div>
+        <div class="calling-ref">Acts 18 · Romans 16:3</div>
+        <div class="calling-role">Teacher, Church Planter, Tentmaker</div>
+        <div class="calling-desc">Named before her husband Aquila in four of six New Testament references — a marker of her prominence. She and Aquila took Apollos aside and explained the way of God more accurately. She is greeted by Paul as a fellow worker in Christ Jesus. Her calling included business, theological instruction, and the planting and hosting of a church in her home.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Lydia</div>
+        <div class="calling-ref">Acts 16:11–15, 40</div>
+        <div class="calling-role">Businesswoman, First European Convert, Church Host</div>
+        <div class="calling-desc">A dealer in purple cloth — a significant commercial enterprise requiring wealth and connections. The first convert in Europe. She immediately opened her home as the base for the Philippian church. Her calling integrated commercial success, hospitality, and the advancement of the gospel. She was not asked to choose between her business and her faith — both were expressions of her calling.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">Phoebe</div>
+        <div class="calling-ref">Romans 16:1–2</div>
+        <div class="calling-role">Deacon, Benefactor, Courier</div>
+        <div class="calling-desc">Paul calls her a <em>diakonos</em> (deacon) of the church at Cenchreae — the same word used of male deacons. He calls her a <em>prostatis</em> — a patron, benefactor, or leader — who has been of great help to many, including Paul himself. She likely carried the letter to the Romans — entrusted with the most important letter in the New Testament.</div>
+      </div>
+
+      <div class="calling-card">
+        <div class="calling-name">The Proverbs 31 Woman</div>
+        <div class="calling-ref">Proverbs 31:10–31</div>
+        <div class="calling-role">Wife, Mother, Businesswoman, Community Leader</div>
+        <div class="calling-desc">Often wielded as a guilt weapon — she is actually a portrait of integrated calling. She manages a household and runs a business. She buys fields, makes and sells linen garments, extends her hands to the poor. Her husband is respected at the city gate because of her. She is praised not for perfection but for faithfulness across the whole range of her life. The fear of the Lord is the source of everything she does.</div>
+      </div>
+
+    </div>
+
+    <h2>What These Women Share</h2>
+    <p>No common template of role, context, or visible impact. What they share is different: each one was faithful to the specific assignment God placed before her, from a foundation of knowing and fearing him, without waiting for cultural permission or ecclesiastical approval. Their callings look nothing alike. Their foundation is identical.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Many women do noble things, but you surpass them all." Charm is deceptive, and beauty is fleeting; but a woman who fears the Lord is to be praised."</div>
+      <div class="verse-ref">Proverbs 31:29–30 · NIV</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ TITUS 2 ════ -->
+<div class="panel" id="panel-titus2">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Titus 2:3–5</div>
+      <div class="section-title">Titus 2</div>
+      <div class="section-sub">The older-to-younger model — what it actually says and what it doesn't</div>
+    </div>
+
+    <div class="verse-block">
+      <div class="verse-text">"Likewise, teach the older women to be reverent in the way they live, not to be slanderers or addicted to much wine, but to teach what is good. Then they can urge the younger women to love their husbands and children, to be self-controlled and pure, to be busy at home, to be kind, and to be subject to their husbands, so that no one will malign the word of God."</div>
+      <div class="verse-ref">Titus 2:3–5 · NIV</div>
+    </div>
+
+    <h2>What Titus 2 Actually Says</h2>
+    <p>This passage is simultaneously over-applied and under-applied. Over-applied when it is used to restrict all female teaching or to enforce a single domestic template on every woman. Under-applied when it is ignored entirely because it sounds culturally uncomfortable.</p>
+    <p>What it actually establishes is a specific model of intergenerational discipleship among women — older women who are characterized by godly character, teaching younger women in the specific areas most relevant to their flourishing. The content of the teaching is not a comprehensive description of female calling — it is pastoral instruction for a specific context.</p>
+
+    <div class="titus-grid">
+      <div class="titus-col">
+        <div class="titus-label">What Older Women Are Called To</div>
+        <ul>
+          <li>Reverent in the way they live — <em>hieroprepes</em>, priestly character, life as worship</li>
+          <li>Not slanderers — the tongue under the Spirit's control</li>
+          <li>Not addicted to wine — self-mastery, not ruled by appetite</li>
+          <li>Teachers of what is good — active, intentional transmission of wisdom</li>
+          <li>The model comes before the teaching — character first, words second</li>
+        </ul>
+      </div>
+      <div class="titus-col">
+        <div class="titus-label">What They Teach Younger Women</div>
+        <ul>
+          <li>To love their husbands and children — <em>philandros, philoteknos</em>, chosen, practiced love</li>
+          <li>To be self-controlled — <em>sophron</em>, sound-minded, disciplined</li>
+          <li>To be pure — <em>hagnos</em>, holy in conduct</li>
+          <li>To be busy at home — <em>oikourgos</em>, the home as a sphere of meaningful work</li>
+          <li>To be kind — <em>agathos</em>, actively good</li>
+          <li>To be subject to their husbands — voluntary, ordered relationship</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>The Purpose — "So That No One Will Malign the Word of God"</h2>
+    <p>The reason for these instructions is missional. Paul is not describing the ideal private life of a Christian woman. He is describing what Christian women's lives should look like in a specific cultural context so that the gospel is not discredited. The church's witness depends in part on whether its members' lives are recognizably different and demonstrably good.</p>
+    <p>This means Titus 2 is not a timeless job description for all women in all contexts. It is a missional framework: live in a way that makes the gospel beautiful and credible to those watching. The specific applications shift by context. The principle — live so that the word of God is honored, not maligned — does not.</p>
+
+    <h2>The Older-to-Younger Model</h2>
+    <p>The most underused element of Titus 2 is the intergenerational relationship it envisions. Older women are not passive recipients of the pastor's teaching — they are active transmitters of wisdom to younger women. This is not formal classroom instruction. It is the lived transmission of hard-won knowledge: how to love a difficult husband, how to discipline without losing yourself, how to maintain sanity in a season of small children, how to pray when faith is dry.</p>
+    <p>The church that takes Titus 2 seriously does not outsource women's formation to a program or a podcast. It creates the relational conditions in which older women are in genuine, ongoing relationship with younger ones — and the wisdom flows naturally in those relationships. This is the model. It is largely absent from most contemporary churches. Rebuilding it is one of the most significant investments a church community can make.</p>
+
+    <h2>Reflection — Titus 2</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Do you have an older woman in your life who actively invests in your formation — not just a mentor figure in the abstract, but someone who knows your specific situation and speaks into it? If not, what would it take to pursue that?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Are you in a position to be the older woman for someone younger — and are you doing it? What specific wisdom has your season produced that a younger woman needs?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ DISCERNING YOUR CALLING ════ -->
+<div class="panel" id="panel-discernment">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Practical Framework</div>
+      <div class="section-title">Discerning Your Calling</div>
+      <div class="section-sub">Not a formula — a process. And it requires other people.</div>
+    </div>
+
+    <p>Calling is not discovered in a moment of private illumination. It is discerned over time, in community, through the convergence of several things that Scripture and Christian tradition have consistently identified. The women who seem most clear about their calling are not the ones who had a dramatic vision — they are the ones who have been paying attention, staying faithful, and listening to people who know them well.</p>
+
+    <div class="discern-stack">
+      <div class="discern-row">
+        <div class="discern-num">1</div>
+        <div class="discern-content">
+          <div class="discern-title">What Has God Wired Into You?</div>
+          <p class="discern-desc">Psalm 139 — you were knit together intentionally. The specific capacities, temperaments, and inclinations you have are not accidental. What do you find yourself naturally drawn toward? What makes time disappear? What do you do that others notice even when you don't? This is not the whole of calling, but it is a genuine starting point. God's gifts and God's callings tend to align.</p>
+        </div>
+      </div>
+      <div class="discern-row">
+        <div class="discern-num">2</div>
+        <div class="discern-content">
+          <div class="discern-title">What Has God Prepared Through Your Story?</div>
+          <p class="discern-desc">Romans 8:28 — all things work together for good. Your suffering, your losses, your specific experiences of God's faithfulness in hard places — these are not wasted. They are preparation. The woman who has walked through infertility has something to offer the woman just entering that valley that no one else can offer. Your story is part of your calling.</p>
+        </div>
+      </div>
+      <div class="discern-row">
+        <div class="discern-num">3</div>
+        <div class="discern-content">
+          <div class="discern-title">What Does the Community Confirm?</div>
+          <p class="discern-desc">Calling is not private. The community of the church has always been a confirming voice — not the only voice, but a necessary one. What do the people who know you well see in you? What do they ask you to do? What gifts do others notice in you that you may not notice yourself? Calling confirmed only in your own heart, without external confirmation, is fragile.</p>
+        </div>
+      </div>
+      <div class="discern-row">
+        <div class="discern-num">4</div>
+        <div class="discern-content">
+          <div class="discern-title">What Does the Need Around You Demand?</div>
+          <p class="discern-desc">Esther's calling was shaped by the need of her people at a specific moment. Calling is not just internal — it is responsive. What need in your immediate community, your family, your church, your neighborhood does no one else seem to be addressing? What gap are you specifically positioned to fill? The intersection of your gift and the world's need is often where calling lives.</p>
+        </div>
+      </div>
+      <div class="discern-row">
+        <div class="discern-num">5</div>
+        <div class="discern-content">
+          <div class="discern-title">What Season Are You In?</div>
+          <p class="discern-desc">Calling has seasons. The calling of a mother with three children under five looks different from the calling of a woman whose children have left home — not lesser in either season, but different in expression. Ecclesiastes 3 — there is a time for everything. Faithfulness to this season's calling, without premature comparison to another season, is its own form of wisdom.</p>
+        </div>
+      </div>
+      <div class="discern-row">
+        <div class="discern-num">6</div>
+        <div class="discern-content">
+          <div class="discern-title">Are You Moving — Or Waiting for Certainty?</div>
+          <p class="discern-desc">Ruth got up and gleaned. Esther acted. Mary said yes. The women of Scripture who discovered their calling did not wait until they had total clarity — they took the next faithful step with the light they had, and the calling became clearer in motion. Proverbs 16:9 — "In their hearts humans plan their course, but the Lord establishes their steps." You do not need the whole staircase. You need the next step.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>What Calling Is Not</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>Calling is not the same as passion</strong>
+        <p>The modern "follow your passion" framework produces paralysis for women who don't have a single consuming passion, and misdirection for women whose passions lead toward self rather than service. Calling is discerned, not just felt. It may or may not feel passionate in every season.</p>
+      </div>
+      <div class="quencher">
+        <strong>Calling is not only the dramatic or public</strong>
+        <p>Most callings are invisible. The woman who prays faithfully for her family, who loves her neighbors, who raises children in the faith, who cares for an aging parent — these are callings of the highest order. The measure is not visibility. The measure is faithfulness to what God specifically gave you.</p>
+      </div>
+      <div class="quencher">
+        <strong>Calling is not permanent paralysis if you get it wrong</strong>
+        <p>God is not a puzzle-master who hides one correct calling and punishes you for guessing wrong. He is a Father who is at work in every faithful step, redirecting and shaping as you move. The woman who is faithfully doing the next right thing is discerning her calling — even if she can't fully articulate it yet.</p>
+      </div>
+    </div>
+
+    <h2>Reflection — Discernment</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Work through the six discernment questions for your own life right now — wiring, story, community confirmation, need, season, and movement. What do they point toward?</div>
+        <textarea style="min-height:140px;" placeholder="Wiring:&#10;Story:&#10;Community confirms:&#10;Need around me:&#10;Season:&#10;Next step:"></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is the one next faithful step — not a plan, a step — that you could take this week toward the calling God has placed before you?</div>
+        <textarea placeholder="My next step..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCRIPTURE ════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages on womanhood, calling, and vocation</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Foundation — Made and Called</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"So God created mankind in his own image, in the image of God he created them; male and female he created them."</div>
+          <div class="vc-footer"><span class="vc-ref">Genesis 1:27 · NIV</span><span class="vc-note">Equal in dignity and image-bearing — before any role distinction</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+          <div class="vc-footer"><span class="vc-ref">Ephesians 2:10 · NIV</span><span class="vc-note">Works flow from identity — not the other way around</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."</div>
+          <div class="vc-footer"><span class="vc-ref">Colossians 3:23 · NIV</span><span class="vc-note">Every calling — visible or invisible — is done as unto the Lord</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Women Called and Commended in Scripture</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Deborah, a prophet, the wife of Lappidoth, was leading Israel at that time."</div>
+          <div class="vc-footer"><span class="vc-ref">Judges 4:4 · NIV</span><span class="vc-note">Public authority, prophetic office — presented without qualification</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"She took him and explained to him the way of God more accurately."</div>
+          <div class="vc-footer"><span class="vc-ref">Acts 18:26 · ESV</span><span class="vc-note">Priscilla teaching Apollos — theological instruction from a woman to one of the early church's greatest preachers</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I commend to you our sister Phoebe, a deacon of the church in Cenchreae... she has been the benefactor of many people, including me."</div>
+          <div class="vc-footer"><span class="vc-ref">Romans 16:1–2 · NIV</span><span class="vc-note">Deacon and patron — Paul's commendation is unambiguous</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"And who knows whether you have not come to the kingdom for such a time as this?"</div>
+          <div class="vc-footer"><span class="vc-ref">Esther 4:14 · ESV</span><span class="vc-note">The clearest calling statement in Scripture — specific, placed, purposeful</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Titus 2 &amp; Intergenerational Calling</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Likewise, teach the older women to be reverent in the way they live... Then they can urge the younger women to love their husbands and children, to be self-controlled and pure, to be busy at home, to be kind."</div>
+          <div class="vc-footer"><span class="vc-ref">Titus 2:3–5 · NIV</span><span class="vc-note">Intergenerational transmission — older women actively forming younger ones</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Charm is deceptive, and beauty is fleeting; but a woman who fears the Lord is to be praised."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 31:30 · NIV</span><span class="vc-note">The measure of female calling — not appearance or achievement, but the fear of the Lord</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WORD STUDY ════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Original Language Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms behind womanhood, calling, and helper in Scripture</div>
+    </div>
+
+    <div class="word-study-grid">
+      <div class="word-study">
+        <div class="ws-original">עֵזֶר</div>
+        <div class="ws-transliteration">ezer</div>
+        <div class="ws-pos">Hebrew noun · Helper, Strength, Rescuer</div>
+        <div class="ws-definition">The woman in Genesis 2:18 is described as an <em>ezer kenegdo</em> — a helper who is the counterpart of the man. <em>Ezer</em> appears 21 times in the Old Testament. Twice it refers to the woman. Sixteen times it refers to God himself as the helper of Israel — in military contexts, in crisis, as the one who rescues when no one else can. The <em>ezer</em> is not a subordinate aide. She is a strong, necessary, irreplaceable presence whose help is of a kind only she can provide.</div>
+        <div class="ws-note"><em>Kenegdo</em> means "corresponding to" or "equal and opposite" — a counterpart, not a clone or a lesser version. The woman is not an afterthought or an assistant. She is the answer to the one problem that existed in the very good creation: that man was alone in a way nothing else could address. She is the solution to a specific, serious, God-identified need.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">κλῆσις</div>
+        <div class="ws-transliteration">klesis</div>
+        <div class="ws-pos">Greek noun · Calling, Vocation, Summons</div>
+        <div class="ws-definition">The New Testament word for calling — from <em>kaleo</em>, to call or summon. In Paul's usage, <em>klesis</em> operates on two levels: the primary calling (to salvation, to be a child of God — 1 Corinthians 1:26, Ephesians 4:1) and the secondary calling (the specific vocation and context in which that primary calling is lived out). Both are real. The primary calling is universal; the secondary is particular and personal.</div>
+        <div class="ws-note">Ephesians 4:1 — "I urge you to walk in a manner worthy of the <em>klesis</em> to which you have been called." The calling is already given — the task is to walk worthy of it. This is the right order: calling as prior reality, life as response. You do not earn your calling by living well. You live well because your calling has already been given.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">χάρισμα</div>
+        <div class="ws-transliteration">charisma</div>
+        <div class="ws-pos">Greek noun · Gift of Grace, Spiritual Gift</div>
+        <div class="ws-definition">The word behind "spiritual gifts" in 1 Corinthians 12 and Romans 12. <em>Charisma</em> is a gift of grace — something given freely, not earned, directly connected to the giver's generosity rather than the recipient's merit. Paul distributes <em>charismata</em> across the body without reference to gender. The gifts are sovereignly distributed by the Spirit "to each one, just as he determines" (1 Corinthians 12:11).</div>
+        <div class="ws-note">The <em>charismata</em> are one of the primary inputs for discerning calling. What has the Spirit specifically given you to contribute to the body? Identifying your gifts — and having them confirmed by the community — is a key part of understanding what you are called to do. The gifts were given for the common good (1 Corinthians 12:7), which means they point outward toward the need they are designed to meet.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">διάκονος</div>
+        <div class="ws-transliteration">diakonos</div>
+        <div class="ws-pos">Greek noun · Servant, Deacon, Minister</div>
+        <div class="ws-definition">The word used of Phoebe in Romans 16:1 — <em>diakonos</em> of the church at Cenchreae. The same word used of male deacons in 1 Timothy 3:8–13 and of Christ himself in Romans 15:8. It means servant, minister, one who acts on behalf of another. Paul's use of this word for Phoebe is not diminutive — it is the same word he uses for himself in his own ministry description. Her service was formal, recognized, and significant.</div>
+        <div class="ws-note">The early church's use of <em>diakonos</em> for women (Phoebe, and the <em>gynaikas</em> of 1 Timothy 3:11 who are likely female deacons) reflects a ministry structure that included women in formal service roles from the beginning. The specific shape of those roles is a matter of ongoing theological discussion — but the presence of women in recognized ministry is not.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

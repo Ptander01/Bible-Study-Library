@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identity & Worth in Christ — Women's Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--surface-3:#212842;
+  --accent:#a07080;--accent-dim:#5a3545;--accent-lt:#c090a0;
+  --cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;
+  --border:#232a42;--border-lt:#2e3858;--warning-dim:#6b2c2c;
+  --font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;--font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);}
+p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;}
+em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#130f18 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);min-width:140px;max-width:180px;padding-top:2px;flex-shrink:0;}
+.ref-desc{font-size:14px;color:var(--cream-dim);min-width:0;}@media(max-width:520px){.ref-item{flex-direction:column;gap:6px;}.ref-book{max-width:100%;}}
+.reflection-set{display:flex;flex-direction:column;gap:20px;margin:20px 0;}
+.reflection-card{background:var(--surface);border:1px solid var(--border-lt);border-radius:6px;padding:20px 24px;}
+.reflection-q{font-family:var(--font-serif);font-size:17px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.reflection-card textarea{width:100%;min-height:90px;background:var(--surface-2);border:1px solid var(--border-lt);border-radius:4px;color:var(--cream-dim);font-family:var(--font-body);font-size:14px;padding:12px 14px;resize:vertical;line-height:1.6;}
+.reflection-card textarea:focus{outline:none;border-color:var(--accent-dim);}
+.reflection-card textarea::placeholder{color:var(--muted);}
+.dq-list{list-style:none;margin:16px 0;counter-reset:dq;}
+.dq-item{counter-increment:dq;display:flex;gap:18px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.dq-item:last-child{border-bottom:none;}
+.dq-num{font-family:var(--font-display);font-size:13px;color:var(--accent-dim);flex-shrink:0;width:24px;padding-top:3px;}
+.dq-num::before{content:counter(dq);}
+.dq-text{font-size:15px;color:var(--cream-dim);line-height:1.7;}
+.prayer-box{background:linear-gradient(135deg,var(--surface-2),var(--surface-3));border:1px solid var(--accent-dim);border-radius:8px;padding:36px;text-align:center;margin-top:40px;}
+.prayer-box .prayer-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:18px;}
+.prayer-box .verse-text{font-family:var(--font-serif);font-size:clamp(20px,3.5vw,28px);font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.prayer-box .verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.prayer-instruction{font-size:13px;color:var(--muted);margin-top:14px;font-style:italic;}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent-dim);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(28px,4vw,40px);color:var(--accent);line-height:1.2;margin-bottom:6px;}
+.ws-transliteration{font-family:var(--font-body);font-size:13px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.65;margin-bottom:10px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:10px;margin-top:10px;}
+
+/* ── IDENTITY SOURCES GRID ── */
+.id-source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:24px 0;}
+.id-source{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;}
+.id-source.false{border-top:3px solid #7a3040;}
+.id-source.true{border-top:3px solid var(--accent-dim);}
+.id-source-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.id-source.false .id-source-label{color:#9a5060;}
+.id-source.true .id-source-label{color:var(--accent);}
+.id-source-title{font-family:var(--font-display);font-size:13px;color:var(--cream);margin-bottom:8px;}
+.id-source p{font-size:13px;color:var(--cream-dim);margin:0;line-height:1.6;}
+
+/* ── WHO YOU ARE IN CHRIST ── */
+.truth-stack{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0;}
+.truth-row{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--border);}
+.truth-row:last-child{border-bottom:none;}
+@media(max-width:540px){.truth-row{grid-template-columns:1fr;}}
+.truth-ref{background:var(--surface-2);padding:16px 20px;font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.truth-content{background:var(--surface);padding:16px 20px;}
+.truth-statement{font-family:var(--font-serif);font-size:16px;font-style:italic;color:var(--cream);margin-bottom:4px;}
+.truth-note{font-size:12px;color:var(--muted);}
+
+/* ── PASSAGE BLOCK ── */
+.passage-block{background:var(--surface);border:1px solid var(--border-lt);border-radius:6px;padding:28px 32px;margin:24px 0;}
+.passage-title{font-family:var(--font-display);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:16px;}
+.passage-text{font-family:var(--font-serif);font-size:clamp(15px,2vw,18px);font-style:italic;color:var(--cream);line-height:1.85;}
+.passage-text .vn{font-style:normal;font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--accent-dim);vertical-align:super;margin-right:3px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Women's Study · Identity</div>
+  <div class="header-title">Identity &amp; <span>Worth in Christ</span></div>
+  <div class="header-verse">"See what great love the Father has lavished on us, that we should be called children of God — and that is what we are."</div>
+  <div class="header-ref">1 John 3:1 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('roles',this)">Roles vs. Identity</button>
+    <button class="tab-btn" onclick="switchTab('truth',this)">Who You Are in Christ</button>
+    <button class="tab-btn" onclick="switchTab('image',this)">Image of God</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ════ THE STUDY ════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Women's Study · Identity</div>
+      <div class="section-title">Identity &amp; Worth</div>
+      <div class="section-sub">What you are is not what you do — and confusing the two is a theological error with real consequences</div>
+    </div>
+
+    <h2>The Problem Named Plainly</h2>
+    <p>Most women know, intellectually, that their worth is not earned by their performance. They have heard it in church. They may have said it themselves. But the way they actually live — the way anxiety spikes when a role is threatened, the devastation when a relationship ends or a child struggles or a career stalls — tells a different story. The functional belief, the one governing daily life, is this: <strong>I am what I do, and I am worth what I produce.</strong></p>
+    <p>This is not just a self-esteem problem. It is a theological error — and calling it that matters, because theological errors have theological solutions. The problem is not that you need to believe in yourself more. The problem is that you have located your identity in the wrong place, and no amount of affirmation will fix a foundation that was never meant to bear the weight of your entire sense of self.</p>
+    <p>Roles are real. Being a wife, a mother, a nurse, a friend, a daughter — these are genuine callings with genuine weight. The error is not caring about them. The error is fusing your <em>identity</em> to them so completely that you cannot answer the question "who are you?" without listing what you do. When the role is threatened — when the marriage is hard, when a child is struggling, when the career disappoints — the person who has fused their identity to the role doesn't just lose the role. They lose themselves.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Diagnostic Question</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">If you stripped away every role you currently hold — wife, mother, professional, friend, daughter — who would you be? Could you answer that question? Or would the question itself feel like a crisis?</p>
+    </div>
+
+    <h2>Where Identity Gets Built — and Where It Shouldn't</h2>
+    <div class="id-source-grid">
+      <div class="id-source false">
+        <div class="id-source-label">Unstable Foundation</div>
+        <div class="id-source-title">Roles &amp; Relationships</div>
+        <p>Wife, mother, daughter, friend. Real and important — but contingent. Roles change, end, or fail. A woman whose identity is her marriage loses herself in a hard season. A woman whose identity is motherhood loses herself when the children leave — or when they disappoint.</p>
+      </div>
+      <div class="id-source false">
+        <div class="id-source-label">Unstable Foundation</div>
+        <div class="id-source-title">Performance &amp; Achievement</div>
+        <p>Career, competence, the quality of what you produce. Productive until the job ends, the health fails, or the standard shifts. Built on what you do — which can always be done better, can always be done by someone else, and will eventually not be done at all.</p>
+      </div>
+      <div class="id-source false">
+        <div class="id-source-label">Unstable Foundation</div>
+        <div class="id-source-title">Appearance &amp; Approval</div>
+        <p>How you look, how others see you, whether you are liked and admired. Entirely dependent on other people's responses — which you cannot control — and on a body that changes. The most anxious identity foundation available.</p>
+      </div>
+      <div class="id-source false">
+        <div class="id-source-label">Unstable Foundation</div>
+        <div class="id-source-title">Moral Performance</div>
+        <p>Being a good person. Doing enough. Being the kind of Christian who doesn't struggle with that. Even spiritual performance can become an identity foundation — and it produces either pride when things are going well or devastation when they are not.</p>
+      </div>
+      <div class="id-source true" style="grid-column:1/-1;">
+        <div class="id-source-label">The Only Stable Foundation</div>
+        <div class="id-source-title">Who God Says You Are</div>
+        <p>Chosen before the foundation of the world (Ephesians 1:4). Known by name (Isaiah 43:1). Made in the image of God (Genesis 1:27). Redeemed, adopted, sealed (Ephesians 1:7, 13–14). Loved with an everlasting love (Jeremiah 31:3). A new creation (2 Corinthians 5:17). This identity is not contingent on your performance, your roles, or anyone else's response to you. It was established before you did anything and it holds when everything else shifts.</p>
+      </div>
+    </div>
+
+    <h2>Why the Church Often Makes This Worse</h2>
+    <p>The church can inadvertently deepen the problem by assigning identity to spiritual roles rather than to Christ himself. "You are a worship leader." "You are a women's ministry director." "You are a pastor's wife." These are roles in the church — and when a woman's identity fuses to them, the result is the same devastation when the role is challenged, removed, or changed. Spiritual roles are not exempt from the identity-fusion problem. The solution is not a better role. It is a deeper root.</p>
+
+    <h2>The Theological Foundation</h2>
+    <p>Your worth was established before you were born, by an act of God, which your behavior cannot increase or diminish. This is not self-help language dressed in theological clothing. It is the actual claim of Scripture — repeated, from Genesis to Revelation, in every conceivable context.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+      <div class="verse-ref">Ephesians 2:10 · NIV</div>
+    </div>
+
+    <p>You are God's <em>handiwork</em> — the Greek is <em>poiema</em>, his workmanship, his masterpiece. That is what you are. The good works come after — they flow from the identity, they do not constitute it. You were not made to justify your existence through output. You were made as the expression of his creative intent, and the works are the fruit of that, not the root of it.</p>
+
+    <h2>What This Changes Practically</h2>
+    <div class="uses-grid">
+      <div class="use-row">
+        <div class="use-label">In marriage</div>
+        <div class="use-desc">A woman whose identity is in Christ brings herself to her marriage rather than looking to her marriage to give her a self. She can love her husband freely because she is not depending on him to tell her who she is. The marriage becomes a place of giving rather than a place of constant, unspoken need for validation.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">In mothering</div>
+        <div class="use-desc">A woman whose identity is not in her children can parent without the suffocating anxiety of a mother whose sense of self hangs on her children's outcomes. She can discipline without fear, release without crisis, and love without possession. Her children are not her identity — they are her stewardship.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">In work</div>
+        <div class="use-desc">A woman grounded in Christ can work excellently and care about her work without needing it to define her. She can succeed without pride and fail without devastation. Her work is an expression of who she is — not the source of it.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">In conflict</div>
+        <div class="use-desc">When someone criticizes, dismisses, or rejects a woman whose identity is in Christ, it costs her something — but it does not destroy her. She does not need to win every argument, be understood by everyone, or be liked by the people who matter to her. Her standing is not determined by their verdict.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">In loss</div>
+        <div class="use-desc">When a role ends — when the children leave, when the career changes, when a relationship is lost — a woman whose identity is rooted in Christ loses the role but does not lose herself. She grieves. She adjusts. But the foundation is not gone because the role is gone.</div>
+      </div>
+    </div>
+
+    <h2>The Work — How Identity Actually Shifts</h2>
+    <p>Knowing the right answer theologically and living from it are different things. Identity rooted in Christ is not produced by deciding to believe it. It is formed over time through sustained engagement with what God says, in community, in prayer, in the ordinary daily practice of returning to the truth when the old identity foundations pull.</p>
+    <p>Colossians 3:1–3 gives the shape of it: <em>"Set your minds on things above... for you have died, and your life is now hidden with Christ in God."</em> Hidden with Christ — the most secure location available. Not visible, not validated by external performance, not accessible to the verdict of other people. Hidden. Safe. Fixed.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">When a role you hold is threatened or criticized — your parenting, your marriage, your work — what is the emotional response? What does the intensity of that response reveal about where your identity is actually rooted?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the four unstable foundations — roles, performance, approval, moral performance — is your primary one? Be specific about how it shows up in your daily life.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Can you complete this sentence without listing a role or an achievement: "I am ___"? Try it. What comes up?</div>
+        <textarea placeholder="I am..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What would it look like in a specific situation this week to live from your identity in Christ rather than from a role — what would you do differently?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion Questions</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If someone asked you who you are and you couldn't mention any role, title, or relationship — what would you say? Try it out loud.</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study calls role-conflation a theological error, not just a tendency. Do you agree? What makes it theological rather than just psychological?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Think of a time when a role was threatened or ended — a relationship, a job, a season of life. What happened to your sense of self? What does that reveal?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Ephesians 2:10 says you are God's handiwork — his poiema, his masterpiece — before any works are mentioned. How does that land? Does it feel true? If not, why not?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">How has the church — not just culture — contributed to identity being fused to role or performance? What would a church community look like that genuinely formed women in their identity in Christ?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Colossians 3:3 — your life is hidden with Christ in God. What does it mean practically for your identity to be "hidden" — inaccessible to other people's verdicts about you?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing — Read Aloud Together</div>
+      <div class="verse-text">"See what great love the Father has lavished on us, that we should be called children of God — and that is what we are."</div>
+      <div class="verse-ref">1 John 3:1 · NIV</div>
+      <div class="prayer-instruction">Pray this verse over each woman by name — "Father, let [name] know that she is your child, and that is what she is."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ROLES VS IDENTITY ════ -->
+<div class="panel" id="panel-roles">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">The Core Distinction</div>
+      <div class="section-title">Roles vs. Identity</div>
+      <div class="section-sub">What roles are for — and why they were never meant to carry the weight of a self</div>
+    </div>
+
+    <p>Roles are not the problem. Scripture commends specific roles — wife, mother, worker, friend — and takes them seriously. The problem is the fusion. When a role becomes the answer to the question "who am I?" rather than the expression of who I already am, the role has been asked to bear weight it was never designed for. And eventually it will crack under it.</p>
+
+    <h2>What Roles Actually Are</h2>
+    <p>A role is a calling — a specific context in which you love and serve particular people, with particular responsibilities, for a particular season. Every role in your life has three characteristics that identity does not:</p>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Contingent</span><span class="ref-desc">Roles depend on circumstances outside you. You are a wife because you are married. You are a mother because you have children. The role exists in relationship to something external — and when that external thing changes, the role changes with it.</span></li>
+      <li class="ref-item"><span class="ref-book">Seasonal</span><span class="ref-desc">Every role has a season. Children grow up and leave. Careers end. Friendships change. Parents die. The woman whose identity is fused to a seasonal role is set up for a crisis when the season changes — not because change is wrong, but because she never separated the self from the role.</span></li>
+      <li class="ref-item"><span class="ref-book">Evaluated externally</span><span class="ref-desc">Roles are always subject to the judgment of others. Your parenting is evaluated by your children's behavior, other parents' opinions, and your own internal standard. Your marriage is evaluated by your spouse's happiness. A role-based identity is perpetually vulnerable to external verdict.</span></li>
+    </ul>
+
+    <h2>The Symptoms of Role-Fused Identity</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>Anxiety that is disproportionate to the actual threat</strong>
+        <p>When the stakes of a role feel existential — when a parenting failure feels like a verdict on your entire worth as a person — the response is out of proportion to what actually happened. The intensity reveals the fusion. You are not just a mother who made a mistake. You are a person whose sense of self just took a hit.</p>
+      </div>
+      <div class="quencher">
+        <strong>Inability to rest from a role</strong>
+        <p>A woman whose identity is in her mothering cannot stop mothering — even when the children need her to. She cannot be present as a wife, a friend, or a person, because the role is always on. She confuses being a good mother with being only a mother. The role has consumed the person.</p>
+      </div>
+      <div class="quencher">
+        <strong>Devastation when the role is criticized</strong>
+        <p>Criticism of your parenting, your marriage, your work, or your spiritual life lands as an attack on your personhood rather than feedback on a role. You cannot receive it, consider it, and respond proportionately — because it doesn't feel proportionate. It feels total.</p>
+      </div>
+      <div class="quencher">
+        <strong>Identity crisis at transitions</strong>
+        <p>When children leave home, when a career ends, when a marriage changes — the role-fused woman doesn't just navigate a transition. She experiences a collapse. The empty nest crisis, the post-retirement depression, the identity loss after a divorce — these are what role-fusion produces when the role changes.</p>
+      </div>
+      <div class="quencher">
+        <strong>Competitive comparison with other women in the same role</strong>
+        <p>If your identity is in being a good mother, other mothers become a threat. Their competence is evidence against yours. This is why comparison is so destructive for role-fused women — it is not just envy, it is a perceived attack on the thing that tells you who you are. See the Comparison &amp; Contentment study.</p>
+      </div>
+    </div>
+
+    <h2>The Right Relationship Between Identity and Role</h2>
+    <p>The right order is not: role → identity. It is: identity → role. You are a child of God, made in his image, redeemed in Christ, beloved and known — and from that foundation you are also a wife, a mother, a professional, a friend. The roles express who you are. They do not constitute it.</p>
+    <p>This means you can hold your roles with both seriousness and freedom. You take them seriously because they matter — the people you serve in those roles are real people with real needs. You hold them with freedom because your self does not depend on performing them perfectly. You can fail in a role, be criticized in a role, even lose a role — and still know who you are.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Your life is now hidden with Christ in God. When Christ, who is your life, appears, then you also will appear with him in glory."</div>
+      <div class="verse-ref">Colossians 3:3–4 · NIV</div>
+    </div>
+
+    <p>Your life — not your roles, not your performance, not your relationships — is hidden with Christ. The most secure vault in existence. Inaccessible to the verdicts of others, untouchable by the failures of your roles, fixed regardless of how any particular season goes. This is the foundation. Everything else is built on top of it, not underneath it.</p>
+
+    <h2>Reflection — Roles vs. Identity</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which symptom of role-fused identity do you most recognize in yourself? Give a specific recent example.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What role are you most afraid of losing or failing in — and what does that fear reveal about where your identity is actually grounded?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WHO YOU ARE IN CHRIST ════ -->
+<div class="panel" id="panel-truth">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Scripture-Based Identity</div>
+      <div class="section-title">Who You Are in Christ</div>
+      <div class="section-sub">Not what you hope to be. Not what you feel like. What God says — which is the most reliable source available.</div>
+    </div>
+
+    <p>The statements below are not affirmations. They are not positive thinking. They are declarative statements from Scripture about what is actually true of every person who is in Christ — regardless of how they feel, regardless of their performance that day, regardless of whether anyone around them agrees. These are facts about your condition before God, established by his action, held in place by his faithfulness.</p>
+    <p>The practice of building identity on these truths is not a one-time decision. It is the daily, deliberate choice to return to what God says when everything else is pulling you toward what your performance, your relationships, and your circumstances say. Colossians 3:2 — "Set your minds on things above." It is a set — an intentional, repeated directing of attention toward what is true.</p>
+
+    <div class="truth-stack">
+      <div class="truth-row">
+        <div class="truth-ref">Ephesians 1:4</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Chosen before the foundation of the world"</div>
+          <div class="truth-note">Before time began. Before you did anything. The choice was not based on foreseen performance — it was based on his love alone.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Isaiah 43:1</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Called by name — you are mine"</div>
+          <div class="truth-note">Not "you are what you do for me." You are mine. Belonging precedes function. You are his before you are anything else.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Genesis 1:27</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Made in the image of God"</div>
+          <div class="truth-note">The Imago Dei is the most foundational statement about human worth in Scripture. You bear the image of God — not because you are good or holy, but because he made you. This cannot be lost, diminished, or earned. See the Image of God tab.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Ephesians 1:7</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Redeemed and forgiven through his blood"</div>
+          <div class="truth-note">The debt has been paid. Not reduced — paid. Your worst failures are not hanging over the relationship. They have been dealt with.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Galatians 4:7</div>
+        <div class="truth-content">
+          <div class="truth-statement">"No longer a slave — an heir"</div>
+          <div class="truth-note">Not an employee whose standing depends on performance. An heir — whose standing was given, not earned, and cannot be taken away by bad performance.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">2 Corinthians 5:17</div>
+        <div class="truth-content">
+          <div class="truth-statement">"A new creation — the old has gone"</div>
+          <div class="truth-note">What you were before Christ does not define you. What you have done does not define you. You are new — not in potential, but in fact.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Ephesians 1:13–14</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Sealed with the Holy Spirit as a guarantee"</div>
+          <div class="truth-note">The Spirit's presence is God's mark of ownership and his down payment on everything still coming. You are sealed. Not tentative, not on probation — sealed.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Romans 8:1</div>
+        <div class="truth-content">
+          <div class="truth-statement">"No condemnation for those in Christ Jesus"</div>
+          <div class="truth-note">None. Not reduced condemnation. Not condemnation pending review. None. The verdict has been rendered and it is final.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">John 1:12</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Given the right to be called a child of God"</div>
+          <div class="truth-note">Not a servant, not a subject, not a project. A child. With all the access, belonging, and security that sonship implies.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Jeremiah 31:3</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Loved with an everlasting love"</div>
+          <div class="truth-note">Everlasting — it did not begin when you came to faith and it does not end when you fail. It precedes you and outlasts you.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Psalm 139:13–14</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Knit together — fearfully and wonderfully made"</div>
+          <div class="truth-note">God's workmanship. Not accidentally assembled. Intentionally, carefully, specifically made — and his works are wonderful. This applies to you.</div>
+        </div>
+      </div>
+      <div class="truth-row">
+        <div class="truth-ref">Colossians 3:3</div>
+        <div class="truth-content">
+          <div class="truth-statement">"Your life is hidden with Christ in God"</div>
+          <div class="truth-note">The most secure location in existence. Hidden — not visible, not subject to external verdict, held by the one who cannot fail.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Making These Truths Functional</h2>
+    <p>There is a gap between knowing these statements and living from them. The gap is not closed by trying harder to believe them. It is closed by sustained, repeated exposure — reading them, praying them, speaking them aloud, hearing them spoken over you by people who know you.</p>
+    <p>Renewal of the mind (Romans 12:2) is not a single event. It is the daily, ongoing re-orientation of thought toward what is true — which takes time and requires the Holy Spirit's work. The woman who returns to these truths when her role is challenged, when her performance is criticized, when she feels invisible or insufficient — she is doing the work. Not because she feels it yet, but because it is true.</p>
+
+    <h2>Reflection — Who You Are in Christ</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the twelve truths above is hardest for you to actually believe — not intellectually assent to, but live from? What makes it hard?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Write out the three truths that you most need right now — the ones that most directly address the identity lies you are currently believing — and pray them over yourself.</div>
+        <textarea placeholder="The three truths I need most..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ IMAGE OF GOD ════ -->
+<div class="panel" id="panel-image">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Theological Foundation · Genesis 1:27</div>
+      <div class="section-title">Image of God</div>
+      <div class="section-sub">The most foundational statement about human worth in all of Scripture</div>
+    </div>
+
+    <div class="verse-block">
+      <div class="verse-text">"So God created mankind in his own image, in the image of God he created them; male and female he created them."</div>
+      <div class="verse-ref">Genesis 1:27 · NIV</div>
+    </div>
+
+    <p>Before sin. Before fall. Before any role, any performance, any failure or achievement. Before marriage and motherhood and vocation. Before any of the things that women are told define their worth. The first statement about human beings is that they bear the image of God — <em>Imago Dei</em> — and that this is equally true of male and female.</p>
+    <p>This is the most bedrock statement about human dignity available. Every other claim about worth — the worth conferred by performance, by relationships, by beauty, by productivity — is derivative and contingent. The Imago Dei is neither. It is the foundation beneath every foundation.</p>
+
+    <h2>What the Image of God Means</h2>
+    <p>The Hebrew phrase is <em>tselem Elohim</em> — the image or likeness of God. In the ancient Near East, kings would set up images of themselves in territories they ruled as a declaration of authority and presence: this is my domain, I am represented here. God places <em>human beings</em> as his image in creation — not a statue, not a symbol, but living, breathing representatives of the Creator within his creation.</p>
+    <div class="uses-grid">
+      <div class="use-row">
+        <div class="use-label">Rationality</div>
+        <div class="use-desc">The capacity to think, reason, create, and communicate. You are made in the image of a God who speaks — who created with words, who reasons, who plans. Your mind is not an accident. It is a reflection of his.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Relationality</div>
+        <div class="use-desc">God exists in eternal relationship — Father, Son, Spirit. Humanity made in his image is made for relationship. The longing to be known, to belong, to love and be loved is not a weakness. It is the Imago Dei in you, reflecting the relational nature of your Creator.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Morality</div>
+        <div class="use-desc">The capacity for moral reasoning, conscience, the sense of ought. Animals do not feel guilt. You do — because you bear the image of a God who is holy and just, and something in you recognizes the standard even when you fall short of it.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Creativity</div>
+        <div class="use-desc">The capacity to make things — art, music, food, language, systems, homes. Every act of human creativity is a faint echo of the Creator who made the universe. Your creativity is not incidental. It is image-bearing.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Dignity</div>
+        <div class="use-desc">Every human being — regardless of age, ability, appearance, achievement, or moral record — bears the image of God. This is the ground of human dignity. It cannot be earned or forfeited. It is intrinsic, granted by the act of creation, held in place by the character of the Creator.</div>
+      </div>
+    </div>
+
+    <h2>The Image Marred and Restored</h2>
+    <p>The fall did not erase the Imago Dei — Genesis 9:6 affirms it after the flood, long after sin entered. But the image was marred — the reflection became distorted. The relational capacity became corrupted by self-interest. The moral capacity became confused. The creativity became bent toward destruction as well as beauty.</p>
+    <p>The work of salvation is, in part, the restoration of the image. Colossians 3:10 — "the new self, which is being renewed in knowledge in the image of its Creator." 2 Corinthians 3:18 — "we are being transformed into his image with ever-increasing glory." You are not just forgiven. You are being restored — the image is being renewed in you by the Spirit, toward what it was always meant to be.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"And we all, who with unveiled faces contemplate the Lord's glory, are being transformed into his image with ever-increasing glory, which comes from the Lord, who is the Spirit."</div>
+      <div class="verse-ref">2 Corinthians 3:18 · NIV</div>
+    </div>
+
+    <h2>What This Means for Worth</h2>
+    <p>Your worth is not located in your performance, your beauty, your roles, or your relationships. It is located in the fact that you bear the image of God — that you were made by him, as a specific expression of his creative intent, to represent him in the world. This worth was given before you were born, it is held by God's faithfulness rather than your own, and it cannot be diminished by failure or increased by achievement.</p>
+    <p>The woman who knows this — not just intellectually, but in the bones — is free. Free to fail without being destroyed. Free to succeed without being inflated. Free to be criticized without being undone. Free to love without needing love back to sustain her sense of self. This is the freedom that the gospel produces when it reaches the identity level, not just the behavior level.</p>
+
+    <h2>Reflection — Image of God</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">You bear the image of God — not because of anything you've done, but because of how you were made. Does that feel true to you right now? What gets in the way of believing it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Which aspect of the image of God — rationality, relationality, morality, creativity, dignity — do you find hardest to see in yourself? Why?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCRIPTURE ════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages on identity, worth, and who God says you are</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Made and Known by God</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"So God created mankind in his own image, in the image of God he created them; male and female he created them."</div>
+          <div class="vc-footer"><span class="vc-ref">Genesis 1:27 · NIV</span><span class="vc-note">Before sin, before roles — the first statement about human beings</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For you created my inmost being; you knit me together in my mother's womb. I praise you because I am fearfully and wonderfully made."</div>
+          <div class="vc-footer"><span class="vc-ref">Psalm 139:13–14 · NIV</span><span class="vc-note">Intentional, specific, careful — his workmanship</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Before I formed you in the womb I knew you, before you were born I set you apart."</div>
+          <div class="vc-footer"><span class="vc-ref">Jeremiah 1:5 · NIV</span><span class="vc-note">Known before formation — identity precedes existence</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Chosen and Loved</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"For he chose us in him before the creation of the world to be holy and blameless in his sight. In love he predestined us for adoption to sonship through Jesus Christ."</div>
+          <div class="vc-footer"><span class="vc-ref">Ephesians 1:4–5 · NIV</span><span class="vc-note">Before the world existed — the choice was not based on foreseen performance</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"See what great love the Father has lavished on us, that we should be called children of God — and that is what we are."</div>
+          <div class="vc-footer"><span class="vc-ref">1 John 3:1 · NIV</span><span class="vc-note">Lavished — not measured, not rationed. And that is what we are.</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I have loved you with an everlasting love; I have drawn you with unfailing kindness."</div>
+          <div class="vc-footer"><span class="vc-ref">Jeremiah 31:3 · NIV</span><span class="vc-note">Everlasting — it predates you and outlasts your worst day</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Identity in Christ — The New Self</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Therefore, if anyone is in Christ, the new creation has come: the old has gone, the new is here!"</div>
+          <div class="vc-footer"><span class="vc-ref">2 Corinthians 5:17 · NIV</span><span class="vc-note">New creation — not reformed, not improved. New.</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+          <div class="vc-footer"><span class="vc-ref">Ephesians 2:10 · NIV</span><span class="vc-note">Handiwork first — the works flow from it, they don't constitute it</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Your life is now hidden with Christ in God."</div>
+          <div class="vc-footer"><span class="vc-ref">Colossians 3:3 · NIV</span><span class="vc-note">Hidden — the most secure location, inaccessible to external verdict</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Therefore, there is now no condemnation for those who are in Christ Jesus."</div>
+          <div class="vc-footer"><span class="vc-ref">Romans 8:1 · NIV</span><span class="vc-note">None. The verdict is final and it is not guilty.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WORD STUDY ════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Original Language Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms behind identity, image, and worth in Scripture</div>
+    </div>
+
+    <h2>Hebrew</h2>
+    <div class="word-study-grid">
+      <div class="word-study">
+        <div class="ws-original">צֶלֶם</div>
+        <div class="ws-transliteration">tselem</div>
+        <div class="ws-pos">Hebrew noun · Image, Likeness, Representation</div>
+        <div class="ws-definition">The word behind "image of God" in Genesis 1:26–27. In the ancient Near East, a <em>tselem</em> was a physical representation — a statue or relief — placed by a king in territories he ruled as a declaration of his presence and authority. God places human beings as his <em>tselem</em> in creation. Not a carved statue but a living, breathing representative of the Creator. The woman who understands this understands that her dignity is royal and her origin is divine.</div>
+        <div class="ws-note">The same word is used in Psalm 39:6 — "Surely everyone goes around like a mere phantom (<em>tselem</em>)." The contrast with Genesis 1 is intentional: without God, the image is empty. With him, it is the source of all worth. The Imago Dei is not something you achieve. It is something you are.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">יָדַע</div>
+        <div class="ws-transliteration">yada</div>
+        <div class="ws-pos">Hebrew verb · To Know — Intimately, Personally, Experientially</div>
+        <div class="ws-definition">The word God uses when he says "before I formed you I knew you" (Jeremiah 1:5). <em>Yada</em> is not intellectual knowledge — it is intimate, relational, experiential knowing. The same word used for the intimacy between husband and wife. God <em>yada</em>'s you — not as an item in a database but as a person he is in relationship with, before your existence, before your first breath.</div>
+        <div class="ws-note">Psalm 139:1 — "You have searched me, Lord, and you <em>know (yada)</em> me." The whole psalm is an exploration of being known completely — thoughts, ways, words, innermost being — and finding that the knowing is not threatening but safe. To be fully known by God is the most secure form of being known available. No role can give you this. No human relationship can fully replicate it.</div>
+      </div>
+    </div>
+
+    <h2>Greek</h2>
+    <div class="word-study-grid">
+      <div class="word-study">
+        <div class="ws-original">ποίημα</div>
+        <div class="ws-transliteration">poiema</div>
+        <div class="ws-pos">Greek noun · Workmanship, Masterpiece, Work of Art</div>
+        <div class="ws-definition">"We are God's <em>poiema</em>" — Ephesians 2:10. The word gives English its "poem." It means a crafted work — something made with skill, intention, and care. Not mass-produced. Not accidental. A specific work of a specific artist. Paul's choice of this word to describe every person in Christ is deliberate: you are not generic. You are a particular, intentional, crafted expression of God's creative work.</div>
+        <div class="ws-note">The context matters: Ephesians 2:8–9 has just said you are saved by grace through faith, not by works. Then verse 10 says you are his <em>poiema</em>, created for good works. The works follow from the identity — they do not create it. You are the masterpiece first. The works are what the masterpiece does, not what makes it one.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">υἱοθεσία</div>
+        <div class="ws-transliteration">huiothesia</div>
+        <div class="ws-pos">Greek noun · Adoption, Sonship, The Status of a Child</div>
+        <div class="ws-definition">"He predestined us for adoption (<em>huiothesia</em>) to sonship" — Ephesians 1:5. In Roman law, <em>huiothesia</em> was a formal legal act by which a person was transferred into a new family with full legal rights — including inheritance rights — equal to a biological child. All previous debts were cancelled. The adopted person's old identity was legally erased. Paul uses this deliberately: your adoption into God's family is legal, total, and irrevocable.</div>
+        <div class="ws-note">Romans 8:15 — "The Spirit you received brought about your adoption (<em>huiothesia</em>) to sonship. And by him we cry, 'Abba, Father.'" The Spirit's presence in you is the evidence of your adoption. You are not a servant hoping to earn a place. You are an heir who already has one. This changes everything about how you approach God — and how you understand your own standing.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">κρύπτω</div>
+        <div class="ws-transliteration">krypto</div>
+        <div class="ws-pos">Greek verb · To Hide, Conceal, Keep Secret</div>
+        <div class="ws-definition">"Your life is now <em>hidden (kekryptai)</em> with Christ in God" — Colossians 3:3. <em>Krypto</em> means to conceal, to keep out of sight — the root of "cryptic" and "encrypt." Your life — your true self, your identity — is hidden. Not lost, not absent, but kept safe in a place inaccessible to those who would define you by your failures, your roles, or their own verdict about you.</div>
+        <div class="ws-note">The hiding is not shame — it is security. What is hidden with Christ in God cannot be taken, cannot be damaged by what others say, cannot be lost when roles change. This is the most radical statement about identity security in the New Testament. Your self is not on display for evaluation. It is held by the one who cannot fail.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparison & Contentment — Women's Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0c0f18;--surface:#13182a;--surface-2:#1a2035;--surface-3:#212842;
+  --accent:#a07080;--accent-dim:#5a3545;--accent-lt:#c090a0;
+  --cream:#ede8dc;--cream-dim:#a09a8e;--muted:#5c6078;
+  --border:#232a42;--border-lt:#2e3858;--warning-dim:#6b2c2c;
+  --font-body:'Lora',Georgia,serif;--font-display:'Cinzel',serif;--font-serif:'Cormorant Garamond',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:16px;line-height:1.75;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:150px;opacity:.5;}
+h2{font-family:var(--font-display);font-size:clamp(13px,2.5vw,17px);font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:44px 0 20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--font-body);font-size:17px;font-weight:500;color:var(--cream);margin:32px 0 12px;}
+p{margin-bottom:18px;color:var(--cream-dim);}p:last-child{margin-bottom:0;}
+strong{color:var(--cream);font-weight:500;}em{color:var(--cream-dim);}
+.panels{position:relative;z-index:1;}.panel{display:none;}.panel.active{display:block;}
+.content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
+@media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+.site-header{position:relative;z-index:10;background:linear-gradient(160deg,#130f18 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
+.site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
+.header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
+.header-title{font-family:var(--font-display);font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:2px;line-height:1.15;color:var(--cream);margin-bottom:16px;}
+.header-title span{color:var(--accent);}
+.header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
+.header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+.tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar-wrap::-webkit-scrollbar{display:none;}
+.tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:18px 22px 16px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--cream-dim);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+.section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
+.section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+.verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
+.verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
+.verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.callout{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:24px 28px;margin:24px 0;}
+.callout.accent{border-color:var(--accent-dim);}
+.callout-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:12px;}
+.callout p{margin-bottom:0;}
+.uses-grid{display:grid;grid-template-columns:1fr;gap:2px;margin:24px 0;border:1px solid var(--border-lt);border-radius:6px;overflow:hidden;}
+.use-row{display:grid;grid-template-columns:180px 1fr;background:var(--surface);}
+.use-row:nth-child(even){background:var(--surface-2);}
+.use-label{padding:16px 20px;font-family:var(--font-display);font-size:12px;letter-spacing:1px;font-weight:600;color:var(--accent);border-right:1px solid var(--border);display:flex;align-items:center;}
+.use-desc{padding:16px 20px;font-size:14px;color:var(--cream-dim);}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}}
+.quencher-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.quencher{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:16px 20px;}
+.quencher strong{color:var(--cream);display:block;font-size:14px;margin-bottom:4px;}
+.quencher p{font-size:13px;margin:0;}
+.ref-list{list-style:none;margin:16px 0;}
+.ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.ref-item:last-child{border-bottom:none;}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);min-width:140px;max-width:180px;padding-top:2px;flex-shrink:0;}
+.ref-desc{font-size:14px;color:var(--cream-dim);min-width:0;}@media(max-width:520px){.ref-item{flex-direction:column;gap:6px;}.ref-book{max-width:100%;}}
+.reflection-set{display:flex;flex-direction:column;gap:20px;margin:20px 0;}
+.reflection-card{background:var(--surface);border:1px solid var(--border-lt);border-radius:6px;padding:20px 24px;}
+.reflection-q{font-family:var(--font-serif);font-size:17px;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.reflection-card textarea{width:100%;min-height:90px;background:var(--surface-2);border:1px solid var(--border-lt);border-radius:4px;color:var(--cream-dim);font-family:var(--font-body);font-size:14px;padding:12px 14px;resize:vertical;line-height:1.6;}
+.reflection-card textarea:focus{outline:none;border-color:var(--accent-dim);}
+.reflection-card textarea::placeholder{color:var(--muted);}
+.dq-list{list-style:none;margin:16px 0;counter-reset:dq;}
+.dq-item{counter-increment:dq;display:flex;gap:18px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--border);}
+.dq-item:last-child{border-bottom:none;}
+.dq-num{font-family:var(--font-display);font-size:13px;color:var(--accent-dim);flex-shrink:0;width:24px;padding-top:3px;}
+.dq-num::before{content:counter(dq);}
+.dq-text{font-size:15px;color:var(--cream-dim);line-height:1.7;}
+.prayer-box{background:linear-gradient(135deg,var(--surface-2),var(--surface-3));border:1px solid var(--accent-dim);border-radius:8px;padding:36px;text-align:center;margin-top:40px;}
+.prayer-box .prayer-label{font-family:var(--font-display);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:18px;}
+.prayer-box .verse-text{font-family:var(--font-serif);font-size:clamp(20px,3.5vw,28px);font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+.prayer-box .verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
+.prayer-instruction{font-size:13px;color:var(--muted);margin-top:14px;font-style:italic;}
+.scripture-section{margin:36px 0;}
+.scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.verse-cards{display:flex;flex-direction:column;gap:16px;}
+.verse-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:22px 24px;transition:border-color .2s;}
+.verse-card:hover{border-color:var(--accent-dim);}
+.verse-card .vc-text{font-family:var(--font-serif);font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
+.vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+.word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.word-study{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color .2s;}
+.word-study:hover{border-color:var(--accent-dim);}
+.ws-original{font-family:var(--font-serif);font-size:clamp(28px,4vw,40px);color:var(--accent);line-height:1.2;margin-bottom:6px;}
+.ws-transliteration{font-family:var(--font-body);font-size:13px;font-style:italic;color:var(--cream-dim);margin-bottom:4px;}
+.ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.ws-definition{font-size:14px;color:var(--cream);line-height:1.65;margin-bottom:10px;}
+.ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:10px;margin-top:10px;}
+
+/* ── COMPARISON ANATOMY ── */
+.anatomy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:24px 0;}
+.anatomy-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;}
+.anatomy-card-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.anatomy-card p{font-size:13px;color:var(--cream-dim);margin:0;line-height:1.6;}
+
+/* ── PAUL CONTENTMENT JOURNEY ── */
+.journey-stack{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0;}
+.journey-row{display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--border);}
+.journey-row:last-child{border-bottom:none;}
+.journey-stage{background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border-right:1px solid var(--border);padding:16px 10px;text-align:center;}
+.journey-content{background:var(--surface);padding:16px 20px;}
+.journey-title{font-family:var(--font-display);font-size:12px;letter-spacing:1px;color:var(--cream);margin-bottom:5px;}
+.journey-desc{font-size:13px;color:var(--cream-dim);line-height:1.6;margin:0;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Women's Study · Heart & Character</div>
+  <div class="header-title">Comparison <span>&amp; Contentment</span></div>
+  <div class="header-verse">"I have learned, in whatever situation I am, to be content."</div>
+  <div class="header-ref">Philippians 4:11 · ESV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('anatomy',this)">Anatomy of Comparison</button>
+    <button class="tab-btn" onclick="switchTab('contentment',this)">Learning Contentment</button>
+    <button class="tab-btn" onclick="switchTab('envy',this)">Envy &amp; Celebration</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ════ THE STUDY ════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Women's Study · Heart & Character</div>
+      <div class="section-title">Comparison &amp; Contentment</div>
+      <div class="section-sub">Why you compare, what it costs you, and what contentment actually requires</div>
+    </div>
+
+    <h2>The Most Accessible Sin of Our Time</h2>
+    <p>Comparison has always been a human problem. But the smartphone has made it frictionless, constant, and virtually inescapable. Every woman now carries in her pocket a device that delivers — on demand, at any moment — a curated, filtered, optimized presentation of other women's lives, bodies, marriages, parenting, homes, and spiritual lives. And the brain, which is not equipped to process this volume of social comparison, responds with the same emotional reactions it would have to a real conversation with a real person.</p>
+    <p>The result is a generation of women who are more connected than any in history and more dissatisfied with their own lives than almost any who came before. Not because their lives are worse — by almost every objective measure they are better. But because comparison is running continuously in the background, and comparison with a curated highlight reel always produces the same verdict: <strong>you are behind, you are less, you are not enough.</strong></p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Root</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Comparison is not primarily a social media problem. Social media is an accelerant. The root is theological: a failure to believe that what God has given you is exactly what you need, and that what he has given someone else is exactly what they need — and that neither verdict is a comment on your worth.</p>
+    </div>
+
+    <h2>What Comparison Actually Is</h2>
+    <p>Comparison is the act of measuring your life, your body, your marriage, your children, your home, your faith, or your worth against someone else's — and deriving a verdict about yourself from the result. It moves in two directions, and both are destructive:</p>
+
+    <div class="uses-grid">
+      <div class="use-row">
+        <div class="use-label">Upward comparison</div>
+        <div class="use-desc">Measuring yourself against someone who appears to have more, do better, look better, or perform better. Produces: inadequacy, envy, discouragement, and the quiet conviction that God has been less generous to you than to others. This is the most common direction for most women.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Downward comparison</div>
+        <div class="use-desc">Measuring yourself against someone who appears to have less or struggle more. Produces: false pride, the illusion of superiority, and a sense of worth that is entirely dependent on someone else being worse off. Equally destructive, less frequently named in church settings — but present.</div>
+      </div>
+    </div>
+
+    <p>Both forms share the same root error: they locate your value in a relative position rather than in the fixed, unconditional reality of who God says you are. The moment your sense of worth depends on how you compare to someone else, it has been handed over to a standard you cannot control — because other people's lives and choices are not yours to manage.</p>
+
+    <h2>What the Culture Gets Wrong</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>"Just unfollow accounts that make you feel bad"</strong>
+        <p>This is a Band-Aid on an arterial wound. The problem is not the specific accounts — it is the comparison habit of the heart, which will find material anywhere. Unfollowing 10 accounts while leaving the underlying orientation unchanged just means you compare at the grocery store, at church, at school pickup instead of on a screen. The medium changes; the disease stays.</p>
+      </div>
+      <div class="quencher">
+        <strong>"Comparison is the thief of joy — just stop comparing"</strong>
+        <p>True that it steals joy. False that telling yourself to stop is a solution. Comparison is habitual, often unconscious, and driven by underlying beliefs about worth and security that a decision to "just stop" does not address. The solution is not willpower — it is a different foundation for your sense of self.</p>
+      </div>
+      <div class="quencher">
+        <strong>"Everyone is on their own journey — yours is perfect for you"</strong>
+        <p>The therapeutic version sounds better than "stop comparing" but has the same problem: it grounds contentment in the idea that your journey is uniquely suited to your needs — which is a claim about your journey, not about God. When the journey feels terrible, this collapses. Contentment grounded in God's sovereignty holds even when the journey is genuinely hard.</p>
+      </div>
+      <div class="quencher">
+        <strong>"Gratitude journaling will fix it"</strong>
+        <p>Gratitude practices are genuinely helpful and biblically grounded. But gratitude about your circumstances is different from contentment rooted in the character of God. You can be grateful on a good day and comparing on a bad one. The contentment Paul describes in Philippians 4 holds in both directions — in abundance and in need — because it is not dependent on the circumstances being good enough to feel grateful for.</p>
+      </div>
+    </div>
+
+    <h2>The Tenth Commandment — The One in Your Pocket</h2>
+    <p>Exodus 20:17 — "You shall not covet your neighbor's house. You shall not covet your neighbor's wife, or his male or female servant, his ox or donkey, or anything that belongs to your neighbor."</p>
+    <p>The tenth commandment is the only one of the ten that addresses an internal state rather than an external behavior. You can obey the first nine without God — through social pressure, self-discipline, or legal constraint. The tenth requires a transformed heart. You cannot not-covet by trying harder. You have to want something different enough that what your neighbor has stops mattering.</p>
+    <p>The modern version: you shall not covet your neighbor's body, her marriage, her children's behavior, her home, her career, her following, her spiritual life, her ease. The commandment is not obsolete. It has simply found new objects.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"A heart at peace gives life to the body, but envy rots the bones."</div>
+      <div class="verse-ref">Proverbs 14:30 · NIV</div>
+    </div>
+
+    <p>Envy rots the bones. Not a minor inconvenience — a physical, structural deterioration. The Proverbs are not speaking metaphorically here. The sustained practice of measuring your life against others and finding it lacking is genuinely destructive to the person doing it. Not as a punishment — as a consequence. This is what comparison actually does to you over time.</p>
+
+    <h2>Why Women Compare More</h2>
+    <p>Research consistently shows women engage in social comparison more frequently and with greater emotional impact than men — not because women are weaker, but because women's relational orientation makes the social dimension of life more salient. Women are wired for community and belonging in ways that make the social comparison signal louder and more loaded.</p>
+    <p>This is not a flaw. The relational wiring is a gift — it produces deep community, attunement to others, and the kind of care that holds relationships together. The problem is when comparison hijacks that relational sensitivity and turns it into a competitive audit of other women's lives. The gift becomes a wound.</p>
+
+    <h2>The Path Through — Not Around</h2>
+    <p>The solution to comparison is not less social contact or better social media habits, though both may help. It is a thoroughgoing renovation of what you believe about yourself, about God, and about what other people's blessings mean. Specifically:</p>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Your assignment</span><span class="ref-desc">God has given you a specific life — specific circumstances, a specific body, a specific set of relationships and resources — not by accident and not as a mistake. Comparing your assignment to someone else's is a form of arguing with God about what he has given you.</span></li>
+      <li class="ref-item"><span class="ref-book">Their blessing</span><span class="ref-desc">What God has given someone else is not a comment on you. Their promotion does not mean you were overlooked. Their beautiful marriage does not mean yours is less. Their spiritual vitality does not mean you are dry by comparison. God's generosity is not a zero-sum resource.</span></li>
+      <li class="ref-item"><span class="ref-book">The hidden cost</span><span class="ref-desc">Every life you are comparing yourself to has costs you cannot see. The woman whose marriage looks enviable may be carrying something privately devastating. The woman whose children behave perfectly in public may be in crisis at home. You are comparing your inside to their outside — which is always a false comparison.</span></li>
+      <li class="ref-item"><span class="ref-book">Your calling</span><span class="ref-desc">John 21:22 — Jesus to Peter, who was comparing himself to John: "What is that to you? You must follow me." The most direct response to comparison in the Gospels. What someone else's calling looks like is not your business. Follow yours.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Who do you compare yourself to most — and in what specific area? Be honest: is it upward (inadequacy) or downward (superiority)?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What does the comparison tell you about what you believe matters most — about what your worth depends on? What foundation is the comparison revealing?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there a specific area of your life where you have been arguing with God about what he has given you — not by saying so, but by the sustained dissatisfaction of comparison? Name it.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What would it cost you to genuinely celebrate someone whose life you have been comparing yourself to? What does the cost reveal?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion Questions</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Be specific: what triggers comparison most reliably for you — social media, church, school pickup, certain relationships? What is it about that context?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The tenth commandment is the only one that addresses an internal state. Why do you think God included it — what does coveting do that the other nine commandments don't cover?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Proverbs says envy rots the bones. What has sustained comparison actually cost you — in your joy, your relationships, your sense of your own life?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus tells Peter "what is that to you?" when Peter starts comparing himself to John. Where do you need to hear that right now — about whose life or whose calling you are measuring yourself against?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Can you genuinely celebrate a woman in this room for something you have wished you had? Try it. What comes up?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul says he learned contentment — it wasn't given to him. What do you think the learning cost him, and what would learning it cost you?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing — Read Aloud Together</div>
+      <div class="verse-text">"Keep your lives free from the love of money and be content with what you have, because God has said, 'Never will I leave you; never will I forsake you.'"</div>
+      <div class="verse-ref">Hebrews 13:5 · NIV</div>
+      <div class="prayer-instruction">The ground of contentment is not your circumstances — it is his presence. Pray for each woman to know that presence more than she knows her comparisons.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ANATOMY OF COMPARISON ════ -->
+<div class="panel" id="panel-anatomy">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Diagnosis</div>
+      <div class="section-title">Anatomy of Comparison</div>
+      <div class="section-sub">How it works, what it does, and why it feels so normal</div>
+    </div>
+
+    <p>Comparison does not announce itself. It arrives as a feeling — a vague deflation, a sudden awareness of what you don't have, a flash of something uncomfortable when someone else's good news lands. By the time you notice you are comparing, you have usually already passed through several stages. Understanding the anatomy makes it possible to interrupt the process earlier.</p>
+
+    <h2>The Stages</h2>
+    <div class="anatomy-grid">
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Stage 1</div>
+        <p><strong>The observation.</strong> You notice something about someone else — their home, their body, their marriage, their children, their ease. The observation itself is neutral.</p>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Stage 2</div>
+        <p><strong>The measurement.</strong> The observation becomes a measuring stick held up against your own life. "She has X. Do I have X? How do I compare to X?" This is where comparison begins.</p>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Stage 3</div>
+        <p><strong>The verdict.</strong> The measurement produces a conclusion about your relative standing: ahead, behind, better, worse. The verdict feels objective. It is not.</p>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Stage 4</div>
+        <p><strong>The emotional response.</strong> The verdict produces a feeling: inadequacy, envy, deflation, or — in downward comparison — pride. The feeling feels like information about reality. It is information about your beliefs.</p>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Stage 5</div>
+        <p><strong>The behavior.</strong> The feeling drives action: withdrawal, resentment, overperformance, distancing from the person compared to, or the quiet diminishment of their success. Often unconscious.</p>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-card-label">Interrupt Here</div>
+        <p><strong>Between stages 2 and 3.</strong> The measurement can be noticed and named before it produces a verdict. "I am measuring myself against her. What am I measuring, and why does that measure feel authoritative?" This is where the work happens.</p>
+      </div>
+    </div>
+
+    <h2>Why It Feels So Normal</h2>
+    <p>Social comparison is built into human neurology — the brain is wired to assess relative status because for most of human history, your position in the social group had survival implications. Comparison is not a modern invention or a social media invention. It is ancient and automatic.</p>
+    <p>What is modern is the scale and the frequency. Ancient women compared themselves to the other women in their village — maybe twenty people. Modern women compare themselves to thousands of optimized, curated presentations daily. The mechanism is the same. The volume is catastrophically larger.</p>
+
+    <h2>The Specific Forms in Women's Lives</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>Body comparison</strong>
+        <p>The most visceral and damaging form. Women's bodies are subjected to a constant, culture-wide evaluation against a standard that is narrower than any natural human variation — and often digitally altered. The comparison is not just between women; it is between real women and manufactured images. This comparison cannot be won. It was designed to be unwinnable.</p>
+      </div>
+      <div class="quencher">
+        <strong>Mothering comparison</strong>
+        <p>As explored in the identity study, a woman whose identity is in her mothering will compare her parenting to other mothers' — their children's behavior, their parenting choices, their apparent ease. Since children are not controlled variables, this comparison produces either pride or shame based on factors that are only partly in anyone's control.</p>
+      </div>
+      <div class="quencher">
+        <strong>Marriage comparison</strong>
+        <p>Comparing your marriage to other couples' public presentation. You are comparing your inside — all the conflict, the distance, the ordinary frustration — to their outside — the anniversary post, the vacation photos, the public affection. No marriage looks as good from the inside as someone else's looks from the outside.</p>
+      </div>
+      <div class="quencher">
+        <strong>Spiritual comparison</strong>
+        <p>The most insidious form because it is hardest to name. Comparing your prayer life, your Bible knowledge, your apparent closeness to God, your spiritual disciplines, your ministry impact to someone else's. The woman who appears more spiritually mature becomes a source of shame rather than a source of encouragement. This comparison turns the community that should build you up into a performance arena.</p>
+      </div>
+    </div>
+
+    <h2>The False Assumptions Underneath</h2>
+    <p>Every comparison rests on at least one of these false assumptions:</p>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">God's supply is limited</span><span class="ref-desc">Her blessing means less for you. Her promotion means you were passed over. Her beauty diminishes yours. This treats God's generosity as a zero-sum resource — which is not how Scripture describes it anywhere.</span></li>
+      <li class="ref-item"><span class="ref-book">Their highlight is their whole</span><span class="ref-desc">You are comparing your full life — including the private parts, the hard parts, the failures — to their public presentation. These are not comparable things.</span></li>
+      <li class="ref-item"><span class="ref-book">Same metric applies to everyone</span><span class="ref-desc">Comparison assumes that what matters for her also matters for you — same body standard, same parenting outcome, same career trajectory. But God has not given everyone the same calling, the same assignment, or the same measurement of success.</span></li>
+      <li class="ref-item"><span class="ref-book">Your worth is relative</span><span class="ref-desc">The fundamental assumption: your worth goes up when you compare favorably and down when you don't. This is the lie underneath every comparison. Worth is not relative. See the Identity study.</span></li>
+    </ul>
+
+    <h2>Reflection — Anatomy</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Walk back through a recent comparison experience using the five stages above. Where did you first notice it? Where could you have interrupted it? What false assumption was underneath it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ LEARNING CONTENTMENT ════ -->
+<div class="panel" id="panel-contentment">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Philippians 4:11–13</div>
+      <div class="section-title">Learning Contentment</div>
+      <div class="section-sub">Paul didn't arrive at contentment — he learned it. So will you.</div>
+    </div>
+
+    <div class="verse-block">
+      <div class="verse-text">"I have learned, in whatever situation I am, to be content. I know how to be brought low, and I know how to abound. In any and every circumstance, I have learned the secret of facing plenty and hunger, abundance and need. I can do all things through him who strengthens me."</div>
+      <div class="verse-ref">Philippians 4:11–13 · ESV</div>
+    </div>
+
+    <p>Twice Paul says "I have learned." Not "I was given." Not "I decided." Learned — which implies a process, a curriculum, and a cost. The contentment Paul describes is not the contentment of someone whose circumstances happened to be agreeable. He is writing from prison, facing a potentially fatal outcome, after years of beatings, shipwrecks, and betrayals. The contentment is not circumstantial. It is a learned orientation of the soul toward God in every circumstance.</p>
+
+    <h2>Paul's Curriculum</h2>
+    <div class="journey-stack">
+      <div class="journey-row">
+        <div class="journey-stage">Abundance</div>
+        <div class="journey-content">
+          <div class="journey-title">Learning not to need plenty in order to be at peace</div>
+          <p class="journey-desc">Abundance is its own temptation — the temptation to locate your security in what you have rather than in God. Paul learned contentment in plenty as well as in need. The woman who is content only when things are going well has not yet learned contentment.</p>
+        </div>
+      </div>
+      <div class="journey-row">
+        <div class="journey-stage">Need</div>
+        <div class="journey-content">
+          <div class="journey-title">Learning that God is sufficient when circumstances are not</div>
+          <p class="journey-desc">Need teaches that you can function, serve, love, and trust without what you thought was necessary. This is the harder lesson — and the more durable one. The woman who has been through genuine scarcity or loss and found God faithful in it knows something about contentment that cannot be learned any other way.</p>
+        </div>
+      </div>
+      <div class="journey-row">
+        <div class="journey-stage">The Secret</div>
+        <div class="journey-content">
+          <div class="journey-title">Christ as the sufficient center</div>
+          <p class="journey-desc">"The secret" (v.12) is not a technique — it is a Person. "I can do all things through him who strengthens me" (v.13) is not a motivational poster. It is a statement about the source of contentment: not circumstances, not comparison, not achievement — Christ, who strengthens for every state.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>What Contentment Is Not</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>Contentment is not the absence of desire</strong>
+        <p>Paul desired to be with Christ (Philippians 1:23). He desired the Philippians' spiritual growth. He prayed for specific things. Contentment is not the flattening of all desire into indifference. It is the ordering of desire so that nothing created is more necessary to your peace than the Creator.</p>
+      </div>
+      <div class="quencher">
+        <strong>Contentment is not pretending everything is fine</strong>
+        <p>Paul grieved. He wept. He expressed frustration. Contentment is not a performance of positivity over genuine pain. It is the ability to hold pain, disappointment, and unmet longing without concluding that God has failed you or that your life is less than it should be.</p>
+      </div>
+      <div class="quencher">
+        <strong>Contentment is not passivity</strong>
+        <p>Contentment with your current season does not mean you stop growing, stop working, or stop pursuing what God has called you toward. It means you are not driven by anxiety about what you lack. You work from a place of sufficiency rather than scarcity.</p>
+      </div>
+    </div>
+
+    <h2>The Practice of Contentment</h2>
+    <p>Since contentment is learned, it has practices — things you do repeatedly that build the capacity over time:</p>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Specific gratitude</span><span class="ref-desc">Not "thank you for everything" — naming three specific things about your actual life that are genuinely good. Gratitude recalibrates the attention from what is lacking to what is present. Done daily, it reshapes the habit of the mind.</span></li>
+      <li class="ref-item"><span class="ref-book">Fasting from comparison triggers</span><span class="ref-desc">Not as a permanent solution — as a practice. A week away from the specific accounts, contexts, or conversations that reliably trigger comparison. To notice what the comparison was doing to you, and whether it was serving any purpose other than pain.</span></li>
+      <li class="ref-item"><span class="ref-book">Naming the gift in your assignment</span><span class="ref-desc">Actively looking for what is specifically good about the life you have been given — not in comparison to anyone else, but on its own terms. What has God given you that is yours specifically? Name it.</span></li>
+      <li class="ref-item"><span class="ref-book">Celebrating others deliberately</span><span class="ref-desc">The counter-practice to envy. When comparison rises, choose to actively celebrate the person being compared to — in your heart, in your words, sometimes to their face. Romans 12:15 — "Rejoice with those who rejoice." This is harder than it sounds and more transformative than almost anything else.</span></li>
+      <li class="ref-item"><span class="ref-book">Returning to sufficiency</span><span class="ref-desc">Hebrews 13:5 grounds contentment not in circumstances but in presence: "be content with what you have, because God has said, 'Never will I leave you.'" The practice is returning to this anchor when comparison rises: what I have is sufficient because he is with me in it.</span></li>
+    </ul>
+
+    <h2>Reflection — Learning Contentment</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul learned contentment through both abundance and need. Which has been your harder teacher — and what did it cost you to learn from it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Name five specific things about your actual life — not compared to anyone else's — that are genuinely good. Write them here.</div>
+        <textarea placeholder="1.&#10;2.&#10;3.&#10;4.&#10;5."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there one person whose life or blessing you have been comparing yourself to that you need to deliberately celebrate? What would that look like — in your heart, and possibly in your words?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ENVY & CELEBRATION ════ -->
+<div class="panel" id="panel-envy">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Romans 12:15 · James 3:14–16</div>
+      <div class="section-title">Envy &amp; Celebration</div>
+      <div class="section-sub">The most direct counter-practice to comparison — and why it's harder than it sounds</div>
+    </div>
+
+    <div class="verse-block">
+      <div class="verse-text">"Rejoice with those who rejoice; mourn with those who mourn."</div>
+      <div class="verse-ref">Romans 12:15 · NIV</div>
+    </div>
+
+    <p>"Rejoice with those who rejoice" is the harder half of this verse. Mourning with those who mourn is natural — grief invites solidarity. But genuine, uncomplicated joy at someone else's good news — especially news about something you want and don't have — requires something more than good manners. It requires a heart that is not competing.</p>
+    <p>The test of comparison in your heart is not whether you can smile politely when someone announces good news. It is whether you can be genuinely glad. Whether their promotion, their pregnancy, their beautiful marriage, their child's success can produce in you something that feels like joy rather than something that feels like assessment.</p>
+
+    <h2>What Envy Actually Is</h2>
+    <p>James 3:14–16 names envy alongside bitter jealousy and calls it "earthly, unspiritual, demonic." This is not polite language. James is not describing a minor social awkwardness. He is describing a spiritual condition that produces disorder and every kind of evil practice.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"But if you harbor bitter jealousy and selfish ambition in your hearts, do not boast about it or deny the truth. Such 'wisdom' does not come down from heaven but is earthly, unspiritual, demonic. For where you have envy and selfish ambition, there you find disorder and every evil practice."</div>
+      <div class="verse-ref">James 3:14–16 · NIV</div>
+    </div>
+
+    <p>Envy is not the same as wanting something good. It is wanting what someone else has — specifically because they have it — and resenting them for having it. It is the zero-sum assumption in emotional form: their good is your loss. Their gain is evidence against your worth. And it produces exactly what James says: disorder. In relationships, in communities, in the soul of the person carrying it.</p>
+
+    <h2>The Difference Between Envy and Longing</h2>
+    <p>Not every desire for what someone else has is envy. Seeing a close friendship and wanting that kind of connection for yourself is longing — it may prompt prayer and action toward something good. Seeing the same friendship and resenting the people in it, diminishing it, or feeling your own relationships are less valuable because it exists — that is envy. The distinction is whether the other person's good is a threat to you or a picture of something God can also do.</p>
+
+    <h2>Celebrating Well — What It Requires</h2>
+    <div class="uses-grid">
+      <div class="use-row">
+        <div class="use-label">Secure identity</div>
+        <div class="use-desc">The woman whose worth is not in competition with anyone else's can celebrate freely. Her identity is not threatened by someone else's success. She can be genuinely glad because their gain is not her loss. This is why the identity study comes first.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Abundance theology</div>
+        <div class="use-desc">Believing that God's generosity is not zero-sum. Her promotion does not mean yours was denied. Her marriage does not use up any resource that was meant for yours. God does not ration blessing. What she has received was for her; what you receive will be for you.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Their joy is real</div>
+        <div class="use-desc">Romans 12:15 asks you to enter into their joy — not process it from a distance. This requires the willingness to let someone else's good news actually move you. To be present to their gladness. This is a spiritual practice that comparison destroys and that contentment makes possible.</div>
+      </div>
+      <div class="use-row">
+        <div class="use-label">Prayer as the practice</div>
+        <div class="use-desc">When comparison or envy rises about a specific person, pray for them specifically — for their blessing, their flourishing, their joy. You cannot sustain envy and genuine intercession at the same time. Prayer for the person you envy is one of the most powerful tools available for breaking the comparison cycle.</div>
+      </div>
+    </div>
+
+    <h2>The Community This Produces</h2>
+    <p>A group of women who have learned to celebrate each other rather than compare — who can hear good news without deflation, who can acknowledge struggle without competition, who can pray for each other's flourishing without resentment — this is the community Paul describes in Romans 12. It is the rarest and most beautiful thing available to women. And it is only possible among women who are not fighting for standing that has already been given to them by God.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Love is patient, love is kind. It does not envy, it does not boast, it is not proud."</div>
+      <div class="verse-ref">1 Corinthians 13:4 · NIV</div>
+    </div>
+
+    <h2>Reflection — Envy &amp; Celebration</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Is there someone whose good news has been genuinely hard to receive — whose success, blessing, or ease has produced something in you that isn't joy? Name it honestly without managing it.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Pray for that person right now — specifically, for their flourishing in the exact area you have been comparing yourself to them. Write the prayer here.</div>
+        <textarea placeholder="Your prayer..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCRIPTURE ════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages on comparison, envy, contentment, and celebration</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Tenth Commandment &amp; Envy</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"You shall not covet your neighbor's house... or anything that belongs to your neighbor."</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 20:17 · NIV</span><span class="vc-note">The only commandment addressing internal state — cannot be kept by willpower alone</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"A heart at peace gives life to the body, but envy rots the bones."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 14:30 · NIV</span><span class="vc-note">The physical cost of sustained comparison — structural, not incidental</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Where you have envy and selfish ambition, there you find disorder and every evil practice."</div>
+          <div class="vc-footer"><span class="vc-ref">James 3:16 · NIV</span><span class="vc-note">Envy as source — not symptom — of relational disorder</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Contentment</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"I have learned, in whatever situation I am, to be content... I can do all things through him who strengthens me."</div>
+          <div class="vc-footer"><span class="vc-ref">Philippians 4:11, 13 · ESV</span><span class="vc-note">Learned — a process, not a gift. The source is Christ, not circumstances.</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Be content with what you have, because God has said, 'Never will I leave you; never will I forsake you.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Hebrews 13:5 · NIV</span><span class="vc-note">The ground of contentment is his presence, not your circumstances</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"But godliness with contentment is great gain. For we brought nothing into the world, and we can take nothing out of it."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Timothy 6:6–7 · NIV</span><span class="vc-note">Contentment as gain — not loss, not settling</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Your Calling — Not Theirs</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Jesus answered, 'What is that to you? You must follow me.'"</div>
+          <div class="vc-footer"><span class="vc-ref">John 21:22 · NIV</span><span class="vc-note">The most direct response to comparison in the Gospels — your calling is yours</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Each one should test their own actions. Then they can take pride in themselves alone, without comparing themselves to someone else, for each one should carry their own load."</div>
+          <div class="vc-footer"><span class="vc-ref">Galatians 6:4–5 · NIV</span><span class="vc-note">The measure is faithfulness to your own calling — not relative standing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Celebration &amp; Community</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Rejoice with those who rejoice; mourn with those who mourn."</div>
+          <div class="vc-footer"><span class="vc-ref">Romans 12:15 · NIV</span><span class="vc-note">Rejoicing with those who rejoice is the harder command — it requires a non-competing heart</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Love is patient, love is kind. It does not envy, it does not boast, it is not proud."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Corinthians 13:4 · NIV</span><span class="vc-note">Love — agape — is structurally incompatible with envy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WORD STUDY ════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Original Language Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms behind envy, contentment, and celebration</div>
+    </div>
+
+    <div class="word-study-grid">
+      <div class="word-study">
+        <div class="ws-original">αὐτάρκης</div>
+        <div class="ws-transliteration">autarkes</div>
+        <div class="ws-pos">Greek adjective · Content, Self-Sufficient, Independent of Circumstances</div>
+        <div class="ws-definition">"I have learned to be content (<em>autarkes</em>)" — Philippians 4:11. In Greek philosophy, <em>autarkeia</em> (the noun form) described the Stoic ideal of a person who needed nothing from outside themselves — entirely self-sufficient. Paul subverts this: his <em>autarkeia</em> is not self-sufficiency but Christ-sufficiency. He needs nothing from his circumstances because Christ supplies what the circumstances cannot. The contentment is not independence — it is dependence on the right source.</div>
+        <div class="ws-note">1 Timothy 6:6 — "godliness with <em>autarkeia</em> is great gain." The pairing is deliberate: contentment is not a natural personality trait — it is the fruit of godliness. The more deeply rooted in God, the less dependent on circumstances for peace. Contentment is a spiritual achievement, not a temperamental one.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">φθόνος</div>
+        <div class="ws-transliteration">phthonos</div>
+        <div class="ws-pos">Greek noun · Envy — Specifically the Pain at Another's Good</div>
+        <div class="ws-definition">The specific Greek word for envy — distinguished from jealousy (<em>zelos</em>) by its direction. <em>Zelos</em> can be positive (earnest desire) or negative (jealousy). <em>Phthonos</em> is always negative — it specifically names the pain or resentment produced by another's good fortune. Galatians 5:21 lists it among the works of the flesh. Matthew 27:18 says Pilate knew the chief priests had handed Jesus over because of <em>phthonos</em>. Envy delivered Christ to the cross.</div>
+        <div class="ws-note">James 4:5 — "the spirit he caused to live in us envies intensely." This difficult verse may be saying that the human spirit, in its fallen state, tends toward <em>phthonos</em> — it is a description of our natural condition, not a prescription. The Spirit of God works against this tendency, producing love that "does not envy" (1 Corinthians 13:4 — <em>ou phthonei</em>).</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">συγχαίρω</div>
+        <div class="ws-transliteration">sygchairō</div>
+        <div class="ws-pos">Greek verb · To Rejoice Together, Share in Another's Joy</div>
+        <div class="ws-definition">"Rejoice with (<em>sygchairō</em>) those who rejoice" — Romans 12:15. The <em>syn-</em> prefix means "together with" — this is not merely acknowledging someone else's joy from a distance. It is entering into it, sharing it, letting their gladness become yours. The same word appears in Luke 15 — the neighbors and friends who rejoice with the woman who found her lost coin. Communal joy. Participatory celebration.</div>
+        <div class="ws-note">Paul uses the same word in Philippians 2:17 — "I rejoice (<em>chairō</em>) and <em>sygchairō</em> with all of you." He invites the Philippians into his joy even from prison. The capacity to share joy — both to enter into others' and to invite others into yours — is a mark of a community that has been freed from the comparison that makes everyone else's joy a threat.</div>
+      </div>
+      <div class="word-study">
+        <div class="ws-original">חָמַד</div>
+        <div class="ws-transliteration">chamad</div>
+        <div class="ws-pos">Hebrew verb · To Desire, Covet, Take Pleasure In</div>
+        <div class="ws-definition">"You shall not covet (<em>chamad</em>)" — Exodus 20:17. The same word is used in Genesis 3:6 — Eve "saw that the fruit was desirable (<em>chamad</em>) for gaining wisdom." The root of coveting and the root of the first sin share a word. <em>Chamad</em> is not neutral desire — it is desire directed toward what belongs to another, or what God has not given you. The tenth commandment names the internal disposition that all the other commandments are ultimately addressing.</div>
+        <div class="ws-note">Psalm 19:10 uses the same root positively — God's laws are "more desirable (<em>chamad</em>) than gold." The capacity to desire is not sinful — it is the direction of desire that matters. Comparison and coveting redirect the capacity to desire away from God and toward what others have. Contentment redirects it back toward what God has given and what God himself is.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

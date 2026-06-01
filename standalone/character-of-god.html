@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character of God — Bible Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #c4944a;
+  --accent-dim:   #7a5520;
+  --accent-lt:    #e0b870;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #141008 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── ATTRIBUTE CARDS ── */
+.attr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.attr-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; position: relative; overflow: hidden; transition: border-color .2s; }
+.attr-card:hover { border-color: var(--accent-dim); }
+.attr-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-dim); }
+.attr-name { font-family: var(--font-display); font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.attr-hebrew { font-family: var(--font-serif); font-size: 20px; color: var(--accent-dim); margin-bottom: 8px; line-height: 1; }
+.attr-def { font-size: 13px; color: var(--cream-dim); line-height: 1.65; margin-bottom: 10px; }
+.attr-implication { font-size: 13px; color: var(--cream); font-style: italic; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
+
+/* ── TENSION TABLE ── */
+.tension-grid { display: grid; grid-template-columns: 1fr; gap: 2px; margin: 24px 0; border: 1px solid var(--border-lt); border-radius: 6px; overflow: hidden; }
+.tension-row { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface); }
+.tension-row.header-row { background: var(--surface-3); }
+.tension-row:nth-child(even):not(.header-row) { background: var(--surface-2); }
+.tension-cell { padding: 16px 20px; font-size: 14px; color: var(--cream-dim); border-right: 1px solid var(--border); }
+.tension-cell:last-child { border-right: none; }
+.tension-cell.header { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+@media (max-width: 540px) { .tension-row { grid-template-columns: 1fr; } .tension-cell { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── JESUS SCENE CARDS ── */
+.scene-list { display: flex; flex-direction: column; gap: 20px; margin: 24px 0; }
+.scene-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color .2s; }
+.scene-card:hover { border-color: var(--accent-dim); }
+.scene-header { background: var(--surface-2); padding: 16px 22px; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--border); }
+.scene-title { font-family: var(--font-display); font-size: 13px; letter-spacing: 1px; color: var(--cream); }
+.scene-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent-dim); }
+.scene-body { padding: 20px 22px; }
+.scene-quality { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.scene-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Standalone Study · Foundational</div>
+  <div class="header-title">Character <span>of God</span></div>
+  <div class="header-verse">"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love and faithfulness, maintaining love to thousands, and forgiving wickedness, rebellion and sin. Yet he does not leave the guilty unpunished."</div>
+  <div class="header-ref">Exodus 34:6–7 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('jesus',this)">Jesus</button>
+    <button class="tab-btn" onclick="switchTab('attributes',this)">The Attributes</button>
+    <button class="tab-btn" onclick="switchTab('tension',this)">The Tension</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE STUDY ═══════════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Standalone Study · Foundational</div>
+      <div class="section-title">Character of God</div>
+      <div class="section-sub">Who God actually is — not the stained-glass version, not the cultural caricature, but the person revealed in Scripture</div>
+    </div>
+
+    <h2>The Most Important Question</h2>
+    <p>Everything in the Christian life flows from one question: what is God actually like? Your prayer life, your trust in hard seasons, your understanding of justice and mercy, your view of yourself — all of it is downstream of how you answer that question. A distorted view of God produces a distorted everything else.</p>
+    <p>The problem is that most people — including many people who have been in church for decades — are working with a composite image of God assembled from incomplete theology, early experiences with authority figures, cultural Christianity, and whatever they've absorbed from the ambient religious background of their environment. That composite is almost always wrong in important ways.</p>
+    <p>This study is an invitation to set the composite aside and look directly at what Scripture actually reveals about who God is — his attributes, his character, the way his mercy and holiness hold together, and above all, the way all of it comes into focus in the person of Jesus.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Premise</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">If you want to know what God is like, look at Jesus. Jesus is not a softer version of the Father, or a more accessible interface for an otherwise terrifying deity. He said: "Anyone who has seen me has seen the Father." (John 14:9) Start there.</p>
+    </div>
+
+    <h2>The Self-Disclosure — Exodus 34</h2>
+    <p>The most concentrated self-revelation of God's character in the Old Testament comes in Exodus 34:6–7. Moses has asked to see God's glory, and God responds not with a vision but with a declaration of his own name — his character, his nature. This is God saying: <em>here is who I am.</em></p>
+
+    <div class="verse-block">
+      <div class="verse-text">"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love and faithfulness, maintaining love to thousands, and forgiving wickedness, rebellion and sin. Yet he does not leave the guilty unpunished; he punishes the children and their children for the sin of the parents to the third and fourth generation."</div>
+      <div class="verse-ref">Exodus 34:6–7 · NIV</div>
+    </div>
+
+    <p>Read that carefully. In the same breath, God describes himself as compassionate, gracious, slow to anger, abounding in love, and forgiving — and as the one who does not leave guilt unpunished. Both. In the same self-description. This is not a contradiction. It is a tension that the rest of Scripture explores and that the cross ultimately resolves. A God who is only mercy and no justice is not good. A God who is only justice and no mercy is not love. The character of God holds both — and holds them together in a way that cost him everything.</p>
+
+    <h2>What Distorts Our View of God</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Absent or harsh fathers</span><span class="ref-desc">For many people, the word "Father" is loaded — with disappointment, distance, conditional love, or fear. This shapes how they receive the claim that God is Father. The distortion is real and worth naming. The biblical father in Luke 15 is nothing like most fathers people have known.</span></li>
+      <li class="ref-item"><span class="ref-book">Cultural Christianity</span><span class="ref-desc">A God who exists primarily to bless your life, support your politics, and make you feel good about your choices. This version of God never makes demands, never offends, never calls anything sin. He is an audience, not a lord.</span></li>
+      <li class="ref-item"><span class="ref-book">The angry grandfather</span><span class="ref-desc">The Old Testament God who is severe and demanding, offset by the New Testament Jesus who is gentle and forgiving. This is a misreading of both testaments and produces a fragmented, incoherent theology. The God of Exodus 34 and the God of John 3:16 are the same person.</span></li>
+      <li class="ref-item"><span class="ref-book">The cosmic vending machine</span><span class="ref-desc">A God whose primary function is to respond to prayer requests. When he doesn't, faith falters — because the whole model is transactional. The biblical God is not a resource to be accessed. He is a person to be known.</span></li>
+      <li class="ref-item"><span class="ref-book">The God of whatever I already believe</span><span class="ref-desc">The most pervasive distortion: God as the endorser of my existing values and conclusions. When Scripture challenges those values, this version of God is quietly revised to agree with me. This is the oldest idolatry.</span></li>
+    </ul>
+
+    <h2>Why It Matters</h2>
+    <p>A. W. Tozer wrote: "What comes into our minds when we think about God is the most important thing about us." He was right. A person who believes God is primarily angry will live in fear and performance. A person who believes God is primarily permissive will live without accountability. A person who believes God is primarily distant will not bother praying. A person who sees God clearly — as he has revealed himself — will live differently in every dimension of their life.</p>
+    <p>The goal of this study is not information about God. It is encounter with God. He has revealed himself clearly enough that encounter is possible. The question is whether you want what is actually there, or a version you are more comfortable with.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">If you're honest — what is the dominant image of God you are actually working with day to day? Where did it come from?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the five distortions above resonates most with what you've believed or absorbed? What would it look like to replace that with what Scripture actually says?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">In Exodus 34, God describes himself as both deeply merciful and one who does not leave guilt unpunished. Which half of that is harder for you to believe — and why?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What would change about your daily life if your working image of God was accurate — if you actually believed what Scripture says about who he is?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What is the single most important thing you believe about God — and how did you come to believe it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">How has your view of God been shaped by your experience of your own father — for better or worse?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Tozer says what we think about God is the most important thing about us. Do you believe that? What does it imply for how we prioritize studying theology?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The Jesus tab in this study describes a person who was funny, tough, blunt, and magnetic. Does that match the Jesus you've been taught? What has been left out of the version you grew up with?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God's mercy and his justice are both fully present in Exodus 34. How does the cross hold them together — and why does it matter that it does?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If the people around you observed your daily behavior — how you make decisions, what you worry about, how you treat people — what would they conclude you believe about God?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"And this is eternal life: that they know you, the only true God, and Jesus Christ, whom you have sent."</div>
+      <div class="verse-ref">John 17:3 · NIV</div>
+      <div class="prayer-instruction">Eternal life is defined as knowing God — not believing facts about him. The goal is a person, not a doctrine.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ JESUS ═══════════ -->
+<div class="panel" id="panel-jesus">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Character of God Made Visible</div>
+      <div class="section-title">Jesus</div>
+      <div class="section-sub">Not the mild, pale, stained-glass figure — the actual person in the Gospels</div>
+    </div>
+
+    <p>John Eldredge's phrase is exactly right: Jesus is a beautiful outlaw. Not a religious professional. Not a polite presence who approved of everything and offended no one. Not the domesticated, pastel, slightly boring figure that much of Western Christianity has produced. The Jesus of the Gospels is someone people followed through the wilderness without food, someone children ran to, someone who made the most powerful people in the country furious enough to kill him, someone who made the most broken people in the country feel genuinely seen and wanted for the first time.</p>
+    <p>He was magnetic. He was dangerous. He was deeply kind. He was absolutely unafraid of anyone. He was funnier than we give him credit for. He was blunter than we are comfortable with. And he consistently gave people what they needed rather than what they asked for — which is either the most loving thing imaginable or an insult, depending on whether you trust him.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Claim</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">"Anyone who has seen me has seen the Father." — John 14:9. Jesus is not a more approachable version of God. He is the full character of God expressed in human form. What Jesus is like is what God is like. There is no other God behind him who is different.</p>
+    </div>
+
+    <h2>Scenes from the Gospels — What He Was Actually Like</h2>
+
+    <div class="scene-list">
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Wrath and the Whip</span><span class="scene-ref">John 2:13–17</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Righteous anger · Physical force · Zero tolerance for exploitation</div>
+          <div class="scene-desc">Jesus walked into the temple courts, made a whip out of cords, and drove out the merchants and money-changers. Overturned the tables. Scattered the coins. This was not a gentle disruption. It was a deliberate, physical, premeditated act of authority. He had watched the exploitation of worshippers by the religious establishment and decided to do something about it. The meek and mild version of Jesus does not account for this scene.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Samaritan Woman — Five Husbands</span><span class="scene-ref">John 4:1–26</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Directness · Radical inclusion · Seeing through the surface</div>
+          <div class="scene-desc">A Samaritan woman — ethnically despised, morally complicated, drawing water alone at noon to avoid people — encounters Jesus. He asks her for water, which breaks three social taboos simultaneously. Then, when she tries to dodge his question about her husband, he names the truth directly: "You have had five husbands, and the man you now have is not your husband." Not cruel. Not moralizing. Just true. And somehow she ran to tell everyone in town. Because being seen clearly by someone who still wanted to talk to you — still offered you living water — was apparently more healing than any social acceptance she had been denied.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Rich Young Ruler</span><span class="scene-ref">Mark 10:17–22</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Love without flattery · Honesty over comfort · Refusing to give people what they want</div>
+          <div class="scene-desc">A wealthy, morally serious young man runs up to Jesus and asks what he must do to inherit eternal life. Jesus looks at him and loves him — Mark is explicit about this. Then he tells him to sell everything and give it to the poor. The man walks away sad. Jesus does not run after him and soften the requirement. He does not renegotiate. He loves the man enough to tell him the truth about where his real allegiance lies — even knowing the man will choose his wealth. Love that tells hard truths is harder than love that only comforts.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Pharisees — Woe to You</span><span class="scene-ref">Matthew 23</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Bluntness · Naming hypocrisy · No deference to power or position</div>
+          <div class="scene-desc">Seven times in one chapter, Jesus calls the Pharisees — the most respected religious figures in the culture — "hypocrites." He calls them "blind guides," "whitewashed tombs," "snakes," "a brood of vipers." This is not casual insult. It is a careful, specific indictment of people who used religious performance to protect their own power at the expense of the people they were supposed to serve. Jesus had no deference to institutional authority. He was far more dangerous to the comfortable religious establishment than to the broken and outcast.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">Children Running to Him</span><span class="scene-ref">Mark 10:13–16</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Warmth · Genuine delight · Accessible to the powerless</div>
+          <div class="scene-desc">People were bringing children to Jesus for him to touch them. The disciples — trying to manage the crowd and protect the teacher's time — rebuked them. Jesus was indignant. He specifically called the children to himself. Children are not deceived about whether someone actually wants them around. They ran to Jesus. That tells you something. The same person who made a whip and cleared the temple was someone children ran to — and both of those things are true at the same time.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">He Wept at Lazarus's Tomb</span><span class="scene-ref">John 11:32–36</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Genuine emotion · Not managing grief · Present to loss</div>
+          <div class="scene-desc">Jesus knew he was about to raise Lazarus. He knew the story had a good ending. He wept anyway. When he saw Mary weeping, he was "deeply moved in spirit and troubled." The Greek word suggests something more like anger — a visceral protest against death itself. He was not performing grief. He felt it. The God who knows all outcomes still mourns alongside those who mourn. His knowledge of the ending does not remove him from the feeling of the middle.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Humor — The Plank and the Eye</span><span class="scene-ref">Matthew 7:3–5</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Wit · Comedic exaggeration · Truth delivered with a smile</div>
+          <div class="scene-desc">"Why do you look at the speck of sawdust in your brother's eye and pay no attention to the plank in your own eye?" This is a joke. A visual, absurd, physical joke — picture someone with a two-by-four sticking out of their head squinting to examine a speck in someone else's eye. Jesus used this kind of comedic exaggeration throughout his teaching. A camel going through the eye of a needle. A gnat being strained and a camel swallowed. The reason these landed is that they were funny — and because they were funny, they were memorable. A teacher who makes you laugh makes you remember.</div>
+        </div>
+      </div>
+
+      <div class="scene-card">
+        <div class="scene-header"><span class="scene-title">The Woman Caught in Adultery</span><span class="scene-ref">John 8:1–11</span></div>
+        <div class="scene-body">
+          <div class="scene-quality">Subverting the trap · Grace without sentimentality · "Go and sin no more"</div>
+          <div class="scene-desc">The religious leaders bring a woman caught in adultery — note that the man is nowhere in the scene. They want to use her as a theological trap. Jesus kneels and writes in the dirt (we don't know what — which is maddening and probably intentional). Then: "Let any one of you who is without sin be the first to throw a stone." One by one they leave. Then, alone with her: "Has no one condemned you? Then neither do I condemn you. Go now and leave your life of sin." Perfect grace — no condemnation. Perfect honesty — leave the sin behind. He refuses the trap, refuses the cruelty, and refuses the sentimentality that pretends the sin isn't real. All three at once.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h2>The Jesus Nobody Expected</h2>
+    <p>The first disciples were not looking for Jesus. Most of them were not religious professionals. They were fishermen, a tax collector, a zealot. They encountered someone who called them out of their boats and businesses and followed — not because he offered them a better career, but because something about him made the boats seem beside the point.</p>
+    <p>The religious establishment of his day — the people who were supposed to recognize the Messiah — largely did not. Because he didn't fit their model. He ate with the wrong people, broke the letter of the Sabbath laws to honor their spirit, touched lepers, allowed a sinful woman to wash his feet in public. He was not the God they had constructed — and so they killed him.</p>
+    <p>The question is which version of Jesus you are following: the one who challenges and disrupts and refuses to flatter you, or the one you have domesticated enough to be comfortable with. The first one calls you somewhere. The second one goes where you lead.</p>
+
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of these Gospel scenes is hardest for you to integrate into your image of Jesus — and why?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Jesus consistently gave people what they needed rather than what they wanted. Has he ever done that with you? What did it feel like at the time?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Children ran to him. The broken and outcast felt seen by him. The powerful were afraid of him. What does that combination tell you about what it would actually have been like to be around him?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ ATTRIBUTES ═══════════ -->
+<div class="panel" id="panel-attributes">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Who God Is</div>
+      <div class="section-title">The Attributes</div>
+      <div class="section-sub">God's character — each attribute real, each one affecting how you live</div>
+    </div>
+
+    <p>The attributes of God are not abstract theological categories. Each one has direct implications for how you live, how you pray, what you fear, and what you trust. Read each one not as information to store but as a reality to reckon with.</p>
+
+    <div class="attr-grid">
+
+      <div class="attr-card">
+        <div class="attr-name">Holy</div>
+        <div class="attr-hebrew">קָדוֹשׁ · qadosh</div>
+        <div class="attr-def">Set apart, utterly distinct, morally perfect in a way nothing else in creation is. Isaiah saw the seraphim crying "holy, holy, holy" — the only attribute of God repeated three times in succession anywhere in Scripture. His holiness is not one quality among others; it is the quality of all his qualities. His love is holy love. His mercy is holy mercy.</div>
+        <div class="attr-implication">Implication: He cannot ignore sin. Not because he is cruel, but because sin is incompatible with what he is. This is why the cross was necessary — not because God is bloodthirsty but because holiness and sin cannot coexist without resolution.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Love</div>
+        <div class="attr-hebrew">אַהֲבָה · ahavah / ἀγάπη · agapē</div>
+        <div class="attr-def">1 John 4:8 — "God is love." Not merely that God loves, but that love is constitutive of who he is. His love is not a response to your lovability — it is the overflow of his nature. It is the reason for the incarnation, the cross, the resurrection, and the ongoing work of the Spirit in human hearts.</div>
+        <div class="attr-implication">Implication: He cannot be manipulated by performance into loving you more, or by failure into loving you less. His love is not contingent on your behavior. This is either the most freeing thing you will ever hear, or the most unsettling — depending on how much of your religious life has been built on earning it.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Just</div>
+        <div class="attr-hebrew">צַדִּיק · tsaddiq</div>
+        <div class="attr-def">God's justice is not legal technicality — it is the expression of his moral character in the ordering of his creation. He is for the oppressed, against the oppressor, on the side of the widow and orphan and stranger. His justice is not cold; it is passionate. And it will ultimately prevail — which is the most hopeful and most sobering claim in Scripture.</div>
+        <div class="attr-implication">Implication: Evil will not have the last word. Every injustice that has ever gone unpunished is known to God and will be addressed. This is comfort for those who have suffered unjustly. It is also a warning: the same justice that vindicates the oppressed will judge the oppressor.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Faithful</div>
+        <div class="attr-hebrew">אֱמוּנָה · emunah</div>
+        <div class="attr-def">He keeps his word. Always. Every promise he has made will be fulfilled. Lamentations 3:23 — "his mercies are new every morning; great is your faithfulness." The Hebrew word connotes steadiness, reliability, the dependability of something that will not collapse under weight. He is not faithful when it is convenient. He is constitutionally incapable of breaking his word.</div>
+        <div class="attr-implication">Implication: His promises in Scripture are bankable. Not in a prosperity-gospel sense — you cannot claim any promise regardless of context. But the specific covenantal promises of God — his presence, his forgiveness, his ultimate redemption — are as certain as his nature.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Merciful</div>
+        <div class="attr-hebrew">רַחוּם · rachum</div>
+        <div class="attr-def">Rachum shares its root with the Hebrew word for womb — it carries an image of deep, visceral, maternal compassion. God's mercy is not reluctant leniency. It is active, eager, seeking. Luke 15's father runs toward the returning son — that is rachum. Psalm 103:13 — "as a father has compassion on his children, so the Lord has compassion on those who fear him."</div>
+        <div class="attr-implication">Implication: He is not waiting for you to earn your way back. He is already watching down the road. The posture of God toward the returning sinner is not grudging acceptance — it is running, robes and dignity abandoned, arms out. That is the God you are dealing with.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Sovereign</div>
+        <div class="attr-hebrew">אֲדֹנָי · Adonai</div>
+        <div class="attr-def">Lord — the one with ultimate authority over all things. His sovereignty is not the sovereignty of a dictator but of a King who is also Father, who has purposes that extend beyond any single moment, who sees the whole story while we see one scene. Nothing falls outside his reach. Nothing surprises him. Nothing defeats him.</div>
+        <div class="attr-implication">Implication: Anxiety is, at its root, a theological claim that God is not sovereign over the thing you're afraid of. The sovereign God who holds all things is the same God who holds your situation, your future, and the people you love. Trusting his sovereignty does not remove suffering — but it changes what suffering means.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Omniscient</div>
+        <div class="attr-hebrew">יֹדֵעַ · yodea</div>
+        <div class="attr-def">He knows everything — including everything about you. Psalm 139 — "you have searched me and known me." Before a word is on your tongue, he knows it. This is either terrifying or liberating depending on what you believe about his character. If he is primarily a judge, omniscience is a surveillance system. If he is primarily a Father, omniscience means you are fully known and fully loved at the same time.</div>
+        <div class="attr-implication">Implication: You cannot hide from him, and you do not need to. The God who knows everything about you still ran toward you. The full knowledge of who you are did not change his love. That is the specific miracle of grace.</div>
+      </div>
+
+      <div class="attr-card">
+        <div class="attr-name">Wrathful</div>
+        <div class="attr-hebrew">אַף · af / ὀργή · orgē</div>
+        <div class="attr-def">God's wrath is real and must not be domesticated. But it is not the rage of a being out of control. It is the settled, holy response of perfect goodness to genuine evil. C. S. Lewis observed that a God who doesn't care about injustice is not a good God. God's wrath is the flip side of his love — he is passionate about human flourishing precisely because he loves human beings, and anything that destroys them provokes his response.</div>
+        <div class="attr-implication">Implication: The cross is where God's wrath and his love converge. He did not set aside his wrath to forgive — he absorbed it himself. That is not an angry father taking it out on an innocent son. It is a Triune God bearing the cost of reconciliation in himself.</div>
+      </div>
+
+    </div>
+
+    <div class="callout accent">
+      <div class="callout-label">The Integration</div>
+      <p>These attributes are not in tension with each other — except in the sense that holding them all together requires more than a simple formula. A God who is only love and no holiness is a God who cannot redeem anything because he cannot judge anything. A God who is only holy and no mercy is a God who cannot be approached. The God of Scripture is both, fully, at once — and the cross is the only event in history where all of it fits together simultaneously.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE TENSION ═══════════ -->
+<div class="panel" id="panel-tension">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Grace &amp; Consequence</div>
+      <div class="section-title">The Tension</div>
+      <div class="section-sub">How mercy and real consequences hold together — and why cheap grace is not grace</div>
+    </div>
+
+    <h2>The Most Misunderstood Thing About Grace</h2>
+    <p>Grace is not the suspension of consequences. It is the presence of God within them. This distinction is one of the most important in all of Christian theology — and one of the most commonly confused. When grace is misunderstood as the removal of all consequences, it produces what Dietrich Bonhoeffer called "cheap grace" — grace as a license rather than a liberation, a cover story rather than a transformation.</p>
+    <p>The God of Exodus 34 says he forgives "wickedness, rebellion and sin" — and in the same breath says he "does not leave the guilty unpunished." Both are true. Both are always true. The cross does not resolve this tension by choosing one over the other. It resolves it by God absorbing both simultaneously — his mercy and his justice meeting in a single event.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Shall we go on sinning so that grace may increase? By no means! We are those who have died to sin; how can we live in it any longer?"</div>
+      <div class="verse-ref">Romans 6:1–2 · NIV</div>
+    </div>
+
+    <h2>Real Conditions — What Grace Is Not</h2>
+    <p>The New Testament presents grace as genuinely free and as genuinely demanding. Both. Jesus says "Come to me, all who are weary and burdened, and I will give you rest" — the door is open to everyone. He also says "If anyone would come after me, let him deny himself and take up his cross daily" — the life inside the door is not easy or optional. These are the same Jesus in the same week. They are not in contradiction.</p>
+
+    <div class="tension-grid">
+      <div class="tension-row header-row">
+        <div class="tension-cell header">What Grace Is</div>
+        <div class="tension-cell header">What Grace Is Not</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">Freely given — nothing you did earned it</div>
+        <div class="tension-cell">A blank check for continued sin</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">Received by faith, not by performance</div>
+        <div class="tension-cell">A reason to stop caring about obedience</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">The basis of your standing before God</div>
+        <div class="tension-cell">A guarantee against all consequences</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">The power that enables transformation</div>
+        <div class="tension-cell">A substitute for transformation</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">Available to the worst sinner without exception</div>
+        <div class="tension-cell">An excuse to remain the worst sinner</div>
+      </div>
+      <div class="tension-row">
+        <div class="tension-cell">God's response to your failure, always</div>
+        <div class="tension-cell">God's indifference to your failure</div>
+      </div>
+    </div>
+
+    <h2>Consequences Are Not the Absence of Grace</h2>
+    <p>One of the most pastorally damaging ideas in the church is that if God is gracious, then suffering the consequences of your sin means he is absent or angry or has stopped loving you. This is not true. David sinned with Bathsheba. Nathan came to him. He repented genuinely. God forgave him — Psalm 51 is the record of that forgiveness. And the child still died. The consequences of the sin played out, and God's grace was present in all of it.</p>
+    <p>Galatians 6:7 — "Do not be deceived: God cannot be mocked. A man reaps what he sows." This is not a threat. It is a description of how a morally ordered universe works. When you sow to the flesh, the harvest is what you planted. God's grace does not always intercept the harvest — but it is present in the middle of it, and it is working toward something in it.</p>
+
+    <h2>The Prodigal Son — Both Truths at Once</h2>
+    <p>Luke 15's parable holds the tension in a single story. The son demands his inheritance, wastes it, hits bottom, comes to his senses, and returns. The father runs. Robe, ring, sandals, feast — the full restoration. No probationary period. No "let's see if you've really changed." No lecture about what he did. Grace, immediate and complete.</p>
+    <p>And — he has spent the inheritance. It is gone. The years in the far country are gone. The relationships damaged in that season are damaged. The father's grace does not undo the consequences of the choices. What it does is welcome him home anyway, restore his identity, and celebrate his return. The grace and the consequences coexist in the same story. That is how it actually works.</p>
+
+    <h2>What This Means for Discipline and Accountability</h2>
+    <p>A community that only emphasizes grace without accountability produces people who believe they can do whatever they like with minimal consequence because God will forgive. A community that only emphasizes accountability without grace produces people who perform, hide, and cannot risk honesty because they have no confidence in being received when they fail.</p>
+    <p>The biblical community holds both: full grace for the returning prodigal, and clear expectations for behavior in the household. You are completely forgiven and you are expected to live accordingly. Both. At the same time. This is not hypocrisy — it is the logic of grace that is actually transformative rather than merely permissive.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Have you ever experienced grace and consequences at the same time — forgiveness from God and real-world consequences for your choices? What was that like?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Which error is more dangerous for you personally — treating grace as license (it doesn't matter what I do), or treating consequences as evidence that grace is absent (God must be angry with me)?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The prodigal's father restored his identity completely while the consequences of his choices were still very real. What does that tell you about how God sees you right now — wherever you are?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"But while he was still a long way off, his father saw him and was filled with compassion for him; he ran to his son, threw his arms around him and kissed him."</div>
+      <div class="verse-ref">Luke 15:20 · NIV</div>
+      <div class="prayer-instruction">He was still a long way off. The father didn't wait for him to arrive and prove his sincerity. He ran. That is the God you are dealing with.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Key Passages</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">The biblical witness on the character of God</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">God's Self-Revelation</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love and faithfulness, maintaining love to thousands, and forgiving wickedness, rebellion and sin. Yet he does not leave the guilty unpunished."</div><div class="vc-footer"><span class="vc-ref">Exodus 34:6–7 · NIV</span><span class="vc-note">God's own declaration of his character — the most foundational self-disclosure in the OT</span></div></div>
+        <div class="verse-card"><div class="vc-text">"God is love. Whoever lives in love lives in God, and God in them."</div><div class="vc-footer"><span class="vc-ref">1 John 4:16 · NIV</span><span class="vc-note">Love is not one attribute among many — it is what God is</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Holy, holy, holy is the Lord Almighty; the whole earth is full of his glory."</div><div class="vc-footer"><span class="vc-ref">Isaiah 6:3 · NIV</span><span class="vc-note">The only attribute repeated three times in succession in Scripture</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Jesus as the Image of God</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"Anyone who has seen me has seen the Father. How can you say, 'Show us the Father'?"</div><div class="vc-footer"><span class="vc-ref">John 14:9 · NIV</span><span class="vc-note">Jesus is not the approachable version of a different God — he is the full character of God embodied</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The Son is the image of the invisible God, the firstborn over all creation."</div><div class="vc-footer"><span class="vc-ref">Colossians 1:15 · NIV</span><span class="vc-note">Image — eikōn — exact representation, not an approximation</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The Word became flesh and made his dwelling among us. We have seen his glory, the glory of the one and only Son, who came from the Father, full of grace and truth."</div><div class="vc-footer"><span class="vc-ref">John 1:14 · NIV</span><span class="vc-note">Grace and truth together — not one at the expense of the other</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Mercy, Grace, &amp; Conditions</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</div><div class="vc-footer"><span class="vc-ref">Ephesians 2:8–9 · NIV</span><span class="vc-note">Grace is free — it is not earned by performance</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Shall we go on sinning so that grace may increase? By no means!"</div><div class="vc-footer"><span class="vc-ref">Romans 6:1–2 · NIV</span><span class="vc-note">Grace is not a license — it does not suspend moral seriousness</span></div></div>
+        <div class="verse-card"><div class="vc-text">"What shall we say then? Is God unjust? Not at all! For he says to Moses, 'I will have mercy on whom I have mercy, and I will have compassion on whom I have compassion.'"</div><div class="vc-footer"><span class="vc-ref">Romans 9:14–15 · NIV</span><span class="vc-note">Mercy is God's sovereign gift — not a right to be demanded</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WORD STUDY ═══════════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Hebrew &amp; Greek Word Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">The key terms behind the attributes — what the original languages reveal about who God is</div>
+    </div>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">חֶסֶד</div>
+        <div class="ws-transliteration">chesed</div>
+        <div class="ws-pos">Hebrew noun · "steadfast love / loyal kindness / covenant faithfulness"</div>
+        <div class="ws-definition">The single most important word for God's character in the Hebrew Bible. It appears over 240 times. It describes the loyal, covenant-keeping love of God — not a feeling but a commitment. It is often paired with <em>emet</em> (truth/faithfulness): "abounding in chesed and emet." Exodus 34:6 translates it as "abounding in love and faithfulness" — but both English words together barely capture the weight of chesed alone.</div>
+        <div class="ws-note">English translations render chesed as "love," "kindness," "mercy," "steadfast love," "lovingkindness," and "faithful love" — the fact that no single English word suffices is itself instructive. It is the word for what God is toward you that cannot be revoked by your behavior.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">קָדוֹשׁ</div>
+        <div class="ws-transliteration">qadosh</div>
+        <div class="ws-pos">Hebrew adjective · "holy / set apart / wholly other"</div>
+        <div class="ws-definition">The root idea is separation — God is not one being among many who happens to be the most powerful. He is categorically distinct from everything he has made. His holiness is the quality of all his other qualities: his love is holy love, his anger is holy anger, his mercy is holy mercy. When Isaiah sees him in the temple, the seraphim do not cry "eternal, eternal, eternal" or "powerful, powerful, powerful" — they cry "holy, holy, holy." The repetition signals incomparable magnitude.</div>
+        <div class="ws-note">The Hebrew triple repetition (the technical term is <em>triplasmus</em>) is the strongest possible emphasis in the language. God's holiness is the thing most emphatically true about him in the vision of Isaiah 6.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">רַחֲמִים</div>
+        <div class="ws-transliteration">rachamim</div>
+        <div class="ws-pos">Hebrew noun (plural) · "compassion / deep mercy / tender feelings"</div>
+        <div class="ws-definition">From the root <em>rechem</em> — womb. The image is visceral, maternal, physical. God's compassion for his people is described in the same terms as a mother's gut-level love for the child she carried. It is not remote or theoretical — it is the most intimate kind of care the Hebrew language could express. Psalm 103:13 uses it to describe how God feels about those who fear him.</div>
+        <div class="ws-note">Isaiah 49:15 uses the same root in a remarkable passage: "Can a mother forget the baby at her breast and have no compassion on the child she has borne? Though she may forget, I will not forget you!" God's compassion is greater than the most intimate human love. That is what you are dealing with.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">χάρις</div>
+        <div class="ws-transliteration">charis</div>
+        <div class="ws-pos">Greek noun · "grace / gift / favor"</div>
+        <div class="ws-definition">The defining word of the New Testament. It describes God's free, unmerited favor — given not in response to worthiness but in expression of his character. The greeting of almost every NT letter includes charis: "grace and peace to you." It is the baseline condition of the Christian's relationship with God — not something to be earned or maintained by performance, but received as gift and lived from.</div>
+        <div class="ws-note">The Greek word was used in secular contexts for a gift given freely by a patron to a client — with no expectation of repayment because no repayment was possible. Paul takes this cultural concept and radicalizes it: God's grace is given to those who are not just unable to repay but who were actively his enemies (Romans 5:10).</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">εἰκών</div>
+        <div class="ws-transliteration">eikōn</div>
+        <div class="ws-pos">Greek noun · "image / exact representation"</div>
+        <div class="ws-definition">Used in Colossians 1:15 — Jesus is "the image (eikōn) of the invisible God." Not a copy or an approximation — an exact representation. The same word is used on a coin: the eikōn of Caesar is stamped on it — the coin bears the exact likeness that identifies it as belonging to Caesar. Jesus does not give you an impression of God. He gives you God himself in human form.</div>
+        <div class="ws-note">Hebrews 1:3 uses an even stronger term: Jesus is the "exact imprint" of God's nature — charakter, from which we get "character." Jesus is the character of God expressed. Every scene in the Gospels is a scene from the character of God.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">אֱמוּנָה</div>
+        <div class="ws-transliteration">emunah</div>
+        <div class="ws-pos">Hebrew noun · "faithfulness / steadiness / reliability"</div>
+        <div class="ws-definition">From the root <em>aman</em> — to be firm, steady, reliable. This is the word behind "Amen" — the affirmation that something is true and trustworthy. God's emunah is his constitutional inability to break his word. Lamentations 3:23 — "great is your faithfulness" — uses this word. It is the basis on which every biblical promise can be banked, every covenant trusted, every waiting sustained.</div>
+        <div class="ws-note">In a culture where human promises were frequently broken and human relationships frequently failed, the emunah of God was proclaimed as categorically different. He is not like the leaders, the allies, or the fathers who failed. He is steady in a way nothing else in creation is.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end .panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

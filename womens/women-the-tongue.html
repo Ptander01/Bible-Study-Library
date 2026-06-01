@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Tongue — Women's Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #a07080;
+  --accent-dim:   #5a3545;
+  --accent-lt:    #c090a0;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #130f18 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+.uses-grid { display: grid; grid-template-columns: 1fr; gap: 2px; margin: 24px 0; border: 1px solid var(--border-lt); border-radius: 6px; overflow: hidden; }
+.use-row { display: grid; grid-template-columns: 200px 1fr; background: var(--surface); }
+.use-row:nth-child(even) { background: var(--surface-2); }
+.use-label { padding: 16px 20px; font-family: var(--font-display); font-size: 12px; letter-spacing: 1px; font-weight: 600; color: var(--accent); border-right: 1px solid var(--border); display: flex; align-items: center; }
+.use-desc { padding: 16px 20px; font-size: 14px; color: var(--cream-dim); }
+@media (max-width: 560px) { .use-row { grid-template-columns: 1fr; } .use-label { border-right: none; border-bottom: 1px solid var(--border); } }
+.quencher-list { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+.quencher { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning-dim); border-radius: 4px; padding: 16px 20px; }
+.quencher strong { color: var(--cream); display: block; font-size: 14px; margin-bottom: 4px; }
+.quencher p { font-size: 13px; margin: 0; }
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── GOSSIP ANATOMY STEPS ── */
+.anatomy-steps { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0; }
+.anatomy-step { display: grid; grid-template-columns: 64px 1fr; border-bottom: 1px solid var(--border); }
+.anatomy-step:last-child { border-bottom: none; }
+.anatomy-num { background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--accent); border-right: 1px solid var(--border); }
+.anatomy-content { background: var(--surface); padding: 18px 22px; }
+.anatomy-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--cream); margin-bottom: 6px; }
+.anatomy-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+
+/* ── CONTRAST ── */
+.contrast-stack { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+.contrast-card { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+@media (max-width: 560px) { .contrast-card { grid-template-columns: 1fr; } }
+.contrast-lie { background: #120d10; padding: 18px 20px; border-right: 1px solid var(--border); }
+.contrast-truth { background: var(--surface-2); padding: 18px 20px; }
+.contrast-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.contrast-lie .contrast-label { color: #9a5060; }
+.contrast-truth .contrast-label { color: var(--accent); }
+.contrast-lie p, .contrast-truth p { font-size: 13px; margin: 0; line-height: 1.6; color: var(--cream-dim); }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Women's Study · Relationships &amp; Speech</div>
+  <div class="header-title">The Tongue <span>&amp; Gossip</span></div>
+  <div class="header-verse">"The tongue has the power of life and death, and those who love it will eat its fruit."</div>
+  <div class="header-ref">Proverbs 18:21 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('gossip',this)">Gossip</button>
+    <button class="tab-btn" onclick="switchTab('james3',this)">James 3</button>
+    <button class="tab-btn" onclick="switchTab('proverbs',this)">Proverbs</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE STUDY ═══════════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Women's Study · Speech &amp; Community</div>
+      <div class="section-title">The Tongue</div>
+      <div class="section-sub">Why speech matters more than we think, what gossip actually does, and what it looks like to use your words well</div>
+    </div>
+
+    <h2>The Most Underestimated Spiritual Problem</h2>
+    <p>If you asked most women to list their significant spiritual struggles, the tongue would rarely make the top three. We tend to categorize sin by what feels dramatic — pride, lust, addiction, anger. Gossip, slander, and careless speech feel minor by comparison. They don't leave visible damage. Nobody goes to jail for what they said about someone at coffee.</p>
+    <p>Scripture disagrees. James 3 calls the tongue "a fire, a world of evil" and says it "corrupts the whole body." Proverbs returns to speech more than almost any other subject — more than money, more than sexuality, more than anger. The consistent weight Scripture places on what comes out of our mouths suggests that we have dramatically underestimated the spiritual significance of how we talk.</p>
+    <p>This matters particularly in the context of women's community. Not because women are uniquely prone to this sin — men have their own versions of it, often louder and more overtly brutal. But because the forms gossip takes in close female community are often subtle, socially rewarded, and genuinely damaging in ways that are easy to overlook.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Claim</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Your words are not neutral. Every conversation either builds something or tears something down — a person's reputation, a relationship, a community's trust, your own character. There is no such thing as a spiritually insignificant conversation.</p>
+    </div>
+
+    <h2>Why the Tongue Is So Hard to Control</h2>
+    <p>James 3:8 says flatly: "No human being can tame the tongue." This is not an excuse. It is a diagnosis. The tongue is hard to control not because speech is uniquely sinful but because <strong>the tongue expresses the heart faster than any other faculty.</strong> What you actually believe about a person — their worth, their competence, your superiority or insecurity relative to them — comes out in how you talk about them when they're not present.</p>
+    <p>This is why Jesus said in Matthew 12:34: "Out of the overflow of the heart the mouth speaks." The tongue is a symptom. What it says about gossip and careless speech is that the heart contains something that needs to come out — often something rooted in insecurity, fear, the need to feel better than, or genuine unresolved hurt that hasn't been brought directly to the person or to God.</p>
+    <p>Trying to control your tongue without addressing your heart is like trying to stop a leak by taping over the crack. It might hold temporarily. It will not hold long.</p>
+
+    <h2>The Forms Destructive Speech Takes</h2>
+    <div class="uses-grid">
+      <div class="use-row"><div class="use-label">Gossip</div><div class="use-desc">Sharing information about someone who is not present, without their knowledge or consent, when sharing it serves no redemptive purpose. The test: would you say this if they were standing here?</div></div>
+      <div class="use-row"><div class="use-label">Slander</div><div class="use-desc">Saying something false about someone that damages their reputation. Distinct from gossip in that slander may be intentional and may involve outright lies — but gossip shades into slander whenever the information is incomplete, framed unfairly, or delivered with a spin.</div></div>
+      <div class="use-row"><div class="use-label">Flattery</div><div class="use-desc">Saying things to someone's face that you don't mean or don't believe in order to gain something. Proverbs calls flattery a net spread for someone's feet (29:5). It is manipulation dressed as kindness.</div></div>
+      <div class="use-row"><div class="use-label">Complaining</div><div class="use-desc">The chronic rehearsal of grievances — to anyone who will listen, about anything that feels unfair. It poisons the atmosphere of a home and a community. Philippians 2:14 addresses it directly: "Do everything without grumbling or arguing."</div></div>
+      <div class="use-row"><div class="use-label">Careless Words</div><div class="use-desc">"I didn't mean anything by it." Words spoken without thought for their effect. Jesus says in Matthew 12:36 that we will give account for every careless word. Not just the intentionally cruel ones — the throwaway ones.</div></div>
+      <div class="use-row"><div class="use-label">Spiritual Gossip</div><div class="use-desc">The most dangerous form: sharing someone's struggle under the guise of a prayer request. "We should pray for Sarah — she's really struggling with her marriage." This is gossip with a religious cover story. The information still damages. The cover story makes it worse.</div></div>
+      <div class="use-row"><div class="use-label">Silence as Cruelty</div><div class="use-desc">The tongue sins by omission too. Withholding encouragement, truth, or comfort that someone needs. Proverbs 25:11 says "a word fitly spoken is like apples of gold in settings of silver." Not speaking is a choice with consequences.</div></div>
+    </div>
+
+    <h2>The Root Question</h2>
+    <p>Before asking "how do I control my tongue," the more honest question is: <strong>why do I talk about people the way I do?</strong> Gossip is almost never random. It is almost always in service of something — the need to feel included, the need to feel superior, the release of anxiety, the processing of genuine hurt in the wrong direction, the bonding ritual of shared complaint.</p>
+    <p>Naming the root doesn't excuse the behavior. But it gives you something to actually address. A woman who gossips because she is deeply insecure needs a different intervention than a woman who gossips because she genuinely doesn't understand how damaging it is. Both need to stop. Both need to understand why they started.</p>
+
+    <h2>What the Tongue Is For</h2>
+    <p>James 3:9–10 points out the absurdity: "With the tongue we praise our Lord and Father, and with it we curse human beings, who have been made in God's likeness. Out of the same mouth come praise and cursing." The same instrument used to worship God is used to tear apart people made in his image. This should not be, James says — and he's right.</p>
+    <p>The tongue was made for worship, encouragement, truth, wisdom, comfort, and honest rebuke when it's needed. Ephesians 4:29 gives the positive vision: "Do not let any unwholesome talk come out of your mouths, but only what is helpful for building others up according to their needs, that it may benefit those who listen." The standard is not just avoiding harm — it is active, intentional building.</p>
+
+    <h2>Practical — What Actually Changes This</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Name the root</span><span class="ref-desc">Before trying to change the behavior, identify why you're doing it. Insecurity? Unresolved conflict? Need for connection? The root determines the real intervention needed.</span></li>
+      <li class="ref-item"><span class="ref-book">The presence test</span><span class="ref-desc">Before saying something about someone not present, ask: would I say this if they were here? If not, that's diagnostic. Either the thing shouldn't be said, or it needs to go directly to the person.</span></li>
+      <li class="ref-item"><span class="ref-book">Go directly</span><span class="ref-desc">Most gossip is a substitute for a hard direct conversation. If you have a genuine grievance with someone, the biblical pattern is to bring it to them (Matthew 18:15) — not to process it with everyone else first.</span></li>
+      <li class="ref-item"><span class="ref-book">Refuse to receive it</span><span class="ref-desc">Gossip requires a listener. Proverbs 26:20: "Without wood a fire goes out; without a gossip a quarrel dies down." Politely redirecting gossip when you're on the receiving end — "have you talked to her about this?" — is a genuine act of protection for everyone involved.</span></li>
+      <li class="ref-item"><span class="ref-book">Replace, don't just stop</span><span class="ref-desc">The goal is not a mouth that says nothing. It is a mouth that says the right things. Practice naming what is true and good about the people you're prone to criticize. Gratitude and gossip are very difficult to do simultaneously.</span></li>
+      <li class="ref-item"><span class="ref-book">Ask for help</span><span class="ref-desc">James 3:8 — no human being can tame the tongue. This is genuinely a Spirit-dependent transformation. Pray specifically about your speech patterns. Ask someone you trust to hold you accountable in this particular area.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">When you're most prone to gossip or careless speech — what is usually going on underneath it? What need is it serving?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there a specific person or situation you have been processing with others instead of going to them directly? What is stopping you from going directly?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Think about the last week. What did your words build? What did they tear down?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there a person in your life whose words consistently build you up? What specifically do they do? What would it look like to become that for someone else?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Why do you think Scripture returns to speech so much more than we do in our own spiritual self-assessment?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">"Spiritual gossip" — sharing someone's struggle as a prayer request. Have you done this? Have you been on the receiving end? What does it actually do to trust in a community?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">James says the tongue cannot be tamed by human effort. What does it look like to bring your speech under the Spirit's influence rather than just white-knuckling better behavior?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Gossip requires a listener. What does it look like, practically, to refuse to receive gossip — in a way that doesn't come across as self-righteous or cold?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Proverbs 31:26 says the excellent woman "speaks with wisdom, and faithful instruction is on her tongue." What would it look like for your words to be consistently described that way?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Where in your closest community — your small group, your friendships, your home — do you sense that speech patterns need to change? What would it take to name that honestly?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"Set a guard over my mouth, Lord; keep watch over the door of my lips."</div>
+      <div class="verse-ref">Psalm 141:3 · NIV</div>
+      <div class="prayer-instruction">David didn't pray "help me try harder." He asked God to stand guard. That's the posture.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ GOSSIP ═══════════ -->
+<div class="panel" id="panel-gossip">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Honest Reckoning</div>
+      <div class="section-title">Gossip</div>
+      <div class="section-sub">What it actually is, why we do it, and the real damage it does</div>
+    </div>
+
+    <h2>A Working Definition</h2>
+    <p>Gossip is sharing information about a person who is not present, without their knowledge or consent, when sharing it serves no redemptive purpose. It is distinct from sharing a concern with someone who can genuinely help, from honest disclosure in a counseling context, or from the kind of transparency that builds real community.</p>
+    <p>The key phrase is <em>no redemptive purpose.</em> The question to ask is not just "is this true?" but "why am I telling this person? What does sharing this accomplish?" If the honest answer is: it makes me feel closer to this person, it makes me feel better about myself by comparison, it releases the tension of sitting with unresolved frustration — those are not redemptive purposes. Those are the engine of most gossip.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"A gossip betrays a confidence; so avoid anyone who talks too much."</div>
+      <div class="verse-ref">Proverbs 20:19 · NIV</div>
+    </div>
+
+    <h2>The Anatomy of Gossip — How It Moves</h2>
+    <div class="anatomy-steps">
+      <div class="anatomy-step"><div class="anatomy-num">1</div><div class="anatomy-content"><div class="anatomy-title">Something Real Happens</div><div class="anatomy-desc">A real hurt, a real observation, a real failure in someone else. Gossip almost always starts with something true or partially true. This is part of what makes it feel justified.</div></div></div>
+      <div class="anatomy-step"><div class="anatomy-num">2</div><div class="anatomy-content"><div class="anatomy-title">The Direct Path Is Avoided</div><div class="anatomy-desc">Instead of going to the person, or sitting with the discomfort, or bringing it to God — the information goes sideways. To a friend, a spouse, a sister. Usually framed as "I just need to process this."</div></div></div>
+      <div class="anatomy-step"><div class="anatomy-num">3</div><div class="anatomy-content"><div class="anatomy-title">The Story Gets Shaped</div><div class="anatomy-desc">Every telling involves choices — what to include, what to leave out, how to frame it. Rarely does gossip present all sides with equal weight. The shaping is often unconscious, but it is always present.</div></div></div>
+      <div class="anatomy-step"><div class="anatomy-num">4</div><div class="anatomy-content"><div class="anatomy-title">A Third Party Forms a View</div><div class="anatomy-desc">The listener now holds an opinion about someone based on one person's version of events. That opinion will affect how they treat the person, what they assume, what they say to others.</div></div></div>
+      <div class="anatomy-step"><div class="anatomy-num">5</div><div class="anatomy-content"><div class="anatomy-title">The Information Moves</div><div class="anatomy-desc">Proverbs 18:8 — "The words of a gossip are like choice morsels; they go down to the inmost parts." Gossip spreads. The listener becomes a carrier. The original person has no idea what is being said or thought about them.</div></div></div>
+      <div class="anatomy-step"><div class="anatomy-num">6</div><div class="anatomy-content"><div class="anatomy-title">Trust in the Community Erodes</div><div class="anatomy-desc">The final effect is not just damage to one person's reputation. It is the slow corrosion of the community's ability to be honest and vulnerable with each other. Everyone senses, eventually, that private things don't stay private here.</div></div></div>
+    </div>
+
+    <h2>Why We Do It — The Honest List</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <strong>Bonding</strong>
+        <p>Shared complaint and shared knowledge create intimacy quickly. It is one of the fastest ways to feel close to someone. The problem is that it is a counterfeit intimacy — built on someone else's exposure rather than your own vulnerability.</p>
+      </div>
+      <div class="quencher">
+        <strong>Superiority</strong>
+        <p>Talking about someone else's failures — especially quietly, privately — creates a momentary sense of being above them. It is a relief from your own insecurity, purchased at someone else's expense.</p>
+      </div>
+      <div class="quencher">
+        <strong>Processing</strong>
+        <p>Genuine hurt or confusion that hasn't been resolved gets shared with whoever is available. This feels like processing; it is usually just spreading the wound outward rather than addressing it.</p>
+      </div>
+      <div class="quencher">
+        <strong>Anxiety Relief</strong>
+        <p>Sharing a concern about someone — even when sharing it does nothing to address the concern — can temporarily relieve the tension of holding it alone. It rarely actually helps the situation.</p>
+      </div>
+      <div class="quencher">
+        <strong>Power</strong>
+        <p>Information is a form of currency. Knowing things and sharing them positions you as someone with access, someone in the know. This is subtle and rarely conscious — but it is real.</p>
+      </div>
+      <div class="quencher">
+        <strong>Genuine Care Gone Wrong</strong>
+        <p>Sometimes gossip starts from real concern. You're worried about someone and you want help thinking through it. This is not automatically wrong — but it becomes gossip when it stops being about helping them and starts being about managing your own feelings about the situation.</p>
+      </div>
+    </div>
+
+    <h2>What It Actually Does</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Damages reputation</span><span class="ref-desc">The person being discussed now has a story attached to them that they didn't write and can't respond to. That story shapes how others treat them, trust them, and include them.</span></li>
+      <li class="ref-item"><span class="ref-book">Breaks trust</span><span class="ref-desc">The person who shared with you and later discovers what was said — or suspects what was said — will not share with you again. Community is built on trust. Gossip is the slow acid that dissolves it.</span></li>
+      <li class="ref-item"><span class="ref-book">Prevents real resolution</span><span class="ref-desc">Processing a conflict with a third party feels like doing something about it. It isn't. The actual situation remains unresolved; the emotional energy that would have driven a direct conversation has been discharged into the air.</span></li>
+      <li class="ref-item"><span class="ref-book">Corrupts the speaker</span><span class="ref-desc">James 3:6 says the tongue "corrupts the whole body." Regular gossip changes you — your ability to think charitably about people, your comfort with deception, your relationship with your own integrity.</span></li>
+      <li class="ref-item"><span class="ref-book">Creates factions</span><span class="ref-desc">Proverbs 16:28 — "A perverse person stirs up conflict, and a gossip separates close friends." Communities split along gossip lines. The people who are talked about are separated from the people doing the talking, even when no one is aware it's happening.</span></li>
+    </ul>
+
+    <div class="callout accent">
+      <div class="callout-label">The Test</div>
+      <p>Before sharing something about someone not present, ask three questions: <strong>Is it true? Is it necessary? Is it kind?</strong> All three need to be yes. If you're not sure — especially about "necessary" — that's your answer.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ JAMES 3 ═══════════ -->
+<div class="panel" id="panel-james3">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Deep Dive · James 3:1–12</div>
+      <div class="section-title">James 3</div>
+      <div class="section-sub">The most direct treatment of the tongue in the New Testament — verse by verse</div>
+    </div>
+
+    <div class="passage-block">
+      <div class="passage-title">James 3:1–12 · NIV</div>
+      <div class="passage-text">
+        <span class="vn">1</span>Not many of you should become teachers, my fellow believers, because you know that we who teach will be judged more strictly. <span class="vn">2</span>We all stumble in many ways. Anyone who is never at fault in what they say is perfect, able to keep their whole body in check.<br><br>
+        <span class="vn">3</span>When we put bits into the mouths of horses to make them obey us, we can turn the whole animal. <span class="vn">4</span>Or take ships as an example. Although they are so large and are driven by strong winds, they are steered by a very small rudder wherever the pilot wants to go. <span class="vn">5</span>Likewise, the tongue is a small part of the body, but it makes great boasts. Consider what a great forest is set on fire by a small spark.<br><br>
+        <span class="vn">6</span>The tongue also is a fire, a world of evil among the parts of the body. It corrupts the whole body, sets the whole course of one's life on fire, and is itself set on fire by hell.<br><br>
+        <span class="vn">7</span>All kinds of animals, birds, reptiles and sea creatures are being tamed and have been tamed by mankind, <span class="vn">8</span>but no human being can tame the tongue. It is a restless evil, full of deadly poison.<br><br>
+        <span class="vn">9</span>With the tongue we praise our Lord and Father, and with it we curse human beings, who have been made in God's likeness. <span class="vn">10</span>Out of the same mouth come praise and cursing. My brothers and sisters, this should not be. <span class="vn">11</span>Can both fresh water and salt water flow from the same spring? <span class="vn">12</span>My brothers and sisters, can a fig tree bear olives, or a grapevine bear figs? Neither can a salt spring produce fresh water.
+      </div>
+    </div>
+
+    <h2>Verse by Verse</h2>
+
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">v.2 — "Anyone never at fault in what they say is perfect"</span><span class="ref-desc">James is not setting speech apart as uniquely difficult — he is saying that mastery of speech would indicate mastery of the whole self. The tongue is the hardest thing. If you could control it perfectly, you would be perfect. Nobody is.</span></li>
+      <li class="ref-item"><span class="ref-book">v.3–5 — The bit and rudder</span><span class="ref-desc">Two images for small things with disproportionate control. A small bit steers a horse. A small rudder steers a massive ship. The tongue is small. Its effects are enormous. What comes out of your mouth in a conversation today may shape someone's self-understanding for years.</span></li>
+      <li class="ref-item"><span class="ref-book">v.5–6 — "A great forest set on fire by a small spark"</span><span class="ref-desc">The fire image is the most vivid in the passage. A single careless remark at the right moment can burn down a relationship, a reputation, a community. The damage from a fire is almost always greater than anticipated and almost never fully reversible.</span></li>
+      <li class="ref-item"><span class="ref-book">v.6 — "Corrupts the whole body"</span><span class="ref-desc">The tongue does not sin in isolation. Habitual destructive speech changes the person speaking — their capacity for charity, their comfort with deception, their relationship with their own conscience. What comes out of your mouth shapes what is inside you.</span></li>
+      <li class="ref-item"><span class="ref-book">v.8 — "No human being can tame the tongue"</span><span class="ref-desc">This is diagnostic, not fatalistic. James is not saying: don't bother trying. He is saying: this is beyond human willpower alone. The transformation of speech is a Spirit-dependent work. It requires the same posture as every other area of sanctification — not harder effort but deeper surrender.</span></li>
+      <li class="ref-item"><span class="ref-book">v.9–10 — Fresh water and salt water</span><span class="ref-desc">The absurdity James is naming: you cannot bless God and curse people made in his image with the same mouth. Every person you talk about, talk to, or talk around is an image-bearer of God. Cursing them — dismissing them, diminishing them, slandering them — is incompatible with genuine worship of the God in whose image they were made.</span></li>
+    </ul>
+
+    <div class="callout accent">
+      <div class="callout-label">The Implication</div>
+      <p>If no human being can tame the tongue, then the answer is not a speech discipline plan. It is a heart transformation. Which is exactly what the Spirit does — and exactly why Paul says in Galatians 5 that the fruit of the Spirit includes "gentleness" and "self-control." Those are speech virtues. They come from the Spirit, not from trying harder.</p>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">James says the same mouth praises God and curses people. Where do you see that contradiction most clearly in your own speech patterns?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Who is the person you are most prone to curse — dismiss, diminish, criticize, or speak poorly of? What would it mean to treat them as an image-bearer of God, specifically in how you talk about them?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ PROVERBS ═══════════ -->
+<div class="panel" id="panel-proverbs">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Proverbs on Speech</div>
+      <div class="section-title">Proverbs</div>
+      <div class="section-sub">What the wisdom literature says about how we talk — organized by theme</div>
+    </div>
+
+    <p>Proverbs addresses speech more consistently than almost any other topic in the book. The following passages are organized by theme. Read them slowly — Proverbs rewards sitting with a single verse longer than moving quickly through many.</p>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Power of Words</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"The tongue has the power of life and death, and those who love it will eat its fruit."</div><div class="vc-footer"><span class="vc-ref">Proverbs 18:21</span><span class="vc-note">Your words are not neutral — they create outcomes</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The words of the reckless pierce like swords, but the tongue of the wise brings healing."</div><div class="vc-footer"><span class="vc-ref">Proverbs 12:18</span><span class="vc-note">Two options. No middle ground.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Like apples of gold in settings of silver is a ruling rightly given."</div><div class="vc-footer"><span class="vc-ref">Proverbs 25:11</span><span class="vc-note">The right word at the right time is genuinely beautiful</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Gracious words are a honeycomb, sweet to the soul and healing to the bones."</div><div class="vc-footer"><span class="vc-ref">Proverbs 16:24</span><span class="vc-note">Good words are physically restorative — not just emotionally pleasant</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Gossip &amp; Slander</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"A gossip betrays a confidence; so avoid anyone who talks too much."</div><div class="vc-footer"><span class="vc-ref">Proverbs 20:19</span><span class="vc-note">Gossip and betrayal are the same act</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The words of a gossip are like choice morsels; they go down to the inmost parts."</div><div class="vc-footer"><span class="vc-ref">Proverbs 18:8</span><span class="vc-note">Gossip is appealing and it stays — it doesn't leave the listener easily</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Without wood a fire goes out; without a gossip a quarrel dies down."</div><div class="vc-footer"><span class="vc-ref">Proverbs 26:20</span><span class="vc-note">Gossip requires a listener. Refuse to be one.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"A perverse person stirs up conflict, and a gossip separates close friends."</div><div class="vc-footer"><span class="vc-ref">Proverbs 16:28</span><span class="vc-note">The final cost: destroyed friendships and fractured community</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Restraint &amp; Wisdom</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"Sin is not ended by multiplying words, but the prudent hold their tongues."</div><div class="vc-footer"><span class="vc-ref">Proverbs 10:19</span><span class="vc-note">More words are not the solution. Fewer words, better chosen.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Even fools are thought wise if they keep silent, and discerning if they hold their tongues."</div><div class="vc-footer"><span class="vc-ref">Proverbs 17:28</span><span class="vc-note">The wisdom of silence — underrated</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Those who guard their mouths and their tongues keep themselves from calamity."</div><div class="vc-footer"><span class="vc-ref">Proverbs 21:23</span><span class="vc-note">Self-protection through speech discipline</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The one who has knowledge uses words with restraint, and whoever has understanding is even-tempered."</div><div class="vc-footer"><span class="vc-ref">Proverbs 17:27</span><span class="vc-note">Wisdom and restraint travel together</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Flattery &amp; Honesty</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"A lying tongue hates those it hurts, and a flattering mouth works ruin."</div><div class="vc-footer"><span class="vc-ref">Proverbs 26:28</span><span class="vc-note">Flattery is not kindness — it is a form of hatred</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Whoever flatters their neighbor is spreading a net for their feet."</div><div class="vc-footer"><span class="vc-ref">Proverbs 29:5</span><span class="vc-note">The flatterer sets a trap. For them, or for you.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"An honest answer is like a kiss on the lips."</div><div class="vc-footer"><span class="vc-ref">Proverbs 24:26</span><span class="vc-note">Directness is a gift. It is not unkind to tell the truth.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Wounds from a friend can be trusted, but an enemy multiplies kisses."</div><div class="vc-footer"><span class="vc-ref">Proverbs 27:6</span><span class="vc-note">Honest rebuke from a real friend is more valuable than comfortable agreement</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Key Passages</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">The New Testament on speech — what we are called toward</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Positive Vision</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"Do not let any unwholesome talk come out of your mouths, but only what is helpful for building others up according to their needs, that it may benefit those who listen."</div><div class="vc-footer"><span class="vc-ref">Ephesians 4:29 · NIV</span><span class="vc-note">Not just avoid harm — actively build</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Let your conversation be always full of grace, seasoned with salt, so that you may know how to answer everyone."</div><div class="vc-footer"><span class="vc-ref">Colossians 4:6 · NIV</span><span class="vc-note">Grace and truth together — salt preserves and flavors</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Encourage one another and build each other up, just as in fact you are doing."</div><div class="vc-footer"><span class="vc-ref">1 Thessalonians 5:11 · NIV</span><span class="vc-note">Encouragement is a command, not an optional personality trait</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Heart Behind the Mouth</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"For the mouth speaks what the heart is full of."</div><div class="vc-footer"><span class="vc-ref">Luke 6:45 · NIV</span><span class="vc-note">The mouth is a diagnostic — it reveals what's underneath</span></div></div>
+        <div class="verse-card"><div class="vc-text">"But I tell you that everyone will have to give account on the day of judgment for every empty word they have spoken."</div><div class="vc-footer"><span class="vc-ref">Matthew 12:36 · NIV</span><span class="vc-note">Not just the cruel words — the careless ones too</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Set a guard over my mouth, Lord; keep watch over the door of my lips."</div><div class="vc-footer"><span class="vc-ref">Psalm 141:3 · NIV</span><span class="vc-note">The prayer posture — asking God to stand watch</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Conflict &amp; Restoration</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"If your brother or sister sins, go and point out their fault, just between the two of you."</div><div class="vc-footer"><span class="vc-ref">Matthew 18:15 · NIV</span><span class="vc-note">The biblical alternative to gossip — go directly</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Therefore confess your sins to each other and pray for each other so that you may be healed."</div><div class="vc-footer"><span class="vc-ref">James 5:16 · NIV</span><span class="vc-note">Honest disclosure in real community — not gossip, but genuine transparency</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Speaking the truth in love, we will grow to become in every respect the mature body of him who is the head, that is, Christ."</div><div class="vc-footer"><span class="vc-ref">Ephesians 4:15 · NIV</span><span class="vc-note">Truth and love together — the standard for all speech</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WORD STUDY ═══════════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Greek &amp; Hebrew Word Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">What the original languages reveal about speech, gossip, and the tongue</div>
+    </div>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">γλῶσσα</div>
+        <div class="ws-transliteration">glōssa</div>
+        <div class="ws-pos">Greek noun · "tongue / language"</div>
+        <div class="ws-definition">The primary Greek word for tongue in James 3. It refers both to the physical organ and to speech/language itself. James uses it as a synecdoche — the tongue stands for the whole speech life of a person. The word also gives us "glossolalia" (speaking in tongues) — the same organ used for the most elevated spiritual speech is the one James calls a world of evil.</div>
+        <div class="ws-note">The same word appears in Acts 2 at Pentecost — "tongues of fire" appeared on the disciples. James may be playing on this: the Spirit brings holy fire to the tongue; left to itself, the tongue produces an unholy fire.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ψιθυριστής</div>
+        <div class="ws-transliteration">psithyristēs</div>
+        <div class="ws-pos">Greek noun · "whisperer / gossip"</div>
+        <div class="ws-definition">From <em>psithyrizō</em> — to whisper. This is gossip in its most characteristic form: the low voice, the private aside, the confidence shared in the corridor. Paul lists it alongside murder, God-hatred, and arrogance in Romans 1:29–30 as evidence of a mind that has rejected God. The company it keeps in that list is instructive.</div>
+        <div class="ws-note">The word conveys the hushed, secretive nature of gossip — the lowered voice, the glance over the shoulder. It is cowardly by nature: said quietly precisely because it would not survive being said at full volume.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">καταλαλιά</div>
+        <div class="ws-transliteration">katalalia</div>
+        <div class="ws-pos">Greek noun · "slander / evil speech"</div>
+        <div class="ws-definition">From <em>kata</em> (against) + <em>lalia</em> (speech). Literally "speaking against." Appears in 2 Corinthians 12:20 and 1 Peter 2:1. It is speech whose purpose is to undermine — the kind of talk that is aimed at someone even when it presents itself as neutral sharing. The directional intent is built into the word.</div>
+        <div class="ws-note">James 4:11 uses the related verb <em>katalaleō</em> — "do not speak against one another." When you speak against someone, James says, you are speaking against the law itself. It is a theological offense, not just a social one.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">רָכִיל</div>
+        <div class="ws-transliteration">rakil</div>
+        <div class="ws-pos">Hebrew noun · "gossip / slanderer / talebearer"</div>
+        <div class="ws-definition">The primary Hebrew word for gossip. Appears in Leviticus 19:16 ("Do not go about spreading slander among your people") and in Proverbs 11:13, 20:19. The root may be connected to the word for merchant — the idea of trafficking in information, trading in people's private details for social gain.</div>
+        <div class="ws-note">Leviticus 19:16 places the prohibition on slander immediately before the command "do not do anything that endangers your neighbor's life." The connection is intentional: gossip endangers people. It is not a minor social sin — it is a threat to life in community.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">לָשׁוֹן</div>
+        <div class="ws-transliteration">lashon</div>
+        <div class="ws-pos">Hebrew noun · "tongue / language / speech"</div>
+        <div class="ws-definition">The Hebrew equivalent of <em>glōssa</em>. Appears throughout Proverbs in both positive and negative contexts — the tongue of the wise, the tongue of the wicked, the tongue that brings healing. Proverbs 18:21 — "death and life are in the power of the lashon." The Hebrew does not soften this: the tongue holds the power of life and death.</div>
+        <div class="ws-note">"Lashon hara" — the evil tongue — is a major concept in Jewish ethics, developed extensively in rabbinic literature. The rabbis treated speech sins with great seriousness, devoting substantial legal discussion to what may and may not be said about others. The concern is not uniquely Christian.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">οἰκοδομή</div>
+        <div class="ws-transliteration">oikodomē</div>
+        <div class="ws-pos">Greek noun · "building up / edification"</div>
+        <div class="ws-definition">Used in Ephesians 4:29 — "only what is helpful for building others up." Literally "house-building." Paul uses it consistently for the constructive work that happens in Christian community when people are encouraged, instructed, and spoken to honestly and kindly. The image is architectural: words build or demolish a structure.</div>
+        <div class="ws-note">The same word is used for the building up of the church in 1 Corinthians 14. Paul applies a corporate architectural image to individual speech — your words are building materials, or they are wrecking balls. There is no neutral category.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end .panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

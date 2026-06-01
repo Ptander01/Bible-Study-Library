@@ -28,6 +28,8 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .panels{position:relative;z-index:1;} .panel{display:none;} .panel.active{display:block;}
 .content-wrap{max-width:820px;margin:0 auto;padding:56px 32px 80px;}
 @media(max-width:600px){.content-wrap{padding:36px 20px 60px;}}
+
+/* Header */
 .site-header{position:relative;z-index:10;background:linear-gradient(160deg,#0f1625 0%,#0c0f18 60%);border-bottom:1px solid var(--border);padding:48px 40px 36px;text-align:center;}
 .site-header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent);}
 .header-eyebrow{font-family:var(--font-display);font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:14px;}
@@ -35,6 +37,8 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .header-title span{color:var(--accent);}
 .header-verse{font-family:var(--font-serif);font-size:clamp(14px,2.2vw,19px);font-style:italic;color:var(--cream-dim);max-width:680px;margin:0 auto 6px;line-height:1.65;}
 .header-ref{font-family:var(--font-display);font-size:11px;letter-spacing:3px;color:var(--accent-dim);margin-top:10px;}
+
+/* Navigation */
 .tab-bar-wrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .tab-bar-wrap::-webkit-scrollbar{display:none;}
 .tab-bar{display:flex;align-items:stretch;min-width:max-content;padding:0 24px;gap:0;}
@@ -42,10 +46,14 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .tab-btn:hover{color:var(--cream-dim);}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
 .tab-divider{width:1px;background:var(--border);margin:10px 6px;flex-shrink:0;}
+
+/* Section headers */
 .section-header{margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
 .section-eyebrow{font-family:var(--font-display);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
 .section-title{font-family:var(--font-display);font-size:clamp(30px,6vw,56px);font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--cream);line-height:1;margin-bottom:14px;}
 .section-sub{font-family:var(--font-body);font-style:italic;font-size:13px;color:var(--muted);}
+
+/* Content components */
 .verse-block{background:var(--surface);border:1px solid var(--border-lt);border-left:3px solid var(--accent);border-radius:4px;padding:24px 28px;margin:28px 0;}
 .verse-block .verse-text{font-family:var(--font-serif);font-size:clamp(17px,2.5vw,21px);font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:10px;}
 .verse-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent-dim);}
@@ -71,8 +79,10 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .ref-list{list-style:none;margin:16px 0;}
 .ref-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
 .ref-item:last-child{border-bottom:none;}
-.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);white-space:nowrap;min-width:140px;padding-top:2px;}
-.ref-desc{font-size:14px;color:var(--cream-dim);}
+.ref-book{font-family:var(--font-display);font-size:11px;letter-spacing:1px;color:var(--accent);min-width:140px;max-width:180px;padding-top:2px;flex-shrink:0;}
+.ref-desc{font-size:14px;color:var(--cream-dim);min-width:0;}@media(max-width:520px){.ref-item{flex-direction:column;gap:6px;}.ref-book{max-width:100%;}}
+
+/* Verse cards */
 .scripture-section{margin:36px 0;}
 .scripture-section-title{font-family:var(--font-display);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-dim);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;}
 .verse-cards{display:flex;flex-direction:column;gap:16px;}
@@ -82,6 +92,8 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .vc-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .vc-ref{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--accent);}
 .vc-note{font-size:12px;color:var(--muted);font-style:italic;}
+
+/* Guide mode */
 .guide-block{display:none;}
 .guide-active .guide-block{display:block;background:var(--guide-bg);border:1px solid var(--guide-border);border-left:3px solid var(--guide-accent);border-radius:4px;padding:16px 20px;margin:12px 0;}
 .guide-label{font-family:var(--font-display);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--guide-accent);margin-bottom:10px;}
@@ -91,6 +103,8 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 #guide-toggle{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--guide-bg);border:1px solid var(--guide-border);color:var(--guide-accent);font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:background .2s,border-color .2s;opacity:.6;}
 #guide-toggle:hover{opacity:1;}
 .guide-active #guide-toggle{background:#1a3a1a;border-color:var(--guide-accent);opacity:1;}
+
+/* Word study */
 .word-study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:24px 0;}
 .word-study{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--accent-dim);border-radius:6px;padding:28px 24px;transition:border-color .2s;}
 .word-study:hover{border-color:var(--accent);border-top-color:var(--accent);}
@@ -99,6 +113,8 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .ws-pos{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .ws-definition{font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:12px;}
 .ws-note{font-size:13px;color:var(--cream-dim);font-style:italic;line-height:1.6;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+
+/* Sin definition cards */
 .sin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:20px 0;}
 .sin-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warning-dim);border-radius:4px;padding:18px 20px;}
 .sin-name{font-family:var(--font-display);font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:4px;}
@@ -106,7 +122,14 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 .sin-transliteration{font-size:12px;font-style:italic;color:var(--muted);margin-bottom:10px;}
 .sin-definition{font-size:13px;color:var(--cream-dim);line-height:1.6;margin-bottom:8px;}
 .sin-source{font-family:var(--font-display);font-size:10px;letter-spacing:1px;color:var(--muted);}
+
+/* Reference section intro */
+.ref-intro{background:var(--surface-2);border:1px solid var(--border-lt);border-radius:6px;padding:20px 24px;margin-bottom:32px;}
+.ref-intro p{font-size:14px;color:var(--cream-dim);margin-bottom:10px;}
+.ref-intro p:last-child{margin-bottom:0;}
+
 @media print{body{background:white;color:#111;}body::before{display:none;}.tab-bar-wrap,#guide-toggle{display:none;}.panel{display:block!important;page-break-before:always;}.panel:first-child{page-break-before:avoid;}}
+@media(max-width:500px){.use-row{grid-template-columns:1fr;}.use-label{border-right:none;border-bottom:1px solid var(--border);}.sin-grid{grid-template-columns:1fr;}}
 
 </style>
 </head>
@@ -125,7 +148,6 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
     <button class="tab-btn" onclick="switchTab('reference', this)">Sin Reference</button>
     <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
     <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
-    
   </div>
 </div>
 
@@ -133,120 +155,383 @@ strong{color:var(--cream);font-weight:500;} em{color:var(--cream-dim);}
 
 <div class="panels">
 
+  <!-- ═══════════════════════════════════════════
+       PANEL 1 — STUDY
+  ═══════════════════════════════════════════ -->
   <div class="panel active" id="panel-study">
     <div class="content-wrap">
+
       <div class="section-header">
         <div class="section-eyebrow">First Principles · Study 4</div>
         <div class="section-title">Sin</div>
         <div class="section-sub">The honest diagnosis before the cure can mean anything</div>
       </div>
-      
+
       <div class="guide-block"><div class="guide-label">Guide Note — Purpose</div>
-      <p class="guide-tip">This is the most personal study in the series. The goal is not to make someone feel guilty — it's to help them see themselves clearly in the mirror of Scripture. Without a real understanding of sin, the cross is just a historical event and repentance is just a mood shift.</p>
-      <p class="guide-tip">You will need to have established trust before this conversation. Share your own story — your own sins, not in graphic detail, but honestly. "I had to look at these lists and name specific things. That's what this study calls for."</p>
-      <p class="guide-tip">If someone becomes defensive, don't press. Slow down. The Spirit does the convicting. Your job is to open the word, not to argue someone into confession.</p></div>
+        <p class="guide-tip">This is the most personal study in the series. The goal is not to make someone feel guilty — it's to help them see themselves clearly in the mirror of Scripture. Without a real understanding of sin, the cross is just a historical event and repentance is just a mood shift.</p>
+        <p class="guide-tip">You will need to have established trust before this conversation. Share your own story — your own sins, not in graphic detail, but honestly. "I had to look at these lists and name specific things. That's what this study calls for."</p>
+        <p class="guide-tip">If someone becomes defensive, don't press. Slow down. The Spirit does the convicting. Your job is to open the word, not to argue someone into confession.</p>
+      </div>
 
+      <!-- ─── The Universal Diagnosis ─── -->
       <h2>The Universal Diagnosis</h2>
-      <div class="verse-block"><div class="verse-text">"For all have sinned and fall short of the glory of God."</div><div class="verse-ref">Romans 3:23</div></div>
-      <p>The word "all" leaves no exceptions. Religious background, good intentions, community standing, Southern manners — none of these change the diagnosis. Every person who has ever lived, except Jesus, has sinned.</p>
 
-      <div class="callout accent"><div class="callout-label">The Consequence</div>
-      <p style="font-family:var(--font-serif);font-size:20px;font-style:italic;color:var(--cream);line-height:1.6;">"For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord." — Romans 6:23</p></div>
+      <div class="verse-block">
+        <div class="verse-text">"For all have sinned and fall short of the glory of God."</div>
+        <div class="verse-ref">Romans 3:23</div>
+      </div>
+
+      <p>The word "all" leaves no exceptions. Religious background, good intentions, community standing — none of these change the diagnosis. Every person who has ever lived, except Jesus, has sinned.</p>
+
+      <div class="callout accent">
+        <div class="callout-label">The Consequence</div>
+        <p style="font-family:var(--font-serif);font-size:clamp(18px,3vw,22px);font-style:italic;color:var(--cream);line-height:1.6;">"For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord." — Romans 6:23</p>
+      </div>
 
       <div class="guide-block"><div class="guide-label">Guide Note — What Sin Actually Is</div>
-      <p class="guide-tip">Most people think of sin as "bad things" — lying, cheating, murder. But the Greek word hamartia means missing the mark. The mark is God's character and God's glory. Every time we fall short of what God designed us to be, that's sin. This is broader and more personal than a list of bad behaviors.</p>
-      <p class="guide-tip">Ask: "When you think about sin, what comes to mind? Is it mostly things other people do, or things you do?" This question surfaces whether they've personally owned the diagnosis.</p></div>
+        <p class="guide-tip">Most people think of sin as "bad things" — lying, cheating, murder. But the Greek word hamartia means missing the mark. The mark is God's character and glory. Every time we fall short of what God designed us to be, that's sin. This is broader and more personal than a list of bad behaviors.</p>
+        <p class="guide-tip">Ask: "When you think about sin, what comes to mind? Is it mostly things other people do, or things you do?" This question surfaces whether they've personally owned the diagnosis.</p>
+        <p class="guide-tip">James 4:17 adds another dimension: "Whoever knows the right thing to do and fails to do it, for him it is sin." Sins of omission — not just things we've done, but things we've failed to do — count. This broadens the conversation for people who see themselves as "not that bad."</p>
+      </div>
 
+      <!-- ─── Sin Is Personal ─── -->
       <h2>Sin Is Personal</h2>
-      <p>The lists in Scripture are not meant to be read clinically. They are meant to be read personally — with a specific name attached to each one.</p>
-      <div class="verse-block"><div class="verse-text">"Now the works of the flesh are evident: sexual immorality, impurity, sensuality, idolatry, sorcery, enmity, strife, jealousy, fits of anger, rivalries, dissensions, divisions, envy, drunkenness, orgies, and things like these."</div><div class="verse-ref">Galatians 5:19–21</div></div>
-      <p>See the <strong>Sin Reference</strong> tab for the full Greek definitions of each sin across Galatians 5, Colossians 3, 2 Timothy 3, and Ephesians 5.</p>
+
+      <p>The lists in Scripture are not meant to be read clinically. They are meant to be read personally — with a specific name attached to each one. The Sin Reference tab contains six such lists with the full Greek definitions of every sin named.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Now the works of the flesh are evident: sexual immorality, impurity, sensuality, idolatry, sorcery, enmity, strife, jealousy, fits of anger, rivalries, dissensions, divisions, envy, drunkenness, orgies, and things like these."</div>
+        <div class="verse-ref">Galatians 5:19–21</div>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"For from within, out of the heart of man, come evil thoughts, sexual immorality, theft, murder, adultery, coveting, wickedness, deceit, sensuality, envy, slander, pride, foolishness."</div>
+        <div class="verse-ref">Mark 7:21–22</div>
+      </div>
+
+      <p>Notice where Jesus locates the source: <strong>the heart</strong>. Not environment. Not upbringing. Not society. The problem is internal. This is why external moral improvement can't solve it.</p>
 
       <div class="guide-block"><div class="guide-label">Guide Note — Using the Sin Lists</div>
-      <p class="guide-tip">Go through the lists slowly. For each sin: "What does this word actually mean?" Then: "Is this something you've struggled with?" Don't rush. Share your own examples. This is the most important and most uncomfortable part of the series — give it space.</p>
-      <p class="guide-tip">The person needs to leave this study with specific sins they've named, not a general sense of being "imperfect." Specificity is necessary for real repentance.</p></div>
+        <p class="guide-tip">Go through the Sin Reference tab slowly together. For each sin, first establish what it actually means (the Greek definition), then ask: "Is this something you've struggled with? Have you seen this in your own life?" Don't rush. Share your own examples honestly.</p>
+        <p class="guide-tip">The person needs to leave this study with specific sins they've named, not a general sense of being "imperfect." Specificity is necessary for real repentance. General guilt produces general remorse. Specific naming produces specific repentance.</p>
+        <p class="guide-tip">Some people are surprised by the breadth of these lists — sins of the heart (pride, envy, covetousness) alongside sins of action. This is usually the moment the conversation shifts from "I'm not that bad" to "this is more serious than I thought."</p>
+        <p class="guide-tip">The 2 Timothy 3 list is particularly useful because it describes people who have "a form of godliness but deny its power" — religious-looking people whose hearts are unchanged. For someone with a church background who may not see themselves as a sinner, this list can be eye-opening.</p>
+      </div>
 
+      <!-- ─── The Separation Sin Creates ─── -->
       <h2>The Separation Sin Creates</h2>
-      <div class="verse-block"><div class="verse-text">"But your iniquities have made a separation between you and your God, and your sins have hidden his face from you so that he does not hear."</div><div class="verse-ref">Isaiah 59:2</div></div>
-      <p>Sin doesn't just produce guilt. It creates distance from God — a real, relational rupture. The seeking we talked about in Study 1 is frustrated by sin we haven't honestly faced.</p>
 
+      <div class="verse-block">
+        <div class="verse-text">"But your iniquities have made a separation between you and your God, and your sins have hidden his face from you so that he does not hear."</div>
+        <div class="verse-ref">Isaiah 59:2</div>
+      </div>
+
+      <p>Sin doesn't just produce guilt. It creates distance from God — a real, relational rupture. The seeking we talked about in Study 1 is frustrated by sin we haven't honestly faced. You cannot draw close to a holy God while holding on to the things that separate you from him.</p>
+
+      <div class="uses-grid">
+        <div class="use-row"><div class="use-label">Guilt</div><div class="use-desc">The internal awareness that we have done wrong — the conscience functioning as designed. Not something to suppress or medicate, but something to act on.</div></div>
+        <div class="use-row"><div class="use-label">Separation</div><div class="use-desc">The relational distance between us and God that sin creates. Isaiah 59:2 — God doesn't disappear; sin hides his face. The problem is on our side, not his.</div></div>
+        <div class="use-row"><div class="use-label">Death</div><div class="use-desc">Romans 6:23 — the wages of sin is death. Not just physical death, but spiritual death: ongoing existence cut off from God, the source of life. This is the consequence the cross addresses.</div></div>
+      </div>
+
+      <div class="guide-block"><div class="guide-label">Guide Note — The Separation</div>
+        <p class="guide-tip">For someone who says "I don't feel particularly separated from God," ask: "When you pray, do you feel like God hears you? Do you have a real sense of his presence?" Many people describe a vague spiritual longing — something missing — without connecting it to sin. Isaiah 59:2 makes the connection explicit.</p>
+        <p class="guide-tip">Don't be afraid to name the word "death." Romans 6:23 is direct. The consequence of sin is not just that life is harder — it's that we are moving toward death. This is what makes the cross not optional but necessary.</p>
+      </div>
+
+      <!-- ─── The Challenge ─── -->
       <h2>The Challenge</h2>
-      <div class="callout accent"><div class="callout-label">This Week</div>
-      <p>Read through the Sin Reference tab. Slowly. With a pen. Mark every sin you recognize in your own life — past or present. Don't minimize. Don't rationalize. Just name it honestly before God. Come ready to talk about what you found.</p></div>
+
+      <div class="callout accent">
+        <div class="callout-label">This Week</div>
+        <p>Read through the Sin Reference tab. Slowly. With a pen. Mark every sin you recognize in your own life — past or present. Don't minimize. Don't rationalize. Just name it honestly before God. Come ready to talk about what you found.</p>
+      </div>
 
       <div class="ref-list">
-        <div class="ref-item"><span class="ref-book">Romans 3:23</span><span class="ref-desc">All have sinned — the universal diagnosis.</span></div>
-        <div class="ref-item"><span class="ref-book">Romans 6:23</span><span class="ref-desc">The wages of sin is death — the consequence.</span></div>
-        <div class="ref-item"><span class="ref-book">Isaiah 59:2</span><span class="ref-desc">Sin creates separation between us and God.</span></div>
-        <div class="ref-item"><span class="ref-book">Galatians 5:19–21</span><span class="ref-desc">Works of the flesh — a specific, personal list.</span></div>
-        <div class="ref-item"><span class="ref-book">Romans 1:28–32</span><span class="ref-desc">The breadth of sin — beyond just the obvious.</span></div>
-        <div class="ref-item"><span class="ref-book">James 4:17</span><span class="ref-desc">Sins of omission — knowing the right thing and not doing it.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 3:23</span><span class="ref-desc">All have sinned — the universal diagnosis. No exceptions.</span></div>
+        <div class="ref-item"><span class="ref-book">Romans 6:23</span><span class="ref-desc">The wages of sin is death — the consequence that makes the cross necessary.</span></div>
+        <div class="ref-item"><span class="ref-book">Isaiah 59:2</span><span class="ref-desc">Sin creates separation between us and God — real, relational distance.</span></div>
+        <div class="ref-item"><span class="ref-book">Mark 7:21–22</span><span class="ref-desc">Jesus locates the source of sin in the heart. External reform misses the problem.</span></div>
+        <div class="ref-item"><span class="ref-book">Galatians 5:19–21</span><span class="ref-desc">Works of the flesh — a specific, personal list to read honestly.</span></div>
+        <div class="ref-item"><span class="ref-book">James 4:17</span><span class="ref-desc">Sins of omission — knowing the right thing and not doing it also counts.</span></div>
       </div>
-    
+
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════
+       PANEL 2 — SIN REFERENCE
+  ═══════════════════════════════════════════ -->
   <div class="panel" id="panel-reference">
     <div class="content-wrap">
-      
-      <div class="section-header"><div class="section-eyebrow">Sin Reference</div><div class="section-title">The Lists</div><div class="section-sub">Greek definitions of sins named in Scripture — for honest self-examination</div></div>
-      <p style="color:var(--cream-dim);margin-bottom:28px;">These are not meant to be read quickly. Read each one slowly. Ask honestly: Is this me? The specificity is the point.</p>
 
-      <div class="scripture-section"><div class="scripture-section-title">Galatians 5:19–21 — Works of the Flesh</div>
-      <div class="sin-grid">
-        <div class="sin-card"><div class="sin-name">Sexual Immorality</div><div class="sin-original">πορνεία</div><div class="sin-transliteration">porneia</div><div class="sin-definition">Any sexual activity outside of marriage between a husband and wife. Broad term covering all sexual sin.</div><div class="sin-source">Galatians 5:19</div></div>
-        <div class="sin-card"><div class="sin-name">Impurity</div><div class="sin-original">ἀκαθαρσία</div><div class="sin-transliteration">akatharsia</div><div class="sin-definition">Moral uncleanness; filthiness in thought, word, or deed. Includes but is broader than sexual sin.</div><div class="sin-source">Galatians 5:19</div></div>
-        <div class="sin-card"><div class="sin-name">Sensuality</div><div class="sin-original">ἀσέλγεια</div><div class="sin-transliteration">aselgeia</div><div class="sin-definition">Licentiousness; indecency; unrestrained indulgence in desires without shame or regard for others.</div><div class="sin-source">Galatians 5:19</div></div>
-        <div class="sin-card"><div class="sin-name">Idolatry</div><div class="sin-original">εἰδωλολατρία</div><div class="sin-transliteration">eidōlolatria</div><div class="sin-definition">Worship of anything other than God — not just statues, but money, status, comfort, relationships as ultimate things.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Enmity</div><div class="sin-original">ἔχθρα</div><div class="sin-transliteration">echthra</div><div class="sin-definition">Hostility, hatred toward others. Active ill-will — not just dislike, but ongoing antagonism.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Strife</div><div class="sin-original">ἔρις</div><div class="sin-transliteration">eris</div><div class="sin-definition">Contention, quarreling, discord. The habit of creating conflict and division rather than pursuing peace.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Jealousy</div><div class="sin-original">ζῆλος</div><div class="sin-transliteration">zēlos</div><div class="sin-definition">Burning envy; resentment at another's advantages. Desire to have what others have, at their expense.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Fits of Anger</div><div class="sin-original">θυμοί</div><div class="sin-transliteration">thymoi</div><div class="sin-definition">Outbursts of rage; violent passion. Anger that erupts and destroys rather than being governed and directed.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Rivalries</div><div class="sin-original">ἐριθεῖαι</div><div class="sin-transliteration">eritheiai</div><div class="sin-definition">Selfish ambition; putting yourself forward at others' expense. Motivated by self-interest, not love.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Dissensions</div><div class="sin-original">διχοστασίαι</div><div class="sin-transliteration">dichostasiai</div><div class="sin-definition">Division, standing apart. Creating factions and splits within communities that should be unified.</div><div class="sin-source">Galatians 5:20</div></div>
-        <div class="sin-card"><div class="sin-name">Envy</div><div class="sin-original">φθόνοι</div><div class="sin-transliteration">phthonoi</div><div class="sin-definition">Ill-will toward another because of their advantage. Distinguished from jealousy in that envy actively wants others to lose what they have.</div><div class="sin-source">Galatians 5:21</div></div>
-        <div class="sin-card"><div class="sin-name">Drunkenness</div><div class="sin-original">μέθαι</div><div class="sin-transliteration">methai</div><div class="sin-definition">Intoxication; being controlled by alcohol or substances. Loss of self-control through substance.</div><div class="sin-source">Galatians 5:21</div></div>
-      </div></div>
-      <div class="scripture-section"><div class="scripture-section-title">Colossians 3:5–9 — Put These to Death</div>
-      <div class="sin-grid">
-        <div class="sin-card"><div class="sin-name">Covetousness</div><div class="sin-original">πλεονεξία</div><div class="sin-transliteration">pleonexia</div><div class="sin-definition">Greediness; wanting more, always more. Paul calls it idolatry — it makes possessions and acquisition your god.</div><div class="sin-source">Colossians 3:5</div></div>
-        <div class="sin-card"><div class="sin-name">Anger</div><div class="sin-original">ὀργή</div><div class="sin-transliteration">orgē</div><div class="sin-definition">Deep-seated anger; settled, ongoing wrath. Not a sudden eruption but a sustained, smoldering hostility.</div><div class="sin-source">Colossians 3:8</div></div>
-        <div class="sin-card"><div class="sin-name">Malice</div><div class="sin-original">κακία</div><div class="sin-transliteration">kakia</div><div class="sin-definition">Wickedness; vicious disposition toward others. The desire to harm, to see others suffer.</div><div class="sin-source">Colossians 3:8</div></div>
-        <div class="sin-card"><div class="sin-name">Slander</div><div class="sin-original">βλασφημία</div><div class="sin-transliteration">blasphēmia</div><div class="sin-definition">Evil speaking; damaging another's reputation. Using words as weapons to tear down.</div><div class="sin-source">Colossians 3:8</div></div>
-        <div class="sin-card"><div class="sin-name">Obscene Talk</div><div class="sin-original">αἰσχρολογία</div><div class="sin-transliteration">aischrologia</div><div class="sin-definition">Filthy language; shameful speech. Words that degrade and corrupt rather than build up.</div><div class="sin-source">Colossians 3:8</div></div>
-        <div class="sin-card"><div class="sin-name">Lying</div><div class="sin-original">ψεύδεσθε</div><div class="sin-transliteration">pseudesthe</div><div class="sin-definition">Falsehood; deliberate deception. Not just outright lies but any communication intended to mislead.</div><div class="sin-source">Colossians 3:9</div></div>
-      </div></div>
-    
+      <div class="section-header">
+        <div class="section-eyebrow">Sin Reference</div>
+        <div class="section-title">The Lists</div>
+        <div class="section-sub">Greek definitions of sins named in Scripture — for honest self-examination</div>
+      </div>
+
+      <div class="ref-intro">
+        <p>These lists are not meant to be read quickly or academically. Read each entry slowly. Ask honestly: <em>Is this me?</em> The specificity is the point — vague guilt produces vague repentance. Naming specific sins is what makes real change possible.</p>
+        <p>Six passages are included: Galatians 5, Colossians 3, 2 Timothy 3, Mark 7, Ephesians 5, and 1 Corinthians 6. Together they cover sins of action, sins of the heart, sins of speech, and sins of omission.</p>
+      </div>
+
+      <!-- ─── Galatians 5 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">Galatians 5:19–21 — Works of the Flesh</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">Sexual Immorality</div><div class="sin-original">πορνεία</div><div class="sin-transliteration">porneia</div><div class="sin-definition">Any sexual activity outside of marriage between a husband and wife. A broad term covering all forms of sexual sin.</div><div class="sin-source">Galatians 5:19</div></div>
+          <div class="sin-card"><div class="sin-name">Impurity</div><div class="sin-original">ἀκαθαρσία</div><div class="sin-transliteration">akatharsia</div><div class="sin-definition">Moral uncleanness; filthiness in thought, word, or deed. Includes but is broader than sexual sin — any corruption of what God made clean.</div><div class="sin-source">Galatians 5:19</div></div>
+          <div class="sin-card"><div class="sin-name">Sensuality</div><div class="sin-original">ἀσέλγεια</div><div class="sin-transliteration">aselgeia</div><div class="sin-definition">Licentiousness; unrestrained indulgence in desires without shame or regard for others. Living as if no boundaries exist.</div><div class="sin-source">Galatians 5:19</div></div>
+          <div class="sin-card"><div class="sin-name">Idolatry</div><div class="sin-original">εἰδωλολατρία</div><div class="sin-transliteration">eidōlolatria</div><div class="sin-definition">Worship of anything other than God — not just statues, but money, status, comfort, relationships, or success elevated to the place God should hold.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Sorcery</div><div class="sin-original">φαρμακεία</div><div class="sin-transliteration">pharmakeia</div><div class="sin-definition">Witchcraft; seeking power or knowledge through spiritual means other than God. The root of our word "pharmacy" — originally referred to drugs used in occult practice.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Enmity</div><div class="sin-original">ἔχθρα</div><div class="sin-transliteration">echthra</div><div class="sin-definition">Hostility; active ill-will toward others. Not just dislike, but sustained antagonism and hatred.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Strife</div><div class="sin-original">ἔρις</div><div class="sin-transliteration">eris</div><div class="sin-definition">Quarreling; the habit of creating conflict and discord. People who feed on argument and division rather than pursuing peace.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Jealousy</div><div class="sin-original">ζῆλος</div><div class="sin-transliteration">zēlos</div><div class="sin-definition">Burning envy; resentment at another's advantages. Desire to have what others have, often at their expense.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Fits of Anger</div><div class="sin-original">θυμοί</div><div class="sin-transliteration">thymoi</div><div class="sin-definition">Outbursts of rage; violent passion that erupts and destroys. Anger that has not been governed or directed — a fire let loose.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Rivalries</div><div class="sin-original">ἐριθεῖαι</div><div class="sin-transliteration">eritheiai</div><div class="sin-definition">Selfish ambition; putting yourself forward at others' expense. Motivated by self-interest rather than love — using people as means to your own ends.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Dissensions</div><div class="sin-original">διχοστασίαι</div><div class="sin-transliteration">dichostasiai</div><div class="sin-definition">Division; creating factions and splits within communities that should be unified. Standing apart when you should be standing together.</div><div class="sin-source">Galatians 5:20</div></div>
+          <div class="sin-card"><div class="sin-name">Envy</div><div class="sin-original">φθόνοι</div><div class="sin-transliteration">phthonoi</div><div class="sin-definition">Ill-will toward another because of their advantage. Envy actively wants others to lose what they have — not just wanting it for yourself, but wanting them to not have it.</div><div class="sin-source">Galatians 5:21</div></div>
+          <div class="sin-card"><div class="sin-name">Drunkenness</div><div class="sin-original">μέθαι</div><div class="sin-transliteration">methai</div><div class="sin-definition">Intoxication; being controlled by alcohol or substances. Loss of the self-control God calls his people to maintain.</div><div class="sin-source">Galatians 5:21</div></div>
+        </div>
+      </div>
+
+      <!-- ─── Colossians 3 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">Colossians 3:5–9 — Put These to Death</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">Covetousness</div><div class="sin-original">πλεονεξία</div><div class="sin-transliteration">pleonexia</div><div class="sin-definition">Greediness; wanting more, always more. Paul calls it idolatry — it makes possessions and acquisition the ultimate thing. Literally "the desire to have more."</div><div class="sin-source">Colossians 3:5</div></div>
+          <div class="sin-card"><div class="sin-name">Anger</div><div class="sin-original">ὀργή</div><div class="sin-transliteration">orgē</div><div class="sin-definition">Deep-seated anger; settled, ongoing wrath. Not a sudden eruption (that's thumos) but a sustained, smoldering hostility that becomes part of who you are.</div><div class="sin-source">Colossians 3:8</div></div>
+          <div class="sin-card"><div class="sin-name">Malice</div><div class="sin-original">κακία</div><div class="sin-transliteration">kakia</div><div class="sin-definition">Wickedness; vicious disposition toward others. The desire to see others harmed or to be the one doing harm. A settled bad will toward people.</div><div class="sin-source">Colossians 3:8</div></div>
+          <div class="sin-card"><div class="sin-name">Slander</div><div class="sin-original">βλασφημία</div><div class="sin-transliteration">blasphēmia</div><div class="sin-definition">Evil speaking; damaging another's reputation. Using words as weapons to tear people down — whether publicly or in private conversation.</div><div class="sin-source">Colossians 3:8</div></div>
+          <div class="sin-card"><div class="sin-name">Obscene Talk</div><div class="sin-original">αἰσχρολογία</div><div class="sin-transliteration">aischrologia</div><div class="sin-definition">Filthy language; shameful speech. Words that degrade and corrupt rather than build up. From aischros — shameful, base, ugly.</div><div class="sin-source">Colossians 3:8</div></div>
+          <div class="sin-card"><div class="sin-name">Lying</div><div class="sin-original">ψεύδεσθε</div><div class="sin-transliteration">pseudesthe</div><div class="sin-definition">Falsehood; deliberate deception. Not just outright lies but any communication intended to create a false impression in another person's mind.</div><div class="sin-source">Colossians 3:9</div></div>
+        </div>
+      </div>
+
+      <!-- ─── 2 Timothy 3 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">2 Timothy 3:2–5 — People Who Have a Form of Godliness</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">Lovers of Self</div><div class="sin-original">φίλαυτοι</div><div class="sin-transliteration">philautoi</div><div class="sin-definition">Self-centered; self-absorbed. The one who makes themselves the center of every consideration. From philos (love) + autos (self). The root from which all other sins in this list flow.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Lovers of Money</div><div class="sin-original">φιλάργυροι</div><div class="sin-transliteration">philargyroi</div><div class="sin-definition">Greedy; money-lovers. From philos (love) + arguros (silver). When financial security, wealth, or comfort becomes the primary lens through which decisions are made.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Boastful</div><div class="sin-original">ἀλαζόνες</div><div class="sin-transliteration">alazones</div><div class="sin-definition">Braggart; one who claims more than he has or is. Self-promotion driven by insecurity — the need for others to see you as greater than you are.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Arrogant</div><div class="sin-original">ὑπερήφανοι</div><div class="sin-transliteration">hyperēphanoi</div><div class="sin-definition">Proud; showing above others. From hyper (above) + phainō (to appear). The one who looks down on others — contempt dressed as confidence.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Abusive</div><div class="sin-original">βλάσφημοι</div><div class="sin-transliteration">blasphēmoi</div><div class="sin-definition">Slanderous; injurious in speech. Using words to damage and destroy. The same root as blasphemy — applied here to speech against people rather than God.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Disobedient to Parents</div><div class="sin-original">γονεῦσιν ἀπειθεῖς</div><div class="sin-transliteration">goneusin apeitheis</div><div class="sin-definition">Rebellious against parental authority. A symptom of a larger refusal to submit to any God-given authority — the family being the first training ground for submission.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Ungrateful</div><div class="sin-original">ἀχάριστοι</div><div class="sin-transliteration">acharistoi</div><div class="sin-definition">Without gratitude; taking God's gifts as entitlements. Charis means grace — the ungrateful person receives grace as if it is owed. The opposite of worship.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Unholy</div><div class="sin-original">ἀνόσιοι</div><div class="sin-transliteration">anosioi</div><div class="sin-definition">Without reverence for God or what is sacred. Living as if nothing is holy — as if the distinction between sacred and profane doesn't exist or doesn't matter.</div><div class="sin-source">2 Timothy 3:2</div></div>
+          <div class="sin-card"><div class="sin-name">Heartless</div><div class="sin-original">ἄστοργοι</div><div class="sin-transliteration">astorgoi</div><div class="sin-definition">Without natural affection; devoid of the basic family love that even animals display. Storgē is the natural love between parent and child — astorgoi is its absence.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Unappeasable</div><div class="sin-original">ἄσπονδοι</div><div class="sin-transliteration">aspondoi</div><div class="sin-definition">Irreconcilable; refusing to make peace. The person who cannot be appeased, cannot forgive, cannot let go of a grievance. A sponde was a treaty — aspondoi is one who will make none.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Slanderers</div><div class="sin-original">διάβολοι</div><div class="sin-transliteration">diaboloi</div><div class="sin-definition">Malicious gossips; false accusers. The same word as "devil" — literally "one who throws across," as in throwing accusations. Satanic behavior in human form.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Without Self-Control</div><div class="sin-original">ἀκρατεῖς</div><div class="sin-transliteration">akrateis</div><div class="sin-definition">Lacking mastery over one's own desires. Whatever the appetite demands — food, sex, anger, substances — the person follows it. There is no self-government.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Brutal</div><div class="sin-original">ἀνήμεροι</div><div class="sin-transliteration">anēmeroi</div><div class="sin-definition">Savage; untamed. Literally "not tame" — the person who has not been civilized by love for God and others. Raw cruelty unchecked by conscience.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Not Loving Good</div><div class="sin-original">ἀφιλάγαθοι</div><div class="sin-transliteration">aphilagathos</div><div class="sin-definition">Indifferent to what is right and good. Not necessarily pursuing evil — simply having no love for what is good. Moral indifference is itself a form of corruption.</div><div class="sin-source">2 Timothy 3:3</div></div>
+          <div class="sin-card"><div class="sin-name">Treacherous</div><div class="sin-original">προδόται</div><div class="sin-transliteration">prodotai</div><div class="sin-definition">Traitors; those who betray trust. The person who gains confidence then uses it as leverage. Betrayal dressed up as friendship.</div><div class="sin-source">2 Timothy 3:4</div></div>
+          <div class="sin-card"><div class="sin-name">Reckless</div><div class="sin-original">προπετεῖς</div><div class="sin-transliteration">propeteis</div><div class="sin-definition">Headstrong; impulsive; acting without thought for consequences. Literally "falling forward." The person who runs at life without looking where they are going.</div><div class="sin-source">2 Timothy 3:4</div></div>
+          <div class="sin-card"><div class="sin-name">Conceited</div><div class="sin-original">τετυφωμένοι</div><div class="sin-transliteration">tetyphōmenoi</div><div class="sin-definition">Swollen with pride; clouded by self-importance. From typhoō — to wrap in smoke. The conceited person's vision is clouded by their own inflated self-image.</div><div class="sin-source">2 Timothy 3:4</div></div>
+          <div class="sin-card"><div class="sin-name">Lovers of Pleasure</div><div class="sin-original">φιλήδονοι</div><div class="sin-transliteration">philēdonoi</div><div class="sin-definition">Pleasure-loving rather than God-loving. From philos (love) + hēdonē (pleasure — root of "hedonism"). When comfort, entertainment, and enjoyment become the organizing principle of life.</div><div class="sin-source">2 Timothy 3:4</div></div>
+        </div>
+      </div>
+
+      <!-- ─── Mark 7 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">Mark 7:21–22 — What Comes Out of the Heart</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">Evil Thoughts</div><div class="sin-original">διαλογισμοὶ οἱ κακοί</div><div class="sin-transliteration">dialogismoi hoi kakoi</div><div class="sin-definition">Wicked deliberations; the scheming and reasoning of a corrupt mind. Sin begins here — in the inner life, before any action is taken.</div><div class="sin-source">Mark 7:21</div></div>
+          <div class="sin-card"><div class="sin-name">Theft</div><div class="sin-original">κλοπαί</div><div class="sin-transliteration">klopai</div><div class="sin-definition">Taking what belongs to another. Includes the obvious (robbery) and the subtle (intellectual theft, taking credit, padding expenses). Any claim to what is not rightfully yours.</div><div class="sin-source">Mark 7:21</div></div>
+          <div class="sin-card"><div class="sin-name">Murder</div><div class="sin-original">φόνοι</div><div class="sin-transliteration">phonoi</div><div class="sin-definition">Taking human life. Jesus in the Sermon on the Mount extends this to murder's root: unjustified anger that treats another person as disposable (Matthew 5:21–22).</div><div class="sin-source">Mark 7:21</div></div>
+          <div class="sin-card"><div class="sin-name">Adultery</div><div class="sin-original">μοιχεῖαι</div><div class="sin-transliteration">moicheiai</div><div class="sin-definition">Sexual unfaithfulness within marriage. Jesus extends this as well — the lustful look that treats another person as an object (Matthew 5:28). Covenant-breaking of the most intimate kind.</div><div class="sin-source">Mark 7:21</div></div>
+          <div class="sin-card"><div class="sin-name">Coveting</div><div class="sin-original">πλεονεξίαι</div><div class="sin-transliteration">pleonexiai</div><div class="sin-definition">Greed; the relentless desire for more. The tenth commandment — which Jesus lists here from the heart — forbids not just the taking, but the desiring.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Wickedness</div><div class="sin-original">πονηρίαι</div><div class="sin-transliteration">ponēriai</div><div class="sin-definition">Evil in its active sense; doing harm. Not just absence of good, but the intentional pursuit of what is bad. Moral corruption that has become a settled disposition.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Deceit</div><div class="sin-original">δόλος</div><div class="sin-transliteration">dolos</div><div class="sin-definition">Guile; craftiness; getting what you want through manipulation. Originally referred to bait in a trap — giving something appealing to get something at another's expense.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Envy</div><div class="sin-original">ὀφθαλμὸς πονηρός</div><div class="sin-transliteration">ophthalmos ponēros</div><div class="sin-definition">Literally "evil eye." The Hebrew idiom for envy and stinginess — the eye that cannot bear to see another person's good fortune. Resentment at others' blessing.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Slander</div><div class="sin-original">βλασφημία</div><div class="sin-transliteration">blasphēmia</div><div class="sin-definition">Evil speech about God or people; using words to damage and destroy. Jesus places this alongside murder — both eliminate a person, one physically, one socially.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Pride</div><div class="sin-original">ὑπερηφανία</div><div class="sin-transliteration">hyperēphania</div><div class="sin-definition">Arrogance; looking down on others. From hyper (above) + phainō (to show). The one who presents himself as above — contempt for others as a way of life. C.S. Lewis called this the great sin.</div><div class="sin-source">Mark 7:22</div></div>
+          <div class="sin-card"><div class="sin-name">Foolishness</div><div class="sin-original">ἀφροσύνη</div><div class="sin-transliteration">aphrosynē</div><div class="sin-definition">Moral insensibility; the refusal to use one's faculties rightly before God. Not intellectual stupidity but spiritual recklessness — living as if God does not exist or does not matter.</div><div class="sin-source">Mark 7:22</div></div>
+        </div>
+      </div>
+
+      <!-- ─── Ephesians 5 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">Ephesians 5:3–5 — Must Not Even Be Named Among You</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">Filthiness</div><div class="sin-original">αἰσχρότης</div><div class="sin-transliteration">aischrotēs</div><div class="sin-definition">Base, shameful behavior; moral ugliness. From aischros — disgraceful, indecent. Conduct that degrades both the person doing it and those around them.</div><div class="sin-source">Ephesians 5:4</div></div>
+          <div class="sin-card"><div class="sin-name">Foolish Talk</div><div class="sin-original">μωρολογία</div><div class="sin-transliteration">mōrologia</div><div class="sin-definition">Stupid, empty talk; meaningless speech that wastes the weight words could carry. From mōros (fool) + logos (word). The gift of language used for nothing.</div><div class="sin-source">Ephesians 5:4</div></div>
+          <div class="sin-card"><div class="sin-name">Crude Joking</div><div class="sin-original">εὐτραπελία</div><div class="sin-transliteration">eutrapelia</div><div class="sin-definition">Lewd wit; humor that degrades. From eu (well) + trepō (to turn) — wit that quickly turns to the vulgar. Intelligence in service of degradation rather than truth.</div><div class="sin-source">Ephesians 5:4</div></div>
+          <div class="sin-card"><div class="sin-name">Covetousness as Idolatry</div><div class="sin-original">πλεονέκτης</div><div class="sin-transliteration">pleonektēs</div><div class="sin-definition">The covetous person is, Paul says, an idolater — having no inheritance in the kingdom. The desire for more has displaced God as the center. Greed is not just a vice; it is a religion.</div><div class="sin-source">Ephesians 5:5</div></div>
+        </div>
+      </div>
+
+      <!-- ─── 1 Corinthians 6 ─── -->
+      <div class="scripture-section">
+        <div class="scripture-section-title">1 Corinthians 6:9–10 — Will Not Inherit the Kingdom of God</div>
+        <div class="sin-grid">
+          <div class="sin-card"><div class="sin-name">The Sexually Immoral</div><div class="sin-original">πόρνοι</div><div class="sin-transliteration">pornoi</div><div class="sin-definition">Those who practice porneia — sexual activity outside of God's design for marriage. This is Paul's broadest category, the same root as the Galatians 5 list.</div><div class="sin-source">1 Corinthians 6:9</div></div>
+          <div class="sin-card"><div class="sin-name">Idolaters</div><div class="sin-original">εἰδωλολάτραι</div><div class="sin-transliteration">eidōlolatrai</div><div class="sin-definition">Those who worship anything other than God. In Corinth, this included literal idol worship tied to temple prostitution. Today, any ultimate allegiance that displaces God.</div><div class="sin-source">1 Corinthians 6:9</div></div>
+          <div class="sin-card"><div class="sin-name">Adulterers</div><div class="sin-original">μοιχοί</div><div class="sin-transliteration">moichoi</div><div class="sin-definition">Those who break the marriage covenant through sexual unfaithfulness. Named separately from general sexual immorality — covenant-breaking carries its own weight.</div><div class="sin-source">1 Corinthians 6:9</div></div>
+          <div class="sin-card"><div class="sin-name">Thieves</div><div class="sin-original">κλέπται</div><div class="sin-transliteration">kleptai</div><div class="sin-definition">Those who take what belongs to others. Root of the English "kleptomaniac." Includes petty theft and the sophisticated fraud that is never called stealing but is.</div><div class="sin-source">1 Corinthians 6:10</div></div>
+          <div class="sin-card"><div class="sin-name">The Greedy</div><div class="sin-original">πλεονέκται</div><div class="sin-transliteration">pleonektai</div><div class="sin-definition">The covetous; those who always want more. The never-satisfied appetite for wealth, possessions, or advantage — at the expense of others and God.</div><div class="sin-source">1 Corinthians 6:10</div></div>
+          <div class="sin-card"><div class="sin-name">Drunkards</div><div class="sin-original">μέθυσοι</div><div class="sin-transliteration">methysoi</div><div class="sin-definition">Those given to drunkenness; controlled by alcohol or substances. The issue is control — being governed by a substance rather than by the Spirit (Ephesians 5:18).</div><div class="sin-source">1 Corinthians 6:10</div></div>
+          <div class="sin-card"><div class="sin-name">Revilers</div><div class="sin-original">λοίδοροι</div><div class="sin-transliteration">loidoroi</div><div class="sin-definition">Verbal abusers; those who use words as weapons to wound and dominate. Includes public insults, personal attacks, and the slow drip of contemptuous speech in close relationships.</div><div class="sin-source">1 Corinthians 6:10</div></div>
+          <div class="sin-card"><div class="sin-name">Swindlers</div><div class="sin-original">ἅρπαγες</div><div class="sin-transliteration">harpages</div><div class="sin-definition">The rapacious; those who seize what belongs to others. From harpazō — to snatch, to grab violently. Extortion, exploitation, or any taking by force or manipulation.</div><div class="sin-source">1 Corinthians 6:10</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════
+       PANEL 3 — WORD STUDY
+  ═══════════════════════════════════════════ -->
   <div class="panel" id="panel-words">
     <div class="content-wrap">
-      
-      <div class="section-header"><div class="section-eyebrow">Word Study</div><div class="section-title">Sin · Flesh · Death</div><div class="section-sub">What the original words reveal about sin's nature</div></div>
-      <div class="word-study-grid">
-        <div class="word-study"><div class="ws-original">ἁμαρτία</div><div class="ws-transliteration">hamartia</div><div class="ws-pos">noun, feminine — Greek</div><div class="ws-definition">Sin; missing the mark. The general NT word for sin. From a root meaning to miss the target — originally an archery term. The mark is God's character and glory.</div><div class="ws-note">The most common NT word for sin. Not primarily about rule-breaking — about falling short of what God designed us to be. This makes sin both universal (everyone misses) and personal (each person's miss is specific).</div></div>
-        <div class="word-study"><div class="ws-original">παράπτωμα</div><div class="ws-transliteration">paraptōma</div><div class="ws-pos">noun, neuter — Greek</div><div class="ws-definition">Trespass, transgression, a false step. From para (beside) + piptō (to fall). The image is of stepping off the right path — deviation from the way.</div><div class="ws-note">Used in Ephesians 2:1 — "dead in your trespasses and sins." Not just bad choices, but a fundamental wrong direction. The person who is trespassing isn't just lost — they're in territory they were never meant to be in.</div></div>
-        <div class="word-study"><div class="ws-original">חָטָא</div><div class="ws-transliteration">chata</div><div class="ws-pos">verb — Hebrew</div><div class="ws-definition">To sin, to miss, to go wrong. The primary OT word for sin — same concept as hamartia: missing the mark, failing to hit the target. Also used to describe Saul's army missing stones with slings (Judges 20:16).</div><div class="ws-note">The word's original use (missing a target with a sling) is instructive: sin is not always deliberate rebellion. Sometimes it's simply missing what we were aimed at. Both kinds count. Both matter to God.</div></div>
+
+      <div class="section-header">
+        <div class="section-eyebrow">Word Study</div>
+        <div class="section-title">Sin · Flesh · Death</div>
+        <div class="section-sub">What the original words reveal about sin's nature</div>
       </div>
-    
+
+      <div class="word-study-grid">
+
+        <div class="word-study">
+          <div class="ws-original">ἁμαρτία</div>
+          <div class="ws-transliteration">hamartia</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Sin; missing the mark. The general New Testament word for sin. From a root meaning to miss the target — originally an archery term. The mark is God's character and glory: the standard we were made to hit.</div>
+          <div class="ws-note">The most common NT word for sin. Not primarily about rule-breaking — about falling short of what God designed us to be. This makes sin both universal (everyone misses) and personal (each person's miss is specific to them). Romans 3:23 uses this word: "all have sinned (hēmarton) and fall short of the glory of God."</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">παράπτωμα</div>
+          <div class="ws-transliteration">paraptōma</div>
+          <div class="ws-pos">noun, neuter — Greek</div>
+          <div class="ws-definition">Trespass; transgression; a false step. From para (beside, off) + piptō (to fall). The image is of stepping off the right path — deviation from the way you were meant to walk.</div>
+          <div class="ws-note">Used in Ephesians 2:1 — "dead in your trespasses and sins." Not just bad choices, but a fundamental wrong direction. The person who is trespassing isn't just lost — they are in territory they were never meant to be in. The word carries the idea of a stumble that becomes a trajectory.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">חָטָא</div>
+          <div class="ws-transliteration">chata</div>
+          <div class="ws-pos">verb — Hebrew</div>
+          <div class="ws-definition">To sin, to miss, to go wrong. The primary Old Testament word for sin — the same concept as hamartia: missing the mark, failing to hit the target. Notably, the same word is used to describe Saul's army missing stones with slings (Judges 20:16).</div>
+          <div class="ws-note">The word's original use is instructive: sin is not always deliberate rebellion. Sometimes it is simply missing what we were aimed at — falling short of the design. Both kinds count. Both matter to God. The diagnosis is the same regardless of intent.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">σάρξ</div>
+          <div class="ws-transliteration">sarx</div>
+          <div class="ws-pos">noun, feminine — Greek</div>
+          <div class="ws-definition">Flesh; the sinful nature. In Paul's usage, more than the physical body — the whole human orientation away from God: desires, instincts, appetites, and reasoning that has not been submitted to God's Spirit.</div>
+          <div class="ws-note">Galatians 5:19 — "the works of the flesh." This is why willpower alone can't fix the sin problem: the flesh is not just behavior, it is orientation. The whole self is turned the wrong direction. What is needed is not better behavior management but a transformation of what we are turned toward — which is what conversion is.</div>
+        </div>
+
+        <div class="word-study">
+          <div class="ws-original">עָוֺן</div>
+          <div class="ws-transliteration">avon</div>
+          <div class="ws-pos">noun, masculine — Hebrew</div>
+          <div class="ws-definition">Iniquity; guilt; the consequence of sin. From a root meaning to be bent or twisted. Captures the distortion that sin produces — not just the act, but the guilt and the twisted condition it leaves behind.</div>
+          <div class="ws-note">Isaiah 59:2 uses this word: "your iniquities (avonot) have made a separation between you and your God." The separation is not just positional — it is the result of a cumulative bending away from God. Isaiah 53:5 uses the same word for what Jesus bore: "he was crushed for our iniquities." The weight he carried had a name.</div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════
+       PANEL 4 — SCRIPTURE
+  ═══════════════════════════════════════════ -->
   <div class="panel" id="panel-scripture">
     <div class="content-wrap">
+
       <div class="section-header">
         <div class="section-eyebrow">Scripture</div>
         <div class="section-title">Key Passages</div>
-        <div class="section-sub">Supporting scriptures for this study</div>
+        <div class="section-sub">The biblical foundation for the diagnosis of sin and its consequences</div>
       </div>
-      <p style="color:var(--cream-dim);">See the reference tab for the full content. Additional cross-references to be expanded in a future revision.</p>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Universal Diagnosis</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"For all have sinned and fall short of the glory of God."</div>
+            <div class="vc-footer"><span class="vc-ref">Romans 3:23</span><span class="vc-note">"All" — no exceptions based on religion, upbringing, or good intentions.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord."</div>
+            <div class="vc-footer"><span class="vc-ref">Romans 6:23</span><span class="vc-note">Wages are earned. Death is what sin earns. The gift comes from somewhere else entirely.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"None is righteous, no, not one; no one understands; no one seeks for God. All have turned aside; together they have become worthless; no one does good, not even one."</div>
+            <div class="vc-footer"><span class="vc-ref">Romans 3:10–12</span><span class="vc-note">Paul quoting Psalms. The diagnosis is total and ancient — this is not a new problem.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Source: The Heart</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"For from within, out of the heart of man, come evil thoughts, sexual immorality, theft, murder, adultery, coveting, wickedness, deceit, sensuality, envy, slander, pride, foolishness. All these evil things come from within, and they defile a person."</div>
+            <div class="vc-footer"><span class="vc-ref">Mark 7:21–23</span><span class="vc-note">Jesus locates the source. External reform — better environment, better habits — misses it.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"The heart is deceitful above all things, and desperately sick; who can understand it?"</div>
+            <div class="vc-footer"><span class="vc-ref">Jeremiah 17:9</span><span class="vc-note">The heart cannot be trusted to assess itself accurately. We need an outside standard.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Separation Sin Creates</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"But your iniquities have made a separation between you and your God, and your sins have hidden his face from you so that he does not hear."</div>
+            <div class="vc-footer"><span class="vc-ref">Isaiah 59:2</span><span class="vc-note">Not God's absence — our separation. The problem is on our side, not his.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"And you were dead in the trespasses and sins in which you once walked, following the course of this world."</div>
+            <div class="vc-footer"><span class="vc-ref">Ephesians 2:1–2</span><span class="vc-note">Death in sin is not a metaphor Paul is afraid to use. It is the condition before Christ.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">Sins of Omission</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"So whoever knows the right thing to do and fails to do it, for him it is sin."</div>
+            <div class="vc-footer"><span class="vc-ref">James 4:17</span><span class="vc-note">Sin is not only what we do. It is what we fail to do when we know better.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scripture-section">
+        <div class="scripture-section-title">The Specific Lists</div>
+        <div class="verse-cards">
+          <div class="verse-card">
+            <div class="vc-text">"Now the works of the flesh are evident: sexual immorality, impurity, sensuality, idolatry, sorcery, enmity, strife, jealousy, fits of anger, rivalries, dissensions, divisions, envy, drunkenness, orgies, and things like these. I warn you, as I warned you before, that those who do such things will not inherit the kingdom of God."</div>
+            <div class="vc-footer"><span class="vc-ref">Galatians 5:19–21</span><span class="vc-note">Paul's warning is serious. These are not listed for academic interest.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"But understand this, that in the last days there will come times of difficulty. For people will be lovers of self, lovers of money, proud, arrogant, abusive, disobedient to their parents, ungrateful, unholy, heartless, unappeasable, slanderous, without self-control, brutal, not loving good, treacherous, reckless, swollen with conceit, lovers of pleasure rather than lovers of God, having the appearance of godliness, but denying its power."</div>
+            <div class="vc-footer"><span class="vc-ref">2 Timothy 3:2–5</span><span class="vc-note">"The appearance of godliness" — this list describes religious people whose hearts are unchanged.</span></div>
+          </div>
+          <div class="verse-card">
+            <div class="vc-text">"Or do you not know that the unrighteous will not inherit the kingdom of God? Do not be deceived: neither the sexually immoral, nor idolaters, nor adulterers, nor thieves, nor the greedy, nor drunkards, nor revilers, nor swindlers will inherit the kingdom of God. And such were some of you. But you were washed, you were sanctified, you were justified in the name of the Lord Jesus Christ and by the Spirit of our God."</div>
+            <div class="vc-footer"><span class="vc-ref">1 Corinthians 6:9–11</span><span class="vc-note">"And such were some of you" — the list is a before picture. The cross makes an after possible.</span></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </div>
 
 <script>
-
 function switchTab(panelId, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -260,7 +545,6 @@ function toggleGuideMode() {
   document.body.classList.toggle('guide-active', guideMode);
   document.getElementById('guide-toggle').textContent = guideMode ? '✕ Exit Guide Mode' : '◎ Guide Mode';
 }
-
 </script>
 </body>
 </html>

@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discipline & Formation — Stage of Life Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #b87355;
+  --accent-dim:   #6b3f28;
+  --accent-lt:    #d4956e;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --guide-bg:     #0d1a0d;
+  --guide-border: #1a3a1a;
+  --guide-accent: #4a8a4a;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+/* ============================================================
+   CORE.CSS — Bible Study Series Design System
+   Edit this file once to update all studies.
+   Each study overrides --accent and --accent-dim only.
+   ============================================================ */
+
+
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* Subtle noise texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 150px;
+  opacity: .5;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 600; letter-spacing: 1px;
+  color: var(--cream); line-height: 1.25;
+  margin-bottom: 8px;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 2.5vw, 17px);
+  font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent);
+  margin: 44px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+h2:first-child { margin-top: 0; }
+h3 {
+  font-family: var(--font-body);
+  font-size: 17px; font-weight: 500;
+  color: var(--cream); margin: 28px 0 10px;
+}
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+
+/* ===== LAYOUT ===== */
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.content-wrap {
+  max-width: 820px; margin: 0 auto;
+  padding: 56px 32px 80px;
+}
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ===== SITE HEADER ===== */
+.site-header {
+  position: relative; z-index: 10;
+  background: linear-gradient(160deg, #0f1625 0%, #0c0f18 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 40px 36px;
+  text-align: center;
+}
+.site-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+}
+.header-eyebrow {
+  font-family: var(--font-display);
+  font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 14px;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 46px);
+  font-weight: 700; letter-spacing: 2px; line-height: 1.15;
+  color: var(--cream); margin-bottom: 16px;
+}
+.header-title span { color: var(--accent); }
+.header-verse {
+  font-family: var(--font-serif);
+  font-size: clamp(14px, 2.2vw, 19px);
+  font-style: italic; color: var(--cream-dim);
+  max-width: 680px; margin: 0 auto 6px;
+  line-height: 1.65;
+}
+.header-ref {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--accent-dim); margin-top: 10px;
+}
+
+/* ===== TAB BAR ===== */
+.tab-bar-wrap {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar {
+  display: flex; align-items: stretch;
+  min-width: max-content;
+  padding: 0 24px; gap: 0;
+}
+.tab-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+  padding: 18px 22px 16px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap; position: relative;
+}
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-btn.soon { opacity: .35; cursor: default; pointer-events: none; }
+.tab-btn.soon::after {
+  content: 'soon';
+  font-size: 7px; letter-spacing: 1px;
+  color: var(--accent-dim);
+  position: absolute; top: 10px; right: 6px;
+}
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ===== WEEK / SECTION HEADER ===== */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 6vw, 56px);
+  font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--cream); line-height: 1; margin-bottom: 14px;
+}
+.section-sub {
+  font-family: var(--font-body);
+  font-style: italic; font-size: 13px; color: var(--muted);
+}
+
+/* ===== VERSE BLOCK ===== */
+.verse-block {
+  background: var(--surface);
+  border: 1px solid var(--border-lt);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 24px 28px; margin: 28px 0;
+}
+.verse-block .verse-text {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2.5vw, 21px);
+  font-style: italic; color: var(--cream);
+  line-height: 1.7; margin-bottom: 10px;
+}
+.verse-ref {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 2px; color: var(--accent-dim);
+}
+
+/* ===== CALLOUT BOX ===== */
+.callout {
+  background: var(--surface-2);
+  border: 1px solid var(--border-lt);
+  border-radius: 6px; padding: 24px 28px; margin: 24px 0;
+}
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 12px;
+}
+.callout p { margin-bottom: 0; }
+
+/* ===== GRID COMPONENTS ===== */
+/* Three-column phases */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin: 24px 0;
+}
+@media (max-width: 600px) { .phases-grid { grid-template-columns: 1fr; } }
+.phase-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border-lt);
+  border-radius: 4px; padding: 20px; text-align: center;
+}
+.phase-label {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.phase-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+
+/* Two-column uses table */
+.uses-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 2px; margin: 24px 0;
+  border: 1px solid var(--border-lt); border-radius: 6px; overflow: hidden;
+}
+.use-row { display: grid; grid-template-columns: 160px 1fr; background: var(--surface); }
+.use-row:nth-child(even) { background: var(--surface-2); }
+.use-label {
+  padding: 16px 20px;
+  font-family: var(--font-display);
+  font-size: 12px; letter-spacing: 1px; font-weight: 600;
+  color: var(--accent);
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.use-desc { padding: 16px 20px; font-size: 14px; color: var(--cream-dim); display: flex; align-items: center; }
+@media (max-width: 500px) {
+  .use-row { grid-template-columns: 1fr; }
+  .use-label { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+}
+
+/* ===== PROGRESSION STEPS ===== */
+.progression { display: flex; flex-direction: column; margin: 24px 0; }
+.prog-step {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+}
+.prog-step:last-child { border-bottom: none; }
+.prog-num {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700;
+  color: var(--accent-dim); opacity: .5;
+  line-height: 1; flex-shrink: 0; width: 32px; padding-top: 4px;
+}
+.prog-body strong { display: block; color: var(--cream); font-size: 15px; margin-bottom: 4px; }
+.prog-body p { font-size: 14px; margin: 0; }
+
+/* ===== SCRIPTURE REFERENCE LIST ===== */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.ref-item:last-child { border-bottom: none; }
+.ref-book {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 1px;
+  color: var(--accent);
+  min-width: 140px; max-width: 180px;
+  padding-top: 2px; flex-shrink: 0;
+}
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ===== REFLECTION CARDS ===== */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card {
+  background: var(--surface);
+  border: 1px solid var(--border-lt);
+  border-radius: 6px; padding: 20px 24px;
+}
+.reflection-q {
+  font-family: var(--font-serif);
+  font-size: 17px; font-style: italic;
+  color: var(--cream); line-height: 1.6; margin-bottom: 14px;
+}
+.reflection-card textarea {
+  width: 100%; min-height: 90px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-lt);
+  border-radius: 4px;
+  color: var(--cream-dim);
+  font-family: var(--font-body); font-size: 14px;
+  padding: 12px 14px; resize: vertical;
+  transition: border-color .2s; line-height: 1.6;
+}
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ===== DISCUSSION QUESTIONS ===== */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item {
+  counter-increment: dq;
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+}
+.dq-item:last-child { border-bottom: none; }
+.dq-num {
+  font-family: var(--font-display);
+  font-size: 13px; color: var(--accent-dim);
+  flex-shrink: 0; width: 24px; padding-top: 3px;
+}
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ===== WARNING / QUENCHER CARDS ===== */
+.quencher-list { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+.quencher {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--warning-dim);
+  border-radius: 4px; padding: 16px 20px;
+}
+.quencher strong { color: var(--cream); display: block; font-size: 14px; margin-bottom: 2px; }
+.quencher p { font-size: 13px; margin: 0; }
+
+/* ===== PRAYER / CLOSING BOX ===== */
+.prayer-box {
+  background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+  border: 1px solid var(--accent-dim);
+  border-radius: 8px; padding: 36px;
+  text-align: center; margin-top: 40px;
+}
+.prayer-box .prayer-label {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 18px;
+}
+.prayer-box .verse-text {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-style: italic; color: var(--cream);
+  line-height: 1.6; margin-bottom: 14px;
+}
+.prayer-box .verse-ref {
+  font-family: var(--font-display);
+  font-size: 11px; letter-spacing: 2px; color: var(--accent-dim);
+}
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ===== SCRIPTURE-ON-SCRIPTURE CARDS ===== */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title {
+  font-family: var(--font-display);
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-dim);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border); margin-bottom: 20px;
+}
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 22px 24px;
+  transition: border-color .2s;
+}
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-style: italic; color: var(--cream);
+  line-height: 1.7; margin-bottom: 12px;
+}
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ===== STUDY TOOLS ===== */
+.method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 24px; margin-bottom: 16px;
+}
+.method-title {
+  font-family: var(--font-display);
+  font-size: 14px; letter-spacing: 1px; color: var(--accent); margin-bottom: 14px;
+}
+.method-steps { list-style: none; }
+.method-steps li {
+  display: flex; gap: 14px; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; color: var(--cream-dim);
+}
+.method-steps li:last-child { border-bottom: none; }
+.step-abbr { font-family: var(--font-display); font-size: 12px; color: var(--accent); min-width: 18px; padding-top: 1px; }
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; }
+.tool-name { font-family: var(--font-display); font-size: 13px; color: var(--accent); margin-bottom: 6px; }
+.tool-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.5; }
+.tool-url { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.questions-grid { display: grid; gap: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 16px 0; }
+.q-section { border-bottom: 1px solid var(--border); padding: 18px 22px; background: var(--surface); }
+.q-section:last-child { border-bottom: none; }
+.q-section:nth-child(even) { background: var(--surface-2); }
+.q-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.q-list { list-style: disc; padding-left: 20px; }
+.q-list li { font-size: 14px; color: var(--cream-dim); margin-bottom: 6px; line-height: 1.6; }
+
+/* ===== PSALM 119 ===== */
+.stanzas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin: 20px 0; }
+.stanza-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px 22px;
+  cursor: default; transition: border-color .2s, background .2s;
+}
+.stanza-card:hover { border-color: var(--accent-dim); background: var(--surface-2); }
+.stanza-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.stanza-letter { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--accent); }
+.stanza-verses { font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+.stanza-theme { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
+.stanza-key {
+  font-family: var(--font-serif); font-size: 14px; font-style: italic;
+  color: var(--cream-dim); line-height: 1.6;
+  border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px;
+}
+.psalm-themes { margin: 40px 0; }
+.theme-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); padding: 16px 0; }
+.theme-row:first-child { border-top: 1px solid var(--border); }
+.theme-name { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); display: flex; align-items: center; }
+.theme-verses { font-size: 14px; color: var(--cream-dim); }
+
+/* ===== INDEX PAGE ===== */
+.index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin: 32px 0; }
+.study-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px 24px;
+  text-decoration: none; display: block;
+  transition: border-color .2s, background .2s, transform .15s;
+  position: relative; overflow: hidden;
+}
+.study-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--card-accent, var(--accent));
+}
+.study-card:hover { border-color: var(--border-lt); background: var(--surface-2); transform: translateY(-2px); }
+.study-card-eyebrow { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.study-card-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--cream); margin-bottom: 10px; line-height: 1.3; }
+.study-card-verse { font-family: var(--font-serif); font-size: 13px; font-style: italic; color: var(--cream-dim); line-height: 1.6; margin-bottom: 14px; }
+.study-card-meta { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--muted); }
+.study-card.coming { opacity: .5; pointer-events: none; }
+.study-card.coming::after { content: 'Coming Soon'; position: absolute; top: 16px; right: 16px; font-family: var(--font-display); font-size: 8px; letter-spacing: 2px; color: var(--muted); border: 1px solid var(--border); padding: 3px 8px; border-radius: 20px; }
+
+/* ===== PRINT ===== */
+@media print {
+  body { background: white; color: #111; }
+  body::before { display: none; }
+  .tab-bar-wrap { display: none; }
+  .panel { display: block !important; page-break-before: always; }
+  .panel:first-child { page-break-before: avoid; }
+  .verse-block, .callout, .method-card { border: 1px solid #ccc; }
+  .verse-block { border-left: 3px solid var(--accent); }
+  textarea { border: 1px solid #ccc; min-height: 60px; }
+}
+
+/* ===== GUIDE MODE (First Principles only) ===== */
+/* Hidden by default — revealed when .guide-active is on body */
+.guide-block { display: none; }
+
+.guide-active .guide-block {
+  display: block;
+  background: var(--guide-bg);
+  border: 1px solid var(--guide-border);
+  border-left: 3px solid var(--guide-accent);
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.guide-label {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--guide-accent); margin-bottom: 10px;
+}
+.guide-tip {
+  font-size: 13px; color: #6aaa6a;
+  margin-bottom: 8px; line-height: 1.6;
+}
+.guide-tip:last-child { margin-bottom: 0; }
+
+/* Green tint on tab bar so facilitator knows guide mode is active */
+.guide-active .tab-bar-wrap {
+  box-shadow: inset 0 -2px 0 var(--guide-border);
+}
+
+/* Fixed toggle button */
+#guide-toggle {
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  background: var(--guide-bg);
+  border: 1px solid var(--guide-border);
+  color: var(--guide-accent);
+  font-family: var(--font-display);
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 10px 18px; border-radius: 4px; cursor: pointer;
+  transition: background .2s, border-color .2s;
+  opacity: .6;
+}
+#guide-toggle:hover { opacity: 1; }
+.guide-active #guide-toggle {
+  background: #1a3a1a;
+  border-color: var(--guide-accent);
+  opacity: 1;
+}
+
+/* ===== WORD STUDY (Greek & Hebrew) ===== */
+.word-study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px; margin: 24px 0;
+}
+.word-study {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  transition: border-color .2s;
+}
+.word-study:hover { border-color: var(--accent-dim); }
+
+/* The original script — displayed large. Hebrew RTL is automatic via Unicode. */
+.ws-original {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--accent);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.ws-transliteration {
+  font-family: var(--font-body);
+  font-size: 13px; font-style: italic;
+  color: var(--cream-dim); margin-bottom: 4px;
+}
+.ws-pos {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ws-definition {
+  font-size: 14px; color: var(--cream);
+  line-height: 1.65; margin-bottom: 10px;
+}
+.ws-note {
+  font-size: 13px; color: var(--cream-dim);
+  font-style: italic; line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 10px; margin-top: 10px;
+}
+
+/* ===== SIN DEFINITION CARDS (First Principles — Sin study) ===== */
+.sin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px; margin: 20px 0;
+}
+.sin-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--warning-dim);
+  border-radius: 4px;
+  padding: 18px 20px;
+  transition: border-color .2s;
+}
+.sin-card:hover { border-color: var(--accent-dim); }
+.sin-name {
+  font-family: var(--font-display);
+  font-size: 13px; letter-spacing: 1px;
+  color: var(--accent); margin-bottom: 4px;
+}
+.sin-original {
+  font-family: var(--font-serif);
+  font-size: 20px; color: var(--cream);
+  margin-bottom: 2px; line-height: 1.3;
+}
+.sin-transliteration {
+  font-size: 12px; font-style: italic;
+  color: var(--muted); margin-bottom: 10px;
+}
+.sin-definition {
+  font-size: 13px; color: var(--cream-dim);
+  line-height: 1.6; margin-bottom: 8px;
+}
+.sin-source {
+  font-family: var(--font-display);
+  font-size: 10px; letter-spacing: 1px;
+  color: var(--muted);
+}
+
+
+  /* Warning card variant for this study */
+  .warning-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid #7a4a2a;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+  }
+  .warning-card-title {
+    font-family: var(--font-display);
+    font-size: 13px; letter-spacing: 1px;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .warning-card p { margin-bottom: 0; font-size: 14px; }
+
+  /* Passage block — for longer Scripture readings */
+  .passage-block {
+    background: var(--surface);
+    border: 1px solid var(--border-lt);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin: 24px 0;
+  }
+  .passage-title {
+    font-family: var(--font-display);
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent-dim); margin-bottom: 16px;
+  }
+  .passage-text {
+    font-family: var(--font-serif);
+    font-size: clamp(15px, 2vw, 18px);
+    font-style: italic; color: var(--cream);
+    line-height: 1.85;
+  }
+  .passage-text .verse-num {
+    font-style: normal;
+    font-family: var(--font-display);
+    font-size: 10px; letter-spacing: 1px;
+    color: var(--accent-dim);
+    vertical-align: super; margin-right: 3px;
+  }
+  .passage-ref {
+    font-family: var(--font-display);
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--accent-dim);
+    margin-top: 14px;
+  }
+
+  /* Contrast callout — dark warning tone */
+  .contrast-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 24px 0;
+  }
+  @media (max-width: 580px) { .contrast-block { grid-template-columns: 1fr; } }
+  .contrast-col {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px; padding: 20px 22px;
+  }
+  .contrast-col.danger { border-top: 3px solid #7a3030; }
+  .contrast-col.truth  { border-top: 3px solid var(--accent); }
+  .contrast-label {
+    font-family: var(--font-display);
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .contrast-col.danger .contrast-label { color: #a06060; }
+  .contrast-col.truth  .contrast-label { color: var(--accent); }
+  .contrast-col ul { list-style: none; padding: 0; }
+  .contrast-col ul li {
+    font-size: 14px; color: var(--cream-dim);
+    padding: 7px 0; border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .contrast-col ul li:last-child { border-bottom: none; }
+
+  /* Eli warning — special dark card */
+  .eli-block {
+    background: #0e0a08;
+    border: 1px solid #3a2010;
+    border-left: 3px solid #7a3a18;
+    border-radius: 6px; padding: 28px 32px; margin: 28px 0;
+  }
+  .eli-label {
+    font-family: var(--font-display);
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: #9a5030; margin-bottom: 16px;
+  }
+  .eli-block .passage-text { color: #c8b89a; }
+  .eli-verdict {
+    font-family: var(--font-serif);
+    font-size: 17px; font-style: italic;
+    color: #c05030; margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid #3a2010;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-eyebrow">Stage of Life · Parenting & Family</div>
+  <div class="header-title">Discipline &amp; <span>Formation</span></div>
+  <div class="header-verse">"Whoever spares the rod hates their children, but the one who loves their children is careful to discipline them."</div>
+  <div class="header-ref">Proverbs 13:24 · NIV</div>
+</header>
+
+<!-- ===== TAB BAR ===== -->
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main', this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('eli', this)">The Eli Warning</button>
+    <button class="tab-btn" onclick="switchTab('words', this)">Word Study</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture', this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools', this)">Study Tools</button>
+  </div>
+</div>
+
+<!-- ===== PANELS ===== -->
+<div class="panels">
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Parenting & Family · Study 1 of 2</div>
+      <div class="section-title">Discipline & Formation</div>
+      <div class="section-sub">What love actually requires — and what happens when we refuse it</div>
+    </div>
+
+    <h2>The Noise</h2>
+    <p>Young parents today are drowning in advice. Gentle parenting. Attachment parenting. Positive discipline. Authoritative frameworks. Montessori principles. The parenting content industry is enormous, and most of it has one thing in common: it centers the child's emotional experience as the highest good. Discipline is reframed as trauma. Authority is reframed as control. Correction is reframed as damage.</p>
+    <p>The result is a generation of parents who are afraid of their own children — afraid to say no, afraid to hold a boundary, afraid to let a child experience consequences. And a generation of children who have never been told they were wrong about anything.</p>
+    <p>Scripture cuts against this grain completely. The Bible is not timid about what children need, what love requires, and what it costs a father to abdicate his role.</p>
+
+    <h2>God's Word as the Standard</h2>
+    <p>Before we look at what Scripture says, it's worth understanding what kind of authority we're appealing to. God's word is the standard in the way a machinist's precision tool is the standard — it's been <em>trued</em>, made into an absolute frame of reference. When you're building an engine, you use a trued tool to check whether parts are flush. Something can look flat to the naked eye but the tool reveals minor imperfections that will cause real problems down the line.</p>
+    <p>This matters for parenting: small imperfections in how you're leading your home require small adjustments — you don't throw away the whole engine. But you do need an external standard accurate enough to reveal them. That standard is Scripture, not your feelings, not the parenting podcast, not what worked for your parents.</p>
+
+    <h2>What Paul Was Pushing Against</h2>
+    <p>The commands in Ephesians 6 were addressed to a Roman household living under <em>Patria Potestas</em> — the Right of the Father. Under Roman law, the father held absolute authority over his wife, children, and slaves. He could sell his children into slavery. He could legally abandon newborn infants he judged defective or undesirable. Punishment or abuse of children — even adult children — was essentially unmoderated.</p>
+    <p>The institution wasn't designed for evil — it was meant to help a man protect his family and generational wealth — but absolute authority without accountability is always susceptible to abuse. That was the world Paul's readers lived in.</p>
+    <p>Into that world Paul brings a radically different vision: a father who does not provoke his children to anger, but brings them up in the <em>paideia</em> and <em>nouthesia</em> of the Lord. Not a tyrant. A shepherd. The contrast would have been jarring to its original audience — and it still challenges the extremes today, both the authoritarian father and the absent one.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Central Question</div>
+      <p style="font-family:var(--font-serif);font-size:20px;font-style:italic;color:var(--cream);margin:0;">
+        Is refusing to discipline your child an act of love — or an act of fear dressed up as love?
+      </p>
+    </div>
+
+    <h2>What Discipline Actually Is</h2>
+    <p>The word "discipline" in English comes from the Latin <em>disciplina</em> — instruction, training, formation. It shares its root with "disciple." To discipline a child is not to punish them for bad behavior. It is to <strong>form them</strong> — to shape their character, habits, instincts, and ultimately their soul.</p>
+    <p>This is why the Bible treats a lack of discipline not as mercy, but as negligence. The parent who never corrects their child has not protected them from pain. They have left them unformed, handed them over to their worst impulses, and sent them into a world that will not be as patient as the parent was.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Train up a child in the way he should go; even when he is old he will not depart from it."</div>
+      <div class="verse-ref">Proverbs 22:6 · ESV</div>
+    </div>
+
+    <p>The Hebrew verb here is <em>chanak</em> — to train, to dedicate, to inaugurate. It carries the image of a midwife rubbing the palate of a newborn with crushed dates to stimulate suckling. Formation begins at birth. It is active, intentional, and sustained. It is not passive hope that the child will figure it out.</p>
+
+    <h2>What the Proverbs Actually Say</h2>
+    <p>The Proverbs on discipline are some of the most direct statements in all of Scripture. They are also some of the most avoided in modern churches. Here they are plainly:</p>
+
+    <div class="passage-block">
+      <div class="passage-title">Proverbs on Discipline — ESV</div>
+      <div class="passage-text">
+        <span class="verse-num">13:24</span>"Whoever spares the rod hates his son, but he who loves him is diligent to discipline him."<br><br>
+        <span class="verse-num">19:18</span>"Discipline your son, for there is hope; do not set your heart on putting him to death."<br><br>
+        <span class="verse-num">22:15</span>"Folly is bound up in the heart of a child, but the rod of discipline drives it far from him."<br><br>
+        <span class="verse-num">23:13–14</span>"Do not withhold discipline from a child; if you strike him with a rod, he will not die. If you strike him with the rod, you will save his soul from Sheol."<br><br>
+        <span class="verse-num">29:15</span>"The rod and reproof give wisdom, but a child left to himself brings shame to his mother."<br><br>
+        <span class="verse-num">29:17</span>"Discipline your son, and he will give you rest; he will give delight to your heart."
+      </div>
+    </div>
+
+    <p>These passages have been domesticated, spiritualized, and avoided. They haven't changed. The pattern is unmistakable: <strong>discipline is love; neglect is hatred</strong>. Not hatred in feeling — but in effect. The parent who refuses to correct their child, whatever their intentions, is producing the same outcome as one who hates them.</p>
+
+    <h2>The False Gospel of Permissiveness</h2>
+    <p>Modern permissive parenting philosophy rests on several assumptions that Scripture directly contradicts:</p>
+
+    <div class="contrast-block">
+      <div class="contrast-col danger">
+        <div class="contrast-label">What Culture Says</div>
+        <ul>
+          <li>Children are inherently good — just let them be themselves</li>
+          <li>Correction damages self-esteem and attachment</li>
+          <li>Children should never feel shame or guilt</li>
+          <li>Boundaries are traumatic; connection is enough</li>
+          <li>If you love them enough, they will choose right</li>
+          <li>A child's emotional state is the primary metric</li>
+        </ul>
+      </div>
+      <div class="contrast-col truth">
+        <div class="contrast-label">What Scripture Says</div>
+        <ul>
+          <li>Folly is <em>bound up</em> in the heart of a child (Prov 22:15)</li>
+          <li>Reproof and the rod give wisdom (Prov 29:15)</li>
+          <li>Healthy shame is a signal that conscience is working</li>
+          <li>Love sets limits; love holds the line</li>
+          <li>Without discipline, a child is left to himself — and that is the danger</li>
+          <li>A child's character is the primary metric</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>None of this means harshness, cruelty, or rage. Discipline exercised in anger is not biblical discipline — it is an adult losing control and calling it parenting. The Proverbs envision a father who is calm, consistent, and committed. Who has decided in advance what he believes and does not negotiate it under pressure or tears.</p>
+
+    <h2>What God the Father Models</h2>
+    <p>The clearest argument for discipline is not found in Proverbs but in the character of God himself. The New Testament explicitly draws the parallel:</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"My son, do not regard lightly the discipline of the Lord, nor be weary when reproved by him. For the Lord disciplines the one he loves, and chastises every son whom he receives... For what son is there whom his father does not discipline? If you are left without discipline, in which all have participated, then you are illegitimate children and not sons."</div>
+      <div class="verse-ref">Hebrews 12:5–8 · ESV</div>
+    </div>
+
+    <p>This passage draws a direct line: <strong>discipline is proof of sonship</strong>. The child who is never corrected is not being treated as a son — they are being treated as a stranger the father is afraid to offend. If God disciplines every child he loves, and we are made in his image, the refusal to discipline is not just unwise. It is a departure from the character of the Father himself.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For the moment all discipline seems painful rather than pleasant, but later it yields the peaceful fruit of righteousness to those who have been trained by it."</div>
+      <div class="verse-ref">Hebrews 12:11 · ESV</div>
+    </div>
+
+    <p>Notice the tense: <em>later</em>. Discipline does not feel good in the moment — to the child or the parent. The measure of discipline is not how it feels at the time. It is what it produces. Peaceful fruit. Righteousness. A person who has been trained. This is the long game, and most permissive parenting philosophy refuses to play it.</p>
+
+    <h2>What Discipline Is Not</h2>
+    <div class="quencher-list">
+      <div class="quencher">
+        <div>
+          <strong>Discipline is not anger</strong>
+          <p>Ephesians 6:4 tells fathers not to provoke their children to anger. Discipline is calm, not reactive. If you're disciplining from rage, stop — that's not formation, that's a loss of self-control that will need to be repented of and apologized for.</p>
+        </div>
+      </div>
+      <div class="quencher">
+        <div>
+          <strong>Discipline is not contempt</strong>
+          <p>The goal is never to humiliate or crush. The goal is to correct and restore. The child should feel the weight of the consequence, not the weight of your disappointment in who they are as a person.</p>
+        </div>
+      </div>
+      <div class="quencher">
+        <div>
+          <strong>Discipline is not inconsistency</strong>
+          <p>A parent who disciplines sometimes and capitulates sometimes is teaching the child that the rules are negotiable under sufficient pressure. This is worse than no discipline — it trains the child to escalate.</p>
+        </div>
+      </div>
+      <div class="quencher">
+        <div>
+          <strong>Discipline is not verbal explosion</strong>
+          <p>Many parents recoil from the idea of a firm physical correction — but will lose control completely with their words, and somehow not register that as worse. James 3:5 is direct: the tongue is a flame that can set a whole forest on fire. Verbal rage — screaming, contempt, cutting words — is not a safer alternative to physical discipline. It is more destructive, harder to walk back, and leaves marks that last longer. Control your tongue first. James 3:5; Ephesians 4:29.</p>
+        </div>
+      </div>
+      <div class="quencher">
+        <div>
+          <strong>Discipline is not the whole relationship</strong>
+          <p>Discipline is one element of a father's posture, not the whole. Proverbs 3:12 — "the Lord reproves him whom he loves, as a father the son in whom he delights." Delight comes first. Discipline serves the relationship; it is not a substitute for it.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Spirit of the Home</h2>
+    <p>One of the most practical and underappreciated principles in family life is this: the parents establish the spirit of the home, and the children are invited into it. Not the other way around. A husband and wife who are walking with God, loving each other, and leading with a peaceful and purposeful spirit create a dwelling place. The children participate in that — they don't determine it.</p>
+    <p>This means the health of your marriage is the foundation of your parenting. A home where the parents are unified, calm, and spiritually grounded gives children a container of security they can feel even if they can't articulate it. A home where the parents are in conflict, spiritually passive, or leading from anxiety produces a different kind of child — not because the parents are bad people, but because children absorb the spirit of what surrounds them.</p>
+    <p>Children aren't allowed to disrupt or take over that spirit. They submit to the nature of the group — which means the group must have a nature worth submitting to. That starts with you.</p>
+
+    <h2>The Positive Call</h2>
+    <p>Ephesians 6:4 gives the clearest summary of the father's task: <em>"Fathers, do not provoke your children to anger, but bring them up in the discipline and instruction of the Lord."</em> Two words appear here — <em>paideia</em> (discipline, training, formation) and <em>nouthesia</em> (instruction, admonishment, counsel). Formation of the body; teaching of the mind. Both are required. Both are the father's responsibility.</p>
+    <p>The church can reinforce what the father builds, but it cannot replace it. An hour on Sunday cannot undo six days of passivity. The Deuteronomy 6 command makes clear that the primary classroom is the home — at morning, at evening, walking, sitting, working. The father is the teacher. The family is the school.</p>
+
+    <h2>Key Scripture References</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Proverbs 13:24</span><span class="ref-desc">The foundational statement — to spare the rod is to hate your child.</span></li>
+      <li class="ref-item"><span class="ref-book">Proverbs 22:6</span><span class="ref-desc">Train up a child in the way he should go — formation is intentional and directional.</span></li>
+      <li class="ref-item"><span class="ref-book">Proverbs 22:15</span><span class="ref-desc">Folly is bound in the heart of a child — the starting assumption is not neutrality.</span></li>
+      <li class="ref-item"><span class="ref-book">Proverbs 29:15</span><span class="ref-desc">A child left to himself brings shame — neglect is not neutrality, it is a result.</span></li>
+      <li class="ref-item"><span class="ref-book">Hebrews 12:5–11</span><span class="ref-desc">God disciplines every son he loves — discipline is proof of sonship, not rejection.</span></li>
+      <li class="ref-item"><span class="ref-book">Ephesians 6:4</span><span class="ref-desc">Fathers: paideia and nouthesia — formation of character and instruction of the mind.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Samuel 2–3</span><span class="ref-desc">The Eli warning — a good man who did not discipline his sons. See The Eli Warning tab.</span></li>
+      <li class="ref-item"><span class="ref-book">Exodus 20:12</span><span class="ref-desc">Honor your father and mother — in the original Ten Commandments. Obedience to parents carries covenantal weight from Sinai forward.</span></li>
+      <li class="ref-item"><span class="ref-book">James 3:5</span><span class="ref-desc">The tongue is a flame that sets a forest afire — verbal explosion is not a safer alternative to physical discipline.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Be honest: am I more afraid of my child's momentary distress or of their long-term character? Where does that fear come from?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What does my actual pattern of discipline look like — not what I intend, but what I do? Am I consistent? Am I calm? Do I follow through?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Have I allowed cultural voices (books, podcasts, social media, other parents) to shape my parenting philosophy more than Scripture? Which specific ideas have I absorbed uncritically?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is one specific, concrete change I will make in how I discipline this week — not a philosophy, but an action?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion Questions</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What parenting voices have you found yourself trusting most — and have you ever checked those voices against Scripture?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Proverbs 13:24 says to spare the rod is to hate your child. That's a strong statement. Do you believe it? What does your parenting behavior suggest you actually believe?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What's the difference between discipline and punishment? Between correction and cruelty? How do you hold those distinctions in practice?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Hebrews 12 says God disciplines every son he loves. How does understanding God as a disciplining Father change how you see your own role?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What is your biggest obstacle to consistent discipline — fear of your child's reaction, lack of energy, disagreement with your spouse, uncertainty about what is appropriate?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What does "bringing them up in the discipline and instruction of the Lord" (Eph 6:4) look like in a normal week in your home right now?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">James 3:5 says the tongue is a flame. Have you ever lost control verbally with your child in a way you would never physically? Why do we tend to see verbal rage as less serious — and is that accurate?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What is the spirit of your home right now — what would your children say it feels like to live there? What would you want them to say?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing — Read Aloud Together</div>
+      <div class="verse-text">"And have you forgotten the exhortation that addresses you as sons? 'My son, do not regard lightly the discipline of the Lord, nor be weary when reproved by him. For the Lord disciplines the one he loves, and chastises every son whom he receives.'"</div>
+      <div class="verse-ref">Hebrews 12:5–6 · ESV</div>
+      <div class="prayer-instruction">Pray for the courage to love your children the way God loves you — with patience, consistency, and the willingness to correct.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ELI WARNING PANEL ===== -->
+<div class="panel" id="panel-eli">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Case Study · 1 Samuel 2–3</div>
+      <div class="section-title">The Eli Warning</div>
+      <div class="section-sub">What happens when a father does not restrain his sons</div>
+    </div>
+
+    <p>Eli was not a bad man. He was the high priest of Israel. He knew the law. He served faithfully. He recognized the voice of God in Samuel when Samuel himself did not. By any ordinary measure, Eli was a godly man.</p>
+    <p>His sons destroyed him. And God held Eli responsible.</p>
+
+    <div class="passage-block">
+      <div class="passage-title">1 Samuel 2:12–17 · ESV — The sons of Eli</div>
+      <div class="passage-text">
+        <span class="verse-num">12</span>Now the sons of Eli were worthless men. They did not know the Lord. <span class="verse-num">13</span>The custom of the priests with the people was that when any man offered sacrifice, the priest's servant would come, while the meat was boiling, with a three-pronged fork in his hand, <span class="verse-num">14</span>and he would thrust it into the pan or kettle or cauldron or pot. All that the fork brought up the priest would take for himself. This is what they did at Shiloh to all the Israelites who came there. <span class="verse-num">15</span>Moreover, before the fat was burned, the priest's servant would come and say to the man who was sacrificing, "Give meat for the priest to roast, for he will not accept boiled meat from you but only raw." <span class="verse-num">16</span>And if the man said to him, "Let them burn the fat first, and then take as much as you wish," he would say, "No, you must give it now, and if not, I will take it by force." <span class="verse-num">17</span>Thus the sin of the young men was very great in the sight of the Lord, for the men treated the offering of the Lord with contempt.
+      </div>
+    </div>
+
+    <p>These are not small sins. Hophni and Phinehas were stealing from the sacrifices — taking by force what was consecrated to God. And they were sleeping with women who served at the entrance to the tent of meeting (2:22). They had turned the worship of Israel into a vehicle for their own appetite. And they did it in their father's house, under his nose, while he was high priest.</p>
+
+    <h2>Eli Knew</h2>
+
+    <div class="passage-block">
+      <div class="passage-title">1 Samuel 2:22–25 · ESV</div>
+      <div class="passage-text">
+        <span class="verse-num">22</span>Now Eli was very old, and he kept hearing all that his sons were doing to all Israel, and how they lay with the women who were serving at the entrance to the tent of meeting. <span class="verse-num">23</span>And he said to them, "Why do you do such things? For I hear of your evil dealings from all these people. <span class="verse-num">24</span>No, my sons; it is no good report that I hear the people of the Lord spreading abroad. <span class="verse-num">25</span>If someone sins against a man, God will mediate for him, but if someone sins against the Lord, who can intercede for him?" But they would not listen to the voice of their father...
+      </div>
+    </div>
+
+    <p>This is the moment. Eli spoke to them. He told them it was wrong. He was not ignorant and he was not silent. So what was his failure?</p>
+
+    <div class="eli-block">
+      <div class="eli-label">God's Verdict · 1 Samuel 3:13 · ESV</div>
+      <div class="passage-text">"And I declare to him that I am about to punish his house forever, for the iniquity that he knew, because <strong>his sons were blaspheming God, and he did not restrain them.</strong>"</div>
+      <div class="eli-verdict">"He did not restrain them." Not — he did not know. Not — he did not say anything. He did not restrain them. Words without consequence are not discipline. Talking to your children about their sin is not the same as stopping it.</div>
+    </div>
+
+    <h2>The Outcome</h2>
+    <p>The judgment on Eli's house is one of the most severe in the Old Testament. Both sons died on the same day in battle. The ark of God was captured. Eli himself fell backward from his seat and broke his neck when he heard the news. His daughter-in-law died in childbirth that same day, naming her son Ichabod — "the glory has departed."</p>
+    <p>One man's failure to restrain his sons cost Israel the ark of the covenant. The ripples of a father's passivity run further than he can imagine.</p>
+
+    <h2>The Parallel for Today</h2>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Eli's Pattern</div>
+        <div class="phase-desc">A good man who knew what his children were doing, spoke to them about it — and then did nothing to actually stop it or enforce consequences.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Modern Version</div>
+        <div class="phase-desc">Parents who lecture, negotiate, explain, and plead — but do not discipline. Who talk about behavior endlessly but never change it. Who know and do not act.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">God's Assessment</div>
+        <div class="phase-desc">He "did not restrain them." Not "did not love them." Not "did not try." Did not restrain. The result of the behavior — not the intention — is what Scripture evaluates.</div>
+      </div>
+    </div>
+
+    <p>Eli's sons were adults by the time of 1 Samuel 2. This is not a story about toddlers. It is a story about what happens when a father fails to build the structures of correction, accountability, and consequence into his children while they are young. Children who have never experienced their father's firm hand do not suddenly respond to his words when they are grown.</p>
+
+    <h2>Reflection on the Eli Warning</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Eli knew — he just didn't restrain. Are there areas in your child's life where you know, you've said something, but you haven't actually changed anything?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Eli's sons were already adults before this account. What are you building (or not building) now that will define what your relationship with your child looks like in 15 years?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== WORD STUDY PANEL ===== -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Original Language Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms behind the English translation</div>
+    </div>
+
+    <h2>Hebrew — Old Testament</h2>
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">מוּסָר</div>
+        <div class="ws-transliteration">musar</div>
+        <div class="ws-pos">Hebrew noun · Discipline, Instruction, Correction</div>
+        <div class="ws-definition">The primary Hebrew word for discipline throughout Proverbs. <em>Musar</em> encompasses correction, chastening, moral instruction, and training. It is the word used in Proverbs 1:2, 1:7, 12:1, 13:1, 15:5, and dozens more. It is not merely punishment — it is the whole process of forming a person toward wisdom.</div>
+        <div class="ws-note">A person who receives musar and heeds it becomes wise. A person who despises it is a fool (Prov 15:5). The goal of musar is not compliance — it is character.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">שֵׁבֶט</div>
+        <div class="ws-transliteration">shevet</div>
+        <div class="ws-pos">Hebrew noun · Rod, Staff, Scepter, Tribe</div>
+        <div class="ws-definition">The "rod" of Proverbs. <em>Shevet</em> is the same word used for a shepherd's staff — the tool used to guide, redirect, and protect the flock. It also means a scepter (authority) and is the word for the tribal divisions of Israel. Authority, guidance, and boundary — all packed into one word.</div>
+        <div class="ws-note">The Psalm 23 reference ("your rod and your staff, they comfort me") uses this same word. The rod is not primarily an instrument of pain — it is an instrument of shepherding. This is the model for parental discipline.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">חָנַךְ</div>
+        <div class="ws-transliteration">chanak</div>
+        <div class="ws-pos">Hebrew verb · To Train, Dedicate, Inaugurate</div>
+        <div class="ws-definition">The word behind "train up a child" in Proverbs 22:6. Its root meaning involves dedicating something to its purpose — as a building is dedicated at its inauguration. Used also of the dedication of Solomon's temple (1 Kings 8:63). To <em>chanak</em> a child is to dedicate them to the direction they should go — actively, intentionally, from the beginning.</div>
+        <div class="ws-note">The related noun <em>chanukah</em> (yes, that word) means dedication. The festival celebrates the rededication of the temple. Raising a child in Scripture carries the same weight as consecrating a temple — it is a holy task, requiring deliberate action.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">אִוֶּלֶת</div>
+        <div class="ws-transliteration">ivvelet</div>
+        <div class="ws-pos">Hebrew noun · Folly, Foolishness</div>
+        <div class="ws-definition">The "folly" bound up in a child's heart (Prov 22:15). In Hebrew wisdom literature, folly is not ignorance — it is the active rejection of wisdom, the choice of one's own appetites over God's order. The child does not need to be taught folly. It is already there, bound up, waiting.</div>
+        <div class="ws-note">This is the theological claim underlying all biblical discipline: the child is not a blank slate that parents fill. The child has a nature that tends toward self-will, appetite, and short-sightedness. Formation — not just information — is required to counteract it.</div>
+      </div>
+
+    </div>
+
+    <h2>Greek — New Testament</h2>
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">παιδεία</div>
+        <div class="ws-transliteration">paideia</div>
+        <div class="ws-pos">Greek noun · Training, Discipline, Formation</div>
+        <div class="ws-definition">The word used in Ephesians 6:4 ("the discipline and instruction of the Lord") and throughout Hebrews 12. <em>Paideia</em> is the Greek concept of holistic education — forming the whole person: mind, body, character, habit, and spirit. It is the root of "pedagogy." In Hebrews 12, it is the word for what God himself does to his children.</div>
+        <div class="ws-note">Classical Greek education (paideia) aimed at producing a person of virtue, not merely knowledge. Paul's use of this word in Ephesians 6:4 frames parenting as a civilizational task — forming human beings toward the good.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">νουθεσία</div>
+        <div class="ws-transliteration">nouthesia</div>
+        <div class="ws-pos">Greek noun · Admonishment, Counsel, Warning</div>
+        <div class="ws-definition">The second word in Ephesians 6:4 — paired with paideia. <em>Nouthesia</em> is verbal instruction with a corrective edge. From <em>nous</em> (mind) + <em>tithemi</em> (to place/put). To place something in the mind — specifically a warning, a correction, an appeal to reason and conscience. It is the verbal side of formation.</div>
+        <div class="ws-note">Paideia forms through structure and consequence. Nouthesia forms through teaching, reasoning, and appeal. The complete picture of Ephesians 6:4 requires both: discipline of the body and instruction of the mind — neither alone is sufficient.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">παροργίζω</div>
+        <div class="ws-transliteration">parorgizo</div>
+        <div class="ws-pos">Greek verb · To Provoke, Exasperate, Embitter</div>
+        <div class="ws-definition">The word in Ephesians 6:4 — "do not provoke your children to anger." <em>Parorgizo</em> means to arouse to anger, to exasperate, to push someone past their limit. Paul's instruction is a guardrail: discipline yes, but not in a way that tears down rather than builds up.</div>
+        <div class="ws-note">Colossians 3:21 uses a parallel word (<em>erethizo</em>) — "do not embitter your children, or they will become discouraged." The biblical picture of discipline is not crushing. Its goal is formation; when it produces only bitterness and discouragement, something has gone wrong with the method, not the principle.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== SCRIPTURE PANEL ===== -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages on discipline, formation, and parental responsibility</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Proverbs on Discipline</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Whoever spares the rod hates his son, but he who loves him is diligent to discipline him."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 13:24 · ESV</span><span class="vc-note">Love disciplines; restraint from discipline is hatred in effect</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Discipline your son, for there is hope; do not set your heart on putting him to death."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 19:18 · ESV</span><span class="vc-note">Failure to discipline is a slow sentence — hope lies in correction</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Folly is bound up in the heart of a child, but the rod of discipline drives it far from him."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 22:15 · ESV</span><span class="vc-note">Folly is the default; discipline is the counter-force</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Do not withhold discipline from a child; if you strike him with a rod, he will not die. If you strike him with the rod, you will save his soul from Sheol."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 23:13–14 · ESV</span><span class="vc-note">The stakes are eternal — discipline is a mercy, not a cruelty</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"The rod and reproof give wisdom, but a child left to himself brings shame to his mother."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 29:15 · ESV</span><span class="vc-note">A child left to himself — without structure or consequence — produces shame, not freedom</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Discipline your son, and he will give you rest; he will give delight to your heart."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 29:17 · ESV</span><span class="vc-note">The fruit of consistent discipline: a child who is a delight, not a source of anxiety</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">God as Disciplining Father</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"My son, do not despise the Lord's discipline or be weary of his reproof, for the Lord reproves him whom he loves, as a father the son in whom he delights."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 3:11–12 · ESV</span><span class="vc-note">Discipline is evidence of love and delight — not rejection</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For the Lord disciplines the one he loves, and chastises every son whom he receives... If you are left without discipline... you are illegitimate children and not sons."</div>
+          <div class="vc-footer"><span class="vc-ref">Hebrews 12:6–8 · ESV</span><span class="vc-note">Lack of discipline signals a lack of relationship — not an abundance of grace</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For the moment all discipline seems painful rather than pleasant, but later it yields the peaceful fruit of righteousness to those who have been trained by it."</div>
+          <div class="vc-footer"><span class="vc-ref">Hebrews 12:11 · ESV</span><span class="vc-note">Measure discipline by its fruit, not its feeling</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Father's Charge</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Fathers, do not provoke your children to anger, but bring them up in the discipline and instruction of the Lord."</div>
+          <div class="vc-footer"><span class="vc-ref">Ephesians 6:4 · ESV</span><span class="vc-note">Both guardrails matter: discipline yes; provoking no</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Train up a child in the way he should go; even when he is old he will not depart from it."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 22:6 · ESV</span><span class="vc-note">Formation begun early has lasting effect — the window matters</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Fathers, do not provoke your children, lest they become discouraged."</div>
+          <div class="vc-footer"><span class="vc-ref">Colossians 3:21 · ESV</span><span class="vc-note">Discipline without relationship produces discouragement; the two must be held together</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Eli Warning</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"And I declare to him that I am about to punish his house forever, for the iniquity that he knew, because his sons were blaspheming God, and he did not restrain them."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Samuel 3:13 · ESV</span><span class="vc-note">God's verdict on Eli — not that he didn't know, not that he didn't speak, but that he did not restrain</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STUDY TOOLS PANEL ===== -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Methods and resources for going deeper</div>
+    </div>
+
+    <h2>Proverbs Reading Plan</h2>
+    <div class="method-card">
+      <div class="method-title">The Discipline Passages — Read in Order</div>
+      <ul class="method-steps">
+        <li><span class="step-abbr">Day 1</span>Proverbs 1–4 — the father's voice; musar as the beginning of wisdom</li>
+        <li><span class="step-abbr">Day 2</span>Proverbs 10–15 — the righteous vs. the fool; the wise son vs. the foolish</li>
+        <li><span class="step-abbr">Day 3</span>Proverbs 19–23 — the discipline passages concentrated</li>
+        <li><span class="step-abbr">Day 4</span>Proverbs 29 — the rod, restraint, and the child left to himself</li>
+        <li><span class="step-abbr">Day 5</span>1 Samuel 2–4 — the Eli account in full; read without skipping</li>
+        <li><span class="step-abbr">Day 6</span>Hebrews 12:1–17 — God the Father's discipline; the fruit it produces</li>
+        <li><span class="step-abbr">Day 7</span>Deuteronomy 6:1–9 + Ephesians 6:1–4 — the full picture of the father's task</li>
+      </ul>
+    </div>
+
+    <h2>For Further Study</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-name">Shepherding a Child's Heart</div>
+        <div class="tool-desc">Tedd Tripp. The most thorough biblical treatment of discipline and formation available. Covers every age and stage.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Age of Opportunity</div>
+        <div class="tool-desc">Paul David Tripp. Focused on the teen years — what Eli-style passivity looks like with older children, and how to re-engage.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Give Them Grace</div>
+        <div class="tool-desc">Elyse Fitzpatrick. Discipline in the context of the gospel — correction always pointing toward mercy, not moralism.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Family Driven Faith</div>
+        <div class="tool-desc">Voddie Baucham. The Deuteronomy 6 mandate — parents as the primary spiritual formation agents. Challenging to the church-as-babysitter model.</div>
+      </div>
+    </div>
+
+    <h2>Questions for Honest Self-Assessment</h2>
+    <div class="questions-grid">
+      <div class="q-section">
+        <div class="q-label">On Consistency</div>
+        <ul class="q-list">
+          <li>When I say "if you do that again, there will be a consequence" — do I follow through every time?</li>
+          <li>Do my children know exactly what to expect, or do they probe to find the threshold?</li>
+          <li>Do I negotiate? Do I give "just one more chance" after the line has already been crossed?</li>
+        </ul>
+      </div>
+      <div class="q-section">
+        <div class="q-label">On Emotion</div>
+        <ul class="q-list">
+          <li>Am I disciplining from a place of calm or from anger and frustration?</li>
+          <li>When my child cries or escalates, do I hold the line or capitulate?</li>
+          <li>Whose emotional state am I managing — theirs or mine?</li>
+        </ul>
+      </div>
+      <div class="q-section">
+        <div class="q-label">On the Long Game</div>
+        <ul class="q-list">
+          <li>Am I parenting for today's peace or for my child's character in 15 years?</li>
+          <li>What am I training my child to expect from authority, from God, from the world?</li>
+          <li>What do I want to be true of my child at 25? Am I building toward that now?</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

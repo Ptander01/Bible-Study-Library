@@ -105,8 +105,9 @@ em { color: var(--cream-dim); }
 .ref-list { list-style: none; margin: 16px 0; }
 .ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
 .ref-item:last-child { border-bottom: none; }
-.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); white-space: nowrap; min-width: 140px; padding-top: 2px; }
-.ref-desc { font-size: 14px; color: var(--cream-dim); }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
 
 /* ===== VERSE CARDS ===== */
 .scripture-section { margin: 36px 0; }

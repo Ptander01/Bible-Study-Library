@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suffering & Sovereignty — Bible Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #7a8aaa;
+  --accent-dim:   #3a4a6a;
+  --accent-lt:    #a0aac8;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #0e1020 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── NARRATIVE GRID (Case Studies) ── */
+.narrative-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.narrative-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; position: relative; overflow: hidden; transition: border-color .2s; }
+.narrative-card:hover { border-color: var(--accent-dim); }
+.narrative-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-dim); }
+.narrative-name { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+.narrative-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-bottom: 12px; }
+.narrative-suffering { font-size: 13px; color: #7a8a9a; margin-bottom: 10px; font-style: italic; }
+.narrative-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+
+/* ── LONG SEASON SECTIONS ── */
+.season-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 8px; padding: 28px 32px; margin: 20px 0; }
+.season-title { font-family: var(--font-display); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.season-sub { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.season-body { font-size: 14px; color: var(--cream-dim); line-height: 1.75; }
+.season-body p { margin-bottom: 12px; color: var(--cream-dim); }
+.season-body p:last-child { margin-bottom: 0; }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Standalone Study · Suffering &amp; Faith</div>
+  <div class="header-title">Suffering <span>&amp; Sovereignty</span></div>
+  <div class="header-verse">"And we know that in all things God works for the good of those who love him, who have been called according to his purpose."</div>
+  <div class="header-ref">Romans 8:28 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('sovereignty',this)">Sovereignty</button>
+    <button class="tab-btn" onclick="switchTab('long',this)">Long Seasons</button>
+    <button class="tab-btn" onclick="switchTab('witnesses',this)">Witnesses</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE STUDY ═══════════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Standalone Study · Hard Questions</div>
+      <div class="section-title">Suffering &amp; Sovereignty</div>
+      <div class="section-sub">Why suffering happens, what God is doing in it, and how to survive seasons that don't resolve</div>
+    </div>
+
+    <h2>The Question That Won't Go Away</h2>
+    <p>If God is good and God is all-powerful, why is there suffering? This is not a new question — it is one of the oldest and most honest questions human beings have ever asked. It appears in Job, in the Psalms of lament, in Habakkuk's argument with God, in Paul's thorn in the flesh, in the cry from the cross: "My God, my God, why have you forsaken me?"</p>
+    <p>The Christian faith does not resolve this question with a formula. It addresses it with a Person — who entered suffering, who knows it from the inside, and who makes a set of claims about what suffering is and is not doing. Those claims are worth examining carefully, because the difference between a shallow answer and a true one becomes very important when the suffering is real.</p>
+    <p>This study will not tie everything in a bow. Some of the tension is meant to remain. But there are things that are genuinely true about suffering — things that hold even in the hardest seasons — and those things are worth knowing before the hard season arrives, and worth returning to when it does.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">Before We Start</div>
+      <p style="font-family:var(--font-serif);font-size:17px;font-style:italic;color:var(--cream);margin:0;">If you are in acute suffering right now — grief, crisis, diagnosis, loss — some of this material will be most useful later. The right response to someone in the middle of the ocean is not a lecture on water. It's a hand. This study is for when you have the capacity to think, and for building a foundation before the storm arrives.</p>
+    </div>
+
+    <h2>What Scripture Claims About Suffering</h2>
+    <p>Scripture does not claim that suffering is good. It does not claim that suffering is pleasant, deserved, or evidence of God's absence. It claims something more specific and harder to hold: that God is sovereign over suffering — meaning that nothing happens outside his knowledge, and that he is capable of working through suffering rather than just despite it.</p>
+
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Suffering is real</span><span class="ref-desc">Scripture never minimizes pain. The Psalms are full of raw lament. Job argues with God for 37 chapters. Jesus wept at Lazarus's tomb. Honest grief is not a failure of faith.</span></li>
+      <li class="ref-item"><span class="ref-book">Suffering is not random</span><span class="ref-desc">Not because God causes every bad thing — but because nothing falls outside his sovereignty. Romans 8:28 is a sweeping claim: "in all things God works for good." All things includes the things you would never choose.</span></li>
+      <li class="ref-item"><span class="ref-book">Suffering is not always punishment</span><span class="ref-desc">Job's friends were wrong. Jesus directly addresses this in John 9 — the man was not blind because of sin. The reflexive assumption that suffering means God is angry needs to be named as a theological error.</span></li>
+      <li class="ref-item"><span class="ref-book">Suffering produces something</span><span class="ref-desc">Romans 5:3–4 — suffering produces perseverance, perseverance character, character hope. James 1:3–4 — the testing of faith produces endurance. This is not "look on the bright side." It is a specific claim about the mechanism of spiritual formation.</span></li>
+      <li class="ref-item"><span class="ref-book">Suffering is not the end</span><span class="ref-desc">2 Corinthians 4:17 — "our light and momentary troubles are achieving for us an eternal glory that far outweighs them all." Paul wrote that from prison. The contrast he draws is not between hard things and easy things but between temporary and eternal.</span></li>
+      <li class="ref-item"><span class="ref-book">God is present in it</span><span class="ref-desc">Isaiah 43:2 — "when you pass through the waters, I will be with you." Not: I will prevent the water. Not: I will remove the water quickly. I will be with you in it. This is the consistent biblical promise — presence, not exemption.</span></li>
+    </ul>
+
+    <h2>What We Want vs. What God Offers</h2>
+    <p>Most of us, when suffering, want one of two things: either an explanation (why is this happening?) or a removal (make it stop). God frequently offers neither — at least not on our timeline. What he consistently offers is something we often have to acquire a taste for: <strong>his presence, his purpose, and his promise about the end of the story.</strong></p>
+    <p>This is where the pastoral and the theological meet. The God who is sovereign over your suffering is not distant from it. He is the God who became flesh, who wept, who was abandoned, who died. Hebrews 4:15 — "we do not have a high priest who is unable to empathize with our weaknesses, but we have one who has been tempted in every way, just as we are." When God says "I will be with you in the water" — he is not speaking theoretically. He has been in the water.</p>
+
+    <h2>Things That Don't Help — And Why People Say Them Anyway</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">"Everything happens for a reason"</span><span class="ref-desc">True in a sovereign sense — but weaponized as a conversation-ender when someone needs to be heard, not explained to. It can imply that their pain is tidy and purposeful in a way they should already be able to see. Usually said to relieve the speaker's discomfort.</span></li>
+      <li class="ref-item"><span class="ref-book">"God won't give you more than you can handle"</span><span class="ref-desc">Not a biblical statement (1 Corinthians 10:13 is about temptation, not suffering). And demonstrably false in the lives of many believers — some seasons are more than anyone can handle alone. That's often the point: we are driven to God and each other.</span></li>
+      <li class="ref-item"><span class="ref-book">"Just have more faith"</span><span class="ref-desc">Implies that suffering is a result of insufficient faith. This is Job's-friends theology — Scripture explicitly refutes it. Some of the most faith-filled people in history have suffered most severely.</span></li>
+      <li class="ref-item"><span class="ref-book">"At least…"</span><span class="ref-desc">The reflexive minimization. "At least you have your health / your kids / your faith." Comparative suffering is not comfort. It is dismissal with a kind face.</span></li>
+      <li class="ref-item"><span class="ref-book">"I know exactly how you feel"</span><span class="ref-desc">You don't. You may have experienced something similar. The specifics of another person's grief belong to them. Overidentifying can actually shut down honest sharing because the person now feels obligated to manage your feelings about their pain.</span></li>
+    </ul>
+
+    <h2>What Actually Helps</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Presence without explanation</span><span class="ref-desc">Job's friends did their best work in Job 2:13 — they sat with him for seven days and said nothing. It went downhill when they opened their mouths. Sometimes the most faithful thing is to be there, without a script.</span></li>
+      <li class="ref-item"><span class="ref-book">Honest lament</span><span class="ref-desc">Bringing the actual pain to God — not the sanitized version. Psalm 88 ends without resolution: "darkness is my closest friend." That is in the Bible. God can handle your honest grief.</span></li>
+      <li class="ref-item"><span class="ref-book">The community of sufferers</span><span class="ref-desc">2 Corinthians 1:4 — God comforts us in our troubles "so that we can comfort those in any trouble with the comfort we ourselves receive from God." Suffering shared with people who have also suffered carries a particular weight. Find those people.</span></li>
+      <li class="ref-item"><span class="ref-book">Small faithful acts</span><span class="ref-desc">In a long hard season, grand gestures are rare. What sustains is small faithful practices — prayer when you don't feel like it, gathering with God's people when it costs something, Scripture even when it doesn't immediately help. The discipline is the thing, not the feeling.</span></li>
+      <li class="ref-item"><span class="ref-book">The long view</span><span class="ref-desc">Not denial of the present, but genuine orientation toward what Scripture says is coming. 2 Corinthians 4:18 — "we fix our eyes not on what is seen, but on what is unseen, since what is seen is temporary, but what is unseen is eternal." This is a practice, not a platitude.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">What has been the hardest season of suffering in your life? Looking back, what — if anything — do you see God doing in it that you couldn't see at the time?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Which unhelpful response to suffering have you received most often? Which have you been most guilty of giving?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Romans 8:28 says God works "all things" for good. Is there a situation in your life right now where you genuinely struggle to believe that? Name it honestly.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">God offers presence rather than explanation. Honestly — is that enough for you right now? What would it look like to receive presence as enough?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Why do you think the question of suffering is so central to honest faith — and why do churches often avoid it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Job's friends were wrong, but they showed up and sat with him. In your experience, what does it look like to be present with someone suffering without offering explanations?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Have you experienced suffering that felt like it was forming something in you? What did that feel like from the inside — versus what it looks like in retrospect?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The cross is God's answer to the problem of suffering — not an explanation, but an entry. Does that actually help you? Why or why not?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Who in your community is in a long, hard season right now? What does faithfulness to them look like — practically, specifically?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">2 Corinthians 4:17 describes suffering as "light and momentary." Paul wrote from prison. Does that framing feel honest, or does it feel dismissive of real pain? How do you hold those together?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you."</div>
+      <div class="verse-ref">Isaiah 43:2 · NIV</div>
+      <div class="prayer-instruction">He does not say the water will not come. He says he will be in it with you. That is the promise.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SOVEREIGNTY ═══════════ -->
+<div class="panel" id="panel-sovereignty">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Theological Foundation</div>
+      <div class="section-title">Sovereignty</div>
+      <div class="section-sub">What it means that God is in control — and what it doesn't mean</div>
+    </div>
+
+    <h2>What Sovereignty Actually Claims</h2>
+    <p>The sovereignty of God is the claim that God is the ultimate authority over all things — that nothing occurs outside his knowledge or outside his capacity to use. It does not claim that God micromanages every particle of the universe. It does not claim that God causes every evil. It claims that <strong>no evil is outside his reach, and nothing happens that he cannot redeem.</strong></p>
+    <p>This distinction matters. Scripture presents a world in which genuine evil exists — evil that God opposes, that grieves him, that he will ultimately judge. It also presents a God who is not surprised by that evil, not defeated by it, and fully capable of working through it toward ends that no human could have designed. Joseph in Genesis 50:20 is the clearest expression of this: "You intended to harm me, but God intended it for good."</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"You intended to harm me, but God intended it for good to accomplish what is now being done, the saving of many lives."</div>
+      <div class="verse-ref">Genesis 50:20 · NIV</div>
+    </div>
+
+    <h2>The Three Frameworks — What Causes Suffering?</h2>
+
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">The Fall</span><span class="ref-desc">Genesis 3 — when sin entered the world, so did death, disease, pain, and brokenness. Much suffering is simply a consequence of living in a broken world. Cancer, earthquakes, aging — these are not specific punishments but general consequences of a world under the curse. Romans 8:22 — "the whole creation has been groaning."</span></li>
+      <li class="ref-item"><span class="ref-book">Human Choice</span><span class="ref-desc">Much suffering is caused by the choices of people — violence, injustice, abandonment, abuse. God gave human beings genuine freedom, and genuine freedom includes the capacity to genuinely harm. This is not God's failure. It is the cost of love that is not coerced.</span></li>
+      <li class="ref-item"><span class="ref-book">Spiritual Opposition</span><span class="ref-desc">Job 1–2 makes clear that an adversary operates in the world, with limited but real permission to afflict. Suffering is not always natural or human in origin. Ephesians 6 addresses this — there is a battle, and some suffering is part of it.</span></li>
+      <li class="ref-item"><span class="ref-book">Formative Purpose</span><span class="ref-desc">Sometimes — not always, but sometimes — God allows suffering for specific formative purposes. Paul's thorn in 2 Corinthians 12, the testing of Abraham, the wilderness period of Israel. Not every suffering has this category, but this category is real.</span></li>
+      <li class="ref-item"><span class="ref-book">Mystery</span><span class="ref-desc">Job never receives an explanation for his suffering. God's answer to Job is not a theological treatise — it is a series of questions about the nature of God and creation. Sometimes the honest answer is: we don't know. Holding that humbly is not a failure of faith.</span></li>
+    </ul>
+
+    <h2>The Cross as God's Answer</h2>
+    <p>The most important theological statement about suffering is not a proposition. It is an event. God, in the person of Jesus Christ, entered human suffering — not to observe it from a distance but to absorb it from the inside. The cross is God's answer to the problem of evil: not an explanation, but a participation.</p>
+    <p>This means that when God asks you to trust him in suffering, he is not asking you to trust a God who stands outside pain and speaks about it theoretically. He is asking you to trust a God who has been abandoned, tortured, and killed — and who came out the other side. The resurrection is not the denial of the cross. It is the claim that the cross did not have the last word. And that promise extends to every suffering that comes after it.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Reformed Tension</div>
+      <p>Holding God's sovereignty and human responsibility together is genuinely difficult. Both are true. God is sovereign over all things — including suffering. Human beings make real choices with real consequences. Evil is genuinely evil, not secretly good. These truths create tension that cannot be fully resolved this side of eternity. The appropriate response is not to resolve the tension artificially by emphasizing only one pole, but to hold all three with honest humility.</p>
+    </div>
+
+    <h2>Romans 8:28 — The Most Misquoted Verse in Scripture</h2>
+    <p>Romans 8:28 does not say: "everything that happens is good." It says: "in all things God works for the good of those who love him." The distinction is enormous. Bad things are still bad. Loss is still loss. Grief is still grief. What the verse claims is that God is at work — actively, purposefully — even within and through those bad things. The mechanism is not explained. The claim is made.</p>
+    <p>It also has a condition: "those who love him, who have been called according to his purpose." This is not a promise for everyone in all circumstances. It is a promise to those who are in covenant relationship with God. And the "good" it refers to is defined in verse 29: conformity to the image of Christ. The good God is working toward is your transformation, not your comfort. Those are sometimes the same thing. They are often not.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For those God foreknew he also predestined to be conformed to the image of his Son, that he might be the firstborn among many brothers and sisters."</div>
+      <div class="verse-ref">Romans 8:29 · NIV</div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the five frameworks for suffering (the Fall, human choice, spiritual opposition, formative purpose, mystery) best explains the hardest suffering you've faced? Does it help to have a framework — or does it feel inadequate?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The cross is God's entry into suffering, not just his comment on it. Does that actually change how you think about your own suffering? Why or why not?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ LONG SEASONS ═══════════ -->
+<div class="panel" id="panel-long">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Pastoral Guide</div>
+      <div class="section-title">Long Seasons</div>
+      <div class="section-sub">Chronic illness, chronic pain, depression, disability — when the hard thing doesn't resolve</div>
+    </div>
+
+    <p>Most teaching on suffering is oriented toward acute crisis — the sudden loss, the diagnosis, the tragedy. The pastoral literature, the sermons, the comfort — much of it assumes that the suffering has an end, or that the end is near enough to be visible. It addresses the person in the storm, not the person who has been living in the storm for five years.</p>
+    <p>Long-season suffering is a different animal. It is not more heroic or more tragic than acute suffering — it is simply different in kind. It requires a different posture, different practices, and a different set of honest questions. What follows is written for people who know what it is to wake up every morning into the same hard thing.</p>
+
+    <div class="season-block">
+      <div class="season-title">Chronic Illness &amp; Chronic Pain</div>
+      <div class="season-sub">When the body will not cooperate and the timeline is indefinite</div>
+      <div class="season-body">
+        <p>Chronic illness does not just affect the body. It affects identity, relationships, vocation, and faith. The person who was active, capable, and engaged may find themselves unable to sustain what they used to sustain — and with it, may lose how they understood themselves.</p>
+        <p>Paul's thorn in 2 Corinthians 12 is the most direct biblical engagement with this kind of suffering. He asked for it to be removed three times. God said no — and gave a reason: "My grace is sufficient for you, for my power is made perfect in weakness." This is not a comfortable answer. It is a true one. The grace that is sufficient for chronic suffering is not the grace that removes the suffering. It is the grace that sustains you inside it.</p>
+        <p>Practically: chronic illness demands ruthless honesty about capacity. It requires grief — real grief over what is lost. It often requires redefining what faithfulness looks like on bad days, moderate days, and the rare good days. What you can offer God on your worst day is still an offering.</p>
+        <p>The theological danger in chronic illness is that the body's limitation begins to feel like God's abandonment. It is not. The God who was present in Paul's unresolved thorn is present in yours. His silence about the timeline is not absence — it is the silence of a God who sees a longer story than you can.</p>
+      </div>
+    </div>
+
+    <div class="season-block">
+      <div class="season-title">Depression</div>
+      <div class="season-sub">When the darkness does not lift and faith feels like a cognitive exercise</div>
+      <div class="season-body">
+        <p>Depression is not the same as sadness. It is not a lack of faith. It is not something that prayer alone will always resolve — and saying so to someone in the middle of clinical depression can do real damage. Elijah in 1 Kings 19 collapsed under a tree and asked God to let him die. God's response was not a theological lecture. It was food, water, and sleep. The angel touched him twice — "the journey is too much for you." God met him in his physical exhaustion before he met him in his spiritual crisis.</p>
+        <p>This matters: God is not embarrassed by the body. Depression has physiological dimensions, and treating those dimensions — including medication — is not a failure of faith. Neither is therapy. These are tools, not substitutes for God; but a God who uses a burning bush, a pillar of cloud, and a still small voice is not opposed to using medicine and counselors.</p>
+        <p>What depression does to faith is make the practices of faith feel hollow. Prayer feels performative. Scripture doesn't land. Worship feels like going through motions. This is not evidence that God is absent. It is evidence that the brain is sick. The practices maintained in depression — even when they produce no feeling — are acts of extraordinary faithfulness. God honors them even when you cannot feel that he does.</p>
+        <p>The Psalms of lament are permission. Psalm 88 is the darkest psalm in the collection — it ends with "darkness is my closest friend." No resolution. No uplift. Just honest darkness, addressed to God. That is in your Bible. You are allowed to be in Psalm 88. You are not required to perform Psalm 103.</p>
+      </div>
+    </div>
+
+    <div class="season-block">
+      <div class="season-title">Disability</div>
+      <div class="season-sub">When the limitation is permanent and the life you imagined is not the life you have</div>
+      <div class="season-body">
+        <p>Disability — whether present from birth or acquired — raises questions about identity, purpose, and God's design that require honest engagement rather than easy answers. Jesus's words in John 9 are important here: when asked whose sin caused the man's blindness, Jesus said neither his nor his parents' — "but this happened so that the works of God might be displayed in him." That is a purpose statement, not a consolation prize.</p>
+        <p>The theology of the body in Scripture holds that human beings are embodied creatures — the resurrection is bodily, not merely spiritual. This means disability is real, not illusory, not a lesson to be outgrown. And it means that the full restoration promised at the resurrection includes bodies. Whatever limitation exists now is not the final word.</p>
+        <p>The community question for disability is significant: churches often do better at talking about disability than including the disabled. Genuine inclusion — access, belonging, contribution — requires more than good intentions. It requires structural attention. The body of Christ is impoverished when members are present but not participating.</p>
+        <p>For the person living with disability: your limitation does not define your capacity in God's kingdom. Moses stuttered. Paul had a thorn. Joni Eareckson Tada has ministered to more people from a wheelchair than most people reach in a fully mobile lifetime. God is not constrained by what constrains you.</p>
+      </div>
+    </div>
+
+    <div class="season-block">
+      <div class="season-title">Practices for the Long Haul</div>
+      <div class="season-sub">What actually sustains faith over years, not days</div>
+      <div class="season-body">
+        <p><strong>Lower the floor, not the ceiling.</strong> What can you do on your worst day? That becomes the floor of your practice. Not the ceiling — the floor. The ceiling can be higher on good days. But sustainable faithfulness is built on what you can do when things are hard, not what you can do when things are good.</p>
+        <p><strong>Grieve honestly and repeatedly.</strong> Long-season suffering involves recurring grief — grief at what is lost, grief at what cannot be, grief that others experience things that are unavailable to you. This grief is not a sign that you have lost faith. It is a sign that you are honest. Give it to God regularly, specifically, and without the performance of resolution.</p>
+        <p><strong>Find your people.</strong> 2 Corinthians 1:4 says God comforts us so we can comfort others with the same comfort. Find people who are in a similar situation — not to wallow, but to be known by people who understand what you don't have to explain. Online communities can serve this function for conditions that are rare or isolating.</p>
+        <p><strong>Let others carry you.</strong> Mark 2 — four friends carry the paralyzed man to Jesus. The man could not get there himself. His friends got him there. There are seasons when your faith is mostly borrowed from the people around you. That is not weakness. That is community functioning as designed.</p>
+        <p><strong>Hold the promises without demanding the timeline.</strong> The promises of Scripture about healing, restoration, and resurrection are real. But they are not always on your preferred schedule. Holding a promise with open hands — trusting it without demanding when — is one of the most mature postures in the Christian life. It takes years to develop.</p>
+      </div>
+    </div>
+
+    <div class="verse-block">
+      <div class="verse-text">"But he said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.' Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me."</div>
+      <div class="verse-ref">2 Corinthians 12:9 · NIV</div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">If you are in a long season right now, what is the specific thing that is hardest — not the situation itself, but what it has cost you or taken from you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What does faithfulness look like on your worst day? Have you actually defined that — or are you measuring yourself against a standard that only applies on good days?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Who are the people carrying you right now? Have you let them? Is there something you need to ask for and haven't?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WITNESSES ═══════════ -->
+<div class="panel" id="panel-witnesses">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Biblical Case Studies</div>
+      <div class="section-title">Witnesses</div>
+      <div class="section-sub">People in Scripture who suffered — what they did and what God did with it</div>
+    </div>
+
+    <p>These are not inspirational stories. They are honest accounts of people who suffered, who sometimes failed in their suffering, and through whom God worked anyway. The point is not "look how well they handled it" — it is "look what God can do with it."</p>
+
+    <div class="narrative-grid">
+      <div class="narrative-card">
+        <div class="narrative-name">Job</div>
+        <div class="narrative-ref">Job 1–42</div>
+        <div class="narrative-suffering">Total loss — family, wealth, health — with no explanation</div>
+        <div class="narrative-desc">Job argues with God for 37 chapters. He does not accept the easy answers his friends offer. He demands an audience with God and gets one — not an explanation, but an encounter. He is restored, but never given a reason for the suffering. His friends, who offered tidy theology, are rebuked. Job, who argued honestly, is vindicated.</div>
+      </div>
+      <div class="narrative-card">
+        <div class="narrative-name">Joseph</div>
+        <div class="narrative-ref">Genesis 37–50</div>
+        <div class="narrative-suffering">Betrayal by family, slavery, false accusation, imprisonment — 13 years</div>
+        <div class="narrative-desc">Joseph's story is the clearest example of sovereign purpose through suffering. He does not know the end of the story while he is in the pit or the prison. He is faithful in each context he occupies. The suffering was not wasted — it was the mechanism of the very outcome God intended. Genesis 50:20 is the commentary.</div>
+      </div>
+      <div class="narrative-card">
+        <div class="narrative-name">Hannah</div>
+        <div class="narrative-ref">1 Samuel 1</div>
+        <div class="narrative-suffering">Infertility and sustained public humiliation</div>
+        <div class="narrative-desc">Hannah's suffering was both physical (barrenness) and social (Peninnah's provocation). She brought it to God in raw, honest, ugly prayer — so raw that Eli thought she was drunk. God heard. But notice: she waited years. The answer was not immediate. Her faithfulness in the waiting is as significant as the answer.</div>
+      </div>
+      <div class="narrative-card">
+        <div class="narrative-name">Elijah</div>
+        <div class="narrative-ref">1 Kings 19</div>
+        <div class="narrative-suffering">Burnout and suicidal ideation after his greatest victory</div>
+        <div class="narrative-desc">The prophet who called down fire from heaven collapsed under a broom tree and asked God to take his life. God's response: food, water, sleep — and then a gentle question: "What are you doing here, Elijah?" Not rebuke. Not lecture. Physical care first. Then presence. Then purpose renewed.</div>
+      </div>
+      <div class="narrative-card">
+        <div class="narrative-name">Paul</div>
+        <div class="narrative-ref">2 Cor. 11–12; Phil. 4</div>
+        <div class="narrative-suffering">Imprisonments, beatings, shipwrecks, and an unhealed thorn</div>
+        <div class="narrative-desc">Paul's catalog of suffering in 2 Corinthians 11 is staggering. He adds to it the thorn he prayed to have removed three times, which God declined to remove. His conclusion: "I have learned, in whatever state I am, to be content." Contentment was learned — through years of practice in hard circumstances.</div>
+      </div>
+      <div class="narrative-card">
+        <div class="narrative-name">The Psalmists</div>
+        <div class="narrative-ref">Ps. 22, 42, 88</div>
+        <div class="narrative-suffering">Abandonment, despair, unresolved darkness</div>
+        <div class="narrative-desc">The Psalms of lament give language to suffering that refuses to be tidy. Psalm 88 ends with darkness as the closest companion — no resolution, no uplift. These prayers are in Scripture because God honors honest grief addressed to him. You are not required to arrive at peace before your prayer is acceptable.</div>
+      </div>
+    </div>
+
+    <div class="callout accent">
+      <div class="callout-label">The Pattern</div>
+      <p>Across these accounts, several things appear consistently: <strong>God does not always remove the suffering.</strong> He is consistently present within it. The person who brings their suffering honestly to God — however ugly the prayer — is consistently met. And the suffering is rarely wasted: it is worked into something larger than the sufferer could see from inside it.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Key Passages</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">The biblical witness on suffering — organized by theme</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Sovereignty &amp; Purpose</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"And we know that in all things God works for the good of those who love him, who have been called according to his purpose."</div><div class="vc-footer"><span class="vc-ref">Romans 8:28 · NIV</span><span class="vc-note">Not that all things are good — that God works through all things</span></div></div>
+        <div class="verse-card"><div class="vc-text">"You intended to harm me, but God intended it for good to accomplish what is now being done, the saving of many lives."</div><div class="vc-footer"><span class="vc-ref">Genesis 50:20 · NIV</span><span class="vc-note">Joseph's retrospective — sovereign purpose through human evil</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds, because you know that the testing of your faith produces perseverance."</div><div class="vc-footer"><span class="vc-ref">James 1:2–3 · NIV</span><span class="vc-note">Joy is not denial — it is orientation toward what the trial produces</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Presence &amp; Comfort</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you."</div><div class="vc-footer"><span class="vc-ref">Isaiah 43:2 · NIV</span><span class="vc-note">Presence, not exemption — he will be with you in it</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort, who comforts us in all our troubles, so that we can comfort those in any trouble."</div><div class="vc-footer"><span class="vc-ref">2 Corinthians 1:3–4 · NIV</span><span class="vc-note">Comfort received becomes comfort given — the community of sufferers</span></div></div>
+        <div class="verse-card"><div class="vc-text">"We do not have a high priest who is unable to empathize with our weaknesses, but we have one who has been tempted in every way, just as we are — yet he did not sin."</div><div class="vc-footer"><span class="vc-ref">Hebrews 4:15 · NIV</span><span class="vc-note">He knows suffering from the inside — not theoretically</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Lament &amp; Honest Prayer</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"My God, my God, why have you forsaken me? Why are you so far from saving me, so far from my cries of anguish?"</div><div class="vc-footer"><span class="vc-ref">Psalm 22:1 · NIV</span><span class="vc-note">Jesus prayed this from the cross — lament is not faithlessness</span></div></div>
+        <div class="verse-card"><div class="vc-text">"You have taken from me friend and neighbor — darkness is my closest friend."</div><div class="vc-footer"><span class="vc-ref">Psalm 88:18 · NIV</span><span class="vc-note">The darkest psalm — no resolution, just honest darkness addressed to God</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Cast all your anxiety on him because he cares for you."</div><div class="vc-footer"><span class="vc-ref">1 Peter 5:7 · NIV</span><span class="vc-note">Cast — not politely mention. Throw it at him.</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Long View</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"For our light and momentary troubles are achieving for us an eternal glory that far outweighs them all. So we fix our eyes not on what is seen, but on what is unseen."</div><div class="vc-footer"><span class="vc-ref">2 Corinthians 4:17–18 · NIV</span><span class="vc-note">Written from prison — the eternal contrast is not denial, it is orientation</span></div></div>
+        <div class="verse-card"><div class="vc-text">"He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain, for the old order of things has passed away."</div><div class="vc-footer"><span class="vc-ref">Revelation 21:4 · NIV</span><span class="vc-note">The promise at the end of the story — not an escape from history but its redemption</span></div></div>
+        <div class="verse-card"><div class="vc-text">"But he said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.'"</div><div class="vc-footer"><span class="vc-ref">2 Corinthians 12:9 · NIV</span><span class="vc-note">God's answer to Paul's repeated request for healing</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WORD STUDY ═══════════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Greek &amp; Hebrew Word Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms in the theology of suffering — what the original languages reveal</div>
+    </div>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">θλῖψις</div>
+        <div class="ws-transliteration">thlipsis</div>
+        <div class="ws-pos">Greek noun · "tribulation / pressure / affliction"</div>
+        <div class="ws-definition">The primary New Testament word for the suffering that comes from external pressure — the root image is of pressing olives or grapes, of being squeezed. It appears in Romans 5:3 ("we also glory in our sufferings"), Romans 8:35, and throughout Revelation. It is not random difficulty — it is the specific pressure that comes from living in a world at odds with the kingdom of God.</div>
+        <div class="ws-note">Paul uses thlipsis in 2 Corinthians 4:17 alongside another image: "being pressed on every side, yet not crushed." The pressing produces something — that is the point. Olives must be pressed to produce oil. The image is not accident.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ὑπομονή</div>
+        <div class="ws-transliteration">hypomonē</div>
+        <div class="ws-pos">Greek noun · "patient endurance / steadfastness"</div>
+        <div class="ws-definition">From <em>hypo</em> (under) + <em>menō</em> (remain). Literally: remaining under the weight rather than fleeing from it. James 1:3 says the testing of faith produces hypomonē. Romans 5:3–4 says thlipsis produces hypomonē, which produces character. It is not passive resignation — it is active faithfulness that refuses to quit.</div>
+        <div class="ws-note">The word is used in Hebrews 12:1 — "let us run with endurance (hypomonē) the race set before us." The image is an athlete who keeps running not because the race is easy but because the finish line is real.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">אָנִי</div>
+        <div class="ws-transliteration">ani</div>
+        <div class="ws-pos">Hebrew adjective/noun · "afflicted / poor / humble"</div>
+        <div class="ws-definition">Used throughout the Psalms and Prophets to describe the person in need — the lowly, the suffering, the poor in spirit. God's consistent orientation toward the <em>ani</em> is one of the central claims of the Old Testament: Psalm 34:18 — "The Lord is close to the brokenhearted and saves those who are crushed in spirit." The suffering person is not beneath God's notice — they are the specific object of his attention.</div>
+        <div class="ws-note">The same root produces <em>anawah</em> — humility. In Hebrew thought, the experience of suffering and the posture of humility are deeply connected. Those who have been brought low by suffering often carry a particular kind of wisdom and dependence that the comfortable do not.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">παράκλησις</div>
+        <div class="ws-transliteration">paraklēsis</div>
+        <div class="ws-pos">Greek noun · "comfort / consolation / encouragement"</div>
+        <div class="ws-definition">From <em>para</em> (alongside) + <em>kaleō</em> (call). Literally "called alongside." The same root as <em>Paraklete</em> — the Helper, the Holy Spirit. God's comfort in suffering is not the removal of the suffering — it is a person called to stand alongside you in it. 2 Corinthians 1:3–4 is built on this word: God is the God of all paraklēsis.</div>
+        <div class="ws-note">The comfort God gives is not a feeling of pleasantness — it is the presence of the one who comes alongside. When you feel comforted in suffering, you are experiencing what the Holy Spirit is specifically designed to provide.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">קִינָה</div>
+        <div class="ws-transliteration">qinah</div>
+        <div class="ws-pos">Hebrew noun · "lamentation / dirge"</div>
+        <div class="ws-definition">The word for the distinctive rhythm of Hebrew lament poetry — characterized by a 3+2 beat that creates a falling, limping effect. The Book of Lamentations is written entirely in qinah meter. The form itself communicates: this is a limping grief, not a resolved one. Honest mourning has its own rhythm, and God gave Israel a poetic form for it.</div>
+        <div class="ws-note">The existence of a specific literary form for lament in the biblical tradition is significant. Grief is not an accident or a deviation — it is so anticipated by God that he gave his people a specific artistic genre for expressing it.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">σκόλοψ</div>
+        <div class="ws-transliteration">skolops</div>
+        <div class="ws-pos">Greek noun · "thorn / stake"</div>
+        <div class="ws-definition">Used once in the New Testament — 2 Corinthians 12:7, Paul's thorn in the flesh. The word can refer to anything from a splinter to a sharpened stake. Its identity is intentionally obscure — Paul does not specify what it is, which means every reader who suffers from something unhealed can identify with it. God's answer to the thorn was not removal but sufficient grace.</div>
+        <div class="ws-note">The fact that we don't know what Paul's thorn was may be the point. Your thorn is yours. The answer God gave Paul applies to yours: "my grace is sufficient for you." The specific content of the thorn is less important than the sufficiency of the grace that meets it.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end .panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
