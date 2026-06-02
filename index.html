@@ -418,7 +418,107 @@ body::before {
   .index-grid { grid-template-columns: 1fr; }
 }
 
-/* ── CORE FOUR SECTION ────────────────────────────────── */
+/* ── PARENT SECTIONS ─────────────────────────────────── */
+.parent-section { margin-bottom: 24px; }
+.parent-header {
+  display: flex; align-items: flex-start; gap: 28px;
+  padding: 48px 0 40px;
+  border-top: 1px solid var(--border-lt);
+  margin-bottom: 8px;
+}
+.parent-section:first-of-type .parent-header { border-top: none; padding-top: 0; }
+.parent-number {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 88px); font-weight: 700;
+  color: var(--border-lt); line-height: 1; flex-shrink: 0;
+  letter-spacing: -2px; margin-top: -8px; user-select: none;
+}
+.parent-header-text { flex: 1; }
+.parent-eyebrow {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 8px;
+}
+.parent-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 44px); font-weight: 700; letter-spacing: 3px;
+  color: var(--cream); line-height: 1.05; margin-bottom: 12px;
+}
+.parent-desc {
+  font-family: var(--font-body);
+  font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 600px;
+}
+@media (max-width: 600px) {
+  .parent-header { gap: 18px; padding: 36px 0 28px; }
+  .parent-number { font-size: 52px; }
+  .parent-title { font-size: 28px; }
+}
+
+/* ── SCROLL-IN ANIMATION ─────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal.visible {
+  animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+
+/* ── STAT COUNT-UP ───────────────────────────────────── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.lib-stat-n { animation: countUp .6s .3s both; }
+
+/* ── CARD GLOW ON HOVER ──────────────────────────────── */
+.study-card {
+  --glow-color: var(--card-accent, var(--accent));
+}
+.study-card:hover {
+  border-color: var(--border-lt);
+  background: var(--surface-2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--glow-color) 30%, transparent),
+              0 0 0 1px color-mix(in srgb, var(--glow-color) 18%, transparent);
+}
+.fp-card:hover {
+  box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--card-accent, var(--accent)) 25%, transparent);
+}
+.c4-card:hover {
+  box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--card-accent, var(--accent)) 25%, transparent);
+}
+.series-card:hover {
+  box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--card-accent, var(--accent)) 25%, transparent);
+}
+
+/* ── HERO VERSE ──────────────────────────────────────── */
+.lib-hero-verse {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 2vw, 19px);
+  font-style: italic;
+  color: var(--cream-dim);
+  max-width: 560px;
+  margin: 0 auto 44px;
+  line-height: 1.7;
+  opacity: .75;
+}
+.lib-hero-verse-ref {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-top: 8px;
+  font-style: normal;
+}
+
+
 .c4-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -499,6 +599,10 @@ body::before {
   <div class="lib-title">Bible Studies</div>
   <div class="lib-title-sub">A Growing Library</div>
   <p class="lib-desc">Interactive study guides for personal devotion, small group discussion, class preparation, and guided conversations with seekers.</p>
+  <div class="lib-hero-verse">
+    "Your word is a lamp to my feet and a light to my path."
+    <span class="lib-hero-verse-ref">Psalm 119:105</span>
+  </div>
   <div class="lib-stats">
     <div class="lib-stat">
       <span class="lib-stat-n">10</span>
@@ -509,7 +613,7 @@ body::before {
       <span class="lib-stat-l">Core Four</span>
     </div>
     <div class="lib-stat">
-      <span class="lib-stat-n">21+</span>
+      <span class="lib-stat-n">23+</span>
       <span class="lib-stat-l">Resource Studies</span>
     </div>
     <div class="lib-stat">
@@ -522,7 +626,20 @@ body::before {
 <!-- ═══════════════════════════════════ MAIN -->
 <main class="library-body">
 
-  <!-- ══ FIRST PRINCIPLES ═══════════════════════════ -->
+<!-- ╔═══════════════════════════════════════════════════════╗ -->
+<!-- ║  PARENT 1 · FOUNDATIONS                              ║ -->
+<!-- ╚═══════════════════════════════════════════════════════╝ -->
+<div class="parent-section">
+  <div class="parent-header">
+    <div class="parent-number">I</div>
+    <div class="parent-header-text">
+      <div class="parent-eyebrow">Where Everything Begins</div>
+      <div class="parent-title">Foundations</div>
+      <div class="parent-desc">The bedrock — who God is, who you are, and what the faith actually requires. Studies in this section answer the most fundamental questions before moving into the life of discipleship.</div>
+    </div>
+  </div>
+
+  <!-- ── First Principles ── -->
   <section class="lib-section">
     <div class="lib-section-head">
       <div>
@@ -532,145 +649,91 @@ body::before {
       </div>
       <div class="lib-section-badge">◎ Guide Mode Included</div>
     </div>
-
     <div class="fp-grid">
-
       <a href="first-principles/seeking-god.html" class="fp-card" data-num="01" style="--card-accent:#a89880;">
         <div class="fp-card-num">Study 01 · Optional Opener</div>
         <div class="fp-card-title">Seeking God</div>
         <div class="fp-card-verse">"Draw near to God, and he will draw near to you."</div>
         <div class="fp-card-ref">James 4:8</div>
-        <div class="fp-card-words">
-          <span class="fp-word">darash</span>
-          <span class="fp-word">baqash</span>
-          <span class="fp-word">zēteō</span>
-          <span class="fp-word">levav</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">darash</span><span class="fp-word">baqash</span><span class="fp-word">zēteō</span><span class="fp-word">levav</span></div>
         <div class="fp-card-status complete">Complete</div>
       </a>
-
       <a href="first-principles/word-of-god.html" class="fp-card" data-num="02" style="--card-accent:#c9a84c;">
         <div class="fp-card-num">Study 02 · Scripture</div>
         <div class="fp-card-title">The Word of God</div>
         <div class="fp-card-verse">"All Scripture is breathed out by God and profitable..."</div>
         <div class="fp-card-ref">2 Timothy 3:16</div>
-        <div class="fp-card-words">
-          <span class="fp-word">theopneustos</span>
-          <span class="fp-word">graphē</span>
-          <span class="fp-word">dabar</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">theopneustos</span><span class="fp-word">graphē</span><span class="fp-word">dabar</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/discipleship.html" class="fp-card" data-num="03" style="--card-accent:#4a8a8a;">
         <div class="fp-card-num">Study 03 · Commitment</div>
         <div class="fp-card-title">Discipleship</div>
         <div class="fp-card-verse">"If anyone would come after me, let him deny himself and take up his cross and follow me."</div>
         <div class="fp-card-ref">Luke 9:23</div>
-        <div class="fp-card-words">
-          <span class="fp-word">mathētēs</span>
-          <span class="fp-word">akoloutheō</span>
-          <span class="fp-word">arneomai</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">mathētēs</span><span class="fp-word">akoloutheō</span><span class="fp-word">arneomai</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/sin.html" class="fp-card" data-num="04" style="--card-accent:#7a7a8a;">
         <div class="fp-card-num">Study 04 · Personal Examination</div>
         <div class="fp-card-title">Sin</div>
         <div class="fp-card-verse">"For all have sinned and fall short of the glory of God."</div>
         <div class="fp-card-ref">Romans 3:23</div>
-        <div class="fp-card-words">
-          <span class="fp-word">hamartia</span>
-          <span class="fp-word">paraptōma</span>
-          <span class="fp-word">chata</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">hamartia</span><span class="fp-word">paraptōma</span><span class="fp-word">chata</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/repentance.html" class="fp-card" data-num="05" style="--card-accent:#c47a30;">
         <div class="fp-card-num">Study 05 · The 180° Turn</div>
         <div class="fp-card-title">Repentance</div>
         <div class="fp-card-verse">"Repent therefore, and turn back, that your sins may be blotted out."</div>
         <div class="fp-card-ref">Acts 3:19</div>
-        <div class="fp-card-words">
-          <span class="fp-word">metanoia</span>
-          <span class="fp-word">epistrephō</span>
-          <span class="fp-word">shuv</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">metanoia</span><span class="fp-word">epistrephō</span><span class="fp-word">shuv</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/the-cross.html" class="fp-card" data-num="06" style="--card-accent:#9a3a3a;">
         <div class="fp-card-num">Study 06 · The Center of Everything</div>
         <div class="fp-card-title">The Cross</div>
         <div class="fp-card-verse">"But God shows his love for us in that while we were still sinners, Christ died for us."</div>
         <div class="fp-card-ref">Romans 5:8</div>
-        <div class="fp-card-words">
-          <span class="fp-word">hilastērion</span>
-          <span class="fp-word">lytron</span>
-          <span class="fp-word">kaphar</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">hilastērion</span><span class="fp-word">lytron</span><span class="fp-word">kaphar</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/light-and-darkness.html" class="fp-card" data-num="07" style="--card-accent:#4a6a9a;">
         <div class="fp-card-num">Study 07 · Decision &amp; Baptism</div>
         <div class="fp-card-title">Light &amp; Darkness</div>
         <div class="fp-card-verse">"Whoever believes and is baptized will be saved, but whoever does not believe will be condemned."</div>
         <div class="fp-card-ref">Mark 16:16</div>
-        <div class="fp-card-words">
-          <span class="fp-word">baptizō</span>
-          <span class="fp-word">anagennaō</span>
-          <span class="fp-word">sōzō</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">baptizō</span><span class="fp-word">anagennaō</span><span class="fp-word">sōzō</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/the-church.html" class="fp-card" data-num="08" style="--card-accent:#5a8a5a;">
         <div class="fp-card-num">Study 08 · Body of Christ</div>
         <div class="fp-card-title">The Church</div>
         <div class="fp-card-verse">"And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers."</div>
         <div class="fp-card-ref">Acts 2:42</div>
-        <div class="fp-card-words">
-          <span class="fp-word">ekklēsia</span>
-          <span class="fp-word">koinōnia</span>
-          <span class="fp-word">sōma</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">ekklēsia</span><span class="fp-word">koinōnia</span><span class="fp-word">sōma</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/jesus-is-lord.html" class="fp-card" data-num="09" style="--card-accent:#7a5a9a;">
         <div class="fp-card-num">Study 09 · Lordship Applied</div>
         <div class="fp-card-title">Jesus Is Lord</div>
         <div class="fp-card-verse">"If you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved."</div>
         <div class="fp-card-ref">Romans 10:9</div>
-        <div class="fp-card-words">
-          <span class="fp-word">kyrios</span>
-          <span class="fp-word">exousia</span>
-          <span class="fp-word">hypakoē</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">kyrios</span><span class="fp-word">exousia</span><span class="fp-word">hypakoē</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
       <a href="first-principles/counting-the-cost.html" class="fp-card" data-num="10" style="--card-accent:#b89a50;">
         <div class="fp-card-num">Study 10 · Lifelong Commitment</div>
         <div class="fp-card-title">Counting the Cost</div>
         <div class="fp-card-verse">"For which of you, desiring to build a tower, does not first sit down and count the cost?"</div>
         <div class="fp-card-ref">Luke 14:28</div>
-        <div class="fp-card-words">
-          <span class="fp-word">psēphizō</span>
-          <span class="fp-word">thēsauros</span>
-          <span class="fp-word">teleō</span>
-        </div>
+        <div class="fp-card-words"><span class="fp-word">psēphizō</span><span class="fp-word">thēsauros</span><span class="fp-word">teleō</span></div>
         <div class="fp-card-status">Available</div>
       </a>
-
     </div>
   </section>
 
-
-  <!-- ══ CORE FOUR ═══════════════════════════════════════ -->
+  <!-- ── Core Four ── -->
   <section class="lib-section">
     <div class="lib-section-head">
       <div>
@@ -679,291 +742,297 @@ body::before {
         <div class="lib-section-desc">Four pillars of a mature disciple — gospel saturation, unconditional discipleship, devoted community, and passionate disciplemaking. Each study stands alone and links to the others.</div>
       </div>
     </div>
-
     <div class="c4-grid">
-
       <a href="core-four/core-four-gospel.html" class="c4-card" style="--card-accent:#5a8ab0;">
         <div class="c4-pillar-num">Pillar 01 · Foundation</div>
         <div class="c4-title">Saturated in the Gospel</div>
         <div class="c4-verse">"Paul, a servant of Christ Jesus… set apart for the gospel of God, concerning his Son… Jesus Christ our Lord."</div>
         <div class="c4-ref">Romans 1:1–3</div>
-        <div class="c4-pillars">
-          <span class="c4-pip active">Gospel</span>
-          <span class="c4-pip inactive">Discipleship</span>
-          <span class="c4-pip inactive">Community</span>
-          <span class="c4-pip inactive">Disciplemaking</span>
-        </div>
+        <div class="c4-pillars"><span class="c4-pip active">Gospel</span><span class="c4-pip inactive">Discipleship</span><span class="c4-pip inactive">Community</span><span class="c4-pip inactive">Disciplemaking</span></div>
       </a>
-
       <a href="core-four/core-four-discipleship.html" class="c4-card" style="--card-accent:#6aaa6a;">
         <div class="c4-pillar-num">Pillar 02 · Commitment</div>
         <div class="c4-title">Unconditional Discipleship</div>
         <div class="c4-verse">"If anyone would come after me, let him deny himself and take up his cross and follow me."</div>
         <div class="c4-ref">Mark 8:34</div>
-        <div class="c4-pillars">
-          <span class="c4-pip inactive">Gospel</span>
-          <span class="c4-pip active">Discipleship</span>
-          <span class="c4-pip inactive">Community</span>
-          <span class="c4-pip inactive">Disciplemaking</span>
-        </div>
+        <div class="c4-pillars"><span class="c4-pip inactive">Gospel</span><span class="c4-pip active">Discipleship</span><span class="c4-pip inactive">Community</span><span class="c4-pip inactive">Disciplemaking</span></div>
       </a>
-
       <a href="core-four/core-four-community.html" class="c4-card" style="--card-accent:#c4944a;">
         <div class="c4-pillar-num">Pillar 03 · Together</div>
         <div class="c4-title">Devoted to Community</div>
         <div class="c4-verse">"And they devoted themselves to the apostles' teaching and the fellowship, to the breaking of bread and the prayers."</div>
         <div class="c4-ref">Acts 2:42</div>
-        <div class="c4-pillars">
-          <span class="c4-pip inactive">Gospel</span>
-          <span class="c4-pip inactive">Discipleship</span>
-          <span class="c4-pip active">Community</span>
-          <span class="c4-pip inactive">Disciplemaking</span>
-        </div>
+        <div class="c4-pillars"><span class="c4-pip inactive">Gospel</span><span class="c4-pip inactive">Discipleship</span><span class="c4-pip active">Community</span><span class="c4-pip inactive">Disciplemaking</span></div>
       </a>
-
       <a href="core-four/core-four-disciplemaking.html" class="c4-card" style="--card-accent:#9a6ab0;">
         <div class="c4-pillar-num">Pillar 04 · Mission</div>
         <div class="c4-title">Passionate Disciplemakers</div>
         <div class="c4-verse">"What you have heard from me… entrust to faithful people who will be able to teach others also."</div>
         <div class="c4-ref">2 Timothy 2:2</div>
-        <div class="c4-pillars">
-          <span class="c4-pip inactive">Gospel</span>
-          <span class="c4-pip inactive">Discipleship</span>
-          <span class="c4-pip inactive">Community</span>
-          <span class="c4-pip active">Disciplemaking</span>
-        </div>
+        <div class="c4-pillars"><span class="c4-pip inactive">Gospel</span><span class="c4-pip inactive">Discipleship</span><span class="c4-pip inactive">Community</span><span class="c4-pip active">Disciplemaking</span></div>
       </a>
-
     </div>
   </section>
 
-
-    <div class="lib-divider"></div>
-
-    <!-- ── Stage of Life ── -->
-    <div class="series-intro">
-      <div class="series-name">Stage of Life Studies</div>
-      <div class="series-tagline">Scripture-grounded studies for specific seasons — marriage, parenting, and the challenges unique to each decade of life.</div>
-    </div>
-    <div class="index-grid">
-
-      <a href="stage-of-life/marriage.html" class="study-card" style="--card-accent:#9a7a5a;">
-        <div class="study-card-eyebrow">Stage of Life · Marriage · All Seasons</div>
-        <div class="study-card-title">Covenant Marriage</div>
-        <div class="study-card-verse">"Therefore a man shall leave his father and his mother and hold fast to his wife, and they shall become one flesh."</div>
-        <div class="study-card-meta">Genesis 2:24 · 6 tabs · Decade-by-decade wisdom · Ephesians 5</div>
-      </a>
-
-      <a href="stage-of-life/discipline-and-formation.html" class="study-card" style="--card-accent:#b87355;">
-        <div class="study-card-eyebrow">Stage of Life · Parenting · Study 1 of 2</div>
-        <div class="study-card-title">Discipline &amp; Formation</div>
-        <div class="study-card-verse">"Whoever spares the rod hates their children, but the one who loves their children is careful to discipline them."</div>
-        <div class="study-card-meta">Proverbs 13:24 · 5 tabs · The Eli Warning · Word study</div>
-      </a>
-
-      <a href="stage-of-life/discipling-your-children.html" class="study-card" style="--card-accent:#b87355;">
-        <div class="study-card-eyebrow">Stage of Life · Parenting · Study 2 of 2</div>
-        <div class="study-card-title">Discipling Your Children</div>
-        <div class="study-card-verse">"You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way."</div>
-        <div class="study-card-meta">Deuteronomy 6:7 · 5 tabs · The Shema · Generational faith</div>
-      </a>
-
-    </div>
-
-  <!-- ══ RESOURCE STUDIES ════════════════════════════ -->
+  <!-- ── Foundational Theology ── -->
   <section class="lib-section">
     <div class="lib-section-head">
       <div>
-        <div class="lib-section-eyebrow">For Those in the Faith</div>
-        <div class="lib-section-title">Resource Studies</div>
-        <div class="lib-section-desc">Standalone and series studies for personal devotion, class preparation, and small group discussion. Assumes faith — digs deep. Click any card to open the study.</div>
+        <div class="lib-section-eyebrow">Standalone · Deep Dives</div>
+        <div class="lib-section-title">Foundational Theology</div>
+        <div class="lib-section-desc">The essential theological questions — who God actually is, and who you are in him. Studies every Christian needs regardless of where they are in their journey.</div>
       </div>
-    </div>
-
-    <!-- ── Word of God Series ── -->
-    <a href="resource-series/WordOfGod_SeriesGuide_1.html" class="series-card" style="--card-accent:#c9a84c;">
-      <div class="series-card-left">
-        <div class="series-card-eyebrow">Men's Midweek · Summer 2026 · 4-Week Series</div>
-        <div class="series-card-title">The Word of God</div>
-        <div class="series-card-verse">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, so that the man of God may be complete, equipped for every good work."</div>
-        <div class="series-card-ref">2 Timothy 3:16–17</div>
-        <div class="series-card-words">
-          <span class="fp-word">theopneustos</span>
-          <span class="fp-word">graphē</span>
-          <span class="fp-word">dabar</span>
-          <span class="fp-word">logos</span>
-        </div>
-      </div>
-      <div class="series-card-right">
-        <div class="series-week active">
-          <span class="week-dot active"></span>
-          <span class="week-label">Week 1 · Useful</span>
-        </div>
-        <div class="series-week active">
-          <span class="week-dot active"></span>
-          <span class="week-label">Week 2 · Teaching</span>
-        </div>
-        <div class="series-week">
-          <span class="week-dot"></span>
-          <span class="week-label">Week 3 · Coming Soon</span>
-        </div>
-        <div class="series-week">
-          <span class="week-dot"></span>
-          <span class="week-label">Week 4 · Coming Soon</span>
-        </div>
-        <div class="series-card-cta">Open Series →</div>
-      </div>
-    </a>
-
-    <div class="lib-divider"></div>
-
-    <!-- ── Standalone Studies ── -->
-    <div class="series-intro">
-      <div class="series-name">Standalone Studies</div>
-      <div class="series-tagline">Single-topic deep dives for personal study, small groups, or class use.</div>
     </div>
     <div class="index-grid">
-
-      <a href="standalone/lust.html" class="study-card" style="--card-accent:#6b7a9a;">
-        <div class="study-card-eyebrow">Standalone · Men · Sexual Integrity</div>
-        <div class="study-card-title">Lust</div>
-        <div class="study-card-verse">"Flee from sexual immorality… you were bought with a price. So glorify God in your body."</div>
-        <div class="study-card-meta">1 Corinthians 6:18–20 · 4 tabs · Accountability tools included</div>
-      </a>
-
-      <a href="standalone/fasting.html" class="study-card" style="--card-accent:#6b8a5a;">
-        <div class="study-card-eyebrow">Standalone · Spiritual Disciplines</div>
-        <div class="study-card-title">Fasting</div>
-        <div class="study-card-verse">"And your Father who sees in secret will reward you."</div>
-        <div class="study-card-meta">Matthew 6:18 · 4 tabs · Practices guide included</div>
-      </a>
-
-      <a href="standalone/prayer.html" class="study-card" style="--card-accent:#7a6aaa;">
-        <div class="study-card-eyebrow">Standalone · Spiritual Disciplines</div>
-        <div class="study-card-title">Prayer</div>
-        <div class="study-card-verse">"Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God."</div>
-        <div class="study-card-meta">Philippians 4:6 · 6 tabs · ACTS Model · Praying the Psalms · Lord's Prayer</div>
-      </a>
-
-      <a href="standalone/suffering-and-sovereignty.html" class="study-card" style="--card-accent:#7a8aaa;">
-        <div class="study-card-eyebrow">Standalone · Hard Questions</div>
-        <div class="study-card-title">Suffering &amp; Sovereignty</div>
-        <div class="study-card-verse">"And we know that in all things God works for the good of those who love him, who have been called according to his purpose."</div>
-        <div class="study-card-meta">Romans 8:28 · 6 tabs · Long Seasons · Chronic Illness &amp; Depression · Biblical Witnesses</div>
-      </a>
-
       <a href="standalone/character-of-god.html" class="study-card" style="--card-accent:#c4944a;">
-        <div class="study-card-eyebrow">Standalone · Foundational Theology</div>
+        <div class="study-card-eyebrow">Theology · Who God Is</div>
         <div class="study-card-title">Character of God</div>
         <div class="study-card-verse">"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love and faithfulness."</div>
         <div class="study-card-meta">Exodus 34:6 · 6 tabs · Jesus the Beautiful Outlaw · The Attributes · Grace &amp; Consequence</div>
       </a>
-
+      <a href="standalone/identity-in-christ.html" class="study-card" style="--card-accent:#4a8a8a;">
+        <div class="study-card-eyebrow">Theology · Who You Are</div>
+        <div class="study-card-title">Identity in Christ</div>
+        <div class="study-card-verse">"Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come."</div>
+        <div class="study-card-meta">2 Corinthians 5:17 · 6 tabs · The Gap · Old &amp; New Self · Who You Are</div>
+      </a>
     </div>
+  </section>
 
-    <div class="lib-divider"></div>
+</div><!-- end parent FOUNDATIONS -->
 
-    <!-- ── Women's Studies ── -->
-    <div class="series-intro">
-      <div class="series-name">Women's Studies</div>
-      <div class="series-tagline">Scripture-grounded studies for women — direct, theologically honest, and built for real life.</div>
+<!-- ╔═══════════════════════════════════════════════════════╗ -->
+<!-- ║  PARENT 2 · THE CHRISTIAN LIFE                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════╝ -->
+<div class="parent-section">
+  <div class="parent-header">
+    <div class="parent-number">II</div>
+    <div class="parent-header-text">
+      <div class="parent-eyebrow">Living It Out</div>
+      <div class="parent-title">The Christian Life</div>
+      <div class="parent-desc">Studies for those who are in the faith and want to go deeper — the practices, the battles, the relationships, and the specific seasons that shape how faith is actually lived.</div>
+    </div>
+  </div>
+
+  <!-- ── Spiritual Disciplines ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Practices &amp; Rhythms</div>
+        <div class="lib-section-title">Spiritual Disciplines</div>
+        <div class="lib-section-desc">The practices that form a person over time — prayer and fasting as the core rhythms of a life oriented toward God.</div>
+      </div>
     </div>
     <div class="index-grid">
+      <a href="standalone/prayer.html" class="study-card" style="--card-accent:#7a6aaa;">
+        <div class="study-card-eyebrow">Spiritual Disciplines · Core Practice</div>
+        <div class="study-card-title">Prayer</div>
+        <div class="study-card-verse">"Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God."</div>
+        <div class="study-card-meta">Philippians 4:6 · 6 tabs · ACTS Model · Praying the Psalms · Lord's Prayer</div>
+      </a>
+      <a href="standalone/fasting.html" class="study-card" style="--card-accent:#6b8a5a;">
+        <div class="study-card-eyebrow">Spiritual Disciplines · Core Practice</div>
+        <div class="study-card-title">Fasting</div>
+        <div class="study-card-verse">"And your Father who sees in secret will reward you."</div>
+        <div class="study-card-meta">Matthew 6:18 · 4 tabs · Practices guide included</div>
+      </a>
+    </div>
+  </section>
 
+  <!-- ── Spiritual Warfare & Suffering ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Hard Terrain</div>
+        <div class="lib-section-title">Warfare &amp; Suffering</div>
+        <div class="lib-section-desc">The unseen battle and the hard seasons — what Scripture actually says about spiritual opposition and why God allows suffering, with honest pastoral guidance for long seasons.</div>
+      </div>
+    </div>
+    <div class="index-grid">
+      <a href="standalone/spiritual-warfare.html" class="study-card" style="--card-accent:#8a3a4a;">
+        <div class="study-card-eyebrow">Hard Terrain · Unseen Realm</div>
+        <div class="study-card-title">Spiritual Warfare</div>
+        <div class="study-card-verse">"Put on the full armor of God, so that you can take your stand against the devil's schemes."</div>
+        <div class="study-card-meta">Ephesians 6:11 · 6 tabs · The Unseen Realm · The Armor · Day to Day</div>
+      </a>
+      <a href="standalone/suffering-and-sovereignty.html" class="study-card" style="--card-accent:#7a8aaa;">
+        <div class="study-card-eyebrow">Hard Terrain · Hard Questions</div>
+        <div class="study-card-title">Suffering &amp; Sovereignty</div>
+        <div class="study-card-verse">"And we know that in all things God works for the good of those who love him, who have been called according to his purpose."</div>
+        <div class="study-card-meta">Romans 8:28 · 6 tabs · Long Seasons · Chronic Illness &amp; Depression · Biblical Witnesses</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Men's Studies ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">For Men</div>
+        <div class="lib-section-title">Men's Studies</div>
+        <div class="lib-section-desc">Direct, honest studies for men — addressing the specific battles men face with the full weight of Scripture and practical accountability.</div>
+      </div>
+    </div>
+    <div class="index-grid">
+      <a href="standalone/lust.html" class="study-card" style="--card-accent:#6b7a9a;">
+        <div class="study-card-eyebrow">Men's Study · Sexual Integrity</div>
+        <div class="study-card-title">Lust</div>
+        <div class="study-card-verse">"Flee from sexual immorality… you were bought with a price. So glorify God in your body."</div>
+        <div class="study-card-meta">1 Corinthians 6:18–20 · 4 tabs · Accountability tools included</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Women's Studies ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">For Women</div>
+        <div class="lib-section-title">Women's Studies</div>
+        <div class="lib-section-desc">Scripture-grounded studies for women — direct, theologically honest, and built for real life. Six studies covering identity, emotions, relationships, calling, and speech.</div>
+      </div>
+    </div>
+    <div class="index-grid">
       <a href="womens/women-anxiety-and-fear.html" class="study-card" style="--card-accent:#a07080;">
         <div class="study-card-eyebrow">Women's Study · Emotions &amp; Faith</div>
         <div class="study-card-title">Anxiety &amp; Fear</div>
         <div class="study-card-verse">"Cast all your anxiety on him because he cares for you."</div>
         <div class="study-card-meta">1 Peter 5:7 · 6 tabs · The Lies · Women of Scripture · Philippians 4</div>
       </a>
-
       <a href="womens/women-identity-and-worth.html" class="study-card" style="--card-accent:#a07080;">
         <div class="study-card-eyebrow">Women's Study · Identity</div>
         <div class="study-card-title">Identity &amp; Worth in Christ</div>
         <div class="study-card-verse">"See what great love the Father has lavished on us, that we should be called children of God."</div>
         <div class="study-card-meta">1 John 3:1 · 6 tabs · Roles vs. Identity · Image of God · Who You Are in Christ</div>
       </a>
-
       <a href="womens/women-comparison-and-contentment.html" class="study-card" style="--card-accent:#a07080;">
         <div class="study-card-eyebrow">Women's Study · Heart &amp; Character</div>
         <div class="study-card-title">Comparison &amp; Contentment</div>
         <div class="study-card-verse">"I have learned, in whatever situation I am, to be content."</div>
         <div class="study-card-meta">Philippians 4:11 · 6 tabs · Anatomy of Comparison · Envy &amp; Celebration</div>
       </a>
-
       <a href="womens/women-womanhood-and-calling.html" class="study-card" style="--card-accent:#a07080;">
         <div class="study-card-eyebrow">Women's Study · Calling &amp; Vocation</div>
         <div class="study-card-title">Womanhood &amp; Calling</div>
         <div class="study-card-verse">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
         <div class="study-card-meta">Ephesians 2:10 · 6 tabs · Women of Scripture · Titus 2 · Discernment Framework</div>
       </a>
-
       <a href="womens/women-proverbs-31.html" class="study-card" style="--card-accent:#a07080;">
-        <div class="study-card-eyebrow">Women's Study · Proverbs · Study 5 of 5</div>
+        <div class="study-card-eyebrow">Women's Study · Proverbs</div>
         <div class="study-card-title">Proverbs 31</div>
         <div class="study-card-verse">"Charm is deceptive, and beauty is fleeting; but a woman who fears the Lord is to be praised."</div>
         <div class="study-card-meta">Proverbs 31:30 · 6 tabs · The Acrostic Poem · Who She Is · How It Gets Misused</div>
       </a>
-
       <a href="womens/women-the-tongue.html" class="study-card" style="--card-accent:#a07080;">
         <div class="study-card-eyebrow">Women's Study · Speech &amp; Relationships</div>
         <div class="study-card-title">The Tongue &amp; Gossip</div>
         <div class="study-card-verse">"The tongue has the power of life and death, and those who love it will eat its fruit."</div>
         <div class="study-card-meta">Proverbs 18:21 · 6 tabs · James 3 Deep Dive · Gossip Anatomy · Proverbs on Speech</div>
       </a>
-
     </div>
+  </section>
 
-    <div class="lib-divider"></div>
-
-    <!-- ── Pre-System Studies ── -->
-    <div class="series-intro">
-      <div class="series-name">Pre-System Studies</div>
-      <div class="series-tagline">Full interactive studies built before the current design system. Content is complete and live — visual updates planned.</div>
+  <!-- ── Stage of Life ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Seasons &amp; Relationships</div>
+        <div class="lib-section-title">Stage of Life</div>
+        <div class="lib-section-desc">Studies for specific seasons — marriage across every decade, and the two-part parenting series on discipline, formation, and discipling your children in the faith.</div>
+      </div>
     </div>
     <div class="index-grid">
+      <a href="stage-of-life/marriage.html" class="study-card" style="--card-accent:#9a7a5a;">
+        <div class="study-card-eyebrow">Stage of Life · Marriage · All Seasons</div>
+        <div class="study-card-title">Covenant Marriage</div>
+        <div class="study-card-verse">"Therefore a man shall leave his father and his mother and hold fast to his wife, and they shall become one flesh."</div>
+        <div class="study-card-meta">Genesis 2:24 · 6 tabs · Decade-by-decade wisdom · Ephesians 5</div>
+      </a>
+      <a href="stage-of-life/discipline-and-formation.html" class="study-card" style="--card-accent:#b87355;">
+        <div class="study-card-eyebrow">Stage of Life · Parenting · Study 1 of 2</div>
+        <div class="study-card-title">Discipline &amp; Formation</div>
+        <div class="study-card-verse">"Whoever spares the rod hates their children, but the one who loves their children is careful to discipline them."</div>
+        <div class="study-card-meta">Proverbs 13:24 · 5 tabs · The Eli Warning · Word study</div>
+      </a>
+      <a href="stage-of-life/discipling-your-children.html" class="study-card" style="--card-accent:#b87355;">
+        <div class="study-card-eyebrow">Stage of Life · Parenting · Study 2 of 2</div>
+        <div class="study-card-title">Discipling Your Children</div>
+        <div class="study-card-verse">"You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way."</div>
+        <div class="study-card-meta">Deuteronomy 6:7 · 5 tabs · The Shema · Generational faith</div>
+      </a>
+    </div>
+  </section>
 
+</div><!-- end parent CHRISTIAN LIFE -->
+
+<!-- ╔═══════════════════════════════════════════════════════╗ -->
+<!-- ║  PARENT 3 · SERIES & RESOURCES                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════╝ -->
+<div class="parent-section">
+  <div class="parent-header">
+    <div class="parent-number">III</div>
+    <div class="parent-header-text">
+      <div class="parent-eyebrow">Ongoing &amp; In-Progress</div>
+      <div class="parent-title">Series &amp; Resources</div>
+      <div class="parent-desc">Active teaching series and earlier interactive studies. The pre-system studies are fully functional — visual updates to the current design system are planned.</div>
+    </div>
+  </div>
+
+  <!-- ── Word of God Series ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Men's Midweek · Summer 2026</div>
+        <div class="lib-section-title">Active Series</div>
+        <div class="lib-section-desc">The current teaching series — study guides keyed to weekly messages, designed for mid-week reflection and group discussion.</div>
+      </div>
+    </div>
+    <a href="resource-series/WordOfGod_SeriesGuide_1.html" class="series-card" style="--card-accent:#c9a84c;">
+      <div class="series-card-left">
+        <div class="series-card-eyebrow">Men's Midweek · Summer 2026 · 4-Week Series</div>
+        <div class="series-card-title">The Word of God</div>
+        <div class="series-card-verse">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, so that the man of God may be complete, equipped for every good work."</div>
+        <div class="series-card-ref">2 Timothy 3:16–17</div>
+        <div class="fp-card-words" style="margin-top:12px;">
+          <span class="fp-word">theopneustos</span><span class="fp-word">graphē</span><span class="fp-word">dabar</span><span class="fp-word">logos</span>
+        </div>
+      </div>
+      <div class="series-card-right">
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 1 · Useful</span></div>
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 2 · Teaching</span></div>
+        <div class="series-week"><span class="week-dot"></span><span class="week-label">Week 3 · Coming Soon</span></div>
+        <div class="series-week"><span class="week-dot"></span><span class="week-label">Week 4 · Coming Soon</span></div>
+        <div class="series-card-cta">Open Series →</div>
+      </div>
+    </a>
+  </section>
+
+  <!-- ── Pre-System Studies ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Earlier Builds</div>
+        <div class="lib-section-title">Pre-System Studies</div>
+        <div class="lib-section-desc">Full interactive studies built before the current design system. Content is complete and live — visual updates to match the library are planned.</div>
+      </div>
+    </div>
+    <div class="index-grid">
       <a href="resource-series/holy-spirit-study_32.html" class="study-card pre-system" style="--card-accent:#8b7aaa;">
         <div class="study-card-eyebrow">Standalone · The Spirit</div>
         <div class="study-card-title">The Holy Spirit in Scripture</div>
         <div class="study-card-verse">"But the Helper, the Holy Spirit, whom the Father will send in my name, he will teach you all things and bring to your remembrance all that I have said to you."</div>
         <div class="study-card-meta">John 14:26 · Interactive · Character explorer</div>
       </a>
-
       <a href="resource-series/ephesians_study_phase1-2.html" class="study-card pre-system" style="--card-accent:#4a6a9a;">
         <div class="study-card-eyebrow">Book Study · Ephesians</div>
         <div class="study-card-title">The Book of Ephesians</div>
         <div class="study-card-verse">"For by grace you have been saved through faith. And this is not your own doing; it is the gift of God."</div>
         <div class="study-card-meta">Ephesians 2:8 · Phases 1–2 · Interactive guide</div>
       </a>
-
-    </div>
-
-    <div class="lib-divider"></div>
-
-    <!-- ── Planned Standalones ── -->
-    <div class="series-intro">
-      <div class="series-name">Planned Studies</div>
-      <div class="series-tagline">Studies in development — deep-dive guides on essential topics.</div>
-    </div>
-    <div class="index-grid">
-
-      <div class="study-card coming" style="--card-accent:#7a8ca0;">
-        <div class="study-card-eyebrow">Standalone · Identity</div>
-        <div class="study-card-title">Identity in Christ</div>
-        <div class="study-card-verse">"Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come."</div>
-        <div class="study-card-meta">2 Corinthians 5:17</div>
-      </div>
-
-      <div class="study-card coming" style="--card-accent:#8a6b6b;">
-        <div class="study-card-eyebrow">Standalone · Spiritual Warfare</div>
-        <div class="study-card-title">Spiritual Warfare</div>
-        <div class="study-card-verse">"Put on the whole armor of God, that you may be able to stand against the schemes of the devil."</div>
-        <div class="study-card-meta">Ephesians 6:11</div>
-      </div>
-
     </div>
   </section>
+
+</div><!-- end parent SERIES & RESOURCES -->
 
 </main>
 
@@ -973,6 +1042,58 @@ body::before {
     Bible Study Library · <span>Interactive guides for serious study</span> · Updated continually
   </div>
 </footer>
+
+<script>
+// Scroll-reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = el.dataset.delay || 0;
+      setTimeout(() => el.classList.add('visible'), delay);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fp-card, .study-card, .c4-card, .series-card').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.dataset.delay = Math.min(i % 4, 3) * 70;
+  observer.observe(el);
+});
+
+// Stat count-up
+function animateCount(el, target, suffix) {
+  const duration = 900;
+  const start = performance.now();
+  const isPlus = suffix.includes('+');
+  const req = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val = Math.round(ease * target);
+    el.textContent = val + (isPlus ? '+' : '');
+    if (p < 1) requestAnimationFrame(req);
+  };
+  requestAnimationFrame(req);
+}
+
+const statObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.lib-stat-n').forEach(el => {
+        const raw = el.textContent.trim();
+        const num = parseInt(raw.replace(/\D/g, ''));
+        const suffix = raw.replace(/[0-9]/g, '');
+        animateCount(el, num, suffix);
+      });
+      statObs.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsEl = document.querySelector('.lib-stats');
+if (statsEl) statObs.observe(statsEl);
+</script>
 
 </body>
 </html>
