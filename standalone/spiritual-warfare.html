@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiritual Warfare — Bible Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #8a3a4a;
+  --accent-dim:   #4a1a24;
+  --accent-lt:    #b06070;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #140810 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── ARMOR PIECES ── */
+.armor-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.armor-piece { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.armor-piece:last-child { border-bottom: none; }
+.armor-piece:hover { background: #ffffff08; }
+.armor-name { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.armor-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.armor-item { font-family: var(--font-serif); font-size: 14px; font-style: italic; color: var(--cream-dim); }
+.armor-body { background: var(--surface); padding: 18px 22px; }
+.armor-function { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.armor-application { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .armor-piece { grid-template-columns: 1fr; } .armor-name { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── UNSEEN REALM CARDS ── */
+.realm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 24px 0; }
+.realm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; position: relative; transition: border-color .2s; }
+.realm-card:hover { border-color: var(--accent-dim); }
+.realm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent-dim); border-radius: 6px 6px 0 0; }
+.realm-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.realm-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; }
+.realm-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Standalone Study · Unseen Realm</div>
+  <div class="header-title">Spiritual <span>Warfare</span></div>
+  <div class="header-verse">"Put on the full armor of God, so that you can take your stand against the devil's schemes."</div>
+  <div class="header-ref">Ephesians 6:11 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Study</button>
+    <button class="tab-btn" onclick="switchTab('realm',this)">The Unseen Realm</button>
+    <button class="tab-btn" onclick="switchTab('armor',this)">The Armor</button>
+    <button class="tab-btn" onclick="switchTab('practical',this)">Day to Day</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Word Study</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE STUDY ═══════════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Standalone Study · Unseen Realm</div>
+      <div class="section-title">Spiritual Warfare</div>
+      <div class="section-sub">What the Bible actually says about the unseen realm, who the enemy is, and how Christians are meant to fight</div>
+    </div>
+
+    <h2>Two Errors to Avoid</h2>
+    <p>Christians tend to make one of two mistakes about spiritual warfare. The first is to ignore it entirely — to live as if the spiritual realm is theoretical, to explain all difficulty by natural causes, and to never factor the possibility of spiritual opposition into how they understand their lives. This is a mistake because Scripture is unambiguous: there is an unseen realm, there are spiritual beings with real agency, and Paul did not write Ephesians 6 as a metaphor.</p>
+    <p>The second mistake is to overcorrect — to see demonic activity behind every difficulty, to treat every struggle with sin as primarily a spiritual attack, to develop an anxious preoccupation with the enemy that puts him at the center of your spiritual life rather than Christ. This is also a mistake, and a theologically revealing one: an obsession with the enemy is itself a form of giving him too much credit.</p>
+    <p>The biblical picture is more precise and more useful than either extreme. There is a real unseen realm. The enemy has real agency — but limited agency. He operates within boundaries God sets. His primary weapons are deception and accusation, not raw power. And the authority available to a believer in Christ is categorically greater than anything the enemy can bring to bear. <strong>The battle is real. The outcome is not in question.</strong></p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Orienting Frame</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">You are not fighting for victory. You are fighting from it. Ephesians 2:6 says you are already seated with Christ in the heavenly realms — the same realms where the spiritual battle takes place. The question is not whether you will win. The question is whether you will show up.</p>
+    </div>
+
+    <h2>What Scripture Actually Describes</h2>
+    <p>The biblical witness on the unseen realm is specific but not exhaustive. It describes a spiritual hierarchy — "rulers, authorities, powers, and spiritual forces of evil in the heavenly realms" (Ephesians 6:12). It describes Satan as a real personal being — not a metaphor for evil, but an actual adversary with agency, strategy, and specific tactics. It describes demons as real spiritual beings who interact with the physical world.</p>
+    <p>What it does not describe is a detailed map of demonic organization, a method for identifying which demon is responsible for which problem, or a framework that makes every difficulty primarily a spiritual warfare issue. The glimpses Scripture gives into the unseen realm are real — but they are glimpses, not a comprehensive taxonomy. The appropriate response to those glimpses is to take the reality seriously without extrapolating beyond what is revealed.</p>
+
+    <h2>The Acts 19 Principle</h2>
+    <p>One of the most instructive passages in the New Testament for calibrating spiritual warfare is Acts 19:13–16 — the account of the seven sons of Sceva. These Jewish exorcists attempted to invoke the name of Jesus over someone with an evil spirit. The spirit's response is one of the most striking statements in the entire New Testament:</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Jesus I know, and Paul I know about, but who are you?" And the man who had the evil spirit leaped on them, mastered all of them and overpowered them, so that they fled out of that house naked and wounded.</div>
+      <div class="verse-ref">Acts 19:15–16 · ESV</div>
+    </div>
+
+    <p>The spirit knew Jesus. It knew Paul — someone operating in genuine spiritual authority, whose life and ministry represented a real threat to the kingdom of darkness. But the seven sons of Sceva — religious professionals invoking the right name without the right authority — were unknown. Unknown, and therefore powerless.</p>
+    <p>This passage implies something important: <strong>significant demonic attention tends to follow significant spiritual authority and impact.</strong> The average person — even the average Christian living a quiet, faithful life — is not necessarily on the enemy's radar in the way that someone whose ministry is actively advancing the kingdom may be. This is not a reason for passivity or complacency. It is a reason to stop assuming that everything hard in your life is a spiritual attack. Most of daily life is the normal experience of living in a fallen world.</p>
+    <p>It is also a reason to take spiritual authority seriously. The sons of Sceva tried to use a name they had no relationship with. Real authority in spiritual warfare is not technique — it is relationship. It flows from genuine union with Christ, genuine submission to the Spirit, genuine holiness of life. The enemy is not impressed by religious vocabulary. He is aware of genuine authority.</p>
+
+    <h2>What the Enemy Actually Does</h2>
+    <p>Scripture identifies the enemy's primary weapons not as raw supernatural power but as <em>deception</em> and <em>accusation</em>. John 8:44 — Satan is "a liar and the father of lies." Revelation 12:10 — he is "the accuser of our brothers and sisters." His most effective strategy is not spectacular assault but quiet, sustained distortion — of who God is, of who you are, and of what is actually happening in any given situation.</p>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Deception</span><span class="ref-desc">The primary weapon. False beliefs about God's character, your identity, the nature of sin, the cost of obedience, the safety of compromise. Most spiritual warfare happens in the mind — in the narratives you believe about yourself and your situation. 2 Corinthians 10:4–5 — "we demolish arguments and every pretension that sets itself up against the knowledge of God, and we take captive every thought."</span></li>
+      <li class="ref-item"><span class="ref-book">Accusation</span><span class="ref-desc">Satan's title in Revelation 12:10 is "the accuser." His accusation functions on two tracks: condemning you for sins already forgiven (which is a lie — Romans 8:1), and distorting your conscience to make you feel guilty for things that are not sin. Both produce paralysis, shame, and distance from God. The answer is the same to both: the blood of Christ (Revelation 12:11).</span></li>
+      <li class="ref-item"><span class="ref-book">Temptation</span><span class="ref-desc">Not every temptation is a direct demonic attack — the flesh and the world generate temptation independently (James 1:14). But the enemy exploits existing weakness, existing patterns, existing vulnerabilities. He does not create new desires in you; he amplifies and distorts desires that are already present.</span></li>
+      <li class="ref-item"><span class="ref-book">Division</span><span class="ref-desc">John 10:10 — the thief comes to steal, kill, and destroy. In community, this most often looks like division — suspicion, offense, unresolved conflict, factions. Ephesians 4:27 warns against giving the devil a "foothold" — the word is <em>topos</em>, a place, a location. Unresolved anger and bitterness create a location in your life that he can operate from.</span></li>
+      <li class="ref-item"><span class="ref-book">Discouragement</span><span class="ref-desc">Elijah after his greatest victory collapsed under a broom tree (1 Kings 19). The timing was not accidental. Discouragement following significant spiritual impact is a consistent pattern in Scripture. It is not always supernatural in origin — but it is a consistent vulnerability that the enemy exploits.</span></li>
+    </ul>
+
+    <h2>The Posture of the Warrior</h2>
+    <p>The consistent posture Scripture calls for in spiritual warfare is not aggressive pursuit of demonic entities — it is <strong>standing firm</strong>. Ephesians 6:10–14 uses the word "stand" four times. The image is defensive, positional: you hold the ground Christ has already won. The battle is not to take new territory from the enemy — that is Christ's work, already accomplished at the cross and progressively applied through the Spirit. The battle is to not cede the ground you already occupy.</p>
+    <p>This is simultaneously less dramatic and more demanding than the popular version of spiritual warfare. It is less dramatic because it does not require spectacular confrontations with demonic forces. It is more demanding because it requires the sustained, daily faithfulness of someone who maintains their position — in prayer, in the Word, in holiness, in community — regardless of what they feel, what they see, or how much ground they seem to be gaining.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which error are you more prone to — ignoring the spiritual realm entirely, or seeing demonic activity behind everything? What has shaped that tendency?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The enemy's primary weapons are deception and accusation. Where do you most consistently hear his voice — what lies about God, yourself, or your situation do you return to most?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The sons of Sceva tried to use a name they had no relationship with. Where in your spiritual life are you operating by technique or religious habit rather than genuine relationship and authority?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Ephesians 4:27 warns against giving the enemy a "foothold" through unresolved anger. Is there an unresolved conflict or bitterness in your life that has created that kind of opening?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Which error is more common in your church background — ignoring the spiritual realm, or over-attributing everything to demonic activity? What damage does each error do?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The demon in Acts 19 knew Jesus and knew Paul, but didn't know the sons of Sceva. What does that imply about the relationship between spiritual authority and genuine discipleship?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If deception is the enemy's primary weapon, what does it look like practically to "take every thought captive" (2 Corinthians 10:5)? Is that something you actually do?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Ephesians 6 calls us to "stand firm" — to hold ground, not advance. How does that posture differ from the way spiritual warfare is often presented? Which feels more true to your experience?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The belt of truth — the first piece of armor — is about knowing and living in what is actually true. Where do you think the most significant spiritual battle in your community is being fought at the level of truth?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Prayer is both armor (Ephesians 6:18) and weapon. What would it look like for your community to take spiritual warfare prayer seriously — not as a formula, but as real, specific engagement?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"They triumphed over him by the blood of the Lamb and by the word of their testimony; they did not love their lives so much as to shrink from death."</div>
+      <div class="verse-ref">Revelation 12:11 · NIV</div>
+      <div class="prayer-instruction">Three weapons. The blood of Christ — your standing. Your testimony — your life aligned with that standing. And willingness to spend yourself. That is the full arsenal.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE UNSEEN REALM ═══════════ -->
+<div class="panel" id="panel-realm">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">What Scripture Describes</div>
+      <div class="section-title">The Unseen Realm</div>
+      <div class="section-sub">The specific glimpses Scripture gives into the spiritual hierarchy — no more, no less</div>
+    </div>
+
+    <p>Scripture gives us glimpses — not a comprehensive map — of the spiritual realm. What follows is what is actually described in the text. The posture here is to take seriously what is revealed without extrapolating into speculation. The glimpses are real. The temptation to build elaborate systems from them is something to resist.</p>
+
+    <div class="realm-grid">
+
+      <div class="realm-card">
+        <div class="realm-title">Satan</div>
+        <div class="realm-ref">Job 1–2 · Isaiah 14 · Ezekiel 28 · John 8:44 · Rev. 12</div>
+        <div class="realm-desc">A real personal being — not a metaphor, not the personification of evil. A created being, formerly exalted, who fell through pride. His primary titles reveal his function: adversary (Satan), accuser (Revelation 12:10), deceiver, "father of lies" (John 8:44), "ruler of this world" (John 12:31), "god of this age" (2 Corinthians 4:4). His power is real but derivative and bounded — he operates only within what God permits (Job 1–2).</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Demons / Unclean Spirits</div>
+        <div class="realm-ref">Mark 1:21–28 · Luke 8:26–39 · Acts 19:13–16</div>
+        <div class="realm-desc">Spiritual beings who interact with the physical world — capable of inhabiting human beings, recognized by Jesus and his disciples as real and distinct entities. They recognized Jesus's authority immediately and were subject to it. The Gospels treat them as real persons with agency, not as psychological projections. Their nature and origin are not fully explained in Scripture.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Principalities &amp; Powers</div>
+        <div class="realm-ref">Ephesians 6:12 · Colossians 2:15 · Daniel 10</div>
+        <div class="realm-desc">Paul's language in Ephesians 6:12 describes a hierarchy: rulers, authorities, powers, spiritual forces of evil. Daniel 10 gives a glimpse of territorial spiritual conflict — the "prince of Persia" delaying the angel's response to Daniel's prayer for 21 days. This suggests some level of spiritual organization associated with nations or regions, though the details are not elaborated.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">The Heavenly Council</div>
+        <div class="realm-ref">Job 1–2 · 1 Kings 22:19–23 · Psalm 82</div>
+        <div class="realm-desc">Multiple passages describe a divine council — spiritual beings who appear before God, who participate in governance and judgment. Job 1–2 depicts Satan presenting himself before God and making his case about Job. This is not a dualism — God is sovereign over the council. But the council is real, and real decisions appear to be made within it.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Satan's Limits</div>
+        <div class="realm-ref">Job 1:12 · 2:6 · Luke 22:31–32 · 1 Corinthians 10:13</div>
+        <div class="realm-desc">This is the most practically important reality: the enemy operates within boundaries set by God. In Job, he must ask permission. He cannot touch Job beyond what God allows. Jesus tells Peter that Satan has "asked to sift you like wheat" — implying a request that requires permission. God is not surprised by spiritual opposition. He sets its limits.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Christ's Authority</div>
+        <div class="realm-ref">Colossians 2:15 · Philippians 2:10 · Matthew 28:18</div>
+        <div class="realm-desc">At the cross, Christ "disarmed the powers and authorities, making a public spectacle of them, triumphing over them" (Colossians 2:15). The cross was not just a transaction — it was a cosmic victory. The enemy's authority over humanity was broken. He operates now as a defeated power who has not yet been removed — real, but not sovereign. Every knee will bow. The outcome is settled.</div>
+      </div>
+
+    </div>
+
+    <h2>What to Do With Speculation</h2>
+    <p>The unseen realm generates enormous amounts of theological speculation — elaborate hierarchies of demons, methods for identifying and naming spiritual entities, interpretations of current events as specific demonic operations. Some of this goes well beyond what Scripture reveals. The appropriate response to the genuine mysteriousness of the spiritual realm is not to fill the gaps with imagination but to take seriously what is actually revealed and hold the rest with open hands.</p>
+    <p>What is revealed is enough. There is an enemy. He is real and he is active. His primary weapons are deception and accusation. His power is bounded by God's sovereignty. Christ has won the decisive battle. You have access to the full armor of God and the authority of Christ's name. That is enough to fight from — and it is more than enough to stand on.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Calibration</div>
+      <p>The Acts 19 principle: the demon knew Jesus and knew Paul, but didn't know the sons of Sceva. Significant demonic attention tends to follow significant spiritual authority and impact. The average Christian living a quiet, faithful life is not the primary target of elaborate demonic schemes — the fallen world, the flesh, and ordinary temptation account for most of what we face. That is not a reason for complacency. It is a reason for proportion.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE ARMOR ═══════════ -->
+<div class="panel" id="panel-armor">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Ephesians 6:10–18</div>
+      <div class="section-title">The Armor</div>
+      <div class="section-sub">Not a ritual or a formula — a description of what a life in Christ actually looks like</div>
+    </div>
+
+    <p>The armor of God in Ephesians 6 is not a magical sequence or a spiritual ritual. It is a description — in military metaphor — of the ordinary life of a Christian who is living in genuine relationship with Christ. You don't "put on" the armor through a specific prayer formula. You put it on by actually living the life each piece describes. The armor is the life.</p>
+
+    <div class="passage-block">
+      <div class="passage-title">Ephesians 6:10–18 · NIV</div>
+      <div class="passage-text">
+        <span class="vn">10</span>Finally, be strong in the Lord and in his mighty power. <span class="vn">11</span>Put on the full armor of God, so that you can take your stand against the devil's schemes. <span class="vn">12</span>For our struggle is not against flesh and blood, but against the rulers, against the authorities, against the powers of this dark world and against the spiritual forces of evil in the heavenly realms. <span class="vn">13</span>Therefore put on the full armor of God, so that when the day of evil comes, you may be able to stand your ground, and after you have done everything, to stand. <span class="vn">14</span>Stand firm then, with the belt of truth buckled around your waist, with the breastplate of righteousness in place, <span class="vn">15</span>and with your feet fitted with the readiness that comes from the gospel of peace. <span class="vn">16</span>In addition to all this, take up the shield of faith, with which you can extinguish all the flaming arrows of the evil one. <span class="vn">17</span>Take the helmet of salvation and the sword of the Spirit, which is the word of God. <span class="vn">18</span>And pray in the Spirit on all occasions with all kinds of prayers and requests.
+      </div>
+    </div>
+
+    <h2>Piece by Piece</h2>
+
+    <div class="armor-grid">
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Belt of Truth</div>
+          <div class="armor-item">v.14</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">Knowing and living in what is actually true</div>
+          <p class="armor-application">The belt held everything else together in Roman armor — and truth is the foundation of every other piece. The enemy's primary weapon is deception. The counter is a life rooted in what is actually true — about God's character, your identity in Christ, the nature of reality. This is not just intellectual truth-holding. It is integrity — living in alignment with what you say you believe. A life of deception — even small deceptions — removes the belt and leaves everything else unstable.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Breastplate of Righteousness</div>
+          <div class="armor-item">v.14</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">Living righteously — both imputed and practiced</div>
+          <p class="armor-application">The breastplate protects the heart and vital organs. Righteousness here is both the imputed righteousness of Christ (your standing before God — Romans 5:1) and the practical righteousness of a holy life. The two are inseparable. A person who knows they are declared righteous by God and who is actively pursuing holy living has a protected heart. A person living in unconfessed sin has a gap in the armor directly over their most vulnerable place.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Gospel of Peace</div>
+          <div class="armor-item">v.15</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">Readiness that comes from the settled peace of the gospel</div>
+          <p class="armor-application">Shoes in Roman armor were heavy sandals with hobnails for traction — enabling the soldier to hold ground and move without slipping. The "readiness" here is not evangelistic readiness (though that follows) — it is the stability that comes from having the gospel as your footing. A person whose peace is based on circumstances slips easily. A person whose peace is based on the gospel — which cannot be taken — stands on firm ground regardless of what changes around them.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Shield of Faith</div>
+          <div class="armor-item">v.16</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">Active trust that deflects the enemy's accusations and lies</div>
+          <p class="armor-application">The Roman scutum was a large shield — nearly door-sized — that soldiers could interlock to form a wall. "Flaming arrows" were literal: arrows dipped in pitch and set alight. The shield of faith extinguishes them. The flaming arrows of the enemy are the lies, accusations, and doubts he fires — often in the form of thoughts that feel like your own. Active faith — choosing to trust what God says over what those thoughts say — is the practical act of raising the shield.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Helmet of Salvation</div>
+          <div class="armor-item">v.17</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">The settled assurance of your salvation protecting your mind</div>
+          <p class="armor-application">The helmet protects the mind — the primary battlefield. The assurance of salvation — knowing with certainty that you belong to God, that your future is secure, that nothing can separate you from his love — is the protection the mind needs to withstand the enemy's assault on your standing. A Christian who constantly questions whether they are truly saved is fighting without a helmet: exposed to every blow the enemy lands on their identity and security.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Sword of the Spirit</div>
+          <div class="armor-item">v.17</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">The Word of God — the only offensive weapon</div>
+          <p class="armor-application">Every other piece of armor is defensive. The sword is the one offensive weapon — and it is the Word of God. Jesus modeled this in the wilderness temptation: to every attack, he responded with specific Scripture. Not a general sense of "God is good" — specific passages that directly addressed the specific distortion the enemy was presenting. A person who does not know the Word is unarmed at the one point where offense is possible. There is no substitute.</p>
+        </div>
+      </div>
+
+      <div class="armor-piece">
+        <div class="armor-name">
+          <div class="armor-title">Prayer in the Spirit</div>
+          <div class="armor-item">v.18</div>
+        </div>
+        <div class="armor-body">
+          <div class="armor-function">The ongoing communication that activates everything else</div>
+          <p class="armor-application">Prayer is listed after the armor — not as a seventh piece but as the activity that makes the armor effective. A soldier standing in full armor who never communicates with command is isolated. Prayer is the ongoing, real-time communication with God that keeps you oriented, supplied, and aware. "On all occasions" — not a daily slot, a posture. "All kinds of prayers" — not a format, a constant attentiveness. This is what it looks like to stay connected to the one who actually fights the battle.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout accent">
+      <div class="callout-label">The Key Observation</div>
+      <p>Every piece of the armor exists already in a life that is genuinely rooted in Christ. You don't put on the armor as a separate spiritual exercise — you put it on by actually living the Christian life: knowing the truth, pursuing righteousness, resting in the gospel, trusting God, being assured of your salvation, knowing the Word, and praying constantly. The armor is the life.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ DAY TO DAY ═══════════ -->
+<div class="panel" id="panel-practical">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Practical Application</div>
+      <div class="section-title">Day to Day</div>
+      <div class="section-sub">What spiritual warfare actually looks like in ordinary life — not on a mountaintop, but on a Tuesday</div>
+    </div>
+
+    <p>Most spiritual warfare does not look like dramatic confrontation. It looks like choosing to believe the truth when a lie feels more real. It looks like forgiving someone when bitterness would be easier. It looks like praying when you don't feel like it, reading Scripture when it isn't landing, gathering with God's people when staying home sounds better. The sustained, unglamorous faithfulness of ordinary discipleship is the primary form of spiritual warfare for most people most of the time.</p>
+
+    <h2>Identifying the Battlefield</h2>
+    <p>The most consistent battlefield in spiritual warfare is the mind — specifically, the thoughts and narratives you believe about God, yourself, and your situation. 2 Corinthians 10:3–5 identifies this explicitly: the weapons of our warfare are for demolishing "arguments and every pretension that sets itself up against the knowledge of God" and taking "every thought captive to obey Christ."</p>
+    <p>This is practical and specific. It means: when a thought enters your mind that contradicts what God says is true — about his character, your identity, the nature of your situation — you have a choice. You can welcome it, examine it, or refuse it. Taking a thought captive is the act of holding it up against the Word and deciding: is this true? Does this align with what God says? If not, it gets dismissed — not entertained, not argued with at length, dismissed.</p>
+
+    <h2>Day-to-Day Practices</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Start with truth</span><span class="ref-desc">Begin each day by deliberately orienting your mind to what is true — about God, about your identity in Christ, about the day ahead. This is not a ritual. It is the intentional act of refusing to let the first voice you hear in the morning be the enemy's. Romans 6:11 — "consider yourselves dead to sin and alive to God." Do this actively and verbally if needed.</span></li>
+      <li class="ref-item"><span class="ref-book">Identify the lies you return to</span><span class="ref-desc">Most people have a small set of lies they return to repeatedly — about their worth, their standing with God, their future, their competence. Name them. Write them down. Hold them up against Scripture. A lie named and exposed loses much of its power. A lie left unnamed operates in the dark.</span></li>
+      <li class="ref-item"><span class="ref-book">Close the footholds</span><span class="ref-desc">Ephesians 4:27 — "do not give the devil a foothold." The footholds Paul identifies in context: unresolved anger (v.26), theft, corrupt speech, bitterness, slander. These are not just moral failures — they are open doors. Confess quickly. Forgive deliberately. Refuse to let the sun go down on anger not addressed. The hygiene of a clean conscience is a form of warfare.</span></li>
+      <li class="ref-item"><span class="ref-book">Pray with specificity</span><span class="ref-desc">Vague prayer is less effective than specific prayer — not because God needs specifics, but because specificity forces clarity about what you actually believe and what you're actually asking for. When you sense spiritual opposition, name it specifically in prayer. "I feel the weight of accusation about X — I reject that accusation on the basis of Romans 8:1. I am not condemned." That is warfare prayer.</span></li>
+      <li class="ref-item"><span class="ref-book">Know your Word</span><span class="ref-desc">Jesus's defense against the enemy in the wilderness was specific Scripture. Every attack was met with "it is written." This requires knowing the Word — not just in general but specifically. Identify the passages that speak directly to your most consistent vulnerabilities and temptations. Memorize them. The sword is only useful to a soldier who carries it.</span></li>
+      <li class="ref-item"><span class="ref-book">Stay in community</span><span class="ref-desc">Isolation is the enemy's preferred terrain. Hebrews 3:13 — "exhort one another every day, as long as it is called 'today,' that none of you may be hardened by the deceitfulness of sin." The deception that can take root in isolation is harder to maintain when real people who know you are speaking truth into your life regularly. Community is a form of warfare.</span></li>
+      <li class="ref-item"><span class="ref-book">Resist — don't chase</span><span class="ref-desc">James 4:7 — "Resist the devil, and he will flee from you." The posture is resistance, not pursuit. You are not called to hunt demonic activity, to seek out confrontation, to spend significant spiritual energy focused on the enemy. You are called to stand firm in Christ. The resisting is the standing — in truth, in righteousness, in faith, in prayer. He flees. You don't have to chase.</span></li>
+    </ul>
+
+    <h2>When Things Are Genuinely Intense</h2>
+    <p>There are seasons — typically in the midst of significant ministry impact, major life transitions, or sustained spiritual growth — where the opposition is more intense and more obvious. The biblical pattern in these seasons is not escalation but intensification of the ordinary: more prayer, more Scripture, more community, more dependence on God rather than on technique or formula.</p>
+    <p>Daniel prayed for 21 days before the answer came — the delay was not failure, it was spiritual resistance being overcome. Paul's thorn was not removed despite repeated prayer — God's grace was declared sufficient within the ongoing difficulty. The pattern is: persist in the ordinary means of grace, trust the sovereign God who sets the limits of opposition, and do not interpret delay or difficulty as defeat.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Submit yourselves, then, to God. Resist the devil, and he will flee from you. Come near to God and he will come near to you."</div>
+      <div class="verse-ref">James 4:7–8 · NIV</div>
+    </div>
+
+    <p>Notice the order: submit to God first. Draw near to God first. The resistance of the enemy is downstream of the nearness to God. You don't fight your way to God's presence — you enter God's presence and find that the enemy has no standing there.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">What are the two or three lies you return to most consistently? Write them down. Then write what Scripture actually says about each one.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Are there open footholds in your life right now — unresolved anger, bitterness, unconfessed sin, patterns of deception? What would it look like to close them this week?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">James 4:7 says submit to God first, then resist the devil. Is there an area of your life where you're trying to resist the enemy without first submitting that area to God?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">A Warrior's Prayer</div>
+      <div class="verse-text">"The Lord is my light and my salvation — whom shall I fear? The Lord is the stronghold of my life — of whom shall I be afraid?"</div>
+      <div class="verse-ref">Psalm 27:1 · NIV</div>
+      <div class="prayer-instruction">This is not a bold claim — it is a settled declaration. The person who has genuinely reckoned with who God is has nothing left to fear. That is the foundation of the warrior's confidence.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Key Passages</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">The biblical witness on spiritual warfare</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Battle — Its Nature and Outcome</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"For our struggle is not against flesh and blood, but against the rulers, against the authorities, against the powers of this dark world and against the spiritual forces of evil in the heavenly realms."</div><div class="vc-footer"><span class="vc-ref">Ephesians 6:12 · NIV</span><span class="vc-note">The battle is real — and it is spiritual, not merely human</span></div></div>
+        <div class="verse-card"><div class="vc-text">"And having disarmed the powers and authorities, he made a public spectacle of them, triumphing over them by the cross."</div><div class="vc-footer"><span class="vc-ref">Colossians 2:15 · NIV</span><span class="vc-note">The decisive battle is already won. The enemy fights as a defeated power.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"They triumphed over him by the blood of the Lamb and by the word of their testimony; they did not love their lives so much as to shrink from death."</div><div class="vc-footer"><span class="vc-ref">Revelation 12:11 · NIV</span><span class="vc-note">Three weapons: Christ's blood, your testimony, willingness to spend yourself</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Enemy — His Nature and Limits</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"He was a murderer from the beginning, not holding to the truth, for there is no truth in him. When he lies, he speaks his native language, for he is a liar and the father of lies."</div><div class="vc-footer"><span class="vc-ref">John 8:44 · NIV</span><span class="vc-note">His primary weapon is deception. There is no truth in him — everything he offers is distortion.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Be alert and of sober mind. Your enemy the devil prowls around like a roaring lion looking for someone to devour."</div><div class="vc-footer"><span class="vc-ref">1 Peter 5:8 · NIV</span><span class="vc-note">Active, predatory, looking for vulnerability — but a lion on a chain</span></div></div>
+        <div class="verse-card"><div class="vc-text">"The Lord said to Satan, 'Very well, then, everything he has is in your hands, but on the man himself do not lay a finger.'"</div><div class="vc-footer"><span class="vc-ref">Job 1:12 · NIV</span><span class="vc-note">He operates within limits set by God. Permission is required.</span></div></div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Warfare — How to Fight</div>
+      <div class="verse-cards">
+        <div class="verse-card"><div class="vc-text">"We demolish arguments and every pretension that sets itself up against the knowledge of God, and we take captive every thought to make it obedient to Christ."</div><div class="vc-footer"><span class="vc-ref">2 Corinthians 10:5 · NIV</span><span class="vc-note">The battlefield is the mind. The weapon is the truth of Christ.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Submit yourselves, then, to God. Resist the devil, and he will flee from you. Come near to God and he will come near to you."</div><div class="vc-footer"><span class="vc-ref">James 4:7–8 · NIV</span><span class="vc-note">Submit first, then resist. Nearness to God is the foundation of resistance.</span></div></div>
+        <div class="verse-card"><div class="vc-text">"Do not give the devil a foothold."</div><div class="vc-footer"><span class="vc-ref">Ephesians 4:27 · NIV</span><span class="vc-note">Unresolved sin and conflict create an opening. Close it quickly.</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WORD STUDY ═══════════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Greek Word Study</div>
+      <div class="section-title">Word Study</div>
+      <div class="section-sub">Key terms in the theology of spiritual warfare</div>
+    </div>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">πανοπλία</div>
+        <div class="ws-transliteration">panoplia</div>
+        <div class="ws-pos">Greek noun · "full armor / complete equipment"</div>
+        <div class="ws-definition">Used in Ephesians 6:11 and 6:13 — "the full armor of God." The word means the complete equipment of a heavily armed soldier — nothing missing. Paul's emphasis on the <em>full</em> armor is intentional: partial obedience, partial truth, partial faith leaves gaps. The armor only functions as a complete system. A soldier who wears the helmet but leaves off the breastplate is still vulnerable at the exposed point.</div>
+        <div class="ws-note">The image would have been immediately recognizable to Paul's Roman readers — a legionary in full panoplia was one of the most formidable sights in the ancient world. Paul is saying: God has equipped you with that level of protection. The question is whether you're wearing it.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">μεθοδεία</div>
+        <div class="ws-transliteration">methodeia</div>
+        <div class="ws-pos">Greek noun · "schemes / wiles / strategies"</div>
+        <div class="ws-definition">Used in Ephesians 6:11 — "the devil's schemes." The root gives us the English word "method." It implies deliberate, strategic, planned deception — not random attacks but calculated schemes designed to exploit specific vulnerabilities. The enemy's opposition is not blunt force; it is targeted and tactical. This is why Paul calls for the full armor — because the attack will come at the point of weakness, intelligently aimed.</div>
+        <div class="ws-note">The word implies that the enemy has studied you — he knows where the armor is thin, where the footholds are, where the vulnerabilities lie. This is not a reason for paranoia but for honest self-awareness about your own weak points and for closing the gaps before they're exploited.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀντίδικος</div>
+        <div class="ws-transliteration">antidikos</div>
+        <div class="ws-pos">Greek noun · "adversary / opponent in a lawsuit"</div>
+        <div class="ws-definition">Used in 1 Peter 5:8 — "your enemy the devil." Literally "the one who brings a case against you" — a legal opponent. This connects to Revelation 12:10's title "the accuser." Much of what the enemy does is legal in nature: bringing accusations, arguing your guilt, pressing charges. The answer is not to argue back but to point to the advocate — 1 John 2:1, "we have an advocate with the Father, Jesus Christ the righteous."</div>
+        <div class="ws-note">When you feel the weight of accusation — not the Holy Spirit's conviction, but the cold, condemning, you-are-worthless voice — that is the antidikos at work. The appropriate response is not to defend yourself but to invoke the advocate. You have one. He has never lost a case.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">τόπος</div>
+        <div class="ws-transliteration">topos</div>
+        <div class="ws-pos">Greek noun · "place / location / foothold"</div>
+        <div class="ws-definition">Used in Ephesians 4:27 — "do not give the devil a foothold." Literally a place, a location, a space. Unresolved sin, bitterness, and conflict create a location — a topos — in your life from which the enemy can operate. It is not that he is invited in through a ritual; it is that the open wound of unaddressed sin gives him access that he would not otherwise have. The hygiene of quick confession, quick forgiveness, and prompt reconciliation is a form of denying him territory.</div>
+        <div class="ws-note">Paul's context in Ephesians 4 is specifically anger — "do not let the sun go down while you are still angry, and do not give the devil a foothold." The connection between unresolved anger and spiritual vulnerability is explicit. Bitterness held overnight becomes a location. Don't let it stay.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀντιστῆτε</div>
+        <div class="ws-transliteration">antistēte</div>
+        <div class="ws-pos">Greek verb · "resist / stand against / oppose"</div>
+        <div class="ws-definition">Used in James 4:7 and 1 Peter 5:9 — "resist the devil." The word is military — it means to take a stand against, to hold your position against an advancing force. Not to pursue, not to attack, not to hunt — to resist. The posture is defensive and positional: you hold the ground you occupy. The emphasis in Ephesians 6 on "standing firm" uses related vocabulary — the warfare posture is about not losing ground, not about aggressive advance into enemy territory.</div>
+        <div class="ws-note">James 4:7 places "resist the devil" after "submit to God." The order is not accident — resistance flows from submission. You cannot effectively resist the enemy from a position of rebellion against God. The submission comes first. The resistance follows naturally.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">νοήματα</div>
+        <div class="ws-transliteration">noēmata</div>
+        <div class="ws-pos">Greek noun · "thoughts / minds / schemes"</div>
+        <div class="ws-definition">Used in 2 Corinthians 10:5 — "we take captive every thought." Also used in 2 Corinthians 2:11 — "we are not unaware of his schemes." The word refers to the contents of the mind — thoughts, reasoning, mental schemes. The primary battlefield of spiritual warfare is cognitive. Taking thoughts captive is an active, military metaphor: arresting a thought before it establishes itself, interrogating it against the truth of Scripture, and dismissing or accepting it based on that interrogation.</div>
+        <div class="ws-note">2 Corinthians 11:3 adds: Paul fears that minds may be "led astray" from sincere devotion to Christ "as Eve was deceived by the serpent's cunning." The original spiritual warfare was cognitive — a lie accepted, a truth doubted. It has not changed.</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
