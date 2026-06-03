@@ -588,6 +588,81 @@ body::before {
 }
 .c4-card:hover .c4-pip.inactive { border-color: var(--border-lt); color: var(--cream-dim); }
 
+/* ── PORTRAIT GRID (Portraits of Leadership) ─────────── */
+.portrait-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.portrait-card {
+  position: relative; overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 26px 22px 22px;
+  text-decoration: none; display: block;
+  transition: border-color .25s, background .25s, transform .2s;
+  --card-accent: #8a7a5a;
+}
+.portrait-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--card-accent);
+}
+.portrait-card::after {
+  content: attr(data-initial);
+  position: absolute; bottom: -18px; right: 8px;
+  font-family: var(--font-display);
+  font-size: 100px; font-weight: 700; letter-spacing: -4px;
+  color: var(--card-accent);
+  opacity: .055; line-height: 1; pointer-events: none;
+  transition: opacity .25s;
+}
+.portrait-card:hover {
+  border-color: var(--border-lt);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px -8px color-mix(in srgb, var(--card-accent) 28%, transparent),
+              0 0 0 1px color-mix(in srgb, var(--card-accent) 16%, transparent);
+}
+.portrait-card:hover::after { opacity: .1; }
+.portrait-num {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--card-accent); margin-bottom: 8px; opacity: .7;
+}
+.portrait-name {
+  font-family: var(--font-display);
+  font-size: 24px; font-weight: 700; letter-spacing: 1px;
+  color: var(--cream); margin-bottom: 6px; line-height: 1;
+}
+.portrait-role {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+}
+.portrait-verse {
+  font-family: var(--font-serif);
+  font-size: 13px; font-style: italic;
+  color: var(--cream-dim); line-height: 1.65; margin-bottom: 5px;
+}
+.portrait-ref {
+  font-family: var(--font-display);
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--card-accent); margin-bottom: 16px; opacity: .7;
+}
+.portrait-themes {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.portrait-theme {
+  font-family: var(--font-display);
+  font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--border);
+  border-radius: 20px; padding: 3px 9px;
+  transition: color .2s, border-color .2s;
+}
+.portrait-card:hover .portrait-theme { color: var(--cream-dim); border-color: var(--border-lt); }
+@media (max-width: 600px) { .portrait-grid { grid-template-columns: 1fr; } }
 
 </style>
 </head>
@@ -613,7 +688,7 @@ body::before {
       <span class="lib-stat-l">Core Four</span>
     </div>
     <div class="lib-stat">
-      <span class="lib-stat-n">23+</span>
+      <span class="lib-stat-n">32+</span>
       <span class="lib-stat-l">Resource Studies</span>
     </div>
     <div class="lib-stat">
@@ -870,7 +945,7 @@ body::before {
       <div>
         <div class="lib-section-eyebrow">For Men</div>
         <div class="lib-section-title">Men's Studies</div>
-        <div class="lib-section-desc">Direct, honest studies for men — addressing the specific battles men face with the full weight of Scripture and practical accountability.</div>
+        <div class="lib-section-desc">Direct, honest studies for men — addressing the specific battles and callings men face with the full weight of Scripture and practical accountability.</div>
       </div>
     </div>
     <div class="index-grid">
@@ -879,6 +954,12 @@ body::before {
         <div class="study-card-title">Lust</div>
         <div class="study-card-verse">"Flee from sexual immorality… you were bought with a price. So glorify God in your body."</div>
         <div class="study-card-meta">1 Corinthians 6:18–20 · 4 tabs · Accountability tools included</div>
+      </a>
+      <a href="standalone/work-and-calling.html" class="study-card" style="--card-accent:#7a8a6a;">
+        <div class="study-card-eyebrow">Men's Study · Vocation &amp; Identity</div>
+        <div class="study-card-title">Work &amp; Calling</div>
+        <div class="study-card-verse">"Whatever you do, work heartily, as for the Lord and not for men."</div>
+        <div class="study-card-meta">Colossians 3:23 · 6 tabs · Be·Do·Go Framework · Vocation · The Idol &amp; the Abdication</div>
       </a>
     </div>
   </section>
@@ -960,6 +1041,118 @@ body::before {
         <div class="study-card-verse">"You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way."</div>
         <div class="study-card-meta">Deuteronomy 6:7 · 5 tabs · The Shema · Generational faith</div>
       </a>
+    </div>
+  </section>
+
+  <!-- ── Portraits of Leadership ── -->
+  <section class="lib-section">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Series · 7 Studies</div>
+        <div class="lib-section-title">Portraits of Leadership</div>
+        <div class="lib-section-desc">Seven biblical leaders examined honestly — their formation, their interior lives, the cost they paid, and what their stories produce in men willing to look at them without softening. Biblical leadership is formation, not achievement.</div>
+      </div>
+    </div>
+    <div class="portrait-grid">
+
+      <a href="leadership/moses.html" class="portrait-card" data-initial="M" style="--card-accent:#8a7a5a;">
+        <div class="portrait-num">Study 1 of 7</div>
+        <div class="portrait-name">Moses</div>
+        <div class="portrait-role">Deliverer · Lawgiver · Intercessor</div>
+        <div class="portrait-verse">"Now Moses was a very humble man, more humble than anyone else on the face of the earth."</div>
+        <div class="portrait-ref">Numbers 12:3 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Reluctant Calling</span>
+          <span class="portrait-theme">Face to Face</span>
+          <span class="portrait-theme">The Cost</span>
+          <span class="portrait-theme">Authority &amp; Humility</span>
+        </div>
+      </a>
+
+      <a href="leadership/joshua.html" class="portrait-card" data-initial="J" style="--card-accent:#5a7a8a;">
+        <div class="portrait-num">Study 2 of 7</div>
+        <div class="portrait-name">Joshua</div>
+        <div class="portrait-role">Commander · Successor · Covenant Keeper</div>
+        <div class="portrait-verse">"Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you."</div>
+        <div class="portrait-ref">Joshua 1:9 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Courage as Obedience</span>
+          <span class="portrait-theme">Transition</span>
+          <span class="portrait-theme">Integrity</span>
+          <span class="portrait-theme">The Final Word</span>
+        </div>
+      </a>
+
+      <a href="leadership/david.html" class="portrait-card" data-initial="D" style="--card-accent:#8a6a4a;">
+        <div class="portrait-num">Study 3 of 7</div>
+        <div class="portrait-name">David</div>
+        <div class="portrait-role">King · Psalmist · Man After God's Heart</div>
+        <div class="portrait-verse">"I have found David son of Jesse, a man after my own heart; he will do everything I want him to do."</div>
+        <div class="portrait-ref">Acts 13:22 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Interior Life</span>
+          <span class="portrait-theme">The Failures</span>
+          <span class="portrait-theme">Anointed Before Crowned</span>
+          <span class="portrait-theme">Hesed</span>
+        </div>
+      </a>
+
+      <a href="leadership/peter.html" class="portrait-card" data-initial="P" style="--card-accent:#6a7a9a;">
+        <div class="portrait-num">Study 4 of 7</div>
+        <div class="portrait-name">Peter</div>
+        <div class="portrait-role">Apostle · The Rock · Restored Leader</div>
+        <div class="portrait-verse">"And I tell you that you are Peter, and on this rock I will build my church, and the gates of Hades will not overcome it."</div>
+        <div class="portrait-ref">Matthew 16:18 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Disqualified &amp; Restored</span>
+          <span class="portrait-theme">The Denial</span>
+          <span class="portrait-theme">Feed My Sheep</span>
+          <span class="portrait-theme">Matured Leader</span>
+        </div>
+      </a>
+
+      <a href="leadership/paul.html" class="portrait-card" data-initial="P" style="--card-accent:#7a5a8a;">
+        <div class="portrait-num">Study 5 of 7</div>
+        <div class="portrait-name">Paul</div>
+        <div class="portrait-role">Apostle · Church Planter · Prisoner</div>
+        <div class="portrait-verse">"I have fought the good fight, I have finished the race, I have kept the faith."</div>
+        <div class="portrait-ref">2 Timothy 4:7 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Cost Named Day One</span>
+          <span class="portrait-theme">Interior Life</span>
+          <span class="portrait-theme">The Thorn</span>
+          <span class="portrait-theme">Finishing Well</span>
+        </div>
+      </a>
+
+      <a href="leadership/timothy-titus.html" class="portrait-card" data-initial="T" style="--card-accent:#5a8a6a;">
+        <div class="portrait-num">Study 6 of 7</div>
+        <div class="portrait-name">Timothy &amp; Titus</div>
+        <div class="portrait-role">Delegates · Sent Leaders · Young in Faith</div>
+        <div class="portrait-verse">"Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity."</div>
+        <div class="portrait-ref">1 Timothy 4:12 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Character over Competence</span>
+          <span class="portrait-theme">Fear &amp; Timidity</span>
+          <span class="portrait-theme">Sent Not Self-Appointed</span>
+          <span class="portrait-theme">The Qualifications</span>
+        </div>
+      </a>
+
+      <a href="leadership/jesus.html" class="portrait-card" data-initial="✦" style="--card-accent:#c9a84c;">
+        <div class="portrait-num">Study 7 of 7 · The Capstone</div>
+        <div class="portrait-name">Jesus</div>
+        <div class="portrait-role">Servant King · The Standard · The Source</div>
+        <div class="portrait-verse">"The Son of Man did not come to be served, but to serve, and to give his life as a ransom for many."</div>
+        <div class="portrait-ref">Mark 10:45 · NIV</div>
+        <div class="portrait-themes">
+          <span class="portrait-theme">Authority with Teeth</span>
+          <span class="portrait-theme">The Towel &amp; Basin</span>
+          <span class="portrait-theme">Gethsemane</span>
+          <span class="portrait-theme">Tetelestai</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -1056,7 +1249,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-document.querySelectorAll('.fp-card, .study-card, .c4-card, .series-card').forEach((el, i) => {
+document.querySelectorAll('.fp-card, .study-card, .c4-card, .series-card, .portrait-card').forEach((el, i) => {
   el.classList.add('reveal');
   el.dataset.delay = Math.min(i % 4, 3) * 70;
   observer.observe(el);
