@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #8a6a4a;
+  --accent-dim:   #4e3820;
+  --accent-lt:    #aa8a6a;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #120a06 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; text-decoration: none; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── DETAIL GRID ── */
+.detail-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.detail-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row:hover { background: #ffffff08; }
+.detail-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.detail-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.detail-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.detail-body { background: var(--surface); padding: 18px 22px; }
+.detail-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.detail-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .detail-row { grid-template-columns: 1fr; } .detail-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border-lt); }
+.tl-item { display: flex; gap: 24px; padding: 0 0 32px 0; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--accent-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10px; color: var(--accent); position: relative; z-index: 1; }
+.tl-body { padding-top: 6px; }
+.tl-phase { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+.tl-title { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PSALM BLOCK ── */
+.psalm-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 28px 0; }
+.psalm-header { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.psalm-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.psalm-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 3 of 7</div>
+  <div class="header-title"><span>David</span></div>
+  <div class="header-verse">"I have found David son of Jesse, a man after my own heart; he will do everything I want him to do."</div>
+  <div class="header-ref">Acts 13:22 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('interior',this)">Interior Life</button>
+    <button class="tab-btn" onclick="switchTab('failures',this)">The Failures</button>
+    <button class="tab-btn" onclick="switchTab('wilderness',this)">Anointed Before Crowned</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill">Moses</div>
+        <div class="series-pill">Joshua</div>
+        <div class="series-pill current">David</div>
+        <div class="series-pill">Peter</div>
+        <div class="series-pill">Paul</div>
+        <div class="series-pill">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 3</div>
+      <div class="section-title">David</div>
+      <div class="section-sub">The man after God's own heart — and what that descriptor means when you read the whole story</div>
+    </div>
+
+    <h2>The Most Dangerous Portrait in This Series</h2>
+    <p>David is the most complex and the most dangerous portrait in this series. Dangerous not because his story is dark — though it is — but because it is the most mishandled. In children's curriculum David is the brave shepherd boy with the sling. In men's ministry David is usually either the triumphant warrior or the cautionary tale about lust. Both versions leave out most of what actually happened, which makes him far less useful than he should be.</p>
+    <p>The real David was a man of extraordinary gifts who spent significant portions of his life making choices that were morally gray at best and catastrophically sinful at worst. He ran a protection racket. He defected to Israel's enemies and lied systematically to stay alive. He was ready to massacre an entire household over a wounded ego. He committed adultery with a married woman, engineered her husband's murder, and felt apparently nothing about it until a prophet forced the issue. The consequences of his choices destroyed his family and haunted the rest of his reign.</p>
+    <p>And he is called a man after God's own heart. Not despite those things — the descriptor runs across his whole life. So the question this portrait exists to answer is not "how could David fall so far?" The question is: <strong>what does "a man after God's own heart" actually mean — and what does it not mean?</strong></p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Central Question</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">God did not call David a man after his own heart because David never sinned. He called him that because of where David went with everything — including the sin. The Psalms are the evidence. A man after God's own heart is not a man without failure. He is a man who never stops returning.</p>
+    </div>
+
+    <h2>What the Descriptor Actually Means</h2>
+    <p>The phrase "man after God's own heart" appears first in 1 Samuel 13:14 — spoken by Samuel to Saul after Saul's disobedience at Gilgal. God was looking for a man whose heart was oriented toward him, who would do what God commanded, whose loyalty was to God rather than to his own agenda or the crowd's approval. The contrast with Saul is instructive: Saul disobeyed and then managed the optics. He offered sacrifices he wasn't authorized to offer because Samuel was late and the army was scattering. He then defended himself rather than confessing. His first instinct when caught was to explain.</p>
+    <p>David's first instinct when confronted — when Nathan forced the issue — was: <em>"I have sinned against the Lord."</em> No explanation. No deflection. No "yes but the situation was complicated." Full ownership in five Hebrew words. That posture — returning without deflection — is what the descriptor points to. It did not mean David was morally superior. It meant his heart, when confronted with its own condition, oriented back toward God rather than toward self-preservation.</p>
+
+    <h2>The Arc — One Man, Many Faces</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Shepherd Years</div>
+          <div class="tl-title">The Hidden Life That Formed Everything</div>
+          <div class="tl-desc">David was the youngest of eight sons — not considered significant enough to be called in from the fields when Samuel came to anoint a king. He spent his formation years alone, with sheep, fighting lions and bears with his hands, writing music, developing a prayer life with no audience. When Samuel anointed him, nothing visible changed. He went back to the sheep. The anointing was real; the arrival was years away. What he did in those years with no audience determined everything about who he was when the audience arrived.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Rise · 1 Samuel 16–31</div>
+          <div class="tl-title">Goliath, the Court, the Wilderness</div>
+          <div class="tl-desc">David kills Goliath, enters Saul's court, becomes Israel's most celebrated military commander — and then spends years as a fugitive hunted by the king he serves. The wilderness years between the anointing and the throne are the moral crucible of his story. Twice he refuses to kill Saul when he has clear opportunity. He also assembles a militia, operates in morally complex territory, and eventually defects to the Philistines when the pressure becomes unsustainable. He is not a straight moral line. He is a man navigating impossible conditions — sometimes with integrity, sometimes not.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Kingdom · 2 Samuel 1–10</div>
+          <div class="tl-title">The King at His Best</div>
+          <div class="tl-desc">David becomes king — first of Judah, then of all Israel. He captures Jerusalem, brings the ark to the city, defeats Israel's enemies, and seeks to build God a house. His treatment of Mephibosheth — Jonathan's disabled son, a potential rival for the throne — reveals a man of genuine covenant loyalty and extraordinary generosity. He extends hesed (covenant love) to a man who had every reason to fear him. This is David at his best: anointed, effective, generous, and genuinely devoted to God.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Collapse · 2 Samuel 11–12</div>
+          <div class="tl-title">The Roof, the Woman, the Murder</div>
+          <div class="tl-desc">In the spring, when kings go to war, David stays home. Everything that follows flows from that first decision. From the roof he sees Bathsheba. He sends for her knowing she is married. He sleeps with her. She is pregnant. He attempts a cover-up, fails, and then — deliberately, over multiple days — arranges the murder of Uriah, one of his own most loyal soldiers, by sending him to the front with his own death warrant in his hand. The text moves from the murder to David marrying Bathsheba in two verses. He appears to feel nothing. Until Nathan.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Consequences · 2 Samuel 13–20</div>
+          <div class="tl-title">The Sword That Never Departed</div>
+          <div class="tl-desc">Nathan's prophecy was precise: "The sword will never depart from your house." It didn't. Amnon raped his half-sister Tamar. Absalom murdered Amnon. Absalom led a full rebellion that drove David from Jerusalem, sleeping with David's concubines on a public rooftop. David wept and fled. The man who had done these things to others now experienced their equivalents done to him and to the people he loved most. Psalm 51 was the repentance. The consequences were not undone by it.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">David was anointed in private, returned to the sheep, and waited years for anything to change visibly. What are you doing in the hidden seasons of your life — when there is no audience and no apparent progress — that will matter when the audience arrives?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"A man after God's own heart" is defined here not by moral record but by where a man goes with everything — including failure. Where do you go when you fail? What is your first instinct — explanation, self-protection, or return?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David extended extraordinary generosity to Mephibosheth — a potential rival, a man with every reason to fear him. Is there someone in your life toward whom you could extend that kind of unexpected, unearned generosity? What is stopping you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The collapse began with David staying home when kings go to war. Where in your life are you currently staying home — avoiding the engagement, the responsibility, the front — that you are supposed to be at?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What version of David did you grow up with — the triumphant warrior, the cautionary tale, or something else? How does the fuller portrait change what you take from his story?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study defines "a man after God's own heart" as a man who never stops returning — not a man without failure. Is that definition comforting, challenging, or both? What does it require of you?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David was formed in years of obscurity with no audience. What does your hidden life — the person you are when no one is watching — actually look like right now?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David's collapse began with staying home, not with Bathsheba. What does it mean that the biggest failures often begin with absence or passivity rather than aggressive wrongdoing?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The consequences of David's sin were not reversed by his repentance. How do you hold genuine forgiveness and ongoing consequences together? Does your theology make room for both?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ INTERIOR LIFE ═══════════ -->
+<div class="panel" id="panel-interior">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Psalms as Evidence</div>
+      <div class="section-title">Interior Life</div>
+      <div class="section-sub">The most documented interior life in Scripture — and what the Psalms reveal about what it means to bring everything to God</div>
+    </div>
+
+    <h2>The Psalms Are a Leadership Document</h2>
+    <p>Seventy-three Psalms are attributed to David. Many carry superscriptions tying them to specific biographical events — Psalm 51 to the Bathsheba confrontation, Psalm 57 to the cave at Adullam, Psalm 59 to Saul sending men to watch David's house to kill him, Psalm 63 to the wilderness of Judah. The Psalms are not devotional decoration. They are the interior record of a man processing his actual life with God — in real time, under real pressure, without editing.</p>
+    <p>What you find there is not what most leadership literature would recommend. David was not calm. He was not consistently hopeful. He was not professionally composed. He was angry, confused, terrified, vindictive, exultant, broken, and sometimes all of those things in the same poem. He accused God of abandoning him. He asked God to break his enemies' teeth. He wept. He danced. He demanded answers. He confessed. He praised. And he kept coming back. That is the interior life the Psalms document: not a man who had it together, but a man who had a place to bring everything — and used it.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"How long, Lord? Will you forget me forever? How long will you hide your face from me? How long must I wrestle with my thoughts and day after day have sorrow in my heart?"</div>
+      <div class="verse-ref">Psalm 13:1–2 · NIV</div>
+    </div>
+
+    <h2>What David Brought to God</h2>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Rage</div>
+          <div class="detail-ref">Psalms 58, 109, 137</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Violent, specific, unfiltered anger at enemies</div>
+          <div class="detail-desc">Psalm 58:6 asks God to break the teeth of his enemies. Psalm 109 is a sustained, detailed call for destruction on a specific individual. Psalm 137:9 expresses a sentiment about infants that most modern readers find disturbing. These are called imprecatory psalms — prayers of cursing. They are in the canon. They represent David bringing his rage to God rather than acting on it unilaterally. The alternative — rage suppressed, or rage expressed directly — is worse. David gave it to God and let God adjudicate.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Abandonment</div>
+          <div class="detail-ref">Psalms 13, 22, 88</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The honest cry of a man who felt God had disappeared</div>
+          <div class="detail-desc">Psalm 22 opens: "My God, my God, why have you forsaken me?" Jesus quoted this from the cross — which tells you something about the depth of the tradition David was establishing. David did not perform peace he didn't feel. He brought the darkness to God and named it. A leader who cannot be honest with God about feeling abandoned cannot be sustained by God through the seasons when abandonment is what it feels like.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Guilt</div>
+          <div class="detail-ref">Psalm 51, 32</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Full, undeflected confession — no explanation, no excuse</div>
+          <div class="detail-desc">Psalm 51 is the model. "Against you, you only, have I sinned." Not "against Bathsheba" — which would have been true. Not "against Uriah" — also true. Against God. The vertical dimension is named first and most fully. The request is not absolution of consequences but renewed relationship: "Create in me a pure heart." David was not asking God to fix what he had broken. He was asking God to fix him.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Joy</div>
+          <div class="detail-ref">Psalms 16, 23, 63, 103</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Genuine, uninhibited delight in God's presence and provision</div>
+          <div class="detail-desc">The same man who wrote Psalm 13 wrote Psalm 23. The same man who wrote Psalm 51 wrote Psalm 103 — "Praise the Lord, my soul; all my inmost being, praise his holy name." David's joy was not performative or situational. It coexisted with the darkness, not instead of it. He danced before the ark with abandon and was mocked for it by Michal. His response: "I will become even more undignified than this." A man whose interior life is genuinely oriented toward God will occasionally look undignified to people who keep God at a more managed distance.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>When the Interior Life Stopped — 2 Samuel 11:1</h2>
+    <p>The single most instructive verse in David's whole story is not Bathsheba. It is the sentence that comes before her: <em>"In the spring, at the time when kings go off to war, David sent Joab out with the king's men and the whole Israelite army… But David remained in Jerusalem."</em></p>
+    <p>Kings go to war. David sent someone else and stayed home. This was not a logistical decision — it was a posture. David had stopped going where he was supposed to go, doing what he was supposed to do. And the Psalms from this period are notably absent. The man who had documented his interior life across decades of pressure went silent when the pressure lifted and comfort arrived. The collapse of the exterior life was preceded by the quiet atrophy of the interior one.</p>
+    <p>This is the pattern that should alarm every leader: it was not crisis that produced the failure. It was ease. It was the season of success when the discipline of the wilderness years quietly softened, when the king started sleeping in instead of going to war, when the habits of seeking God that had sustained him in the caves became less urgent now that the palace was comfortable. The interior life does not erode in crisis. It erodes in comfort.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Warning</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">David's interior life was not destroyed by suffering. It was softened by success. The habits of the wilderness — desperate prayer, honest confession, daily dependence — became less urgent once the palace was comfortable. That softening preceded everything that followed.</p>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">The Psalms show David bringing rage, abandonment, guilt, and joy to God without editing. What do you edit out of your prayers? What have you never brought to God because it felt too raw, too angry, or too dark?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David's interior life eroded in comfort, not crisis. Looking at your current season — are you in the palace or the wilderness? What has that done to the quality and honesty of your prayer life?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Psalm 51 asks for a clean heart — not cleaned-up consequences, but a renewed inner life. What would genuine, undeflected confession look like for you right now? What are you carrying that you have not fully brought to God?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David danced before the ark with abandon and said he would become "even more undignified." Where in your life with God have you become too managed, too composed, too dignified — and what has that cost you?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The imprecatory psalms — the violent, angry ones — are in the canon. What does their presence there say about what God can handle? What does it say about what prayer is actually for?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David's interior life atrophied in the season of success and comfort, not in crisis. In your experience, is that pattern true? What happens to a man's spiritual life when the pressure is off?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Psalm 51 confesses sin against God primarily — "against you, you only." Why does David say "you only" when he had clearly sinned against Bathsheba and Uriah? What is he getting right about the nature of sin that we often miss?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David danced before the ark and was mocked for undignified worship. How much of what passes for "mature" or "appropriate" worship in your community is actually managed distance from God? Have you seen genuine, uninhibited devotion — and how did it land?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If the Psalms are the interior record of David's life with God, what would the equivalent record of your interior life look like right now? What would it reveal about the actual condition of your relationship with God?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE FAILURES ═══════════ -->
+<div class="panel" id="panel-failures">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Unedited Record</div>
+      <div class="section-title">The Failures</div>
+      <div class="section-sub">The gray area mercenary years, the Nabal near-massacre, the Philistine defection, Bathsheba, Uriah — and what genuine repentance looks like after all of it</div>
+    </div>
+
+    <h2>The Gray Area Years — Before the Palace</h2>
+    <p>There is a version of David's story that jumps from Goliath to the throne with the wilderness years as a montage of patient waiting and spiritual growth. That is not what the text describes. The wilderness years include significant moral complexity that the church tends to skip past, and skipping past them makes David less useful as a leadership portrait, not more.</p>
+
+    <h3>The Protection Racket — 1 Samuel 25</h3>
+    <p>David and his 600 men provided de facto security for farmers and herdsmen in the region. When Nabal — a wealthy sheepherder — was shearing his sheep, David sent men to collect payment for the protection his militia had provided. This was not a charitable arrangement. David's men reminded Nabal that they had not taken anything from him and had protected his shepherds, and expected compensation in return. When Nabal refused, David's response was immediate and disproportionate: he strapped on his sword and marched 400 armed men to kill every male in Nabal's household.</p>
+    <p>Nabal's assessment of David — "Who is this David? Who is the son of Jesse? There are many servants today who are breaking away from their masters" — was not entirely wrong. David was running a militia and operating on the edges of what was legally and morally sanctioned. He was, in the language of the text, collecting "protection." When Nabal refused to pay, David moved immediately to massacre.</p>
+    <p>What stopped him was Abigail — Nabal's wife — who rode out with food and wine and spoke with such clarity and wisdom that David stood down. David acknowledged she had kept him from bloodshed. He praised God for sending her. And then he accepted the food and went back. He was not the righteous man in this story. He was the man Abigail kept from committing atrocity.</p>
+
+    <h3>The Philistine Defection — 1 Samuel 27–29</h3>
+    <p>When the pressure from Saul became unsustainable, David defected to Achish, king of Gath — a Philistine city, Israel's enemy. He and his men lived there for over a year. He raided surrounding towns, killing every man and woman so there would be no witnesses, and lying to Achish about where he had been raiding, claiming he was raiding Judah when he was actually raiding Israel's other enemies.</p>
+    <p>When the Philistines mobilized against Israel, David marched with Achish — prepared to fight against his own people. He was not forced to go. He went. He was sent back only because the other Philistine commanders didn't trust him. His response to being sent back was protest, not relief. He did not refuse to march against Israel. He had to be sent home.</p>
+    <p>These are not incidental details. They are part of the record of a man under enormous pressure making survival decisions that compromised his integrity across an extended period. David was not morally pristine in the wilderness. He was a man doing what he judged necessary to survive — and some of what he judged necessary was wrong.</p>
+
+    <h2>The Bathsheba Sequence — Named in Full</h2>
+    <p>2 Samuel 11 is one of the most carefully written chapters in Scripture. Every detail is chosen. Understanding the sequence matters because it was not a single moment of weakness — it was a series of decisions, each one building on the last, each one more committed to the cover-up than the one before.</p>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The First Decision</div>
+          <div class="detail-ref">2 Samuel 11:1</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Staying home when kings go to war</div>
+          <div class="detail-desc">The chapter opens with the most important sentence: "In the spring, at the time when kings go off to war, David sent Joab… But David remained in Jerusalem." He was not where he was supposed to be. He had delegated what was his responsibility and stayed in the palace. What follows is not random. It flows directly from that first absence. A man who is where he is supposed to be, doing what he is supposed to do, does not have time to stand on the roof looking at his neighbor's wife.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Roof</div>
+          <div class="detail-ref">2 Samuel 11:2</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">He saw, and he looked</div>
+          <div class="detail-desc">David saw a woman bathing. That was not a choice. What followed was: he kept looking. The text does not rush past this. He looked, and she was beautiful. The moment of temptation was not the sin. The lingering was the beginning of the sin. Every man knows the difference between a glance and a sustained look. David knew. He stayed on the roof.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Inquiry</div>
+          <div class="detail-ref">2 Samuel 11:3</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">He sent to find out who she was — knowing the answer</div>
+          <div class="detail-desc">He sent someone to ask about her. The response came back: "Isn't this Bathsheba, the daughter of Eliam and the wife of Uriah the Hittite?" Three identifiers. She was married. Her husband was Uriah — one of David's Mighty Men, listed by name in 2 Samuel 23:39 among his most loyal soldiers. David knew exactly who she was before he sent for her. The inquiry was not due diligence. It was confirmation before commission.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Sending</div>
+          <div class="detail-ref">2 Samuel 11:4</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">He sent messengers to get her</div>
+          <div class="detail-desc">He sent for a married woman. She came. The text does not elaborate on what choice she had. The king sent. The power differential is complete. David used his position to take what was not his. She went home. She was pregnant. This is where a man who was actually repentant would have confessed. David began covering his tracks instead.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Cover-Up Attempt 1</div>
+          <div class="detail-ref">2 Samuel 11:6–9</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Bring Uriah home — let him sleep with his wife</div>
+          <div class="detail-desc">David recalled Uriah from the front, asked about the battle, and sent him home. Uriah slept at the palace entrance with the other servants and did not go to his house. When David asked him why, Uriah said: "The ark and Israel and Judah are staying in tents, and my commander Joab and my lord's men are camped in the open country. How could I go to my house to eat and drink and make love to my wife?" Uriah's integrity in this moment is one of the most cutting passages in the text. He would not take the comfort his king was desperately trying to give him. He was more loyal to David's army than David was to him.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Cover-Up Attempt 2</div>
+          <div class="detail-ref">2 Samuel 11:12–13</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Get Uriah drunk — let him sleep with his wife</div>
+          <div class="detail-desc">David kept Uriah in Jerusalem, ate with him, and got him drunk. Uriah still did not go home. He slept again among the king's servants. David had now tried twice. The cover-up had failed twice. He moved to murder.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Murder</div>
+          <div class="detail-ref">2 Samuel 11:14–17</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">David wrote Uriah's death warrant and sent it with Uriah</div>
+          <div class="detail-desc">In the morning David wrote a letter to Joab and sent it by Uriah's hand: "Put Uriah out in front where the fighting is fiercest. Then withdraw from him so he will be struck down and die." Uriah carried his own death warrant to Joab. He did not know what he was carrying. He delivered it faithfully. He was killed in exactly the way David instructed. David married Bathsheba. The thing David had done, the text says, "displeased the Lord." That is an understatement that should be read in full weight: David had committed adultery, sustained deception, and premeditated murder — and then proceeded to marry the woman as if the issue were resolved.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Nathan's Confrontation — The Parable and the Verdict</h2>
+    <p>God sent Nathan the prophet to David. Nathan told him a story: a rich man with many flocks, a poor man with one beloved lamb, and a traveler the rich man needed to feed. Rather than take from his own flocks, the rich man took the poor man's lamb and slaughtered it.</p>
+    <p>David's response: "As surely as the Lord lives, the man who did this must die! He must pay for that lamb four times over, because he did such a thing and had no pity."</p>
+    <p>Then Nathan: "You are the man."</p>
+    <p>David had no pity on Uriah. He had the man killed for his lamb — and he was so removed from what he had done, so thoroughly insulated from it by months of managed cover-up, that he could hear the story and issue the verdict on himself without recognizing it. Nathan's confrontation is devastating precisely because it reveals the full extent of the moral dissociation that sustained wrongdoing produces. David was not a monster. He was a man who had made one compromising choice at a time, each one making the next one easier, until he could sit calmly and condemn the thing he himself had done.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Then David said to Nathan, 'I have sinned against the Lord.' Nathan replied, 'The Lord has taken away your sin. You are not going to die. But because by doing this you have shown utter contempt for the Lord, the son born to you will die.'"</div>
+      <div class="verse-ref">2 Samuel 12:13–14 · NIV</div>
+    </div>
+
+    <h2>Psalm 51 — Genuine Repentance vs. Managed Repentance</h2>
+    <p>Psalm 51 is what David wrote after Nathan confronted him. It is the theological and emotional content of his repentance in full, and it is worth examining carefully because it models something different from the managed, careful apologies that leaders typically produce when caught.</p>
+
+    <div class="psalm-block">
+      <div class="psalm-header">Psalm 51:1–4, 10–12 · NIV</div>
+      <div class="psalm-text">
+        <span class="vn">1</span>Have mercy on me, O God, according to your unfailing love; according to your great compassion blot out my transgressions.
+        <span class="vn">2</span>Wash away all my iniquity and cleanse me from my sin.
+        <span class="vn">3</span>For I know my transgressions, and my sin is always before me.
+        <span class="vn">4</span>Against you, you only, have I sinned and done what is evil in your sight; so you are right in your verdict and justified when you judge…
+        <span class="vn">10</span>Create in me a pure heart, O God, and renew a steadfast spirit within me.
+        <span class="vn">11</span>Do not cast me from your presence or take your Holy Spirit from me.
+        <span class="vn">12</span>Restore to me the joy of your salvation and grant me a willing spirit, to sustain me.
+      </div>
+    </div>
+
+    <p>Several things are worth noting. David does not explain. He does not offer context. He does not say "I was under enormous pressure" or "Saul had been pursuing me for years" or "the situation was complicated." He says: I know my transgressions. My sin is always before me. You are right in your verdict. There is no purchase for deflection in those sentences.</p>
+    <p>He also asks for the right things. Not "fix what I broke." Not "restore my reputation." Not "let me keep my position." He asks for a clean heart. He asks not to lose God's presence. He asks for the joy of salvation restored. These are requests about his relationship with God — not about his circumstances. Genuine repentance goes to the root. Managed repentance manages the surface.</p>
+
+    <h2>The Consequences That Did Not Go Away</h2>
+    <p>Nathan's prophecy was specific: the child would die, and the sword would never depart from David's house. Both happened. The child died. Amnon raped Tamar. Absalom killed Amnon and then led a rebellion that drove David from Jerusalem, sleeping with David's concubines publicly on a rooftop — exactly as Nathan had prophesied ("before all Israel and in broad daylight"). David wept, fled, and spent years living in the consequences of what he had set in motion years earlier.</p>
+    <p>Psalm 51 was real. The forgiveness was real. And the consequences were also real, and they did not go away because David repented. This is one of the hardest truths in David's story for men to hold: <strong>genuine repentance and ongoing consequences are not mutually exclusive.</strong> God forgave David fully. The sword still didn't depart. Both are true simultaneously. A theology that expects repentance to erase consequences will eventually collapse under the weight of a story like David's.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">David's collapse was a sequence — each decision built on the last, each one making the next easier. Looking at the sequence honestly: where in your own life are you currently at step two or three of a sequence you know leads somewhere you don't want to go?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Uriah was more loyal to David's army than David was to Uriah. David used his position to take what was not his and then killed the man who was most faithful to him. Is there anyone in your life whom you are treating with less integrity than they are treating you with? Name it honestly.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Psalm 51 asks for a clean heart, not fixed circumstances. When you confess sin, what are you actually asking God to change — the consequences, or you? What does the honest answer reveal about the nature of your repentance?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David's repentance was genuine and the consequences did not go away. Is there an area of your life where you are expecting repentance to erase consequences — and struggling with God because it hasn't? What would it look like to hold forgiveness and consequences simultaneously?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David's protection racket and Philistine defection are rarely mentioned in leadership studies. Why do you think that is? What do we lose by leaving them out?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The Bathsheba sequence was seven distinct decisions — not one moment of weakness. How does mapping it as a sequence rather than a single failure change how you think about your own vulnerability to sin?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David heard Nathan's parable, condemned the rich man, and didn't recognize himself. How does sustained wrongdoing — managed carefully over time — produce that kind of moral dissociation? Have you seen this in a leader? In yourself?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Psalm 51 asks for a clean heart, not cleaned-up circumstances. What is the difference between genuine repentance and managed repentance — the kind that handles the surface while leaving the interior unchanged?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God forgave David. The sword still didn't depart from his house. How do you preach — and live — a theology that holds genuine forgiveness and ongoing consequences together without collapsing either one?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">From Psalm 51</div>
+      <div class="verse-text">"Create in me a pure heart, O God, and renew a steadfast spirit within me. Do not cast me from your presence or take your Holy Spirit from me."</div>
+      <div class="verse-ref">Psalm 51:10–11 · NIV</div>
+      <div class="prayer-instruction">Not "fix what I broke." Not "restore my reputation." A clean heart. God's presence. Those are the things worth asking for. Pray David's prayer — as slowly as it deserves.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ ANOINTED BEFORE CROWNED ═══════════ -->
+<div class="panel" id="panel-wilderness">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Wilderness Years</div>
+      <div class="section-title">Anointed Before Crowned</div>
+      <div class="section-sub">Refusing to take by force what God has promised to give — and what those years produced that the throne alone never could</div>
+    </div>
+
+    <h2>The Gap Between Promise and Possession</h2>
+    <p>Samuel anointed David king in 1 Samuel 16. David did not become king until 2 Samuel 2 — over a decade later. In between: Goliath, service in Saul's court, Jonathan's friendship, Saul's jealousy, years as a fugitive, the formation of his militia, the wilderness, the caves, the two moments when David could have ended the waiting by killing Saul and chose not to.</p>
+    <p>The gap between anointing and crowning is one of the most important and least-discussed seasons in David's story. It is where his character was formed. It is where the Psalms that shaped Israel's worship were written. It is where he learned what he was made of — not in the good conditions, but in the desperate ones. And it includes two pivotal moments that reveal more about his character than anything that happened once he was actually on the throne.</p>
+
+    <h2>The Two Opportunities to Kill Saul</h2>
+    <p>Twice in the wilderness, David had Saul completely in his power and refused to take the kill.</p>
+    <p><strong>En Gedi (1 Samuel 24):</strong> Saul entered a cave to relieve himself. David and his men were hiding in the back of that same cave. David crept close enough to cut off a corner of Saul's robe. He did not kill him. When Saul left, David called out to him and showed him the piece of robe as evidence he could have taken his life. Saul wept. David's men had told him this was God delivering his enemy into his hands. David's response was: "The Lord forbid that I should do such a thing to my master, the Lord's anointed, to lay my hand on him; for he is the anointed of the Lord."</p>
+    <p><strong>The Desert of Ziph (1 Samuel 26):</strong> David and Abishai infiltrated Saul's camp at night. Saul was asleep. His spear was stuck in the ground beside him. Abishai said: "Today God has delivered your enemy into your hands. Now let me pin him to the ground with one thrust of the spear." David refused again. He took the spear and water jug as evidence, and left.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Principle</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">David refused to take by force what God had promised to give. He had the opportunity twice. Both times he could have justified the kill — God was delivering his enemy. Both times he refused. The man who would not kill the king who was hunting him would not steal a throne that God had already given him. That is integrity under the most extreme pressure imaginable.</p>
+    </div>
+
+    <h2>Why This Matters for Leadership</h2>
+    <p>The temptation David faced at En Gedi and Ziph is the same temptation every leader faces in a less dramatic form: <strong>to take what God has promised rather than waiting for God to give it.</strong> The promised thing is real. The timing is wrong. And there is always someone nearby to say "God has delivered this into your hands" and hand you a spear.</p>
+    <p>Leaders who consistently take what God has not yet given — positions, authority, credit, recognition — tend to justify it exactly the way Abishai did: God is clearly on your side, the opportunity is obviously here, one thrust and the problem is resolved. David knew that the way you obtain the throne shapes what kind of king you become on it. A throne taken by murder produces a murderous king. A throne received from God produces something different.</p>
+
+    <h2>What the Wilderness Produced</h2>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Dependence on God</div>
+        <div class="phase-desc">In the caves David had nothing but God. The Psalms from this period are the most raw and desperate — and the most confident. Men who have been reduced to nothing except God tend to know God in ways that men who have always had resources do not.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Loyalty to the Anointed</div>
+        <div class="phase-desc">David's refusal to kill Saul established a principle of authority that shaped his entire reign: God sets up leaders, and God removes them. That conviction — costly in the wilderness — produced a king who submitted to divine authority even when the human authority over him was corrupt and dangerous.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Character Formed in Obscurity</div>
+        <div class="phase-desc">Nobody gave David credit for not killing Saul in the cave. The integrity happened when no one was watching — when the only reason not to act was that it was wrong. That is the formation that matters. What a man does in the cave when the king is defenseless in front of him is more revealing than anything he does on the throne.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Community in Distress</div>
+        <div class="phase-desc">David's 600 men were, initially, described as "everyone who was in distress or in debt or discontented" (1 Samuel 22:2). He didn't get the best men first. He got the broken ones and built something with them. Many of his Mighty Men — his most loyal soldiers — came from that original gathering of desperate people in the cave of Adullam.</div>
+      </div>
+    </div>
+
+    <h2>How David Treated Saul's Household After the Crown</h2>
+    <p>When David became king, the conventional expectation was that he would eliminate potential rivals from Saul's line — every ancient king did. Instead David asked: "Is there anyone still left of the house of Saul to whom I can show kindness for Jonathan's sake?" (2 Samuel 9:1). There was: Mephibosheth, Jonathan's son, crippled in both feet, living in Lo Debar — which means "place of no pasture." A place of nothing.</p>
+    <p>David brought him to Jerusalem, restored all of Saul's land to him, and gave him a permanent place at the king's table — "like one of the king's sons." The word used is hesed — covenant love, loyal-kindness, the kind of love that keeps its promises even when the other party can offer nothing in return. Mephibosheth could not threaten David, serve David, or repay David. David brought him anyway, because he had made a promise to Jonathan years earlier in the wilderness.</p>
+    <p>The man who had not killed his enemy when he could have — who had refused to take the throne by force — was the same man who brought his enemy's grandson to his table. The integrity of the wilderness years produced the generosity of the palace years. Character is not compartmentalized. What a man is in the cave is what he is on the throne.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">David refused to take what God had promised but not yet given. Is there a position, opportunity, or outcome you are being tempted to take rather than wait for — where someone is essentially handing you the spear and saying "God has delivered this to you"?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The wilderness years produced dependence, loyalty, and community that the throne could not have produced. What season of your life — past or present — has been most formative precisely because it was most difficult? What did it produce that ease could not have?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David's first question after taking the throne was about who remained from Saul's house to whom he could show kindness. Who in your current context could you show unexpected, unearned, unreciprocated kindness to — someone who cannot help you and cannot threaten you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">David's 600 men were initially the distressed, the indebted, and the discontented. He built his most loyal community from broken people. Who are the "Lo Debar people" in your orbit — the ones living in the place of nothing — and what would it look like to bring them to the table?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David had two clear opportunities to kill Saul and end the waiting — and both times Abishai or his men told him God had delivered his enemy into his hands. How do you discern between a genuine open door from God and a temptation to take what God hasn't given yet?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study argues that the way you obtain something shapes what you become once you have it. Do you believe that? Can you think of examples — positive or negative — from leadership you've observed?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">David's first 600 men were "everyone who was in distress or in debt or discontented." Most leaders want the best people first. What does David's willingness to build with the broken ones say about what leadership is actually for?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Mephibosheth could offer David nothing — no political advantage, no military value, no reciprocity. David brought him to the table because of a promise made years earlier in the wilderness. What does that kind of loyalty — costly, unreturned, based purely on covenant — look like in your leadership today?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study argues that what a man is in the cave is what he is on the throne. Do you believe character is that consistent — that the hidden integrity or hidden compromise of the wilderness years inevitably surfaces once the pressure of power arrives?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"I have found David son of Jesse, a man after my own heart; he will do everything I want him to do."</div>
+      <div class="verse-ref">Acts 13:22 · NIV</div>
+      <div class="prayer-instruction">Not a man without sin. Not a man without failure. A man whose heart, when confronted with its own condition, kept returning to God. Ask God to make that true of you — not perfect obedience, but an unreserved return, every time.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages across David's full story</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Anointing &amp; Formation</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"But the Lord said to Samuel, 'Do not consider his appearance or his height, for I have rejected him. The Lord does not look at the things people look at. People look at the outward appearance, but the Lord looks at the heart.'"</div>
+          <div class="vc-footer"><span class="vc-ref">1 Samuel 16:7 · NIV</span><span class="vc-note">The criterion God uses — the same criterion that makes David both chosen and accountable</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"So Samuel took the horn of oil and anointed him in the presence of his brothers, and from that day on the Spirit of the Lord came powerfully upon David."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Samuel 16:13 · NIV</span><span class="vc-note">The anointing precedes the throne by over a decade — formation happens in the gap</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Wilderness — Character Under Pressure</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"The Lord forbid that I should do such a thing to my master, the Lord's anointed, to lay my hand on him; for he is the anointed of the Lord."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Samuel 24:6 · NIV</span><span class="vc-note">En Gedi — David refuses to take the throne by killing the man who is hunting him</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"All those who were in distress or in debt or discontented gathered around him, and he became their commander. About four hundred men were with him."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Samuel 22:2 · NIV</span><span class="vc-note">The first community David built — broken people in a cave, who became his most loyal soldiers</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Interior Life — Psalms</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"How long, Lord? Will you forget me forever? How long will you hide your face from me?… But I trust in your unfailing love; my heart rejoices in your salvation. I will sing the Lord's praise, for he has been good to me."</div>
+          <div class="vc-footer"><span class="vc-ref">Psalm 13:1, 5–6 · NIV</span><span class="vc-note">The full arc in one psalm — lament to trust without skipping the darkness</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Create in me a pure heart, O God, and renew a steadfast spirit within me. Do not cast me from your presence or take your Holy Spirit from me. Restore to me the joy of your salvation and grant me a willing spirit, to sustain me."</div>
+          <div class="vc-footer"><span class="vc-ref">Psalm 51:10–12 · NIV</span><span class="vc-note">The model repentance — asking for the right things</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul… Even though I walk through the darkest valley, I will fear no evil, for you are with me."</div>
+          <div class="vc-footer"><span class="vc-ref">Psalm 23:1–4 · NIV</span><span class="vc-note">Written by a man who knew both the green pastures and the darkest valley — not as metaphor but as biography</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Failure &amp; Confrontation</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"In the spring, at the time when kings go off to war, David sent Joab out with the king's men and the whole Israelite army… But David remained in Jerusalem."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Samuel 11:1 · NIV</span><span class="vc-note">The most important sentence in chapter 11 — before Bathsheba, before everything</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Then Nathan said to David, 'You are the man!'… Then David said to Nathan, 'I have sinned against the Lord.' Nathan replied, 'The Lord has taken away your sin.'"</div>
+          <div class="vc-footer"><span class="vc-ref">2 Samuel 12:7, 13 · NIV</span><span class="vc-note">The confrontation and the response — five Hebrew words of confession, no deflection</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Hesed — Covenant Kindness</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"David asked, 'Is there anyone still left of the house of Saul to whom I can show kindness for Jonathan's sake?'"</div>
+          <div class="vc-footer"><span class="vc-ref">2 Samuel 9:1 · NIV</span><span class="vc-note">The king's first question about Saul's household — kindness, not threat elimination</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Don't be afraid," David said to him, "for I will surely show you kindness for the sake of your father Jonathan. I will restore to you all the land that belonged to your grandfather Saul, and you will always eat at my table."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Samuel 9:7 · NIV</span><span class="vc-note">Hesed in practice — unearned, unreciprocated, covenant-based generosity</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and resources for deeper engagement with David's story</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">לֵב</div>
+        <div class="ws-transliteration">lev</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Heart — but in Hebrew, the heart is the center of the entire person: intellect, will, emotion, and moral orientation. Used in "a man after God's own heart" (1 Samuel 13:14), in "the Lord looks at the heart" (1 Samuel 16:7), and in Psalm 51:10 "create in me a clean heart." Also used for Saul's hardening and for the foolishness of those who forget God. Appears over 850 times in the Old Testament.</div>
+        <div class="ws-note">The lev is not the seat of emotion only — it is the seat of the whole person. When God says he looks at the lev and not the outward appearance, he is saying he evaluates the entire interior life: what a man actually thinks, decides, and desires when no one is watching. David's lev was oriented toward God even when his actions were not. That distinction is the whole point of the portrait.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">חֶסֶד</div>
+        <div class="ws-transliteration">hesed</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Covenant love, loyal-kindness, steadfast love, mercy. One of the richest theological words in the Old Testament — used for God's unconditional covenant faithfulness to Israel, and for the human obligation to reflect that same loyalty to others in covenant relationship. Used in David's treatment of Mephibosheth (2 Samuel 9), in the Psalms repeatedly ("your hesed endures forever"), and in Micah 6:8 — "love hesed."</div>
+        <div class="ws-note">Hesed cannot be earned or demanded — it is freely given based on covenant relationship, not merit. David's extension of hesed to Mephibosheth models what God's hesed looks like in human form: finding the person in Lo Debar, bringing them to the table, giving them what they cannot repay. Every leader is being asked in some form to extend hesed — covenant loyalty to people who cannot return it — as an act of reflecting God's character.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">תְּשׁוּבָה</div>
+        <div class="ws-transliteration">teshuvah</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Return, repentance, turning back. From shuv — to turn, to return. The concept behind biblical repentance is not primarily feeling sorry but turning — physically and morally reorienting toward God. Used in prophetic literature for Israel's return to God after unfaithfulness. The corresponding Greek word in the New Testament is metanoia — a change of mind and direction.</div>
+        <div class="ws-note">Teshuvah is the word that explains "a man after God's own heart." It is not that David had a perfect record. It is that he kept turning back. Every time — from the Psalms of lament, to Nathan's confrontation, to the grief over Absalom — David's orientation was back toward God. The man after God's heart is the man whose teshuvah is genuine and repeated. That is available to every man in this room.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">מַשְׂכִּיל</div>
+        <div class="ws-transliteration">maskil</div>
+        <div class="ws-pos">Hebrew noun · Psalms superscription</div>
+        <div class="ws-definition">A psalm of insight, instruction, or contemplation. From sakal — to be wise, to have insight, to act with understanding. Appears in the superscriptions of 13 psalms, including several of David's. The maskil psalms tend to be the most reflective and instructive — Psalm 32 (David's reflection on the cost of unconfessed sin), Psalm 52, Psalm 54, Psalm 55.</div>
+        <div class="ws-note">Psalm 32 is a maskil — and its content is David reflecting on what unconfessed sin cost him before Nathan arrived: "When I kept silent, my bones wasted away through my groaning all day long." The maskil designation signals that this is meant to produce wisdom in the reader — not just empathy with David's experience, but a transferable insight. The pain of concealment is real and physical. The relief of confession is also real. David turned that experience into instruction for every leader who would read it after him.</div>
+      </div>
+
+    </div>
+
+    <h2>David's Arc — Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">1 Samuel 16</span><span class="ref-desc">The anointing. Samuel's criterion ("the Lord looks at the heart"), David called in from the fields, the Spirit coming on him from that day. Read v.7 carefully — it sets the standard God holds David to for the rest of the story.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Samuel 22:1–2</span><span class="ref-desc">The cave of Adullam — David's first community. Four hundred distressed, indebted, discontented men. The beginning of the Mighty Men.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Samuel 24 &amp; 26</span><span class="ref-desc">The two opportunities to kill Saul. Read them back to back. The principle of not taking what God has promised — stated and demonstrated twice.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Samuel 25</span><span class="ref-desc">Nabal, Abigail, and the near-massacre. The protection racket dynamic, David's disproportionate rage, Abigail's intervention, and David's acknowledgment that she kept him from bloodshed.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Samuel 27–29</span><span class="ref-desc">The Philistine defection. David living among Israel's enemies, raiding and lying to Achish, prepared to march against Israel. Read without the soft version.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Samuel 9</span><span class="ref-desc">Mephibosheth. David's first act of hesed as king. The question ("is there anyone left?"), Lo Debar, the restoration, the table. The character of the wilderness years producing the generosity of the palace years.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Samuel 11–12</span><span class="ref-desc">The full Bathsheba sequence and Nathan's confrontation. Read 11:1 as the real beginning. Map the seven decisions. Read Nathan's parable and David's self-verdict before continuing to 12:13.</span></li>
+      <li class="ref-item"><span class="ref-book">Psalm 51</span><span class="ref-desc">David's repentance after Nathan. Read the whole psalm. Notice what he asks for — and what he doesn't ask for. That is the study.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read Psalm 32 — David's maskil on what unconfessed sin cost him physically and emotionally, and what confession released. Then ask: is there anything you are currently carrying in silence that is costing you in the ways David describes? What would full confession look like?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Map the seven steps of the Bathsheba sequence (staying home, the roof, the look, the inquiry, the sending, the cover-up attempts, the murder) against a pattern of compromise in your own life — past or present. Where does your sequence usually begin? Where do you most need to interrupt it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The study argues that "a man after God's own heart" is not a moral grade — it is a description of direction. Where is your heart currently oriented? Not where you want it to be — where is it actually pointing right now? What would it take to turn it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

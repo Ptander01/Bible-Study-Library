@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timothy &amp; Titus — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #5a8a6a;
+  --accent-dim:   #30533e;
+  --accent-lt:    #7aaa8a;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #080f0a 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(22px, 4.5vw, 40px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(28px, 5.5vw, 52px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; text-decoration: none; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── DETAIL GRID ── */
+.detail-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.detail-row { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row:hover { background: #ffffff08; }
+.detail-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.detail-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.detail-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.detail-body { background: var(--surface); padding: 18px 22px; }
+.detail-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.detail-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .detail-row { grid-template-columns: 1fr; } .detail-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+
+/* ── QUALIFIER GRID ── */
+.qualifier-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 24px 0; }
+.qualifier-card { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--accent-dim); border-radius: 6px; padding: 20px 22px; }
+.q-category { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 8px; }
+.q-title { font-family: var(--font-body); font-size: 15px; font-weight: 500; color: var(--cream); margin-bottom: 8px; }
+.q-formation { font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 6 of 7</div>
+  <div class="header-title"><span>Timothy &amp; Titus</span></div>
+  <div class="header-verse">"Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity."</div>
+  <div class="header-ref">1 Timothy 4:12 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('character',this)">Character &amp; Qualifications</button>
+    <button class="tab-btn" onclick="switchTab('fear',this)">Fear &amp; Timidity</button>
+    <button class="tab-btn" onclick="switchTab('sent',this)">Sent, Not Self-Appointed</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill">Moses</div>
+        <div class="series-pill">Joshua</div>
+        <div class="series-pill">David</div>
+        <div class="series-pill">Peter</div>
+        <div class="series-pill">Paul</div>
+        <div class="series-pill current">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 6</div>
+      <div class="section-title">Timothy &amp; Titus</div>
+      <div class="section-sub">Character over competence, the courage of the young, and what it means to be sent rather than self-appointed</div>
+    </div>
+
+    <h2>The Portrait for the Man Who Wonders If He Is Enough</h2>
+    <p>Every man who leads eventually arrives at the same moment: the quiet, private conviction that he is not sufficient for what is being asked of him. Not publicly — he may be performing well enough that nobody else notices. But inwardly, at the level of what he actually believes about himself, there is a gap between who he is and who this assignment requires. He is too young, or too old. He is not as gifted as the person before him. He is carrying fears he has never named out loud. He is aware of failures that he believes, if seen clearly, would disqualify him from what he is doing.</p>
+    <p>Timothy's portrait exists for that man. Because Timothy was, by most measures, an unlikely candidate for the work Paul gave him. He was young — young enough that Paul had to explicitly instruct him not to let anyone treat him with contempt for it. He was apparently prone to timidity — Paul addressed this directly and without softening: "the spirit God gave us does not make us timid." He had a stomach condition serious enough to require medical advice. He wept when Paul left him (2 Timothy 1:4). He was, in short, not the obvious picture of a commanding leadership presence.</p>
+    <p>And Paul sent him anyway. Not despite these things but through them, building a framework of character and formation that made it possible for a young, fearful, physically frail man to stand in Ephesus and hold the line.</p>
+    <p>Titus is the less documented but equally instructive counterpart — sent to Crete, which Paul called an island of liars and lazy gluttons, to straighten out what was unfinished and appoint elders in every town. Not an easy assignment. Not a place anyone would volunteer for. And Titus went. What the two portraits together reveal is this: <strong>what qualifies a man to lead is not his impressive resume. It is the formation of his interior life, the state of his character, and whether he was sent or whether he appointed himself.</strong></p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Series Frame</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Biblical leadership is not an achievement. It is a formation process — and Timothy and Titus are the most detailed description in the New Testament of what that formation is supposed to produce.</p>
+    </div>
+
+    <h2>Two Men, Two Assignments, One Standard</h2>
+    <p>Timothy and Titus were both Pauline delegates — men Paul sent to specific churches with specific mandates when he could not be there himself. Their situations were different in character and context, which is why Paul's letters to them are different in tone, but the underlying framework is identical: character first, competence second, authority derived from integrity rather than position.</p>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Timothy</div>
+          <div class="detail-ref">Acts 16 · 1–2 Tim</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Son of a Greek father and a Jewish believer mother; raised in faith from childhood</div>
+          <div class="detail-desc">Discipled by his mother Eunice and grandmother Lois before Paul ever arrived. Sent to Ephesus — the most cosmopolitan city in the Roman world — to address false teaching, hold the line on sound doctrine, and appoint a new generation of leaders. Young, prone to fear, but rooted in scripture from infancy.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Titus</div>
+          <div class="detail-ref">Gal 2 · Titus 1</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Greek Gentile convert; Paul's "true son in our common faith"; never mentioned in Acts</div>
+          <div class="detail-desc">Sent to Crete — a culture that even ancient writers described as difficult, dishonest, and indolent. Mandated to finish what Paul had started, appoint elders, and set things in order. Less personally documented than Timothy but described as capable, reliable, and unflinching in assignments that would have deterred most.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Common Frame</div>
+          <div class="detail-ref">Formation</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Same standard, same source, same result</div>
+          <div class="detail-desc">Both were identified, formed, and deployed by Paul. Neither sought the assignment. Both received it. Both were expected to hold a standard defined entirely by character — the elder qualifications of 1 Timothy 3 and Titus 1 — that makes almost no reference to skills, gifts, or demonstrated competence. The framework is formation, not achievement.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Formation That Preceded the Assignment</h2>
+    <p>Timothy was not recruited off the street. When Paul arrived at Lystra, Timothy was "spoken well of by the brothers at Lystra and Iconium." His reputation preceded him — already built before Paul gave him any responsibility. The formation came before the deployment. The character was visible in the community before Paul asked him to carry authority in one.</p>
+    <p>This sequence matters. Modern leadership culture tends to run it in reverse: identify the gifted, deploy them quickly, hope the character forms along the way. Paul's pattern was different. The community observed, the character was tested in smaller arenas, the reputation was established — and then the assignment came. The assignment confirmed what was already true, rather than creating the conditions for the formation to happen later.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Timothy, my son, I am giving you this command in keeping with the prophecies once made about you, so that by recalling them you may fight the battle well, holding on to faith and a good conscience."</div>
+      <div class="verse-ref">1 Timothy 1:18–19 · NIV</div>
+    </div>
+
+    <p>There were prophecies about Timothy. Something was spoken over him that preceded his deployment and named his calling. Paul told him to fight the battle by holding on to faith and a good conscience. Not technique. Not strategy. Faith and conscience. The interior life was the instrument of the work.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">The formation preceded the assignment for Timothy — his character was known in the community before Paul gave him responsibility. What does your community know about your character right now, before any title or assignment? What would they say if asked?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Titus was sent to a difficult place, and he went. Is there a difficult assignment in front of you — a hard conversation, an uncomfortable role, a situation you have been avoiding — that you know you have been called into but have not yet entered? What is keeping you out?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul told Timothy to fight well by "holding on to faith and a good conscience." What is the state of your conscience right now — specifically in your leadership, your closest relationships, and your private life? Is there anything you are carrying that is eroding the foundation?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Timothy's reputation in Lystra and Iconium was the basis for Paul's identification of him. What does it mean for a man's leadership qualification to be rooted in community reputation rather than self-assessment or credentials? How does that apply in your context?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul sent Titus to Crete — not a desirable assignment. Who determines what assignments are desirable in your ministry context? Do men get to pick, or are they sent? What is the difference between those two realities in practice?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What does the Timothy and Titus framework suggest about how your church, ministry, or team currently identifies and deploys leaders? What would need to change to align it with what Paul actually did?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul told Timothy to hold on to "faith and a good conscience." He specifically named Hymenaeus and Alexander as men who had "shipwrecked their faith" by rejecting their conscience. What is the connection between a damaged conscience and leadership failure? What does the pattern look like, and have you seen it?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Anchor</div>
+      <div class="verse-text">"But you, man of God, flee from all this, and pursue righteousness, godliness, faith, love, endurance and gentleness. Fight the good fight of the faith."</div>
+      <div class="verse-ref">1 Timothy 6:11–12 · NIV</div>
+      <div class="prayer-instruction">Paul gave Timothy a direction: flee some things, pursue others. Before you close this study, name one thing in front of you to flee, and one thing to pursue. Then ask God for the courage and the formation to do both.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ CHARACTER & QUALIFICATIONS ═══════════ -->
+<div class="panel" id="panel-character">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">1 Timothy 3 · Titus 1</div>
+      <div class="section-title">Character &amp; Qualifications</div>
+      <div class="section-sub">The elder qualifications as a formation portrait, not a checklist — and what they reveal about what God is actually building in a man</div>
+    </div>
+
+    <h2>The Most Misread Leadership Text in the New Testament</h2>
+    <p>The elder qualifications in 1 Timothy 3 and Titus 1 are typically read in one of two ways, both of which miss the point. The first is as a disqualification checklist — a list of boxes to check before a man can be given a title. The second is as an impossibly high bar that, applied strictly, would disqualify nearly everyone. Both readings share the same error: they treat the qualifications as credentials rather than as a portrait of what formation produces.</p>
+    <p>Read the list again, slowly. Almost every item is a character quality — an interior disposition that has been formed over time and is now visible in the exterior life. "Above reproach." "Self-controlled." "Hospitable." "Not given to drunkenness." "Not quarrelsome." "Not a lover of money." "Having a good reputation with outsiders." These are not skills. They are not gifts. They are the fruit of decades of interior work — of a man who has fought his appetites, managed his anger, guarded his tongue, honored his commitments, and done it long enough that the community around him has noticed and can testify to it.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Key Frame</div>
+      <p style="font-family:var(--font-serif);font-size:18px;color:var(--cream);margin:0;">The elder qualifications are not an entry exam. They are a portrait of what the formation process is supposed to produce. The question is not "does he qualify?" The question is "what has his life been shaped into?"</p>
+    </div>
+
+    <h2>A Formation Portrait, Not a Credential List</h2>
+
+    <div class="qualifier-grid">
+
+      <div class="qualifier-card">
+        <div class="q-category">Interior Life</div>
+        <div class="q-title">Above Reproach</div>
+        <div class="q-formation">Not perfect, but nothing in his life that a legitimate accuser could point to and say: there. He lives in the light. His private life and public life match.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Interior Life</div>
+        <div class="q-title">Self-Controlled</div>
+        <div class="q-formation">His appetites do not run him. He has fought his impulses long enough that they no longer determine his behavior. This takes years. It is evidence of formation, not personality.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Interior Life</div>
+        <div class="q-title">Not Given to Drunkenness</div>
+        <div class="q-formation">The underlying issue is appetite management — whether anything has enough pull on him to compromise his judgment and his witness. Wine is the example. The principle is broader.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Interior Life</div>
+        <div class="q-title">Not a Lover of Money</div>
+        <div class="q-formation">Not "not wealthy" but "not captured by wealth." His security, his identity, and his decision-making are not organized around financial self-interest. Formed by years of tested generosity.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Relational Life</div>
+        <div class="q-title">Faithful to His Wife</div>
+        <div class="q-formation">Literally "a one-woman man." Not merely faithful in behavior, but undivided in devotion. His wife is not one of several women he is oriented toward. She is the one. This is character before it is fidelity.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Relational Life</div>
+        <div class="q-title">Hospitable</div>
+        <div class="q-formation">His home is open. He uses his resources for others. He is not possessive of his time or his table. This is not an event — it is a posture formed by repeated acts of choosing others over his own comfort.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Relational Life</div>
+        <div class="q-title">Gentle, Not Quarrelsome</div>
+        <div class="q-formation">He does not need to win every argument. He does not use confrontation as a display of strength. When he is wronged, he does not escalate. This is specifically formed — and it is difficult. Quarrelsomeness is much easier.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Home Life</div>
+        <div class="q-title">Manages His Household Well</div>
+        <div class="q-formation">Paul's reasoning is explicit: "If anyone does not know how to manage his own family, how can he take care of God's church?" The home is the training ground. The leadership arena is smaller before it is bigger. Always.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Home Life</div>
+        <div class="q-title">Children Who Believe</div>
+        <div class="q-formation">Titus 1:6 specifically. Not a guarantee — children have free will — but a question about influence. Has he actually discipled his children? Do they know his faith is real? Has the formation in him been transmitted?</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Public Witness</div>
+        <div class="q-title">Good Reputation with Outsiders</div>
+        <div class="q-formation">His reputation is not limited to Christian community. People outside the church who know him think well of him. He is honest in business. He keeps his word. He is known as a good neighbor, a fair employer, an honest man.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Public Witness</div>
+        <div class="q-title">Not a Recent Convert</div>
+        <div class="q-formation">Time matters. The formation takes time. Rushing a man into authority before the formation is complete is not generosity — it is a setup. Paul's concern is not pace of growth but sufficiency of formation. The tree must be rooted before it bears weight.</div>
+      </div>
+
+      <div class="qualifier-card">
+        <div class="q-category">Teaching</div>
+        <div class="q-title">Able to Teach</div>
+        <div class="q-formation">The one item on the list that is skill-adjacent. But even here, the ability to teach grows from the life — it is not a gift deployed without formation behind it. The man who holds the word teaches from it. It is the fruit of a life saturated in scripture.</div>
+      </div>
+
+    </div>
+
+    <h2>What the List Does Not Include</h2>
+    <p>Read the qualifications again and notice what is absent. There is no mention of charisma. No reference to communication ability beyond the single "able to teach." No requirement for organizational skill, strategic vision, or demonstrated success. No credential from a recognized institution. No track record of measurable growth.</p>
+    <p>This is not an oversight. <strong>The list describes formation, and formation produces character, not performance metrics.</strong> A man formed into what this list describes will be able to lead — not because the qualifications create leadership capacity, but because the interior life they reflect is the actual source of genuine authority. Men follow character. They may initially follow charisma, but it doesn't hold. What holds is a man who has been formed.</p>
+
+    <h2>The Titus 1 Parallel — Same Standard, Harder Soil</h2>
+    <p>Titus received the same list in essentially the same form, and was then sent to implement it in Crete — a culture that Paul described using a Cretan poet's own words: "Cretans are always liars, evil brutes, lazy gluttons." He quoted it not as insult but as context. The standard does not change because the culture is difficult. The elder qualifications in a hard church are identical to those in an easy one. The formation required to produce them is the same. What changes is the relational and cultural resistance a leader will face while trying to hold that standard in a context that has never seen it modeled.</p>
+    <p>This is Titus's specific contribution to the portrait: he held the standard in difficult soil. He did not lower the bar because the context was hard. He set the standard by finding — or forming — men who embodied it, and placing them in elder roles. The standard was the plumb line. The culture was not.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Walk through the qualification list slowly. Not as a credential check, but as a formation inventory. Which items are genuinely present in your life — visible to people who know you well? Which items reveal formation that still needs to happen? Be specific.</div>
+        <textarea placeholder="Present... / Still forming..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul says a man who cannot manage his household cannot manage the church. What does your leadership look like at home, before anyone gives you a title? What would your wife and children say about the man they actually live with?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The list does not include charisma, strategic vision, or measurable results. Where has your picture of leadership been shaped more by those things than by what Paul actually names? How does that need to change?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The qualifications describe formation, not credentials. If your church or ministry used this list — actually used it, not as a formality — to evaluate men for leadership, what would change? What would be required that is currently optional?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">"Not a recent convert" suggests that time is part of the qualification. How does your context handle the tension between the urgency of the work and the patience that genuine formation requires? Do you rush men into leadership?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Titus held the standard in Crete — a place that resisted it culturally. What does it look like to hold a high character standard in a context that does not honor it, or even understand it? Where does that happen in your ministry?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">"Good reputation with outsiders" means non-Christians know this man is different. In your community — neighborhood, workplace, school — do the people outside the church who know you think of you as a man of character? What do they actually know about how you live?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ FEAR & TIMIDITY ═══════════ -->
+<div class="panel" id="panel-fear">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">1 Timothy 4:12 · 2 Timothy 1:6–7</div>
+      <div class="section-title">Fear &amp; Timidity</div>
+      <div class="section-sub">What Paul said to a young man who was afraid — and why the answer was not "be more confident" but "stir up what God has already given you"</div>
+    </div>
+
+    <h2>The Man in Ephesus</h2>
+    <p>Timothy was in Ephesus. Not an easy city, not an easy assignment. Ephesus was the commercial and religious capital of Roman Asia — home to the temple of Artemis, one of the seven wonders of the ancient world; a city with a robust trade in occult practices, significant civic religion, and a church that was fighting heresy from within its own teaching leadership. Paul had left Timothy there to hold the line on sound doctrine, which meant directly confronting men who were older than him, more established, and convinced they were right.</p>
+    <p>Timothy was afraid. Not of Paul — Paul's letters reveal warmth and deep affection. Not of the doctrine — he knew it. He was afraid of the room. Afraid of the older men who would look down on him for his youth. Afraid of confrontation. Afraid, perhaps, of his own insufficiency for an assignment that required something he wasn't sure he had.</p>
+    <p>Paul's response to this is one of the most direct and compassionate pieces of leadership formation in the New Testament. He did not minimize the fear. He did not tell Timothy to try harder or believe in himself. He did not send a replacement. <strong>He addressed the fear directly, named its source, and pointed Timothy back to something that had already been given to him.</strong></p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands. For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline."</div>
+      <div class="verse-ref">2 Timothy 1:6–7 · NIV</div>
+    </div>
+
+    <h2>Three Words for What God Actually Gives</h2>
+    <p>Paul named three things that the Spirit of God produces — and then named the one thing it does not produce. The structure is intentional. Timidity is not a gift. It is not spiritual sensitivity, not appropriate humility, not careful discernment. It is the absence of something that has been given, or the failure to fan what has been given into the flame it was meant to be.</p>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">δύναμις · Dunamis</div>
+        <div class="phase-desc">Power — the same word Paul used in 2 Corinthians 12:9 for the power made perfect in weakness. Not courage manufactured by willpower but capacity given by the Spirit. The man who operates in dunamis does not need to feel powerful. The power is not his to generate; it is his to receive and act from.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">ἀγάπη · Agape</div>
+        <div class="phase-desc">Love — specifically the love that is oriented toward the other person's good even at cost to oneself. Leadership courage rooted in love is different from courage rooted in ego. The man who speaks the hard thing because he loves the person he is speaking to is not trying to win. He is trying to help. That changes everything about how it lands.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">σωφρονισμός · Sōphronismos</div>
+        <div class="phase-desc">Self-discipline, or sound mind — the capacity to think clearly under pressure, to operate from principle rather than reaction, to hold the line without panicking. Often translated "sound mind" (KJV) or "self-discipline" (NIV). It is the opposite of the scattered, anxious mental state that fear produces. Given by the Spirit. Available. Accessible.</div>
+      </div>
+    </div>
+
+    <h2>Fan Into Flame — The Metaphor Matters</h2>
+    <p>Paul's instruction to "fan into flame" implies that the gift was already present but had dimmed. Gifts given by the Spirit do not automatically burn at full intensity. They require tending — deliberate, consistent attention. A fire that is not fed goes out. A fire that is fanned gives heat and light. Timothy was not told to acquire what he lacked. He was told to tend what he had been given and to refuse to let it sit dormant under the weight of his fear.</p>
+    <p>The laying on of hands that Paul referenced was the moment of commission — the public act of sending Timothy into the work. That moment carried weight. Paul was reminding Timothy that the sending was real, the gift was real, and the Spirit given in that moment was still present and still operative. The problem was not insufficient gifting. The problem was insufficient tending.</p>
+
+    <h2>"Don't Let Anyone Look Down on You"</h2>
+
+    <div class="verse-block">
+      <div class="verse-text">"Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity."</div>
+      <div class="verse-ref">1 Timothy 4:12 · NIV</div>
+    </div>
+
+    <p>The instruction is not "don't let anyone look down on you by asserting your authority." It is "don't let anyone look down on you by giving them no grounds for contempt." The authority is established not by claiming it but by living at a level that makes the age objection irrelevant. A young man whose speech is careful, whose conduct is above reproach, whose love for people is evident, whose faith is deep, and whose purity is unquestioned — that man is not easy to dismiss, regardless of his age.</p>
+    <p>Paul gave Timothy five categories: speech, conduct, love, faith, purity. All five are character formation categories. None of them is a skill. Young leadership authority, in Paul's framework, is established not by being impressive but by being formed. The formation makes the age irrelevant because what is visible is not the man's youth — it is the Spirit's work in his life, which is not age-dependent.</p>
+
+    <h2>The Stomach, the Tears, and the Timidity — An Honest Portrait</h2>
+    <p>Paul mentioned Timothy's stomach condition (1 Timothy 5:23), his tears at their parting (2 Timothy 1:4), and his timidity (2 Timothy 1:7) without apparent embarrassment. He did not airbrush the portrait. Timothy was not physically robust. He was emotionally tender. He was prone to anxiety. And Paul gave him one of the most demanding assignments in the early church.</p>
+    <p>This is the portrait Paul thought needed to be preserved. Not the portrait of a man who was fearless and gifted and commanded the room. The portrait of a man who was afraid, who wept, who had health problems — and who, by the power of the Spirit he was given, stood in Ephesus and held the line anyway. That portrait is more useful to more men than the portrait of the impressive leader who never struggled. Most men in a room are closer to Timothy than they are to Paul. The fact that God used Timothy without first remaking him into someone else is the point of the portrait.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul named three things the Spirit gives — power, love, self-discipline — and said timidity is not from God. Where in your leadership does timidity show up? What specifically are you afraid of? And is what you are afraid of actually coming from God's Spirit, or from something else?</div>
+        <textarea placeholder="Where timidity appears... / What I'm actually afraid of..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"Fan into flame" implies you have received something that needs tending. What gift, calling, or capacity in your life has gone dim because you have not given it attention? What would it look like to tend it deliberately this week?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul told Timothy not to let anyone look down on him — by becoming someone who could not be looked down on. In your life right now, which of the five categories needs the most formation? Speech, conduct, love, faith, or purity?</div>
+        <textarea placeholder="The category: ... / What formation would look like..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Timothy was emotionally tender — Paul describes his tears — and afraid, and not physically strong. And God used him. What is the thing about yourself that you believe disqualifies you? And what does Timothy's portrait say about whether that is actually a disqualification, or a condition God can still work through?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Timidity is not a spiritual gift — Paul said the Spirit of God does not produce it. But in many Christian communities, timidity is performed as a virtue (humility, sensitivity, not wanting to impose). How do you tell the difference between genuine humility and fear dressed in spiritual language?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The three things the Spirit gives — power, love, self-discipline — are all described as already given, not as things to acquire. What does it mean to live and lead from something that has already been given rather than something you have to generate?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul's solution to the age problem was formation in five categories, not assertion of authority. In your community, how do younger men typically try to establish credibility? Is it the Paul pattern or something else?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul did not replace Timothy or wait for him to become less afraid before sending him. He sent him as he was, and gave him the framework to be faithful in that condition. What does that suggest about how God deploys people — and how we should think about our own readiness?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Reminder</div>
+      <div class="verse-text">"I have been reminded of your sincere faith… For this reason I remind you to fan into flame the gift of God which is in you."</div>
+      <div class="verse-ref">2 Timothy 1:5–6 · NIV</div>
+      <div class="prayer-instruction">Paul reminded Timothy of his mother's faith, his grandmother's faith, and his own — and then told him to tend the gift he had been given. What is the sincere faith in your own story that needs to be remembered and acted on? Bring that specific thing before God now.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SENT, NOT SELF-APPOINTED ═══════════ -->
+<div class="panel" id="panel-sent">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Acts 16 · Titus 1 · 2 Timothy 2</div>
+      <div class="section-title">Sent, Not Self-Appointed</div>
+      <div class="section-sub">The distinction that changes everything about how a man leads, what he does with the authority, and how he handles the cost</div>
+    </div>
+
+    <h2>The Most Important Leadership Question</h2>
+    <p>There are many questions that matter for leadership — questions about character, calling, capacity, and competence. But one question underlies all the others, and how it is answered determines the shape of everything that follows: <strong>Are you sent, or did you appoint yourself?</strong></p>
+    <p>The difference is not always visible from the outside, at least not at first. A self-appointed man and a sent man can occupy the same role, carry the same title, and do similar work. The difference reveals itself over time, in how they handle opposition, how they relate to authority above them, what they do when the assignment costs more than they expected, and what they do with the authority they have been given.</p>
+    <p>Timothy and Titus were sent. This is not a minor detail in their story — it is the frame that makes their entire portrait intelligible. They did not pursue these assignments. They received them. That receiving established the source of their authority, the orientation of their work, and the basis on which they could hold the line when the pressure came to move it.</p>
+
+    <h2>What It Means to Be Sent</h2>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Authority Is Derived</div>
+          <div class="detail-ref">Not generated</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The sent man's authority belongs to the one who sent him, not to himself</div>
+          <div class="detail-desc">Timothy's authority in Ephesus was not his own. It was Paul's — and behind Paul's, Christ's. He could hold the line on sound doctrine because the standard was not his preference; it was the apostolic gospel entrusted to Paul and then to him. A man who holds authority he received is holding it on behalf of someone else. That changes what he does with it.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Assignment</div>
+          <div class="detail-ref">Not chosen</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">He goes where he is sent, not where he prefers to go</div>
+          <div class="detail-desc">Titus was sent to Crete. Nobody would have chosen Crete. The sent man does not optimize for his comfort, his reputation, or his strategic positioning. He goes where the need is and where the sending points. Self-appointed men choose visible, impressive assignments. Sent men go where they are needed, even when that is not impressive.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Accountability</div>
+          <div class="detail-ref">Upward and real</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The sent man reports to someone; he is not the final authority in his own story</div>
+          <div class="detail-desc">Timothy wrote back to Paul. Titus reported back. The relationship was not merely mentorship — it was accountability. Paul expected to know what was happening, to correct what needed correcting, to affirm what was going well. The sent man does not regard reporting as a burden; he understands it as part of the framework that makes his authority legitimate.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Standard</div>
+          <div class="detail-ref">Not negotiable</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The sent man holds the standard he was given, not the one that is convenient</div>
+          <div class="detail-desc">Paul told Titus to appoint elders who met a specific character standard — even in Crete, where meeting that standard would be hard. He did not say "adjust for context." The sent man holds the standard of the one who sent him, which means the culture does not set the bar. The standard precedes the context.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Self-Appointed Man — A Diagnostic</h2>
+    <p>The self-appointed man is not always easy to identify, and he is not always deliberately deceptive. Sometimes he has genuinely convinced himself that he was called — that his ambition is vision, that his desire for influence is passion for the work, that his resistance to accountability is spiritual independence. The diagnostic is not his sincerity. It is the pattern of his behavior under pressure.</p>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Under Opposition</div>
+        <div class="phase-desc">The sent man can be opposed without losing his footing, because the assignment does not depend on approval. The self-appointed man becomes defensive, controlling, or vindictive when opposed — because the opposition threatens the source of his identity.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Under Authority</div>
+        <div class="phase-desc">The sent man relates normally to people above him. He can receive correction. He can defer to a decision he disagrees with. The self-appointed man chafes at authority, explains why his case is different, and finds reasons why the accountability structures don't apply to him.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Under Cost</div>
+        <div class="phase-desc">When the assignment costs more than expected, the sent man persists because he did not choose the assignment for its benefits. The self-appointed man recalculates. He chose the role; when it stops delivering what he chose it for, the calculus changes. He leaves, or reduces his commitment to match the reduced return.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">With Authority</div>
+        <div class="phase-desc">The sent man uses authority for the mission, not for himself. He deploys it when needed and holds it when not. The self-appointed man tends to accumulate authority and protect it — because the authority is his, not on loan from someone else. He defends his turf.</div>
+      </div>
+    </div>
+
+    <h2>Paul's Investment in the Sent Men</h2>
+    <p>One of the most striking things in the Pastoral Letters is how personally invested Paul was in Timothy and Titus — not just as workers but as men. The letters are not memos. They are the writings of a man who loved these two younger leaders and was spending his last energy making sure they were equipped, formed, and grounded for what was ahead of them.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"And the things you have heard me say in the presence of many witnesses entrust to reliable people who will also be qualified to teach others."</div>
+      <div class="verse-ref">2 Timothy 2:2 · NIV</div>
+    </div>
+
+    <p>Paul was describing a chain of transmission: Paul to Timothy, Timothy to reliable people, reliable people to others. Four generations in a single sentence. The "sending" framework was not a one-time deployment — it was a replicating pattern. A sent man forms sent men. The character, the standard, and the posture of receiving authority rather than claiming it — these are transmitted to the next generation when the sent man does his work well.</p>
+    <p>This is the legacy Timothy was meant to build. Not an impressive Ephesian church in his own image. A generation of faithful men who had been formed in the same pattern — character before competence, sent rather than self-appointed, holding a standard that outlasted their own tenure.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Are you in your current role because you were sent, or because you put yourself there? Be honest. What does the difference actually feel like in the day-to-day of how you do the work?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The sent man can be opposed without losing his footing. When you face opposition in your leadership, what is the internal experience? Does opposition destabilize you? Why?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul's 2 Timothy 2:2 framework is four generations in one sentence. Who invested in forming you? Who are you currently investing in and transmitting the formation to? Is there a gap in that chain?</div>
+        <textarea placeholder="Who formed me... / Who I am forming..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">How does your ministry or church culture identify and deploy leaders? Is there a sending process with accountability built in, or do men largely self-select into roles? What would change if the Paul model were actually implemented?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The self-appointed man's diagnostic shows up most clearly under opposition, under authority, and under cost. Think of a leadership failure you have observed or experienced. Which of the four categories best explains it — was the person operating as sent or self-appointed?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul's 2 Timothy 2:2 instruction describes a chain of transmission across four generations. Is that chain present in your ministry? Who is intentionally forming the next generation of sent men — and what would that look like if it were taken seriously?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Timothy was young, afraid, and physically frail — and he was sent anyway. What does the "sent" framework make possible that self-appointment cannot? Why does the source of the calling change what is possible in the work?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Mandate</div>
+      <div class="verse-text">"Preach the word; be prepared in season and out of season; correct, rebuke and encourage — with great patience and careful instruction."</div>
+      <div class="verse-ref">2 Timothy 4:2 · NIV</div>
+      <div class="prayer-instruction">Paul gave Timothy the mandate at the end, not the beginning. The formation came first. The mandate was given to a man who had been formed to carry it. Where are you in that sequence? Ask God for honesty about the formation still ahead, and for the willingness to receive it.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Key Passages</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">The anchor texts from 1 Timothy, 2 Timothy, and Titus — organized for study and reflection</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Qualifications — 1 Timothy 3 &amp; Titus 1</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Now the overseer is to be above reproach, faithful to his wife, temperate, self-controlled, respectable, hospitable, able to teach, not given to drunkenness, not violent but gentle, not quarrelsome, not a lover of money. He must manage his own family well and see that his children obey him, and he must do so in a manner worthy of full respect."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Timothy 3:2–4 · NIV</span><span class="vc-note">The formation portrait — almost no skills, entirely character</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"He must also have a good reputation with outsiders, so that he will not fall into disgrace and into the devil's snare."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Timothy 3:7 · NIV</span><span class="vc-note">The witness extends beyond the church — non-Christians who know him must be able to confirm his integrity</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"An elder must be blameless, faithful to his wife, a man whose children believe and are not open to the charge of being wild and disobedient. Since an overseer manages God's household, he must be blameless — not overbearing, not quick-tempered, not given to drunkenness, not violent, not pursuing dishonest gain."</div>
+          <div class="vc-footer"><span class="vc-ref">Titus 1:6–7 · NIV</span><span class="vc-note">The Titus parallel — same standard, implemented in harder soil</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Fear &amp; Timidity — 2 Timothy 1</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"I have been reminded of your sincere faith, which first lived in your grandmother Lois and in your mother Eunice and, I am persuaded, now lives in you also. For this reason I remind you to fan into flame the gift of God, which is in you through the laying on of my hands."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 1:5–6 · NIV</span><span class="vc-note">The faith precedes the gift — the formation at home preceded the commissioning in the church</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 1:7 · NIV</span><span class="vc-note">The three things given — and the one thing that is not from God</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"So do not be ashamed of the testimony about our Lord or of me his prisoner. Rather, join with me in suffering for the gospel, by the power of God."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 1:8 · NIV</span><span class="vc-note">Paul extended the frame from fear to shame — the same Spirit that overcomes timidity overcomes the fear of social cost</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Young Leadership — 1 Timothy 4</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Timothy 4:12 · NIV</span><span class="vc-note">The five formation categories that make youth irrelevant as an objection</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Until I come, devote yourself to the public reading of Scripture, to preaching and to teaching. Do not neglect your gift, which was given you through prophecy when the body of elders laid their hands on you. Be diligent in these matters; give yourself wholly to them, so that everyone may see your progress."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Timothy 4:13–15 · NIV</span><span class="vc-note">The alternative to timidity — occupation with the work, not preoccupation with the objections</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Mandate — 2 Timothy 2 &amp; 4</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"And the things you have heard me say in the presence of many witnesses entrust to reliable people who will also be qualified to teach others."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 2:2 · NIV</span><span class="vc-note">Four generations in one sentence — the replicating chain of formation</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Preach the word; be prepared in season and out of season; correct, rebuke and encourage — with great patience and careful instruction. For the time will come when people will not put up with sound doctrine."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 4:2–3 · NIV</span><span class="vc-note">The mandate given at the end — to a man formed to carry it. The cultural warning makes the formation requirement more, not less, urgent.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and key passage guide for Timothy, Titus, and the Pastoral Letters</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">δειλία</div>
+        <div class="ws-transliteration">deilia</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Timidity, cowardice, fearfulness — the state of being controlled by fear. Used only once in the New Testament, in 2 Timothy 1:7: "God has not given us a spirit of deilia." In classical Greek the word carried connotations of moral cowardice — the failure to act rightly out of fear of personal cost. It is stronger than mere nervousness and closer to the kind of fear that causes a man to abandon his post.</div>
+        <div class="ws-note">Paul's use of deilia is precise. He did not say "God has not given us a spirit of discomfort" or "God does not want you to feel nervous." He used a word that implied moral capitulation under pressure. The three things given instead — power, love, self-discipline — are not emotional states; they are dispositions and capacities that make faithfulness under pressure possible regardless of how the man feels.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">σωφρονισμός</div>
+        <div class="ws-transliteration">sōphronismos</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Sound mind, self-discipline, self-control. The word appears only in 2 Timothy 1:7. Rooted in sōphrōn — a compound of sōs (safe, sound) and phrēn (mind, understanding). A sound mind, in the Greek sense, is a mind operating from its proper center — not scattered by fear, not reactive, but oriented toward what is true and responding to it deliberately rather than instinctively.</div>
+        <div class="ws-note">Sōphronismos is the counterpart to the scattered, reactive mental state that fear produces. When a man is afraid, his mind narrows, his thinking becomes short-term, and his decisions are made to manage the fear rather than to serve the mission. Sōphronismos is the capacity to think clearly and act deliberately even when the emotional pressure is high. Paul named it as given — not to be earned, but to be received and exercised.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀναζωπυρέω</div>
+        <div class="ws-transliteration">anazōpyreō</div>
+        <div class="ws-pos">Greek verb · New Testament</div>
+        <div class="ws-definition">To fan into flame, to rekindle, to stir up — used only in 2 Timothy 1:6. A compound of ana (again, up), zōos (alive), and pyr (fire). The image is of an ember that has not gone out but has dimmed — and needs air, attention, and fuel to return to full flame. The gift has not been lost; it has been neglected.</div>
+        <div class="ws-note">The metaphor implies responsibility. An ember does not fan itself. Timothy was being told that the gift given to him at his commissioning required his active attention — not passive waiting for it to burn hotter on its own. This is the pastoral letter's version of the principle Paul named elsewhere: "work out your salvation with fear and trembling." The gift is given; the exercise is required. The Spirit moves; the man tends.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀνέγκλητος</div>
+        <div class="ws-transliteration">anegklētos</div>
+        <div class="ws-pos">Greek adjective · New Testament</div>
+        <div class="ws-definition">Blameless, without accusation, irreproachable — literally "not called to account." Used in Titus 1:6–7 for the elder qualification "above reproach" (also translated "blameless"). In legal contexts it described someone against whom no legitimate charge could be brought. It is not a claim to perfection but to integrity visible enough that accusation cannot find a foothold.</div>
+        <div class="ws-note">Anegklētos describes the relationship between a man's interior life and his public witness. A man who is blameless does not have a hidden compartment — a private life that contradicts the public one. The accusation cannot find purchase because there is nothing to accuse. This is the product of formation, not of management. A man cannot maintain anegklētos through strategic disclosure and careful image curation. It requires that the interior life actually match the exterior over an extended period of time, in multiple relationships, across multiple contexts.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">πιστός</div>
+        <div class="ws-transliteration">pistos</div>
+        <div class="ws-pos">Greek adjective · New Testament</div>
+        <div class="ws-definition">Faithful, reliable, trustworthy, believing. Paul used pistos in 2 Timothy 2:2 to describe the people Timothy was to entrust with the apostolic teaching — "reliable people" (NIV) or "faithful men" (KJV/ESV). In Greek usage, pistos described someone who could be trusted to carry out what they had been entrusted with — who would not drop the thing, alter it, or redirect it for their own purposes.</div>
+        <div class="ws-note">The transmission chain in 2 Timothy 2:2 depends entirely on pistos men at each link. A gifted man who is not pistos breaks the chain; a less gifted man who is pistos holds it. Paul did not tell Timothy to find brilliant people. He told him to find faithful ones. The gospel is not a performance to be improved but a trust to be transmitted. Pistos is the quality that makes the transmission possible.</div>
+      </div>
+
+    </div>
+
+    <h2>Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Acts 16:1–5</span><span class="ref-desc">Timothy's introduction — his family background, his reputation in Lystra and Iconium, and Paul's decision to take him along. Notice that the community's testimony preceded Paul's recruitment. Formation before deployment.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Timothy 1:3–20</span><span class="ref-desc">The mandate in Ephesus — addressing false teaching, holding the line on the gospel, and Paul's warning about men who "shipwrecked their faith" by rejecting conscience. The conscience passage is the context for everything Paul asked of Timothy.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Timothy 3:1–13</span><span class="ref-desc">The elder and deacon qualifications in full. Read as a formation portrait, not a credential list. Notice how few items are skills and how many are character qualities formed over time.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Timothy 4:12–16</span><span class="ref-desc">The young leader passage — the five categories of formation, the instruction to devote himself to the word, and "so that everyone may see your progress." The authority is established by becoming, not by claiming.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Timothy 1:3–14</span><span class="ref-desc">The most personal section of the Pastoral Letters. Paul's affection for Timothy, the formation heritage through his mother and grandmother, the fan-into-flame instruction, and the call to suffer well. Read as a letter from a father to a son who is afraid.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Timothy 2:1–7</span><span class="ref-desc">The transmission mandate and the three metaphors — soldier, athlete, farmer. Each metaphor describes a specific form of costly discipline. The soldier does not entangle himself in civilian affairs. The athlete competes by the rules. The farmer works first. Formation is the work before the harvest.</span></li>
+      <li class="ref-item"><span class="ref-book">Titus 1:4–16</span><span class="ref-desc">The Cretan assignment in full — the elder qualifications in Titus's version, the cultural context (Cretans are liars, etc.), and the mandate to rebuke sharply. The standard does not lower because the context is difficult. Titus is sent to hold a line in hard soil.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Timothy 4:1–8</span><span class="ref-desc">Paul's final charge to Timothy and his own final accounting. "Preach the word, in season and out of season." The mandate is given at the end, to a man formed to carry it. Paul's "I have finished" stands beside his final encouragement to Timothy to continue what Paul is completing.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read 1 Timothy 3:1–13 slowly — the entire elder qualification list. Then write out which items you consider "present" in your life, and which items you would describe as "still forming." Do not rush this. Be specific about each one.</div>
+        <textarea placeholder="Present...\n\nStill forming..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Read 2 Timothy 1:3–14 as a letter from Paul to you — not as a document about Timothy. Where does it land? What does Paul's affection toward Timothy reveal about the kind of investment God makes in the men He sends? What does God know about you that He is working with?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">In 2 Timothy 2:2, Paul named four generations of transmission. Write out your own four-generation chain: Who is in the Paul role in your life? Who is in the Timothy role — who are you investing in? Who are the "reliable people" that person is forming? Is the chain intact?</div>
+        <textarea placeholder="My Paul: ...\nMe (Timothy)...\nWho I am forming: ...\nWho they are forming: ..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

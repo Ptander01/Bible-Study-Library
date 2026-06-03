@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moses — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #8a7a5a;
+  --accent-dim:   #4e4230;
+  --accent-lt:    #b0a07a;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #100e08 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border-lt); }
+.tl-item { display: flex; gap: 24px; padding: 0 0 32px 0; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--accent-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10px; color: var(--accent); position: relative; z-index: 1; }
+.tl-body { padding-top: 6px; }
+.tl-phase { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+.tl-title { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── COST CARDS ── */
+.cost-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.cost-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.cost-row:last-child { border-bottom: none; }
+.cost-row:hover { background: #ffffff08; }
+.cost-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.cost-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.cost-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.cost-body { background: var(--surface); padding: 18px 22px; }
+.cost-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.cost-detail { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .cost-row { grid-template-columns: 1fr; } .cost-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 1 of 7</div>
+  <div class="header-title"><span>Moses</span></div>
+  <div class="header-verse">"Now Moses was a very humble man, more humble than anyone else on the face of the earth."</div>
+  <div class="header-ref">Numbers 12:3 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('interior',this)">Interior Life</button>
+    <button class="tab-btn" onclick="switchTab('cost',this)">The Cost</button>
+    <button class="tab-btn" onclick="switchTab('authority',this)">Authority &amp; Humility</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill current">Moses</div>
+        <div class="series-pill">Joshua</div>
+        <div class="series-pill">David</div>
+        <div class="series-pill">Peter</div>
+        <div class="series-pill">Paul</div>
+        <div class="series-pill">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 1</div>
+      <div class="section-title">Moses</div>
+      <div class="section-sub">The reluctant leader, the burning bush, and what eighty years of formation looks like</div>
+    </div>
+
+    <h2>The Series Thesis</h2>
+    <p>This series is not about leadership principles. It is not about management philosophy dressed in biblical language. What it is about is this: <strong>the men God used as leaders were not impressive because of what they could do. They were useful because of what God was doing in them.</strong> The formation came first. The fruitfulness followed — and often arrived much later than anyone expected, in ways nobody planned, at a cost nobody volunteered for.</p>
+    <p>Every portrait in this series will hold three things in tension: the depth of the leader's personal spirituality, the integrity of their character under pressure, and the honest cost that leadership extracted from them. Not as warnings. As portraits of what it actually looks like when a man leads in a way that matters.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Series Frame</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Biblical leadership is not an achievement. It is a formation process — and an uncomfortable one. The men who led well were not impressive managers. They were men whose character was being shaped by God through the very weight of the responsibility they carried.</p>
+    </div>
+
+    <h2>Who Moses Was</h2>
+    <p>Moses is one of the most complex figures in all of Scripture. He was raised as Egyptian royalty and spent his first forty years in the courts of Pharaoh — educated, privileged, and positioned for power. He was also Hebrew by birth, which meant he held two identities in tension from the start. When he tried to act on his Hebrew identity by killing an Egyptian taskmaster, he got it wrong — acting in his own timing and his own strength — and spent the next forty years as a fugitive shepherd in the wilderness of Midian.</p>
+    <p>He was eighty years old when God spoke to him from the burning bush. <em>Eighty.</em> Most men that age have stopped expecting God to show up and reassign them. Moses had been managing sheep for forty years. He was not a man at the peak of his powers awaiting deployment. He was a man who had already written off the chapter he thought his life was going to be about.</p>
+    <p>And God chose that moment. Not Moses at twenty, full of ambition and Egyptian education. Not Moses at forty, when he was passionate enough to kill for his people. Moses at eighty, in the wilderness, with no credentials and no confidence — that is the man God equipped to confront the most powerful ruler on earth and lead two million people through the desert.</p>
+
+    <h2>The Arc — Eighty Years of Formation</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <div class="tl-phase">Years 0–40 · Egypt</div>
+          <div class="tl-title">Formation in the Palace</div>
+          <div class="tl-desc">Raised by Pharaoh's daughter. Educated in all the wisdom of Egypt — statecraft, administration, military strategy. Acts 7:22 says he was "powerful in speech and action." God was not wasting these forty years. He was building a man who would need to navigate both worlds — the palace and the wilderness — for the rest of his life. What looks like privilege was preparation.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <div class="tl-phase">Years 40–80 · Midian</div>
+          <div class="tl-title">Formation in the Wilderness</div>
+          <div class="tl-desc">After killing the Egyptian and fleeing, Moses spent forty years as a shepherd in Midian. This is the chapter leaders most resist — the long season with no visible progress, no audience, no title, no apparent movement toward anything. But the man who would spend forty more years leading in the wilderness was being formed in the wilderness first. The desert does not waste time even when it looks like it does.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Burning Bush · Exodus 3–4</div>
+          <div class="tl-title">Called and Resistant</div>
+          <div class="tl-desc">God appears. Moses objects — five times. "Who am I?" "What if they don't believe me?" "I'm not a good speaker." "Send someone else." His resistance is not a character flaw. It is accurate self-assessment in the absence of divine empowerment. The burning bush encounter does not end with Moses feeling confident. It ends with God's patience exhausted and Aaron assigned as a mouthpiece. Moses obeyed before he felt ready. That is almost always how it works.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <div class="tl-phase">Years 80–120 · The Exodus</div>
+          <div class="tl-title">Leading Without Arriving</div>
+          <div class="tl-desc">Forty years of leading a people who grumbled, rebelled, and repeatedly announced they would rather be slaves in Egypt. Moses never entered the promised land. He died on Mount Nebo, within sight of it, having spent the final third of his life in faithful service toward a destination he would not reach. Deuteronomy 34 closes his story with God burying him personally — a quiet, intimate ending for a man who led one of history's most dramatic stories.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Why Moses — What This Study Is For</h2>
+    <p>Moses is the right portrait to open this series because he dismantles several assumptions about leadership that most men carry without examining. He was not a natural leader by personality. He was not young, polished, or confident when he was called. He did not lead successfully every day — he failed publicly and consequentially. He never arrived at the destination he gave his life to reach. And the summary Scripture gives of his entire life is not "effective," not "visionary," not "impactful." It is: <em>humble.</em></p>
+    <p>If that is the headline God chose for the man who parted the Red Sea, freed a nation, spoke with God face to face, and gave Israel the law — then the framework most men bring to leadership needs serious revision.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Moses spent forty years in apparent obscurity before God called him. Is there a season of your life — past or present — that feels like Midian? What might God be doing in it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses objected five times at the burning bush before obeying. What objections do you bring to the things God seems to be calling you toward? Are they legitimate concerns or managed exposure?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses never entered the promised land. Is your sense of purpose or calling dependent on arriving at a visible outcome — or can you be faithful toward a destination you may not reach?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The summary Scripture gives Moses is "humble." What one word do you think most accurately describes your current posture as a leader or potential leader? Is it the right word?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The series thesis is that biblical leadership is formation, not achievement. How does that differ from the way leadership is usually talked about in church contexts? In professional contexts?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God called Moses at eighty, after forty years of apparent obscurity. What does that say about how God times things? Does that comfort you or frustrate you?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses objected five times before obeying. God didn't withdraw the call — he answered each objection and kept pressing. What does that pattern suggest about how God deals with reluctant leaders?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Scripture's summary of Moses's entire life is that he was the most humble man on earth. Not the most effective, most visionary, or most successful. What does it mean for humility to be the headline of a leader's life?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses led faithfully toward a promised land he never entered. How do you hold faithfulness and outcomes together? Is it possible to lead well and never see the fruit of what you built?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ INTERIOR LIFE ═══════════ -->
+<div class="panel" id="panel-interior">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Foundation</div>
+      <div class="section-title">Interior Life</div>
+      <div class="section-sub">Moses's private life with God as the engine of everything public</div>
+    </div>
+
+    <h2>The Tent of Meeting</h2>
+    <p>While Israel was camped in the wilderness, Moses set up a tent outside the camp — not the tabernacle, which had not yet been built, but a simple tent he called the "tent of meeting." The name is precise. This was not a tent for sleeping. It was a tent for encountering God.</p>
+    <p>What happened there is described in language Scripture reserves for almost no one else:</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"The Lord would speak to Moses face to face, as one speaks to a friend."</div>
+      <div class="verse-ref">Exodus 33:11 · NIV</div>
+    </div>
+
+    <p>Face to face. As a friend. This is the engine of Moses's entire public ministry. Everything he did in front of Pharaoh, everything he said to the people, every judgment he rendered and every intercession he made — it all flowed from this private place where he and God talked like friends. You cannot understand Moses the leader without understanding Moses in the tent.</p>
+    <p>Leaders who neglect the tent will eventually have nothing to give. They will run on borrowed theology, on techniques that worked before, on institutional momentum. They may sustain it for years. But the shelf life of leadership without genuine interiority is limited. At some point the gap between the public ministry and the private life produces a crack, and the crack spreads.</p>
+
+    <h2>Show Me Your Glory</h2>
+    <p>In Exodus 33, Moses has just navigated the catastrophe of the golden calf. The people have sinned catastrophically. God has threatened to withdraw his presence and send an angel instead. Moses has interceded, and God has relented. And then Moses asks something remarkable:</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Now show me your glory."</div>
+      <div class="verse-ref">Exodus 33:18 · NIV</div>
+    </div>
+
+    <p>Not "help me manage this situation." Not "give me wisdom for tomorrow's decisions." Not "make the people easier to lead." After one of the most demanding leadership crises of his life, Moses's request is pure: <em>I want to see you.</em></p>
+    <p>This is the posture of a man whose interior life has stayed oriented correctly under enormous pressure. He knows that what he needs most is not a better strategy. It is more of God. Every leadership problem is, at its root, a theological problem — a question of whether the leader is close enough to God to see clearly, trust deeply, and act from something other than fear or self-preservation.</p>
+    <p>God's response is worth noting. He does not rebuke Moses for asking. He says: "I will cause all my goodness to pass in front of you, and I will proclaim my name, the Lord, in your presence." He gives Moses what he asked for — as much as a human being can bear. The man who kept asking to see God kept getting more of him. That is a pattern worth paying attention to.</p>
+
+    <h2>The Shining Face</h2>
+    <p>After Moses came down from Sinai with the tablets, his face was radiant — shining with reflected glory from being in God's presence. The detail that stops everything is this: <strong>he didn't know it.</strong> (Exodus 34:29). He was not performing. He was not projecting an image. The change in his face was a byproduct of proximity, not an achievement of personal branding.</p>
+    <p>The people were afraid and kept their distance. Moses had to wear a veil. This is one of the most instructive images in all of leadership literature: genuine time in the presence of God produces a visible difference that the leader himself is unaware of, that draws people while also unsettling them, that cannot be manufactured or sustained by technique alone.</p>
+    <p>Paul picks this up in 2 Corinthians 3 and says that New Covenant believers are being transformed "from glory to glory" — the same process Moses experienced, now available continuously through the Spirit. The application for a leader is direct: the question is not whether you are producing the right outputs. The question is whether you are spending time in the presence of God, and whether that time is producing transformation you are not even tracking.</p>
+
+    <h2>Intercession as Leadership</h2>
+    <p>One of Moses's most consistent acts of leadership was intercession — standing between God and the people in prayer. When God threatened to destroy Israel after the golden calf and start over with Moses, Moses argued back. He appealed to God's reputation, his promises to the patriarchs, and his own relationship with him. "Turn from your fierce anger; relent and do not bring disaster on your people." And the text says: "The Lord relented." (Exodus 32:12–14).</p>
+    <p>This is not a peripheral detail. Moses regularly prayed for people who were trying to destroy him. At Meribah, when the people accused him and Aaron of trying to kill them, Moses's response was to fall facedown before God — not to fight back, not to defend himself, but to seek God's direction. The posture under pressure reveals everything about the condition of the interior life.</p>
+    <p><strong>A leader who does not pray for the people he leads is operating on a foundation that will not hold.</strong> Intercession is not optional devotional activity alongside real leadership. For Moses it was the backbone of his authority — the thing that gave his public actions their weight.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Moses had a specific place — the tent of meeting — where he met with God regularly. Do you have something equivalent? Not a devotional habit performed out of obligation, but a genuine practice of seeking God's presence?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">After a leadership crisis, Moses's request was "show me your glory" — not help me fix the situation. What is your instinct after a hard season of leadership? What do you reach for first?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses's shining face was something he was unaware of — a byproduct of proximity to God, not performance. Is there evidence in your life of transformation that you didn't engineer? What produced it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses prayed for people who were trying to destroy him. Who in your sphere of leadership or influence is the hardest for you to pray for genuinely? What would it cost you to do it anyway?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Scripture says God spoke to Moses "face to face, as a friend." What does that level of intimacy with God actually look like for a leader today? Is it available — or is it reserved for people like Moses?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">After the golden calf crisis, Moses didn't ask God for a better strategy — he asked to see his glory. What does that request reveal about Moses's understanding of what he actually needed? How different is that from how most leaders respond to crisis?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The shining face was something Moses was unaware of. What does it mean for a leader to carry visible evidence of time with God without knowing it? Have you seen this in anyone?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses regularly interceded for people who were attacking him. How does intercession — actual prayer for the people you lead — change your posture toward them? Does it? Have you tried it with someone who was making your life hard?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If the depth of your private life with God is the engine of your public leadership, how would you honestly describe the state of that engine right now?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">From Moses's Own Prayer</div>
+      <div class="verse-text">"If your Presence does not go with us, do not send us up from here."</div>
+      <div class="verse-ref">Exodus 33:15 · NIV</div>
+      <div class="prayer-instruction">Moses refused to lead without God's presence. That was not a strategy — it was a conviction. Pray that same prayer over whatever you are leading right now. Mean it.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE COST ═══════════ -->
+<div class="panel" id="panel-cost">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Refiner's Fire</div>
+      <div class="section-title">The Cost</div>
+      <div class="section-sub">The relational pain, the pressure, the failure, and what the weight of leadership actually does to a man</div>
+    </div>
+
+    <h2>Nobody Told You It Would Be Like This</h2>
+    <p>Leadership literature is mostly aspirational. It tells you how to build teams, cast vision, and navigate change. It is almost entirely silent about the specific, grinding, relational pain that real leadership produces in the people who do it faithfully. Moses's story is the corrective.</p>
+    <p>He did not lead a grateful, responsive, forward-moving people. He led people who grumbled within days of every miracle, who regularly told him Egypt was better than freedom, who accused him of trying to kill them in the wilderness, who built an idol of gold while he was literally on the mountain receiving the law from God. He was not rewarded with loyalty for his faithfulness. He was rewarded with another wave of complaints and another crisis to manage.</p>
+    <p>This is not unusual. It is the normal texture of leadership in a fallen world. The question is not whether you will face it. The question is whether you have a theology for it — whether you understand what it is for and what it is doing in you — or whether you will be destroyed by it.</p>
+
+    <h2>The Specific Costs Moses Paid</h2>
+
+    <div class="cost-grid">
+      <div class="cost-row">
+        <div class="cost-label-col">
+          <div class="cost-tag">Constant Accusation</div>
+          <div class="cost-ref">Exodus 5:21 · 14:11 · 16:3 · 17:3</div>
+        </div>
+        <div class="cost-body">
+          <div class="cost-what">The people blamed Moses for everything — including the consequences of their own choices</div>
+          <div class="cost-detail">From the moment the Exodus began, Moses was blamed. When Pharaoh increased the Israelites' workload, they blamed Moses. When they were trapped at the Red Sea, they blamed Moses. When they were hungry, they blamed Moses. When they were thirsty, they accused him of bringing them out to die. This was not occasional. It was relentless. Leading people who consistently assign their pain to you — regardless of cause — is one of the most exhausting forms of relational stress a leader carries.</div>
+        </div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-label-col">
+          <div class="cost-tag">Betrayal by Family</div>
+          <div class="cost-ref">Numbers 12:1–16</div>
+        </div>
+        <div class="cost-body">
+          <div class="cost-what">Aaron and Miriam — his own brother and sister — publicly undermined his authority</div>
+          <div class="cost-detail">Numbers 12 records that Miriam and Aaron criticized Moses over his wife and questioned whether God had spoken only through Moses. This was not anonymous opposition. It was his family — the people who had stood with him from the beginning, who knew the full story, who had watched what God had done through him. The betrayal of people close to you produces a category of pain that opposition from strangers cannot match. Moses said nothing in response. The text simply says he was the most humble man on earth, and then records that God himself defended him.</div>
+        </div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-label-col">
+          <div class="cost-tag">Open Rebellion</div>
+          <div class="cost-ref">Numbers 16:1–50</div>
+        </div>
+        <div class="cost-body">
+          <div class="cost-what">Korah led 250 leaders in a direct challenge to Moses's authority</div>
+          <div class="cost-detail">Korah, Dathan, and Abiram assembled 250 community leaders and confronted Moses directly: "You have gone too far! The whole community is holy, every one of them, and the Lord is with them. Why then do you set yourselves above the Lord's assembly?" This was not grumbling in the camp. It was organized, public, leadership-level mutiny. Moses fell facedown — again, the posture of the interior life under pressure. He did not retaliate. He gave the rebellion to God. God dealt with it. But it cost Moses to watch.</div>
+        </div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-label-col">
+          <div class="cost-tag">The Moment of Failure</div>
+          <div class="cost-ref">Numbers 20:1–13</div>
+        </div>
+        <div class="cost-body">
+          <div class="cost-what">One act of anger — striking the rock instead of speaking to it — cost Moses the promised land</div>
+          <div class="cost-detail">After forty years of faithful, costly, selfless leadership, Moses lost his composure once. The people were demanding water, accusing him and Aaron of trying to kill them — again. God told Moses to speak to the rock. Moses struck it twice with his staff, saying "Must we bring you water out of this rock?" The water came. The miracle happened. And God said: "Because you did not trust in me enough to honor me as holy in the sight of the Israelites, you will not bring this community into the land." The weight he had carried for forty years finally cracked the surface for one moment. That is a hard story. It should be told honestly, not softened.</div>
+        </div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-label-col">
+          <div class="cost-tag">Never Arriving</div>
+          <div class="cost-ref">Deuteronomy 34:1–8</div>
+        </div>
+        <div class="cost-body">
+          <div class="cost-what">Moses died within sight of the promised land, having given his life to reach it</div>
+          <div class="cost-detail">God showed Moses the full extent of the land from the top of Mount Nebo — the land God had promised Abraham, Isaac, and Jacob. And then Moses died there. He never set foot in it. He had spent forty years leading two million people toward a destination he would not enter. The ending of his story is not triumphant by the metrics most leaders use. It is faithful. There is a difference. The leader who cannot tell the difference will spend his life chasing the wrong thing.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>What the Cost Does — If You Let It</h2>
+    <p>The suffering of leadership is not meaningless. It is not just the tax you pay for the privilege of influence. For Moses it was the crucible in which the humility described in Numbers 12:3 was formed. You do not become the most humble man on earth through pleasant experiences. You become it through decades of being misunderstood, accused, betrayed, and carrying more than you can bear in your own strength.</p>
+    <p>Paul describes the same process in 2 Corinthians 1: "We were under great pressure, far beyond our ability to endure, so that we despaired of life itself. Indeed, we felt we had received the sentence of death. But this happened that we might not rely on ourselves but on God, who raises the dead." The pressure is purposeful. It is designed to move a leader off self-reliance and onto God-reliance. That transfer cannot be achieved any other way.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Refiner's Principle</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">The cost of leadership is not a defect in the system. It is the system. The weight is designed to form something in you that ease cannot produce. The question is not whether the pressure will come. The question is whether you will let it do its work.</p>
+    </div>
+
+    <h2>Resilience — Not Toughness</h2>
+    <p>Moses did not survive his leadership by being tough. He survived it by repeatedly returning to the source. After every crisis — every accusation, every rebellion, every heartbreak — the pattern is the same: Moses falls facedown, or returns to the tent of meeting, or cries out to God. He did not manage the pain with stoicism or self-sufficiency. He brought it to God, every time, and kept going.</p>
+    <p>That is biblical resilience. Not the ability to absorb punishment without flinching. The willingness to be broken open by the weight of leadership and return to God with the pieces — again, and again, and again — until the character that comes out on the other side is something you could not have produced on your own.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the five costs in Moses's story — constant accusation, betrayal by family, open rebellion, the moment of failure, never arriving — resonates most with your own leadership experience? Why?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses struck the rock in one moment of uncontrolled anger after forty years of faithful leadership. What is the thing most likely to crack your composure as a leader? What does that reveal about where your interior life is weak?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The study argues that leadership's cost is not a defect — it is the system, designed to form something in you that ease cannot produce. Do you believe that? What has difficult leadership formed in you that nothing else could have?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses's resilience was not toughness — it was repeatedly returning to God with the pieces. What does your pattern look like after leadership costs you? Where do you go?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Leadership literature almost never talks about the specific relational pain of leading. Why do you think that is? What does it cost the church when we keep that part hidden?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Aaron and Miriam were Moses's closest family — and they undermined him publicly. Have you experienced leadership opposition from people you trusted most? How did you handle it? How should you have?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses was disqualified from the promised land over one moment of anger after forty years of faithfulness. How do you process a failure that has lasting consequences? Does God's response to Moses comfort you or disturb you?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study distinguishes resilience from toughness. Toughness absorbs the hit without flinching. Resilience brings the pieces back to God. Which one do you actually practice? Which one does your community model?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses gave forty years to a destination he didn't reach. If the fruit of your leadership is something you will never see in your lifetime, is that enough? What would need to be true of your theology for the answer to be yes?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ AUTHORITY & HUMILITY ═══════════ -->
+<div class="panel" id="panel-authority">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Integration</div>
+      <div class="section-title">Authority &amp; Humility</div>
+      <div class="section-sub">How the most humble man on earth also confronted Pharaoh, judged two million people, and refused to move without God's presence</div>
+    </div>
+
+    <h2>The Paradox That Isn't</h2>
+    <p>Numbers 12:3 says Moses was the most humble man on earth. The same Moses argued with Pharaoh ten times. The same Moses stood between God and two million people in intercession. The same Moses told God he would not move without his presence. The same Moses confronted Korah's rebellion publicly, bore the weight of Israel's judicial system alone until Jethro intervened, and spoke the law to Israel with full authority. Humble and authoritative are not opposites. In Moses they were the same thing.</p>
+    <p>This matters because most men resolve the tension in one of two unhelpful directions. Some use "servant leadership" language as cover for passivity — they never exercise authority, never make the hard call, never confront — and call it humility. Others exercise authority constantly but with no genuine submission to God or accountability to others, and mistake confidence for character. Moses did neither. He was the most humble man alive and the most consequential leader of his era simultaneously. The two things were not in tension. They were integrated.</p>
+
+    <h2>What Humility Actually Is</h2>
+    <p>The Hebrew word translated "humble" in Numbers 12:3 is <em>anav</em> — which carries the sense of being lowly, meek, afflicted, or poor in spirit. It is not passivity. It is not low self-esteem. It is accurate self-knowledge in relation to God — a clear sense of who you are and who you are not, of what you can do and what only God can do.</p>
+    <p>Moses's humility was not an absence of confidence. It was confidence placed in the right location. He knew precisely what he was capable of: nothing that mattered apart from God's presence and power. That was not false modesty. It was earned clarity. Forty years of watching God do what he could not do will produce that kind of humility in a man.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"If your Presence does not go with us, do not send us up from here. How will anyone know that you are pleased with me and with your people unless you go with us? What else will distinguish me and your people from all the other people on the face of the earth?"</div>
+      <div class="verse-ref">Exodus 33:15–16 · NIV</div>
+    </div>
+
+    <p>This is not a humble man abdicating. This is a humble man asserting — asserting that nothing he is doing means anything without God, and therefore he will not proceed without God. There is more authority in that refusal than in most confident marching orders. He knew the source of everything effective in his leadership, and he was unwilling to pretend otherwise.</p>
+
+    <h2>What Biblical Authority Looks Like</h2>
+    <p>Moses exercised real authority — consequential, clear, sometimes severe. He pronounced judgment on the people after the golden calf. He confronted Korah directly. He spoke the law with no apology. He told Pharaoh no, repeatedly, on behalf of God. He made decisions that affected two million people. Authority — real, exercised, respected — was part of his leadership.</p>
+    <p>But its source was always transparent. Moses did not lead from his own strength, his own wisdom, or his own reputation. Every time the people pressed him, he went to God. Every judgment he gave was God's judgment. Every direction he pointed was God's direction. His authority was derived — and he knew it, and said so, and that derivedness was itself part of what made him effective.</p>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Authority Without Humility</div>
+        <div class="phase-desc">Produces a leader who uses position to serve himself, who cannot be corrected, who builds loyalty to his personality rather than to God. Moses saw this in Pharaoh. It ends in destruction or irrelevance.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Humility Without Authority</div>
+        <div class="phase-desc">Produces a leader who never makes the hard call, who defers everything, who mistakes passivity for spirituality. The people are left without direction. This is not meekness — it is abdication dressed in spiritual language.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Humility &amp; Authority Together</div>
+        <div class="phase-desc">Produces a leader who exercises clear, consequential authority precisely because he knows its source is not himself. He can be corrected without being destroyed. He can lead without needing the credit. He confronts without cruelty. This is Moses.</div>
+      </div>
+    </div>
+
+    <h2>When Moses Got the Balance Wrong</h2>
+    <p>Meribah is the cautionary counter-point. When Moses struck the rock rather than speaking to it, he took authority that was God's alone — the credit, the posture, the power of the moment — and made it his own. "Must <em>we</em> bring you water out of this rock?" The "we" is significant. Not "must God bring you water" — must <em>we</em>. For one moment, the derived authority became confused with personal authority. The result was disqualifying.</p>
+    <p>The lesson is not that authority is dangerous and leaders should avoid it. The lesson is that the derivedness of authority is not a detail. It is everything. A leader who forgets where his authority comes from, even once, even in a moment of pressure and exhaustion, has confused himself with God. That confusion — even briefly — is one of the most costly mistakes a leader can make.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which distortion are you more prone to — exercising authority without genuine submission and accountability, or avoiding authority by dressing passivity in humility language?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses's humility was not low self-esteem — it was accurate self-knowledge in relation to God. How accurately do you know what you can do, and what only God can do? Where do you regularly confuse the two?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">At Meribah, Moses confused derived authority with personal authority for one moment. Where in your leadership are you most tempted to act as if the authority is yours rather than God's?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Moses said: "If your Presence does not go with us, do not send us up from here." What are you currently doing or leading that you would not be willing to stop if God's presence were not in it?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">"Servant leadership" is often used to mean low-authority, deferential leadership. How does Moses challenge that definition? What does servant leadership actually look like when done the way Moses did it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The three-part grid describes authority without humility, humility without authority, and both together. Which pattern do you see most often in church leadership contexts you've been part of?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses's authority was derived — always pointing back to God as the source. What does it look like practically for a leader today to keep that derivedness visible? What happens to a church or organization when its leaders stop doing that?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">At Meribah, exhaustion and pressure produced the crack — "must we bring you water?" How do you guard against that confusion in the long seasons of leadership when you are tired and the people are difficult?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Moses refused to move without God's presence. What would it look like for you — in your specific leadership context, this week — to make that same refusal?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"He made known his ways to Moses, his deeds to the people of Israel."</div>
+      <div class="verse-ref">Psalm 103:7 · NIV</div>
+      <div class="prayer-instruction">The people saw God's deeds. Moses knew his ways. The difference is intimacy. Ask God for that — not just his activity in your leadership, but his ways, his character, his nearness. That is the foundation.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages from Moses's story and related New Testament reflections</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Calling — Reluctance and Response</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"But Moses said to God, 'Who am I that I should go to Pharaoh and bring the Israelites out of Egypt?' And God said, 'I will be with you.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 3:11–12 · NIV</span><span class="vc-note">The first objection — and God's complete answer</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Moses said, 'Pardon your servant, Lord. I have never been eloquent, neither in the past nor since you have spoken to your servant. I am slow of speech and tongue.' The Lord said to him, 'Who gave human beings their mouths?… Now go; I will help you speak and will teach you what to say.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 4:10–12 · NIV</span><span class="vc-note">The fourth objection — God reframes the question entirely</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Interior Life — Face to Face</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"The Lord would speak to Moses face to face, as one speaks to a friend. Then Moses would return to the camp, but his young aide Joshua son of Nun did not leave the tent."</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 33:11 · NIV</span><span class="vc-note">The tent of meeting — the engine of all public ministry</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Then Moses said, 'Now show me your glory.' And the Lord said, 'I will cause all my goodness to pass in front of you, and I will proclaim my name, the Lord, in your presence.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 33:18–19 · NIV</span><span class="vc-note">After the golden calf crisis — Moses's request is God himself, not a better strategy</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"When Moses came down from Mount Sinai with the two tablets of the covenant law in his hands, he was not aware that his face was radiant because he had spoken with the Lord."</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 34:29 · NIV</span><span class="vc-note">The shining face he didn't know about — transformation as byproduct, not performance</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Cost — Pressure and Failure</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Moses cried out to the Lord, 'What am I to do with these people? They are almost ready to stone me.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 17:4 · NIV</span><span class="vc-note">Moses's honest cry under pressure — not performance, not pretense</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"But the Lord said to Moses and Aaron, 'Because you did not trust in me enough to honor me as holy in the sight of the Israelites, you will not bring this community into the land I give them.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Numbers 20:12 · NIV</span><span class="vc-note">Meribah — one moment of misplaced authority, lasting consequence</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"And Moses the servant of the Lord died there in Moab, as the Lord had said. He buried him in Moab, in the valley opposite Beth Peor, but to this day no one knows where his grave is."</div>
+          <div class="vc-footer"><span class="vc-ref">Deuteronomy 34:5–6 · NIV</span><span class="vc-note">A quiet, intimate ending — God buried him personally</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">New Testament Reflections on Moses</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"By faith Moses, when he had grown up, refused to be known as the son of Pharaoh's daughter. He chose to be mistreated along with the people of God rather than to enjoy the fleeting pleasures of sin. He regarded disgrace for the sake of Christ as of greater value than the treasures of Egypt, because he was looking ahead to his reward."</div>
+          <div class="vc-footer"><span class="vc-ref">Hebrews 11:24–26 · NIV</span><span class="vc-note">Moses in the hall of faith — his choices reframed as acts of forward-looking trust</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"And we all, who with unveiled faces contemplate the Lord's glory, are being transformed into his image with ever-increasing glory, which comes from the Lord, who is the Spirit."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Corinthians 3:18 · NIV</span><span class="vc-note">Paul applying the shining face to New Covenant believers — the transformation Moses experienced is now continuous through the Spirit</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and resources for deeper engagement with Moses's story</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">עָנָו</div>
+        <div class="ws-transliteration">anav</div>
+        <div class="ws-pos">Hebrew adjective · Old Testament</div>
+        <div class="ws-definition">Humble, meek, lowly, afflicted, poor in spirit. Used in Numbers 12:3 for Moses ("Moses was very anav, more than all men"). Also used in Psalm 37:11 ("the meek shall inherit the earth"), Isaiah 61:1 ("good news to the poor/afflicted"), and Zephaniah 3:12. Jesus quotes Isaiah 61 in Luke 4 and echoes Psalm 37:11 in the Beatitudes.</div>
+        <div class="ws-note">This is not the word for low self-esteem or passivity. Anav describes a posture of accurate dependence on God — the full awareness of what you are and are not capable of apart from him. Moses led with enormous authority and was simultaneously described by this word. The two are not in tension; they are the same thing rightly understood.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">פָּנִים</div>
+        <div class="ws-transliteration">panim</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Face, presence, surface. A plural form in Hebrew (always plural, like "water" in English). Used in Exodus 33:11 — "face to face" (panim el panim) — describing Moses's relationship with God. Also used throughout in "the presence of God" (literally "the face of God"). The same word used for Moses's shining face in Exodus 34:29.</div>
+        <div class="ws-note">The face-to-face language used for Moses is almost without parallel in the Old Testament. Exodus 33:20 says no one can see God's face and live — and yet Moses spoke with him face to face as a friend. This tension is not resolved in the Old Testament. In the New Testament, 2 Corinthians 4:6 says the glory of God is seen "in the face of Jesus Christ." Moses's access was a shadow; the substance is Christ.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">כָּבוֹד</div>
+        <div class="ws-transliteration">kavod</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Glory, honor, weight, substance. From the root kaved — to be heavy or weighty. Used in Exodus 33:18 when Moses asks to see God's glory (kavod). Also used for the "glory of the Lord" filling the tabernacle (Exodus 40:34), for human honor and prestige, and — ironically — for the "hardening" of Pharaoh's heart (the same root: his heart became heavy, dull, insensitive).</div>
+        <div class="ws-note">The word for glory is the same root as the word for weight. This is the Hebrew linguistic instinct: true glory is not light or flashy — it has substance, mass, gravity. Moses asking to see kavod was asking to encounter the full, weighty reality of who God is. Leaders who want only the benefits of God's presence without his full glory — his holiness, his judgment, his demands — are asking for something other than what Moses asked for.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">רָעָה</div>
+        <div class="ws-transliteration">ra'ah</div>
+        <div class="ws-pos">Hebrew verb · Old Testament</div>
+        <div class="ws-definition">To shepherd, to tend, to feed, to pasture. Used in Exodus 3:1 — "Moses was tending (ra'ah) the flock of his father-in-law Jethro." The same word used throughout the Old Testament for God shepherding Israel. Also the root of the noun ro'eh (shepherd) and related to ra'ah (friend, companion) in some usages.</div>
+        <div class="ws-note">Moses was ra'ah — shepherding — when God appeared to him. The forty years in Midian were not wasted years. They were the formation of a man who would shepherd two million people through the wilderness. God called a shepherd to lead his flock. The skills, patience, and character required to tend sheep in the desert directly prepared Moses for what came next. God rarely wastes a season.</div>
+      </div>
+
+    </div>
+
+    <h2>The Moses Arc — Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Exodus 2:11–15</span><span class="ref-desc">Moses kills the Egyptian — acting in his own strength and timing, with the right impulse and the wrong method. The first forty years end in flight. Formation in Midian begins.</span></li>
+      <li class="ref-item"><span class="ref-book">Exodus 3:1–4:17</span><span class="ref-desc">The burning bush — the full calling narrative including all five of Moses's objections and God's patient responses. Read slowly; the texture of the dialogue is the content.</span></li>
+      <li class="ref-item"><span class="ref-book">Exodus 32–33</span><span class="ref-desc">The golden calf, Moses's intercession, and the "show me your glory" request. The most concentrated portrait of Moses's interior life under pressure in the entire narrative.</span></li>
+      <li class="ref-item"><span class="ref-book">Numbers 12</span><span class="ref-desc">Aaron and Miriam's rebellion — family betrayal, Moses's silence, God's defense, and the Numbers 12:3 summary statement.</span></li>
+      <li class="ref-item"><span class="ref-book">Numbers 16</span><span class="ref-desc">Korah's rebellion — organized leadership mutiny, Moses's facedown response, and the resolution. A full portrait of leading through open opposition.</span></li>
+      <li class="ref-item"><span class="ref-book">Numbers 20:1–13</span><span class="ref-desc">Meribah — the failure, the consequence, and what it means that forty years of faithfulness didn't prevent a single moment of misplaced authority from having lasting effects.</span></li>
+      <li class="ref-item"><span class="ref-book">Deuteronomy 34</span><span class="ref-desc">The ending — Mount Nebo, the view of the land, the death, the burial. Read it alongside Hebrews 11:24–27 for the New Testament perspective on what Moses's choices meant.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read Exodus 33:12–23 in one sitting — Moses's full conversation with God after the golden calf. What strikes you most about how Moses talks to God? What does that conversation reveal about the relationship?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Psalm 103:7 says God made known his ways to Moses and his deeds to the people. What is the difference between knowing God's deeds and knowing his ways? Which one characterizes your current relationship with God?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">If someone were to write a one-sentence summary of your leadership the way Numbers 12:3 summarizes Moses — what would it honestly say right now? What do you want it to say in ten years?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

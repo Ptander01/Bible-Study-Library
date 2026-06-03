@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peter — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #6a7a9a;
+  --accent-dim:   #384060;
+  --accent-lt:    #8a9aba;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #080a12 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; text-decoration: none; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── DETAIL GRID ── */
+.detail-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.detail-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row:hover { background: #ffffff08; }
+.detail-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.detail-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.detail-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.detail-body { background: var(--surface); padding: 18px 22px; }
+.detail-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.detail-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .detail-row { grid-template-columns: 1fr; } .detail-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border-lt); }
+.tl-item { display: flex; gap: 24px; padding: 0 0 32px 0; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--accent-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10px; color: var(--accent); position: relative; z-index: 1; }
+.tl-body { padding-top: 6px; }
+.tl-phase { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+.tl-title { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 4 of 7</div>
+  <div class="header-title"><span>Peter</span></div>
+  <div class="header-verse">"And I tell you that you are Peter, and on this rock I will build my church, and the gates of Hades will not overcome it."</div>
+  <div class="header-ref">Matthew 16:18 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('making',this)">The Making of Peter</button>
+    <button class="tab-btn" onclick="switchTab('denial',this)">The Denial</button>
+    <button class="tab-btn" onclick="switchTab('restoration',this)">Restoration</button>
+    <button class="tab-btn" onclick="switchTab('matured',this)">The Matured Leader</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Scripture &amp; Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill">Moses</div>
+        <div class="series-pill">Joshua</div>
+        <div class="series-pill">David</div>
+        <div class="series-pill current">Peter</div>
+        <div class="series-pill">Paul</div>
+        <div class="series-pill">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 4</div>
+      <div class="section-title">Peter</div>
+      <div class="section-sub">The man who disqualified himself — and what Jesus did about it</div>
+    </div>
+
+    <h2>The Portrait for the Disqualified Man</h2>
+    <p>Every man in a room carries something he believes disqualifies him. A failure public enough that people saw it. A moment of cowardice when everything was on the line. Words said, or unsaid, at the worst possible moment. A season of compromise long enough that he can no longer picture himself as the kind of man God uses for significant things. He still shows up. He still goes through the motions. But somewhere underneath, he has concluded that the version of his life where he leads well and is genuinely used by God — that door is closed. He saw to it himself.</p>
+    <p>Peter's portrait exists for that man. Because Peter's failure was not private. It was not ambiguous. It was not a gray area or a moment of weakness in circumstances that mitigated the offense. He denied Jesus — three times, with escalating force, in public, to people of no consequence, on the worst night in history — and the man he denied was standing close enough that when the rooster crowed, Jesus turned and looked at him across the courtyard.</p>
+    <p>And Jesus built the church on him anyway.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Portrait in One Statement</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Peter is not the portrait of a man who held together under pressure. He is the portrait of a man who fell completely apart — and was restored not to a lesser role but to the most consequential leadership assignment in the history of the church. The restoration was real. The proof is Acts.</p>
+    </div>
+
+    <h2>The Arc — Fisherman to Apostle</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Call · Mark 1:16–18</div>
+          <div class="tl-title">Fisherman, Renamed Before He Earned It</div>
+          <div class="tl-desc">Simon was a working fisherman on the Sea of Galilee when Jesus called him. Jesus immediately gave him a new name — Peter, the rock — before he had done anything to deserve it. The name was a statement of destiny, not a description of current reality. For most of the Gospels, Peter is anything but a rock. He is impulsive, overconfident, frequently wrong, and occasionally rebuked as sharply as anyone in Scripture. The name came first. The reality came later. Slowly. At enormous cost.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <div class="tl-phase">The High Points · Matthew 14–17</div>
+          <div class="tl-title">Walking on Water, the Confession, the Transfiguration</div>
+          <div class="tl-desc">Peter walked on water — briefly. He made the confession at Caesarea Philippi that no one else made: "You are the Messiah, the Son of the living God." Jesus said that was revealed to him by the Father. Minutes later Jesus called him Satan for rejecting the idea of the cross. He was present at the transfiguration — one of three people who saw Jesus in his glory — and his response was to propose building shelters, because he did not know what to say. His highest moments and his most bewildering ones are often the same moments.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <div class="tl-phase">Gethsemane · Luke 22:39–46</div>
+          <div class="tl-title">Sleeping When He Should Have Been Watching</div>
+          <div class="tl-desc">Jesus asked Peter, James, and John to keep watch with him in Gethsemane while he prayed in agony. He came back and found them sleeping — three times. Peter, who had hours earlier declared he would die with Jesus, could not stay awake for one hour. The failure of Gethsemane is not dramatic. It is ordinary. He did not betray Jesus in Gethsemane — he just fell asleep. But the pattern of good intentions collapsing under ordinary pressure was already established before the courtyard fire.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Denial · Luke 22:54–62</div>
+          <div class="tl-title">Three Times, With Oaths</div>
+          <div class="tl-desc">In the courtyard of the high priest, Peter denied knowing Jesus three times. The third denial was emphatic — with cursing and oaths. The rooster crowed. Jesus turned and looked at Peter. Peter went out and wept bitterly. The man who had said "I will lay down my life for you" could not maintain his position under questioning from a servant girl. That is the bottom of Peter's story. The rest of his life is the answer to it.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Restoration · John 21</div>
+          <div class="tl-title">The Beach, the Fire, the Three Questions</div>
+          <div class="tl-desc">After the resurrection, Jesus met the disciples on the shore of the Sea of Galilee. He had already built a charcoal fire. He fed them. Then he turned to Peter and asked — three times — "Do you love me?" Three questions for three denials. Three "feed my sheep" commissions for three rejections. The restoration was not back into a lesser role. It was full reinstatement into the most consequential leadership assignment available — and immediately followed by the news that Peter would die for it.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-body">
+          <div class="tl-phase">Acts Through the Epistles</div>
+          <div class="tl-title">The Proof That the Restoration Was Real</div>
+          <div class="tl-desc">Peter preaches at Pentecost to the same city that crucified Jesus. He heals, confronts, crosses cultural barriers that would have been unthinkable before, plants churches, writes letters to suffering believers with the authority of a man who has been through the fire. He is publicly corrected by Paul in Antioch and receives it. He faces death knowing it is coming and is not afraid. The man who denied Jesus three times by a charcoal fire becomes the man who dies for him. That is what restoration actually produces.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Jesus renamed Simon "Peter" — rock — before he had done anything to earn it. Is there something God has spoken over you, or a capacity he has placed in you, that you have difficulty believing because your record doesn't seem to support it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The study opens with the man who has concluded the door is closed — that he has disqualified himself from being significantly used by God. Is that you, even partially? What produced that conclusion?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter's highest moments and his most bewildering failures were often the same moments — the confession followed immediately by Jesus calling him Satan. What does that pattern suggest about the relationship between genuine gifting and genuine immaturity in a leader?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The arc from denial to Pentecost is less than two months. The same man, almost unrecognizable. What changed — and what does that suggest about the speed at which genuine transformation can happen when the Spirit is involved?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter is described as the portrait for the man who has disqualified himself. Is that a real category in your community — men who have stepped back from leadership or ministry because of a specific failure? What does the church typically do with those men?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus named Peter "rock" before he had done anything to earn it. What does it mean to lead from an identity God has declared rather than one you have built through your own record?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter slept in Gethsemane — a failure of ordinary faithfulness, not dramatic betrayal. Which is harder to address in a leader: dramatic public failure or the slow erosion of ordinary faithfulness? Why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The restoration in John 21 was not back into a lesser role — it was full reinstatement plus the news that Peter would die for it. What does that say about how Jesus defines restoration?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If Acts is the proof that John 21 was real, what is the equivalent proof in your life that restoration is ongoing rather than theoretical?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE MAKING OF PETER ═══════════ -->
+<div class="panel" id="panel-making">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Formation</div>
+      <div class="section-title">The Making of Peter</div>
+      <div class="section-sub">Who Simon was, what Jesus was doing with him across three years, and why the rename came before anything was earned</div>
+    </div>
+
+    <h2>Simon — Before the Rename</h2>
+    <p>Simon was a fisherman. Not a student, not a religious professional, not someone whose background would have flagged him as leadership material by any conventional metric. He worked with his hands, ran a fishing operation with his brother Andrew, and had the personality type that would today be described as a high-D: decisive, action-oriented, first to speak, first to act, first to find out he was wrong.</p>
+    <p>When Jesus called him, Simon dropped his nets immediately. That was characteristic. Simon did not deliberate. He responded to things with his whole body before his mind had finished processing. That quality would produce some of the most striking moments in the Gospels — walking on water, the confession at Caesarea Philippi, cutting off Malchus's ear in the garden — and it would also produce the denial. The same impulsiveness that made him capable of great faith made him capable of catastrophic overcommitment followed by collapse. Jesus called him knowing exactly what he was getting.</p>
+
+    <h2>The Rename — Destiny Before Performance</h2>
+    <p>In John 1:42, on the day they first met, Jesus looked at Simon and said: "You are Simon son of John. You will be called Cephas" — which translates as Peter, the rock. Jesus did not say "you are a rock." He said "you will be called" one. It was a declaration of future identity, not a description of present character. For most of the next three years, the name was more aspiration than reality.</p>
+    <p>This is one of the most important leadership principles embedded in Peter's story: <strong>God names what he intends to produce, not what currently exists.</strong> He did not wait for Simon to become rocklike before giving him the name. He gave him the name and then spent three years — and the full weight of failure and restoration — producing what he had declared. The name was the promise. The process was costly. The product matched the promise.</p>
+    <p>Every leader lives somewhere in that gap — between the identity God has declared and the current reality of their character. The question is not whether you are there yet. The question is whether you believe the name is real and are submitting to the process that produces it.</p>
+
+    <h2>What Jesus Was Doing With Him Across Three Years</h2>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Water</div>
+          <div class="detail-ref">Matthew 14:28–31</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Teaching him that faith is directional, not feelings-based</div>
+          <div class="detail-desc">Peter walked on water — briefly. He asked Jesus to command him to come, Jesus said come, and Peter got out of the boat. He walked. Then he noticed the wind and began to sink. Jesus caught him and said: "You of little faith, why did you doubt?" The lesson was not that Peter failed to walk on water. It was that faith functions as long as it stays oriented toward Jesus. The moment Peter's attention moved from Jesus to circumstances, he sank. He learned this lesson by sinking. It took the rest of his life to fully apply it.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Caesarea Philippi</div>
+          <div class="detail-ref">Matthew 16:13–23</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Teaching him the source of revelation — and its limits</div>
+          <div class="detail-desc">Peter's confession — "You are the Messiah, the Son of the living God" — was declared by Jesus to be Spirit-revealed, not humanly derived. It was the highest moment of Peter's Gospel record. Then Jesus began explaining that the Messiah must suffer and die. Peter rebuked him. Jesus turned and said: "Get behind me, Satan!" In one exchange: the Father reveals something through Peter; Peter's flesh immediately tries to redirect it. Both are real. The same man. The lesson was that revelation does not equal maturity, and gifting does not equal character.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Transfiguration</div>
+          <div class="detail-ref">Matthew 17:1–8</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Teaching him to receive what he could not manage</div>
+          <div class="detail-desc">Peter witnessed Jesus transfigured — face shining like the sun, Moses and Elijah present, the voice of the Father from the cloud. His response: "Lord, it is good for us to be here. If you wish, I will put up three shelters." Matthew notes: "He did not know what he was saying." He defaulted to activity — building something, doing something useful — when the appropriate response was silence and awe. The Father's voice interrupted him: "This is my Son, whom I love; with him I am well pleased. Listen to him." The lesson: some moments require you to stop managing and simply receive.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Prediction</div>
+          <div class="detail-ref">Luke 22:31–34</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Warning him — and telling him what to do after</div>
+          <div class="detail-desc">At the Last Supper, Jesus told Peter directly: "Simon, Simon, Satan has asked to sift all of you as wheat. But I have prayed for you, Simon, that your faith may not fail. And when you have turned back, strengthen your brothers." Not if you turn back — when. Jesus predicted both the failure and the recovery in the same sentence. He prayed for Peter's faith to survive the sifting, not for Peter to avoid the sifting. And he gave Peter the assignment that would come after: when you have turned back, the failure becomes the credential for strengthening others.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Gethsemane</div>
+          <div class="detail-ref">Matthew 26:36–46</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Revealing the gap between intention and capacity</div>
+          <div class="detail-desc">Jesus asked Peter to watch and pray. Peter slept — three times. Jesus woke him each time and asked: "Couldn't you men keep watch with me for one hour?" Then: "The spirit is willing, but the flesh is weak." This was not an accusation. It was a diagnosis. Peter genuinely wanted to be the man who could stay awake. His flesh was not yet equal to his intentions. Gethsemane exposed that gap quietly, before the courtyard fire exposed it catastrophically. The lesson was building, whether Peter knew it or not.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Jesus named Peter "rock" before he had earned it. What identity has God declared over you — through Scripture, through a community, through a clear sense of calling — that your current record doesn't yet support? How do you relate to that gap?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter's impulsiveness produced both his greatest moments and his worst. Where in your personality does your strength and your greatest vulnerability come from the same source? How are you managing that — or are you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Jesus told Peter "when you have turned back, strengthen your brothers" — making the failure the future credential. Is there a failure in your past that God could use to strengthen someone else, that you have not yet offered him for that purpose?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter defaulted to activity at the transfiguration when the appropriate response was silence. Where do you default to activity, management, or productivity when God is asking you to simply receive? What would it cost you to stop and listen?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus gave Peter his new identity before he had done anything to earn it. In your leadership of others — in family, ministry, or work — do you tend to name what you see in people now, or what God might be producing? What is the difference in practice?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter got the highest revelation in the Gospels and immediately tried to redirect Jesus away from the cross. What does that tell us about the relationship between spiritual revelation and spiritual maturity? Can you have one without the other?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus's prediction at the Last Supper assumed the failure was coming and addressed what Peter should do after. How does that posture — anticipating failure and preparing for recovery rather than assuming immunity — change how you lead yourself and others?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter fell asleep in Gethsemane not because he didn't care but because his flesh was not equal to his intentions. Where in your life is that gap most evident right now — where your intentions and your actual capacity are furthest apart?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus said "the spirit is willing but the flesh is weak" as a diagnosis, not a condemnation. How do you respond to your own weakness in that spirit — with self-compassion that leads to growth, or with shame that leads to concealment?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE DENIAL ═══════════ -->
+<div class="panel" id="panel-denial">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Bottom</div>
+      <div class="section-title">The Denial</div>
+      <div class="section-sub">Three denials, a rooster, a look across a courtyard — and the weeping that followed</div>
+    </div>
+
+    <h2>The Setup — Hours Before</h2>
+    <p>At the Last Supper, Peter had declared: "Even if all fall away on account of you, I never will." When Jesus told him he would deny him three times before the rooster crowed, Peter said: "Even if I have to die with you, I will never disown you." He meant it. That is what makes what followed so important — Peter was not lying when he said it. He genuinely believed himself to be the man who would stand when others fell. The gap between his self-assessment and his actual capacity in that moment was the gap that the denial exposed.</p>
+    <p>This is a recognizable gap. Most leadership failures are not produced by men who planned to fail. They are produced by men who genuinely believed they were stronger than they were — who had not yet discovered the specific form of pressure that would find the crack in them. Peter discovered his in a courtyard, by a fire, under questioning from people with no power over him whatsoever.</p>
+
+    <h2>The Three Denials — Named in Full</h2>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">First Denial</div>
+          <div class="detail-ref">Luke 22:56–57</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">A servant girl. By the fire. "I don't know him."</div>
+          <div class="detail-desc">Peter had followed Jesus at a distance into the courtyard of the high priest and sat down by a charcoal fire to warm himself. A servant girl saw him in the firelight and said: "This man was with him." Peter denied it: "Woman, I don't know him." Note the setting: a charcoal fire. The Greek word is anthrakia — a specific word that John uses deliberately. It appears only twice in the New Testament. Here. And again in John 21, on the beach, where Jesus had built a fire before meeting Peter after the resurrection. John chose the same word. The sensory environment of the restoration was the sensory environment of the worst moment.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Second Denial</div>
+          <div class="detail-ref">Luke 22:58</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">A man in the crowd. "Man, I am not!"</div>
+          <div class="detail-desc">A little later, someone else saw him and said "You also are one of them." Peter replied: "Man, I am not!" The denial was more emphatic than the first. Each denial entrenched the position of the one before it. That is how sustained denial works — each step makes the next step easier and the reversal harder. Peter was not making a single bad decision. He was making a series of decisions that compounded, each one deepening his commitment to the lie.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Third Denial</div>
+          <div class="detail-ref">Luke 22:59–60</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">About an hour later. With cursing and oaths.</div>
+          <div class="detail-desc">About an hour later, someone else asserted confidently: "Certainly this fellow was with him, for he is a Galilean." Peter replied: "Man, I don't know what you're talking about!" Matthew's account adds that Peter began "to call down curses, and he swore to them, 'I don't know the man!'" The third denial was the most emphatic, the most forceful, the most committed. Oaths and curses invoked to support a lie. At that moment the rooster crowed.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Look — Luke 22:61</h2>
+    <p>This is the verse that stops everything: <em>"The Lord turned and looked straight at Peter."</em></p>
+    <p>Jesus was inside the house, under trial. Peter was in the courtyard, by the fire. Across the distance between them, in the moment the rooster crowed, Jesus turned and looked at Peter. Luke is the only Gospel that records this detail. It took a deliberate act to record it — which means someone who was there remembered it with enough force to ensure it was preserved.</p>
+    <p>What was in that look? The text does not say. Peter remembered it for the rest of his life, apparently, because Luke — who got his material from Peter — included it. It was not the look of a man who was surprised. Jesus had predicted this exact moment hours earlier. It was not the look of someone who had lost hope in Peter. The restoration came. But it was a look that produced in Peter an immediate, total, wordless collapse.</p>
+    <p>He did not explain himself. He did not minimize. He did not tell anyone what had just happened. He went out and wept bitterly. That is the right response to a look like that. The weeping is not weakness. It is the beginning of reality — the moment a man stops managing his position and allows himself to fully reckon with what he has done.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"The Lord turned and looked straight at Peter. Then Peter remembered the word the Lord had spoken to him: 'Before the rooster crows today, you will disown me three times.' And he went outside and wept bitterly."</div>
+      <div class="verse-ref">Luke 22:61–62 · NIV</div>
+    </div>
+
+    <h2>The Gap — Between the Denial and John 21</h2>
+    <p>What happened to Peter in the days between the denial and John 21 is not recorded in detail. We know he was at the tomb on resurrection morning — he ran there when Mary reported it empty, went in, and saw the burial cloths lying there. John 20:10 says "the disciples went back to where they were staying." No elaboration. He had seen the evidence of resurrection and gone home.</p>
+    <p>He had also received, through the women, a specific message from the angel at the tomb: "Go, tell his disciples <em>and Peter</em> that he is going ahead of you into Galilee." And Peter. A name singled out. A man separated from the general category of "disciples" by his specific failure — and specifically included by the angel's instruction. Jesus had already thought of Peter. He was already planning the reunion before Peter had processed the denial.</p>
+    <p>Then Peter did what Peter did: he went fishing. Back to what he knew. Back to the water and the nets and the identity that existed before all of this started. Whether that was despair or practicality or both, the text doesn't say. But Jesus met him there — on the water, with fish, with a fire already built — in the exact setting where it had all begun.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Peter genuinely believed he would never deny Jesus — and was wrong about himself. Where have you been most wrong about your own capacity or character? What did you discover about yourself that you had not anticipated?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The three denials escalated — each one more emphatic than the last, entrenching the previous denial. Where in your life are you currently in a pattern that compounds — each step making the reversal harder and the commitment to the wrong thing deeper?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">After the look, Peter went out and wept bitterly — no explanations, no deflection, just full reckoning. Is there a failure in your past that you have explained, minimized, or contextualized rather than simply wept over? What would full reckoning look like?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The angel's message at the tomb named Peter specifically: "tell his disciples and Peter." Jesus sought him out by name before Peter had done anything to deserve it. How does it sit with you that Jesus was already planning the restoration before you had processed the failure?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter failed under questioning from people with no power over him — a servant girl, a bystander. The pressure was social, not physical. Why is social pressure so effective at producing the failures we most regret? What makes it harder to resist than more obvious threats?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Each denial was more emphatic than the last. How does the compounding nature of repeated denial — each step entrenching the previous — apply to patterns of compromise in leadership? What interrupts that progression?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Luke 22:61 says Jesus turned and looked straight at Peter. What do you imagine was in that look? What do you think Peter saw in it that produced immediate, wordless weeping rather than explanation or defense?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The angel singled Peter out by name: "tell his disciples and Peter." Jesus was already planning the restoration before Peter had done anything to earn it. How does that reorder your theology of restoration — who initiates it, what conditions produce it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter went back to fishing after the denial. Is that despair, practicality, or wisdom — returning to the last solid thing while you wait for clarity? Have you been there? What did going back to the last solid thing feel like?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ RESTORATION ═══════════ -->
+<div class="panel" id="panel-restoration">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">John 21</div>
+      <div class="section-title">Restoration</div>
+      <div class="section-sub">The beach, the charcoal fire, the three questions — and what reinstatement actually costs</div>
+    </div>
+
+    <h2>The Setting Is Not Accidental</h2>
+    <p>John 21 opens with Peter and six other disciples fishing on the Sea of Galilee. They had fished all night and caught nothing. A figure stood on the shore and told them to throw the net on the right side of the boat. They did, and the net was full. John recognized him first: "It is the Lord." Peter, characteristically, jumped into the water and swam to shore.</p>
+    <p>When they got there, Jesus had already built a fire. He had fish cooking on it. He had bread ready. He fed them breakfast. Then — after they had eaten, in an unhurried, deliberate sequence — he turned to Peter.</p>
+    <p>John records that the fire Jesus had built was an <em>anthrakia</em> — a charcoal fire. The same Greek word used for the fire Peter had warmed himself at in the courtyard during the denial. It appears only twice in the entire New Testament. John, who was present at both fires, used the same word deliberately. Jesus did not choose a random setting for this conversation. He built a charcoal fire and waited for Peter to arrive. He brought Peter back to the exact sensory environment of his worst moment and met him there. The smell of charcoal in the morning air was the smell of the night Peter had said "I don't know the man." Jesus chose that smell on purpose.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Deliberate Detail</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Jesus did not restore Peter from a comfortable distance. He built a charcoal fire — the same fire, the same smell, the same sensory memory — and met Peter inside the worst moment of his life. Restoration happened at the site of the failure, not away from it.</p>
+    </div>
+
+    <h2>The Three Questions</h2>
+    <p>When they had finished eating, Jesus turned to Peter. What followed was a structured, deliberate exchange — three questions, three answers, three commissions. Each question corresponding to one denial.</p>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">First Question</div>
+          <div class="detail-ref">John 21:15</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">"Simon son of John, do you love me more than these?"</div>
+          <div class="detail-desc">Jesus used Peter's birth name — Simon, not Peter. And he added: "more than these?" — echoing Peter's own boast at the Last Supper that even if all the others fell away, he would not. Peter answered: "Yes, Lord, you know that I love you." He dropped the comparison. He did not say "more than these." The denial had settled that question. Jesus said: "Feed my lambs." First commission: the youngest, the most vulnerable.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Second Question</div>
+          <div class="detail-ref">John 21:16</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">"Simon son of John, do you love me?"</div>
+          <div class="detail-desc">The comparison was dropped — now just the direct question. Peter answered again: "Yes, Lord, you know that I love you." Jesus said: "Take care of my sheep." Second commission: the flock in its fullness — caring for, shepherding, protecting those under his charge. The verb shifted from feeding to shepherding — a broader responsibility.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Third Question</div>
+          <div class="detail-ref">John 21:17</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">"Simon son of John, do you love me?" — the third time</div>
+          <div class="detail-desc">John records that Peter was grieved because Jesus asked him a third time. The grief was the point. The third question landed where the third denial had landed — in the gut, in the memory of the worst moment, in full reckoning with what had been done. Peter said: "Lord, you know all things; you know that I love you." He appealed not to his own record — his record was disqualifying — but to Jesus's omniscience. Jesus said: "Feed my sheep." Third commission: the full charge, fully restored.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Reinstated Into Full Cost</h2>
+    <p>What Jesus said immediately after the third commission is one of the most important and least-softened passages in the restoration narrative. He did not send Peter away encouraged and relieved. He told him exactly how his life would end:</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Very truly I tell you, when you were younger you dressed yourself and went where you wanted; but when you are old you will stretch out your hands, and someone else will dress you and lead you where you do not want to go." Jesus said this to indicate the kind of death by which Peter would glorify God. Then he said to him, "Follow me!"</div>
+      <div class="verse-ref">John 21:18–19 · NIV</div>
+    </div>
+
+    <p>Crucifixion. Jesus was describing crucifixion. Church tradition holds that Peter was crucified upside down in Rome under Nero — requesting to be inverted because he felt unworthy to die in the same posture as Jesus. Whether or not that detail is accurate, the substance of Jesus's prediction was: the restoration is not into comfort. It is back into full cost. "Feed my sheep" came with the price tag attached. And then: "Follow me." The same two words that had started everything, years earlier, on the shore of the same sea.</p>
+    <p>Peter followed. He did not negotiate. He did not ask for a modified assignment with lower stakes. He followed. The man who had denied Jesus by a charcoal fire was now reinstated by a charcoal fire, commissioned to lead the church, and told he would die for it. He went. That is what restoration produces when it is real.</p>
+
+    <h2>What Restoration Is — and What It Is Not</h2>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Restoration Is Not Erasure</div>
+        <div class="phase-desc">Jesus did not pretend the denial hadn't happened. He built a charcoal fire. He asked three questions. The failure was acknowledged, not skipped. Real restoration walks through the wound, not around it. Men who have been "restored" without the wound being named carry it forward unprocessed.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Restoration Is Not Demotion</div>
+        <div class="phase-desc">Peter was not given a lesser assignment as a concession to his failure. He was given full leadership of the church. Restoration in Scripture consistently reinstates people to their full calling rather than a reduced version of it. The failure is not the ceiling — it is, when processed genuinely, often the qualification.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Restoration Is Not Cheap</div>
+        <div class="phase-desc">The restoration came with the news that Peter would be crucified. "Follow me" meant death. God does not restore people to comfortable positions. He restores them to costly ones. The man who has been through the fire and returned has a capacity for costly faithfulness that the man who has not been tested does not yet have.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Restoration Is Initiated by Jesus</div>
+        <div class="phase-desc">Jesus built the fire. Jesus cooked the breakfast. Jesus started the conversation. Peter did not engineer his own restoration by proving himself or earning his way back. He was sought out by name, fed, and reinstated. Restoration is received, not achieved. That is the most important thing Peter's story says about it.</div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Jesus built a charcoal fire — meeting Peter inside the sensory memory of his worst moment. Is there a place, a context, a memory you have been avoiding because it is too connected to a failure? What would it mean to let Jesus meet you there rather than around it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter appealed to Jesus's omniscience rather than his own record: "Lord, you know all things; you know that I love you." What does it mean to let Jesus evaluate your love rather than defending it yourself? Can you pray that way honestly?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The restoration came with the news of crucifixion — "follow me" meant death. Is the restoration you are seeking from God one that leads back into full cost, or one that leads into relief? What does your answer reveal about what you are actually hoping for?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Restoration is received, not achieved — Jesus initiated it, not Peter. Where are you currently trying to engineer your own restoration through performance rather than receiving it through returning? What would it look like to stop performing and simply come back?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus built a charcoal fire and met Peter inside the memory of his worst moment. What does that tell you about how Jesus approaches the places in us that we want to avoid? Have you experienced that kind of meeting — being found in the worst place rather than away from it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The three questions matched three denials — the grief of the third question was the point. What does it mean for restoration to walk through the wound rather than around it? What does your community typically do with leaders who have failed publicly?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter was not given a lesser assignment as a concession to his failure — he was given full leadership. Does your theology of restoration include full reinstatement, or does it tend to produce permanently reduced roles for people who have failed significantly?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The restoration immediately preceded the news of crucifixion. "Follow me" meant death. How does that reframe what restoration is for — not relief, but re-commissioning into full cost? Does your community's practice of restoration reflect that?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Jesus initiated the restoration. Peter did not engineer it. What does it mean practically for a man who has failed to receive restoration rather than achieve it? What does that posture look like?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">At the Fire</div>
+      <div class="verse-text">"Lord, you know all things; you know that I love you."</div>
+      <div class="verse-ref">John 21:17 · NIV</div>
+      <div class="prayer-instruction">Peter appealed not to his record but to Jesus's knowledge. He could not defend his love — he could only point to the one who knew it fully. Pray that way: not "here is the evidence that I love you" but "you know. You know everything. You know."</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE MATURED LEADER ═══════════ -->
+<div class="panel" id="panel-matured">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Acts Through the Epistles</div>
+      <div class="section-title">The Matured Leader</div>
+      <div class="section-sub">What genuine restoration produces — Pentecost, the Sanhedrin, Cornelius, Antioch, and the letters written knowing death was coming</div>
+    </div>
+
+    <h2>The Proof That John 21 Was Real</h2>
+    <p>Every restored leader faces the same question eventually — from others, and from himself: was it real? Was the repentance genuine, or managed? Was the restoration actual, or positional? The answer is not visible in the moment of restoration. It becomes visible over time, under pressure, in the specific situations that test the same vulnerabilities that produced the original failure.</p>
+    <p>For Peter, the test was specific: would he hold his position under social pressure? That was the failure point. A servant girl by a fire had been enough to collapse him. The question Acts answers, across its first fifteen chapters, is whether the restored Peter would hold when the pressure was higher — not a servant girl but a hostile crowd, not a courtyard but the Sanhedrin, not a cold night in Jerusalem but the full weight of the circumcision party pushing back on the most significant theological decision of the early church.</p>
+    <p>He held. Not perfectly. But he held in the places that mattered most, and when he didn't — when Paul confronted him in Antioch — he received the correction. That capacity to be corrected is itself the mark of genuine maturity.</p>
+
+    <h2>Acts — The Matured Peter in Full</h2>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Pentecost</div>
+          <div class="detail-ref">Acts 2:14–41</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Standing before Jerusalem and declaring what he had denied</div>
+          <div class="detail-desc">Weeks after the denial, Peter stood up before the same city that had crucified Jesus and preached the most consequential sermon in church history. He did not soften the accusation: "This man was handed over to you by God's deliberate plan and foreknowledge; and you, with the help of wicked men, put him to death." The man who couldn't hold his position before a servant girl now publicly accused Jerusalem of murdering the Messiah. Three thousand people were converted. The transformation is not gradual or subtle. It is immediate and total — which points directly to the Spirit as the source rather than Peter's own character development.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Lame Man</div>
+          <div class="detail-ref">Acts 3:1–10</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">"Silver and gold I do not have, but what I do have I give you"</div>
+          <div class="detail-desc">At the temple gate, a man lame from birth asked Peter and John for money. Peter's response is one of the most honest statements of authority in Acts: "Silver and gold I do not have, but what I do have I give you — in the name of Jesus Christ of Nazareth, walk." He knew precisely what he had and what he didn't have. He had no money. He had the name and the authority of Jesus. He gave what he had. The man walked. Peter's authority was not self-generated — it was derived and he knew it, and he said so, publicly, in the name of the one he had denied.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Sanhedrin</div>
+          <div class="detail-ref">Acts 4:1–22</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Before the same authority that condemned Jesus — filled with the Spirit, holding his position</div>
+          <div class="detail-desc">Peter and John were arrested and brought before the Sanhedrin — the Annas, Caiaphas, and the ruling council that had orchestrated Jesus's execution. They were questioned about the healing. Peter, "filled with the Holy Spirit," told them directly: "It is by the name of Jesus Christ of Nazareth, whom you crucified but whom God raised from the dead, that this man stands before you healed… Salvation is found in no one else, for there is no other name under heaven given to mankind by which we must be saved." The Sanhedrin recognized them as having been with Jesus. Peter held his position before the highest authority in Israel — the authority that had cost Jesus his life — without flinching.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Ananias &amp; Sapphira</div>
+          <div class="detail-ref">Acts 5:1–11</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Sharp, consequential authority exercised without hesitation</div>
+          <div class="detail-desc">When Ananias brought money from a land sale and lied about the amount, Peter confronted the deception immediately and directly: "You have not lied just to human beings but to God." Ananias fell dead. When Sapphira arrived three hours later and repeated the lie, Peter confronted her too. She also died. This is not a pastoral, gentle Peter managing a difficult situation carefully. This is a man who carries genuine spiritual authority and exercises it when the integrity of the community is at stake. The softened version of Peter that most men's ministry produces has no room for this chapter.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Cornelius</div>
+          <div class="detail-ref">Acts 10–11</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Crossing the deepest social and religious divide of his world because God said to</div>
+          <div class="detail-desc">Peter received a vision three times of a sheet containing animals declared unclean by Jewish law, with a voice telling him to eat. He refused. The voice said: "Do not call anything impure that God has made clean." Then Cornelius's messengers arrived. Peter went to a Gentile's house — something no observant Jew would do — preached the gospel, watched the Spirit fall on Gentiles, and baptized them. When he returned to Jerusalem, the circumcision party criticized him. Peter explained exactly what had happened and held the position. The man who caved to a servant girl's social pressure now crossed one of the deepest social divides in his world because God had shown him to.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Antioch</div>
+          <div class="detail-ref">Galatians 2:11–14</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Publicly corrected by Paul — and the correction received</div>
+          <div class="detail-desc">In Antioch, Peter had been eating with Gentile believers. When certain people arrived from James in Jerusalem, he withdrew and separated himself, "fearing those who belonged to the circumcision group." Paul confronted him publicly: "You are not acting in line with the truth of the gospel." This is the most important failure in Peter's post-restoration record — and its significance is that it reveals his remaining vulnerability: the same pressure point that produced the denial. People whose opinion mattered to him could still move him. Paul named it in front of everyone. The mature Peter received it. He did not retaliate, split the church, or undermine Paul. He received the correction. That capacity is the mark of genuine maturity.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Epistles — Writing from the Other Side</h2>
+    <p>Peter's two letters are written by a man who has been through everything the Gospels record — and survived it, and been changed by it. The authority in them is not theoretical. It is earned.</p>
+
+    <h3>1 Peter — To Suffering People, From a Man Who Knows</h3>
+    <p>1 Peter is written to believers scattered across Asia Minor facing persecution. Peter tells them: "Rejoice inasmuch as you participate in the sufferings of Christ, so that you may be overjoyed when his glory is revealed." (4:13). He also writes: "Cast all your anxiety on him because he cares for you. Be sober-minded and watchful. Your adversary the devil prowls around like a roaring lion, seeking someone to devour. Resist him, firm in your faith." (5:7–9).</p>
+    <p>The man who once could not resist the social pressure of a servant girl now tells suffering believers to resist the devil, firm in faith, because he knows from the other side of failure what it costs to not resist — and what it costs to return. He had earned the right to say these things. He was not writing theory. He was writing from scars.</p>
+
+    <h3>2 Peter — Writing Into Death</h3>
+    <p>2 Peter 1:14 records Peter acknowledging that his death is imminent: "I know that I will soon put aside this tent, as our Lord Jesus Christ has made clear to me." He was not afraid. He was not managing his legacy or negotiating for more time. He was making sure the people he cared for would have what they needed after he was gone — so that "after my departure you will always be able to remember these things." The man who wept bitterly in a courtyard faced his own crucifixion with clarity, composure, and care for others. That is the full arc. That is what John 21 produced.</p>
+
+    <h2>The Remaining Vulnerability — What Antioch Teaches</h2>
+    <p>The Antioch confrontation is worth dwelling on because it prevents a triumphalist reading of Peter's maturation. He was not perfect after John 21. He still had a pressure point — the fear of what certain people thought — and under sufficient pressure, that point still bent. The difference between Peter in the courtyard and Peter in Antioch is not that the vulnerability was gone. It is that when Paul confronted it, Peter received the correction rather than defending himself.</p>
+    <p><strong>Genuine maturity does not mean the absence of remaining vulnerabilities. It means the capacity to be corrected when those vulnerabilities surface.</strong> A leader who cannot be corrected — who defends, deflects, or retaliates when confronted — is not mature regardless of his history. A leader who receives correction, even public correction from a peer, and adjusts — that is the mark of someone the Spirit has genuinely been working on.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Peter at Pentecost publicly declared what he had publicly denied — in the same city, weeks later. Where in your life is there something you have denied or retreated from publicly, that genuine restoration would require you to return to publicly?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"Silver and gold I do not have, but what I do have I give you." Peter knew exactly what he had and what he didn't. What do you actually have — in terms of genuine spiritual authority, capacity, and gifting? Where are you pretending to have more than you do, or giving less than you actually have?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter's remaining vulnerability at Antioch was the same pressure point that produced the denial — the fear of certain people's opinion. What is your equivalent remaining pressure point? When are you most likely to bend under social pressure, even now?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter faced his own death with composure and care for others, not fear or legacy management. What would it look like to lead the way you are leading right now as if you were writing your final letter — focused entirely on what the people after you will need, rather than what you need from them?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The transformation from the courtyard to Pentecost is dramatic and almost immediate. What accounts for the speed of that change? What does it suggest about what genuine restoration — by the Spirit rather than by self-improvement — can produce?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter's authority at the Sanhedrin, with Ananias and Sapphira, and at Cornelius's house was not soft or tentative. How does the softened, conflict-avoiding version of "servant leadership" that often passes for maturity in men's ministry compare to what Peter actually looked like after John 21?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter's remaining vulnerability at Antioch was the same one that caused the denial — and Paul confronted it publicly. What does it mean for the health of a leadership community that a peer can do that — publicly correct a senior leader — and have it received rather than retaliated against?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Genuine maturity is not the absence of remaining vulnerabilities — it is the capacity to be corrected when they surface. By that definition, how mature is the leadership culture in your community? Are there people who can correct each other without the relationship fracturing?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter wrote 2 Peter knowing his crucifixion was imminent and focused entirely on what the people after him would need. What does leading from that posture — oriented toward those who come after, not toward your own legacy — actually look like in your context right now?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing — From 1 Peter</div>
+      <div class="verse-text">"And the God of all grace, who called you to his eternal glory in Christ, after you have suffered a little while, will himself restore you and make you strong, firm and steadfast."</div>
+      <div class="verse-ref">1 Peter 5:10 · NIV</div>
+      <div class="prayer-instruction">Peter wrote this from the other side of everything. He had been restored and made strong and steadfast — and it had cost him everything and been worth it. Receive this as a promise, not a platitude. The God who restored Peter is the same God, and the promise is the same.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE & TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture &amp; Study Tools</div>
+      <div class="section-sub">Key passages across Peter's full story and original language word studies</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Gospels — Formation and Failure</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Jesus looked at him and said, 'You are Simon son of John. You will be called Cephas' (which, when translated, is Peter)."</div>
+          <div class="vc-footer"><span class="vc-ref">John 1:42 · NIV</span><span class="vc-note">The rename on day one — destiny declared before anything is earned</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Simon, Simon, Satan has asked to sift all of you as wheat. But I have prayed for you, Simon, that your faith may not fail. And when you have turned back, strengthen your brothers."</div>
+          <div class="vc-footer"><span class="vc-ref">Luke 22:31–32 · NIV</span><span class="vc-note">The prediction — failure anticipated, recovery assumed, assignment given for after</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"The Lord turned and looked straight at Peter. Then Peter remembered the word the Lord had spoken to him… And he went outside and wept bitterly."</div>
+          <div class="vc-footer"><span class="vc-ref">Luke 22:61–62 · NIV</span><span class="vc-note">The look across the courtyard — the most devastating moment in Peter's story</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">John 21 — The Restoration</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"When they had finished eating, Jesus said to Simon Peter, 'Simon son of John, do you love me more than these?' 'Yes, Lord,' he said, 'you know that I love you.' Jesus said, 'Feed my lambs.'"</div>
+          <div class="vc-footer"><span class="vc-ref">John 21:15 · NIV</span><span class="vc-note">First question — Peter drops the comparison his boast had created</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"When you were younger you dressed yourself and went where you wanted; but when you are old you will stretch out your hands, and someone else will dress you and lead you where you do not want to go… Then he said to him, 'Follow me!'"</div>
+          <div class="vc-footer"><span class="vc-ref">John 21:18–19 · NIV</span><span class="vc-note">Restoration into full cost — reinstatement came with the news of crucifixion</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Acts — The Proof</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Then Peter stood up with the Eleven, raised his voice and addressed the crowd… 'Therefore let all Israel be assured of this: God has made this Jesus, whom you crucified, both Lord and Messiah.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Acts 2:14, 36 · NIV</span><span class="vc-note">Pentecost — publicly declaring what he had publicly denied, same city, weeks later</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Silver and gold I do not have, but what I do have I give you. In the name of Jesus Christ of Nazareth, walk."</div>
+          <div class="vc-footer"><span class="vc-ref">Acts 3:6 · NIV</span><span class="vc-note">Knowing exactly what he has and what he doesn't — authority derived and named as such</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"When Cephas came to Antioch, I opposed him to his face, because he stood condemned… He was acting hypocritically… When I saw that they were not acting in line with the truth of the gospel, I said to Cephas in front of them all…"</div>
+          <div class="vc-footer"><span class="vc-ref">Galatians 2:11–14 · NIV</span><span class="vc-note">The remaining vulnerability named and confronted — and the correction received</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Epistles — Writing from the Other Side</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Cast all your anxiety on him because he cares for you. Be sober-minded and watchful. Your adversary the devil prowls around like a roaring lion, seeking someone to devour. Resist him, firm in your faith."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Peter 5:7–9 · NIV</span><span class="vc-note">Written by a man who knows what the failure to resist costs — and what returning produces</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"And the God of all grace, who called you to his eternal glory in Christ, after you have suffered a little while, will himself restore you and make you strong, firm and steadfast."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Peter 5:10 · NIV</span><span class="vc-note">The promise of restoration — written by the man it had already happened to</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I think it is right to refresh your memory as long as I live in the tent of this body, because I know that I will soon put it aside, as our Lord Jesus Christ has made clear to me."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Peter 1:13–14 · NIV</span><span class="vc-note">Writing into death — composure, clarity, care for others, no fear</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">Πέτρος</div>
+        <div class="ws-transliteration">Petros</div>
+        <div class="ws-pos">Greek proper noun · New Testament</div>
+        <div class="ws-definition">Peter — from petra, meaning rock or stone. The Aramaic equivalent is Cephas (Κηφᾶς), used by Paul in 1 Corinthians and Galatians. Given to Simon by Jesus in John 1:42 on the day they met, before any demonstration of rocklike character. Matthew 16:18 builds on the name: "You are Peter (Petros), and on this rock (petra) I will build my church." Scholars debate whether the rock is Peter himself, his confession, or Christ — but the wordplay is deliberate and the name was given as destiny, not description.</div>
+        <div class="ws-note">The name came before the character. Jesus named Simon "rock" when he was anything but — impulsive, inconsistent, capable of catastrophic failure. The name was a declaration of what would be produced, not a reward for what existed. That is how God typically names his people: Abram to Abraham, Jacob to Israel, Simon to Peter. The name is the promise. The process is the cost.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀνθρακιά</div>
+        <div class="ws-transliteration">anthrakia</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">A charcoal fire — specifically a fire of burning coals rather than a wood fire. Appears only twice in the entire New Testament: John 18:18 (the fire Peter warmed himself at during the denial) and John 21:9 (the fire Jesus had already built on the beach before the disciples arrived for the restoration). In both cases the word is identical and specific. John is the only Gospel writer to use this word, and he uses it twice — deliberately.</div>
+        <div class="ws-note">The deliberate repetition of anthrakia is one of the most carefully placed details in John's Gospel. Jesus chose the same sensory environment for the restoration that had framed the failure. The smell of charcoal, the warmth of the fire, the early morning — all of it was the same. Jesus did not restore Peter from a neutral location. He brought him back to the exact sensory memory of his worst moment and met him there. Restoration happened inside the wound, not around it.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀρνέομαι</div>
+        <div class="ws-transliteration">arneomai</div>
+        <div class="ws-pos">Greek verb · New Testament</div>
+        <div class="ws-definition">To deny, to disown, to refuse, to reject. Used in all four Gospels for Peter's denials of Jesus. Also used by Jesus in Matthew 10:33: "whoever disowns (arneomai) me before others, I will disown before my Father in heaven" — and in 2 Timothy 2:12: "if we disown him, he also will disown us." The word carries full weight: not merely "I don't know him" as a factual claim, but active disowning, rejection of association.</div>
+        <div class="ws-note">The same word Jesus used to warn about the consequences of denial is the word used for what Peter did. Peter was not confused or vague about Jesus — he actively disowned him, three times, with escalating force. The weight of that word makes the restoration more remarkable, not less. Jesus did not restore someone who had mildly distanced himself. He restored someone who had actively, publicly, repeatedly disowned him. That is the full extent of what "the gates of Hades will not overcome it" actually means applied to a person.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀγαπάω / φιλέω</div>
+        <div class="ws-transliteration">agapao / phileo</div>
+        <div class="ws-pos">Greek verbs · New Testament</div>
+        <div class="ws-definition">Two Greek words for love used in John 21:15–17. In the first two questions, Jesus asks "do you agapao me?" — the fuller, more unconditional love. Peter responds with "you know that I phileo you" — the warmer, more affectionate love between friends. In the third question, Jesus shifts to phileo — asking Peter using his own word. Whether this represents a deliberate descent to Peter's level of capacity, or is simply John's stylistic variation, is debated among scholars.</div>
+        <div class="ws-note">If the shift is deliberate — and many careful readers believe it is — the third question is Jesus meeting Peter where he actually is rather than where he claimed to be. Peter had said he would die for Jesus; he had denied him three times instead. Jesus did not ask again for the love Peter had failed to demonstrate. He asked for the love Peter could actually offer in that moment. Restoration does not require you to claim more than you have. It requires honesty about what you actually have, and the willingness to offer it.</div>
+      </div>
+
+    </div>
+
+    <h2>Peter's Arc — Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">John 1:40–42</span><span class="ref-desc">The first meeting and the rename. "You will be called Cephas." Read it as the opening promise of the whole story.</span></li>
+      <li class="ref-item"><span class="ref-book">Matthew 16:13–23</span><span class="ref-desc">Caesarea Philippi — the confession and the rebuke in the same passage. "You are the Christ" followed minutes later by "get behind me, Satan." The full range of Peter in one scene.</span></li>
+      <li class="ref-item"><span class="ref-book">Luke 22:31–34</span><span class="ref-desc">The prediction at the Last Supper — Satan's request, Jesus's prayer, the failure anticipated, the assignment given for after. Read before the denial.</span></li>
+      <li class="ref-item"><span class="ref-book">Luke 22:54–62</span><span class="ref-desc">The three denials and the look. Read all three accounts (Matthew 26, Mark 14, Luke 22, John 18) together for the full picture.</span></li>
+      <li class="ref-item"><span class="ref-book">John 21:1–19</span><span class="ref-desc">The full restoration. Read slowly. Note the charcoal fire (v.9), the three questions, what Peter is not asked to say, and what Jesus tells him immediately after the reinstatement.</span></li>
+      <li class="ref-item"><span class="ref-book">Acts 2:14–41</span><span class="ref-desc">Pentecost. The same city. Weeks later. The same man. Read 2:36 — the explicit accusation — and remember Luke 22:57.</span></li>
+      <li class="ref-item"><span class="ref-book">Acts 10:1–11:18</span><span class="ref-desc">Cornelius. The full account of the vision, the visit, the defense to Jerusalem. The same social pressure point — but held this time.</span></li>
+      <li class="ref-item"><span class="ref-book">Galatians 2:11–14</span><span class="ref-desc">Antioch. The remaining vulnerability confronted publicly. Read Paul's account without softening it — and note that Peter received it.</span></li>
+      <li class="ref-item"><span class="ref-book">1 Peter 5:6–11</span><span class="ref-desc">The closing of 1 Peter. Every sentence written by a man who has been through the fire. Read it as testimony, not instruction.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Peter 1:12–15</span><span class="ref-desc">Writing into death. Composure, clarity, care for others. The final posture of the man who wept bitterly in the courtyard.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read Luke 22:31–34 (the prediction) and then Luke 22:54–62 (the denial) back to back, slowly. Jesus told Peter exactly what was coming and what to do after. How does knowing Jesus predicted and prayed for the recovery — before the failure — change how you understand your own failures and what comes after them?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The anthrakia detail — the charcoal fire appearing at both the denial and the restoration — suggests Jesus deliberately chose the sensory environment of the worst moment for the restoration conversation. Where is your equivalent charcoal fire — the place, the memory, the context you have been avoiding? What would it mean to let Jesus meet you there?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Peter's remaining vulnerability at Antioch was the same one that caused the denial — and he needed Paul to name it publicly before he adjusted. Who in your life has the relationship and the permission to do that for you? If no one does, what does that reveal about the structure of accountability around you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

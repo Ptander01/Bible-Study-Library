@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #7a5a8a;
+  --accent-dim:   #42306a;
+  --accent-lt:    #9a7aaa;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #0a0812 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; text-decoration: none; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── DETAIL GRID ── */
+.detail-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.detail-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row:hover { background: #ffffff08; }
+.detail-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.detail-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.detail-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.detail-body { background: var(--surface); padding: 18px 22px; }
+.detail-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.detail-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .detail-row { grid-template-columns: 1fr; } .detail-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border-lt); }
+.tl-item { display: flex; gap: 24px; padding: 0 0 32px 0; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--accent-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10px; color: var(--accent); position: relative; z-index: 1; }
+.tl-body { padding-top: 6px; }
+.tl-phase { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+.tl-title { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 5 of 7</div>
+  <div class="header-title"><span>Paul</span></div>
+  <div class="header-verse">"I have fought the good fight, I have finished the race, I have kept the faith."</div>
+  <div class="header-ref">2 Timothy 4:7 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('interior',this)">Interior Life</button>
+    <button class="tab-btn" onclick="switchTab('cost',this)">The Cost</button>
+    <button class="tab-btn" onclick="switchTab('integrity',this)">Integrity &amp; the Gospel</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill">Moses</div>
+        <div class="series-pill">Joshua</div>
+        <div class="series-pill">David</div>
+        <div class="series-pill">Peter</div>
+        <div class="series-pill current">Paul</div>
+        <div class="series-pill">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 5</div>
+      <div class="section-title">Paul</div>
+      <div class="section-sub">The man who cataloged the cost in detail — and meant it when he said it was worth it</div>
+    </div>
+
+    <h2>The Portrait for the Man Who Is All In</h2>
+    <p>Every other portrait in this series features a man who had room to negotiate — Moses objected five times, Joshua was told four times to be courageous, Peter denied and was restored, David failed and returned. Paul's portrait is different in one specific way: <strong>the cost was named on day one, before he had agreed to anything.</strong> When Ananias was sent to Paul on Damascus Road, God told him: "I will show him how much he must suffer for my name." Not might. Not possibly. Will. The calling came pre-loaded with the price tag.</p>
+    <p>Paul is the portrait for the man who is already in — who has already committed, already been through enough to know the cost is real, and is still going. Not because the cost has become comfortable. Paul never pretended it had. He cataloged it with the specificity of a man keeping receipts. But he also said, with the credibility of a man who had paid every line item: "I consider everything a loss compared to the surpassing worth of knowing Christ Jesus my Lord." That statement, made from prison with execution coming, is the thesis of this portrait.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Portrait in One Statement</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Paul did not discover the cost gradually and adjust his expectations downward. He was told it upfront, accepted it without recorded negotiation, paid it in full across thirty years, and finished saying it was worth it. That credibility — earned at the price he paid — is what makes his letters the most useful leadership documents in the New Testament.</p>
+    </div>
+
+    <h2>Who Paul Was — The Arc</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <div class="tl-phase">Formation · Tarsus &amp; Jerusalem</div>
+          <div class="tl-title">Pharisee, Roman Citizen, Trained Under Gamaliel</div>
+          <div class="tl-desc">Paul was born in Tarsus — a major Greco-Roman city — giving him Roman citizenship, fluency in Greek rhetoric, and deep familiarity with both Jewish and Gentile worlds. He was educated in Jerusalem under Gamaliel, the most respected rabbi of the era, trained with precision in the law. He was, by his own account, "a Hebrew of Hebrews," advancing in Judaism beyond many of his contemporaries. He was not a simple man called from obscurity. He was one of the most comprehensively educated people in the first-century Jewish world — and God used every bit of it.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Persecutor · Acts 7–9</div>
+          <div class="tl-title">Saul of Tarsus — Hunting Christians</div>
+          <div class="tl-desc">Paul was not simply indifferent to Christians before his conversion. He was actively, zealously hunting them. He stood approving at Stephen's stoning. He went house to house dragging believers off to prison. He obtained letters from the high priest and traveled to Damascus specifically to arrest Christians and bring them back to Jerusalem in chains. Acts 9:1 says he was "breathing out murderous threats against the Lord's disciples." This is the man Jesus interrupted on the road. Not a seeker. Not someone open to persuasion. A man mid-mission to destroy the church.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <div class="tl-phase">Damascus Road · Acts 9</div>
+          <div class="tl-title">Violent Interruption, Three Days of Darkness</div>
+          <div class="tl-desc">A light from heaven. Paul fell to the ground. A voice: "Saul, Saul, why do you persecute me?" He was blinded for three days — not seeing, not eating, not drinking. Ananias was told to go to him. His response was understandable: "Lord, I have heard many reports about this man and all the harm he has done to your holy people in Jerusalem." God's reply: "Go! This man is my chosen instrument to proclaim my name to the Gentiles and their kings and to the people of Israel. I will show him how much he must suffer for my name." The calling came with the cost attached. Paul was told what he was signing up for before he had agreed to anything.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <div class="tl-phase">Arabia &amp; Formation · Galatians 1</div>
+          <div class="tl-title">Three Years in the Desert Before Public Ministry</div>
+          <div class="tl-desc">After Damascus, Paul did not immediately go to Jerusalem or launch his ministry. Galatians 1:17 records that he went to Arabia — for approximately three years. This is almost entirely undocumented. We don't know what happened there. What we know is that the man who emerged from those three years had a gospel so completely formed and so clearly received from Christ himself that he was willing to say "even if an angel from heaven should preach a different gospel, let them be accursed." Whatever Arabia produced, it produced a man with unshakeable theological foundations.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Missionary Journeys · Acts 13–21</div>
+          <div class="tl-title">Three Journeys, Dozens of Cities, Constant Opposition</div>
+          <div class="tl-desc">Three major missionary journeys across Asia Minor, Greece, and the Mediterranean. Churches planted in Philippi, Thessalonica, Corinth, Ephesus, Galatia, and beyond. Opposed, beaten, and expelled from multiple cities. Stoned and left for dead in Lystra. A riot in Ephesus. The Jerusalem collection. Throughout: letters written to the churches he could not physically reach, each one addressing real crises with real theological precision. He was not a theorist. He was a man doing the work across an enormous geography under constant opposition.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-body">
+          <div class="tl-phase">Prison &amp; Death · Acts 21–28 · 2 Timothy</div>
+          <div class="tl-title">Arrested in Jerusalem, Executed in Rome</div>
+          <div class="tl-desc">Paul was arrested in Jerusalem, held for two years in Caesarea, appealed to Caesar, and spent at least two more years under house arrest in Rome before a final imprisonment. His final letter — 2 Timothy — was written from that second Roman imprisonment, facing execution. Most of his co-workers had left. Demas had gone back to the world. He was cold and asked for his cloak. And he wrote: "I have fought the good fight, I have finished the race, I have kept the faith." The credibility of that sentence is everything. It was written at the finish line.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul was told upfront what his calling would cost — and there is no recorded negotiation. When you consider what God seems to be calling you toward, what is the cost you are most reluctant to accept? Have you actually accepted it, or are you still negotiating?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul spent three years in Arabia in almost complete obscurity after his conversion before his public ministry began. What are you doing in the formation seasons — the undocumented years — that will matter when the visible work begins?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul went from hunting Christians to being hunted for being one. Is there an area of your life where God has reversed your direction most dramatically? What did that reversal cost — and what did it produce?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"I have fought the good fight, I have finished the race, I have kept the faith." Written at the finish line, alone, cold, facing execution. What would it take for that sentence to be true of you at the end? What is most likely to prevent it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God told Ananias to tell Paul how much he would suffer before Paul had agreed to anything. How does a calling that comes pre-loaded with the cost differ from one that reveals the cost gradually? Which one is actually kinder?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul spent three years in Arabia — undocumented, unproductive by any visible metric — before his public ministry. What does that formation season suggest about how God prepares the people he intends to use most?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul was the most qualified person in his world to hunt Christians — and God used that exact formation for the opposite purpose. How do you see God using the parts of your pre-conversion or pre-ministry life that seem most opposed to what you're called to now?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The credibility of "I have finished the race" depends entirely on when and where it was written. What makes finishing well different from just finishing — and what is most likely to cause a leader to stop short?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul's portrait is described as being for the man who is "already in." Is there a difference in what a man needs once he has already committed and paid the initial cost, versus what he needed to get there? What does Paul's story provide for that man specifically?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ INTERIOR LIFE ═══════════ -->
+<div class="panel" id="panel-interior">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Philippians</div>
+      <div class="section-title">Interior Life</div>
+      <div class="section-sub">The most joy-saturated letter in the New Testament — written from prison, by a man facing execution, to people he loved and could not reach</div>
+    </div>
+
+    <h2>The Philippians Paradox</h2>
+    <p>Philippians is the most joy-saturated document Paul ever wrote. The word "joy" or "rejoice" appears sixteen times in four chapters. "Rejoice in the Lord always. I will say it again: rejoice!" — written from a Roman prison, by a man in chains, uncertain whether he would live or die, aware that some people were preaching the gospel out of selfish ambition to make his imprisonment worse. The context is not incidental. It is the point. Joy produced under those conditions is a different thing entirely from joy produced in comfortable circumstances. Paul's contentment was not situational. It was theological — and he knew the difference.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"I have learned the secret of being content in any and every situation, whether well fed or hungry, whether living in plenty or in want. I can do all this through him who gives me strength."</div>
+      <div class="verse-ref">Philippians 4:12–13 · NIV</div>
+    </div>
+
+    <p>Two words in that passage carry everything: <em>learned</em> and <em>secret.</em> Contentment is learned — it is not a personality trait or a spiritual gift that some people have and others don't. It is acquired, through a specific process, over time. And it is a secret — the Greek word is <em>myeō</em>, which means to be initiated into a mystery, to be let in on something hidden. Paul was not describing contentment as an attitude adjustment. He was describing initiation into a reality that most people never access because they have never been in conditions that required it.</p>
+
+    <h2>The Peace That Passes Understanding</h2>
+    <p>Philippians 4:6–7 is one of the most quoted passages in the New Testament and one of the most misread. "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus."</p>
+    <p>It is almost never read in its context. Paul wrote this while under Roman house arrest, having just said he did not know whether he would live or die (1:20–23), having just addressed a conflict between two women in the Philippian church (4:2–3), having just acknowledged significant personal distress about the state of his ministry. "Do not be anxious" is not pastoral theory from a man in a comfortable study. It is instruction from a man who had every legitimate reason for anxiety and had found a specific mechanism — prayer, petition, thanksgiving — that produced something anxiety could not: peace that guards the heart.</p>
+    <p>The word "guard" is military — a garrison standing watch. The peace does not eliminate the threat. It stands between the threat and the interior life. Paul was not promising that prayer would change the circumstances. He was promising that prayer would change what the circumstances had access to inside you.</p>
+
+    <h2>The Mind as the Battlefield</h2>
+    <p>Immediately after the peace passage, Paul writes: "Finally, brothers and sisters, whatever is true, whatever is noble, whatever is right, whatever is pure, whatever is lovely, whatever is admirable — if anything is excellent or praiseworthy — think about such things." (4:8). This is not aspirational advice about positive thinking. It is a specific instruction about where to direct mental attention — given by a man who has learned that the interior life does not automatically orient toward truth under pressure. It must be directed. Deliberately. Repeatedly.</p>
+    <p>Paul's interior life was not the absence of struggle. It was the disciplined redirection of attention — from the chains, the abandonment, the opposition, the uncertain verdict — toward what was true, noble, right, pure, lovely, admirable. Not denial. Not suppression. Redirection. That discipline, practiced over decades, produced the contentment he described. It was not given to him. He learned it. The conditions that taught it were the very conditions he was writing from.</p>
+
+    <h2>Joy and Suffering — Not Opposites</h2>
+    <p>One of the most disorienting things about Paul's interior life is that he does not treat joy and suffering as opposites to be balanced. He treats them as coexisting realities — often simultaneously present, neither canceling the other. In 2 Corinthians 6:10 he describes himself as "sorrowful, yet always rejoicing; poor, yet making many rich; having nothing, yet possessing everything." The "yet" is load-bearing. The sorrow is real. The rejoicing is also real. Both at the same time.</p>
+    <p>This is the interior life that Paul's leadership produced and that his letters document — not a man who had achieved emotional stability, not a man who had moved past suffering into serenity, but a man who had been initiated into a contentment that could hold both grief and joy without being destroyed by either. That is available. It is learned. It requires exactly the kind of conditions Paul spent his ministry in. That is not an accident.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul said contentment is "learned" — acquired through a process, not given as a gift. What have the conditions of your life so far taught you about contentment? What do you still need to learn, and what conditions are likely to teach it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The peace of God "guards" the heart — military language, a garrison between the threat and the interior. In your experience, is that what prayer actually does? If not, what is the gap between your prayer life and what Paul describes here?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul deliberately redirected his mental attention — "think about such things." What does your mind default to under pressure? What would it look like to practice the kind of deliberate redirection Paul describes, specifically in your most anxious moments?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"Sorrowful, yet always rejoicing." Paul held both simultaneously. Where in your life are you most tempted to treat joy and suffering as mutually exclusive — either suppressing the grief to perform joy, or surrendering the joy to the weight of the grief?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Philippians is the most joy-saturated letter Paul wrote — and it was written from prison. What does the context do to your reading of "rejoice always"? Does it make the instruction more or less credible? More or less demanding?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Contentment is "learned" through initiation into a mystery — Paul's word is myeō. What does that word suggest about how contentment is acquired? Is there a shortcut — and why does the answer to that matter practically?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The peace that "guards" is a military garrison between the threat and the interior life. In your experience, does prayer actually function that way? What makes it work, and what makes it fail to work?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul treated joy and suffering as coexisting realities — "sorrowful, yet always rejoicing." How does your community handle that tension? Do you tend to collapse one into the other, or can you hold both?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Philippians 4:8 is an instruction about deliberately directing mental attention. What is the difference between that and positive thinking or denial? How do you know which one you are doing?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">From Prison</div>
+      <div class="verse-text">"Rejoice in the Lord always. I will say it again: rejoice! The Lord is near."</div>
+      <div class="verse-ref">Philippians 4:4, 5b · NIV</div>
+      <div class="prayer-instruction">Paul said this in chains. The Lord was near in a Roman prison. He is near in whatever you are in right now. Receive the command as an invitation into a reality that is already true — and ask God to make it felt as well as known.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE COST ═══════════ -->
+<div class="panel" id="panel-cost">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">2 Corinthians · 2 Timothy</div>
+      <div class="section-title">The Cost</div>
+      <div class="section-sub">The physical catalog, the relational weight, the thorn, the abandonment — and the theology Paul built from the wreckage</div>
+    </div>
+
+    <h2>The Boasting Passage — 2 Corinthians 11</h2>
+    <p>In 2 Corinthians 10–12, Paul was defending his apostleship against opponents in Corinth who questioned his credentials. His response is one of the most remarkable passages in the New Testament — he boasted, but not about what his opponents expected. He boasted about weakness. Before he got there, however, he listed what his apostleship had actually cost him. He called it foolish boasting. He did it anyway because the Corinthians needed to understand what genuine apostolic ministry looked like versus the polished, impressive alternative being offered to them.</p>
+
+    <div class="passage-block">
+      <div class="passage-title">2 Corinthians 11:24–28 · NIV</div>
+      <div class="passage-text">
+        <span class="vn">24</span>Five times I received from the Jews the forty lashes minus one.
+        <span class="vn">25</span>Three times I was beaten with rods, once I was pelted with stones, three times I was shipwrecked, I spent a night and a day in the open sea,
+        <span class="vn">26</span>I have been constantly on the move. I have been in danger from rivers, in danger from bandits, in danger from my fellow Jews, in danger from Gentiles; in danger in the city, in danger in the country, in danger at sea; and in danger from false believers.
+        <span class="vn">27</span>I have labored and toiled and have often gone without sleep; I have known hunger and thirst and have often gone without food; I have been cold and naked.
+        <span class="vn">28</span>Besides all this, I face daily the pressure of my concern for all the churches.
+      </div>
+    </div>
+
+    <p>Read verse 28 again. After five beatings, three shipwrecks, stoning, hunger, exposure — <em>besides all this.</em> As if the physical catalog were not the hardest part. The hardest part was the daily relational weight of caring for churches that were struggling, divided, wavering, or being led astray. The anxiety for the churches was not occasional or manageable. It was daily. It was pressure. It was the specific burden of a man who had given everything to build something and then could not control what happened to it.</p>
+    <p>This is the cost that most leadership literature does not address — the relational weight of caring about outcomes you cannot guarantee, for people you cannot always reach, in situations you cannot always fix. Paul felt it every day for thirty years. He named it honestly. He did not present it as the price of success to be accepted and moved past. He presented it as part of what it meant to lead — something real, something ongoing, something that required the kind of interior life Philippians describes to survive.</p>
+
+    <h2>The Thorn — 2 Corinthians 12</h2>
+    <p>Immediately after the suffering catalog, Paul describes something different — not external opposition but an internal, persistent affliction that God gave him and then refused to remove.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Therefore, in order to keep me from becoming conceited, I was given a thorn in my flesh, a messenger of Satan, to torment me. Three times I pleaded with the Lord to take it away from me. But he said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.' Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me."</div>
+      <div class="verse-ref">2 Corinthians 12:7–9 · NIV</div>
+    </div>
+
+    <p>The thorn has been debated for two thousand years — a physical ailment, a spiritual oppression, an opponent, an ongoing temptation. Paul does not tell us what it was, probably deliberately. The specific identity matters less than what God said about it: it was given to prevent conceit, its purpose was to keep Paul dependent, and it was not going to be removed. Three times Paul asked. Three times the answer was no. The man who had endured beatings, shipwrecks, and stoning — who had cataloged suffering without complaint — begged God three times to take away this one thing. God said no.</p>
+    <p>Paul's response to that no is the most important thing in this passage. He did not become bitter. He did not reduce his output. He did not conclude that the no meant God was absent or indifferent. He reframed the entire architecture of his leadership around the no: <em>"I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me."</em> The weakness was the point. The thorn kept him from the self-sufficiency that would have made Christ's power unnecessary. God's no to Paul's request was a yes to something Paul needed more than relief.</p>
+
+    <h2>The Theology of Weakness</h2>
+    <p>What Paul built from the thorn is one of the most counter-cultural leadership theologies in Scripture. In 2 Corinthians 12:10 he goes further: "For Christ's sake, I delight in weaknesses, in insults, in hardships, in persecutions, in difficulties. For when I am weak, then I am strong." This is not performance. It is not the spiritualized suppression of pain. It is the conclusion of a man who had followed the logic of the thorn all the way to its end: the conditions under which God's power becomes most visible are the conditions under which human capacity is most obviously insufficient. A leader who has eliminated all apparent weakness has also, in a very real sense, eliminated the most obvious space for God to work.</p>
+    <p>That is not a comfortable conclusion. It does not mean weakness is to be cultivated or failure embraced. It means that the things a leader most wants removed — the persistent difficulty, the limitation that will not go away, the capacity that never develops no matter how hard he works at it — may be precisely what God is using to keep him in the posture from which he can actually be used. Paul learned to stop fighting what God was not going to change and instead lean into what God was doing through it.</p>
+
+    <h2>Demas — The Loneliness of the Finish</h2>
+    <p>2 Timothy 4 is the most personal passage Paul ever wrote. He was in prison, winter was coming, and he was cold. He asked Timothy to bring his cloak, and his books, and his scrolls. He listed who had left and who remained. And in verse 10, one sentence: "Demas, because he loved this world, has deserted me and has gone to Thessalonica."</p>
+    <p>Demas had been a trusted co-worker. He was named affectionately in Colossians 4:14 and Philemon 24 — a companion, someone who had been with Paul long enough to be part of his inner circle. Now he was gone. Not because of persecution or theological drift but because he loved the world — he wanted a comfortable life more than a costly one. Paul did not editorialize at length. He stated it plainly. It was one of many departures: "Crescens has gone to Galatia, and Titus to Dalmatia. Only Luke is with me." At the end of thirty years of planting churches, training leaders, and suffering on behalf of the gospel, Paul was nearly alone. That loneliness is real. It is part of the cost. And he still wrote: "I have finished the race."</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Final Accounting</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Paul wrote "I have fought the good fight, I have finished the race, I have kept the faith" from a cold prison, nearly alone, facing execution, having just recorded the defection of a close friend. That sentence carries more weight than any motivational version of it. It was written at the actual finish line by the actual man who paid the actual price.</p>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul said the hardest part was not the physical suffering — it was the daily pressure of his concern for the churches. What is the relational weight you carry in your leadership that does not appear on any official list of burdens but is present every day? Have you named it honestly?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul asked God three times to remove the thorn. God said no. Is there something in your life — a persistent limitation, a difficulty that will not resolve — that you have been asking God to remove and that he has not removed? What if the no is purposeful?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">"When I am weak, then I am strong." What is the specific weakness in your leadership — the capacity that will not develop, the limitation you cannot eliminate — that God might be using to keep you dependent? Have you accepted it, or are you still trying to fix it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Demas loved this world more than the cost of ministry and left. Is there an equivalent pull in your life right now — something that is offering you comfort, ease, or recognition at the cost of your calling? Name it honestly.</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul listed five beatings, three shipwrecks, stoning, hunger, and exposure — and then said "besides all this, I face daily the pressure of my concern for all the churches." What does "besides all this" suggest about the specific weight of relational and pastoral responsibility? Is that weight acknowledged in your community?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God said no to Paul's request three times. Paul was not a man with weak faith or insufficient prayer — he was the apostle who had raised the dead. What does God's no to Paul teach about the relationship between prayer, faith, and God's purposes? How do you handle the no?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul concluded that weakness was the space where Christ's power became most visible — so he boasted about it. How does that invert the usual leadership culture around strength and competence? What would a community look like where leaders boasted about weakness rather than capability?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Demas left because he loved this world. That is Paul's entire explanation — no drama, no theological crisis, just a preference for a more comfortable life. How common is that? What does your community do to address the slow drift toward preferring comfort over cost?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul finished nearly alone, cold, and in prison — and said he had finished the race. What does finishing well actually require? What is most likely to cause a man to not finish — to stop short, drift sideways, or simply wear out before the end?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ INTEGRITY & THE GOSPEL ═══════════ -->
+<div class="panel" id="panel-integrity">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Galatians · 1 Corinthians · 2 Corinthians</div>
+      <div class="section-title">Integrity &amp; the Gospel</div>
+      <div class="section-sub">Paul's refusal to compromise the gospel for social acceptance — and the specific ways he protected the integrity of his ministry</div>
+    </div>
+
+    <h2>The Benchmark — Galatians 1</h2>
+    <p>Paul's standard for gospel integrity is stated in Galatians 1 with a force that has no parallel in the New Testament: "Even if we or an angel from heaven should preach a gospel other than the one we preached to you, let them be under God's curse." He says it twice in two verses — not for rhetorical effect, but because he wanted it to be unmistakable. The gospel is not negotiable. Not for social harmony, not for church unity, not for the approval of Jerusalem leadership, not even in theory if the source of the alternate gospel were supernatural.</p>
+    <p>This was not abstract. Paul had just returned to Galatia to find that false teachers had arrived after him, requiring circumcision for Gentile believers and essentially adding law-keeping to the gospel of grace. People Paul had led to faith were being led away from it. His response was not measured. It was sharp, immediate, and uncompromising — not because Paul was harsh by temperament, but because he understood what was at stake. A gospel with anything added to it is not a modified gospel. It is no gospel at all.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Am I now trying to win the approval of human beings, or of God? Or am I trying to please people? If I were still trying to please people, I would not be a servant of Christ."</div>
+      <div class="verse-ref">Galatians 1:10 · NIV</div>
+    </div>
+
+    <h2>The Tent-Making Decision</h2>
+    <p>Paul made tents for money throughout significant portions of his ministry — in Corinth with Aquila and Priscilla (Acts 18:3), in Thessalonica working night and day so as not to be a burden (2 Thessalonians 3:8), and apparently in other places as well. He had the right to financial support from the churches he served — he argued for it explicitly in 1 Corinthians 9, citing the principle that those who preach the gospel should receive their living from the gospel.</p>
+    <p>But he did not use that right in every context, and his reason was specific: integrity. In 1 Corinthians 9:12 he said: "But we did not use this right. On the contrary, we put up with anything rather than hinder the gospel of Christ." And in 2 Corinthians 11:7–9 he explained that he had preached the gospel free of charge so that no one could accuse him of preaching for money. The tent-making was not a financial necessity — it was a deliberate choice to remove any possible accusation that would compromise the message he was delivering.</p>
+    <p>Paul was not indifferent to how his ministry was perceived. He was strategically protective of anything that might give opponents a legitimate complaint against the gospel. He was willing to forgo a right he had in order to protect something he valued more. That is integrity — not just doing what is right, but structuring your life so that the things you care most about are not exposed to unnecessary risk through your own choices.</p>
+
+    <h2>The Antioch Confrontation — From Paul's Side</h2>
+    <p>Galatians 2:11–14 records Paul's account of confronting Peter in Antioch. Peter had been eating with Gentile believers freely — one of the most significant boundary crossings of the early church. When certain people arrived from James in Jerusalem, Peter withdrew and separated himself, "fearing those who belonged to the circumcision group." Other Jewish believers followed him. Even Barnabas — Paul's closest ministry partner — was led astray by the hypocrisy.</p>
+    <p>Paul's assessment was precise: "When I saw that they were not acting in line with the truth of the gospel, I said to Cephas in front of them all, 'You are a Jew, yet you live like a Gentile and not like a Jew. How is it, then, that you force Gentiles to follow Jewish customs?'" The confrontation was public because the compromise had been public. The stakes were not personal — they were theological. Peter's behavior was communicating something false about the gospel: that Gentile believers were second-class, that ethnicity still mattered for table fellowship, that the grace of Christ was insufficient to make them fully equal members of the body.</p>
+    <p>Paul confronted it because he understood that leadership behavior teaches whether the leader intends it to or not. What Peter did at that table communicated a theology. Paul named what it communicated. That is the integrity of the gospel applied to real leadership in real community — not just preaching the right thing, but refusing to live in a way that contradicts it.</p>
+
+    <h2>Conscience Before God — Not Men</h2>
+    <p>A consistent thread through Paul's letters is his orientation of conscience — not to the judgment of human courts but to God's. In 1 Corinthians 4:3–4 he wrote: "I care very little if I am judged by you or by any human court; indeed, I do not even judge myself. My conscience is clear, but that does not make me innocent. It is the Lord who judges me." He was not dismissing accountability to community. He was refusing to let human approval determine the shape of his ministry.</p>
+    <p>This produced a specific kind of leadership freedom. Paul could confront Peter publicly because he was not trying to maintain Peter's approval. He could write sharp letters to churches he loved because his aim was their genuine health, not their positive evaluation of him. He could refuse financial support in contexts where it would have been advantageous, make decisions that cost him relationships, and absorb accusations of being impressive in letters but weak in person — because the court before which he was ultimately presenting himself was not the Corinthian church or the circumcision party. It was God.</p>
+    <p>That orientation — conscience toward God rather than men — is what made Paul both trustworthy and difficult. It is also what made his ministry durable across thirty years of opposition, defection, and suffering. A man whose primary accountability is to human approval will adjust his ministry whenever the approval is threatened. A man whose primary accountability is to God will adjust it when God requires it, regardless of what the approval says.</p>
+
+    <h2>What Integrity Costs</h2>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">It Cost Relationships</div>
+        <div class="phase-desc">Paul's confrontation of Peter created tension. His refusal to circumcise Titus (Galatians 2:3–5) made enemies. His sharp letter to Corinth cost him affection in a community he loved. Integrity toward the gospel consistently produced relational friction Paul did not avoid and did not enjoy.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">It Cost Reputation</div>
+        <div class="phase-desc">His opponents said he was impressive in letters but weak in person (2 Corinthians 10:10). He was accused of being crafty, of deceiving people, of benefiting financially from the gospel. He defended himself not to protect his reputation but because the accusations were being used to undermine the gospel itself.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">It Cost Comfort</div>
+        <div class="phase-desc">He made tents when he had the right to receive support. He refused to soften his letters when a gentler version would have been easier to receive. He kept going to cities that had already expelled him. Integrity in Paul's hands was never the path of least resistance.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">It Produced Credibility</div>
+        <div class="phase-desc">The cost is also the source of credibility. Paul's letters have survived two thousand years not because he was an impressive writer but because the man behind them paid for what he said. The suffering catalog of 2 Corinthians 11 is what makes 2 Corinthians 12 believable. Integrity earns the right to be heard in ways that impressiveness cannot.</div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Paul asked: "Am I trying to win the approval of human beings, or of God?" Answer that question honestly for your own leadership right now — not the answer you want to give, but the one that most accurately describes where your actual decisions are oriented.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul gave up a right he had — financial support — to protect the integrity of his ministry. Is there a right, an advantage, or a convenience you are currently using that is creating unnecessary exposure for something you care about more? What would it cost to give it up?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul confronted Peter publicly because the compromise had been public and the stakes were theological, not personal. Is there something in your community that is being communicated by behavior rather than words — something that contradicts the gospel — that needs to be named? What is preventing you from naming it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul's primary accountability was to God's judgment, not human courts. How would your ministry decisions change if human approval became genuinely secondary to you — not as an aspiration but as a practiced reality? What decision would you make differently this week?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul said he would not be a servant of Christ if he were still trying to please people. How do you distinguish between being sensitive to others (a virtue) and being oriented primarily toward their approval (a problem)? Where does one become the other?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul gave up the right to financial support to protect the integrity of his ministry in specific contexts. What does it mean to structure your life so that the things you care most about are not exposed to unnecessary risk through your own choices? Can you give an example from your context?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Peter's withdrawal from Gentile believers at Antioch communicated a false theology without Paul saying a word — and Paul confronted it publicly. What are the behaviors in your community or leadership that are communicating something theologically — whether or not anyone is saying it explicitly?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul's letters are credible because the man behind them paid for what he said. What gives a leader the right to be heard? Is there a difference between earned authority and positional authority — and which one is actually more durable?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Integrity toward the gospel cost Paul relationships, reputation, and comfort. In your community, what is the actual cost of integrity right now — the specific thing a man would have to give up to be honest about something that needs to be said? Is that cost worth naming?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Paul's Own Prayer for His Churches</div>
+      <div class="verse-text">"And this is my prayer: that your love may abound more and more in knowledge and depth of insight, so that you may be able to discern what is best and may be pure and blameless for the day of Christ."</div>
+      <div class="verse-ref">Philippians 1:9–10 · NIV</div>
+      <div class="prayer-instruction">Pray this for the people you lead. Then pray it for yourself. Love that abounds in knowledge and depth of insight — not just affection, but discernment. That is what integrity in community actually requires.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages across Paul's story and letters</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Calling — Damascus Road</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Go! This man is my chosen instrument to proclaim my name to the Gentiles and their kings and to the people of Israel. I will show him how much he must suffer for my name."</div>
+          <div class="vc-footer"><span class="vc-ref">Acts 9:15–16 · NIV</span><span class="vc-note">The calling pre-loaded with the cost — spoken to Ananias before Paul had agreed to anything</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"But whatever were gains to me I now consider loss for the sake of Christ. What is more, I consider everything a loss because of the surpassing worth of knowing Christ Jesus my Lord, for whose sake I have lost all things."</div>
+          <div class="vc-footer"><span class="vc-ref">Philippians 3:7–8 · NIV</span><span class="vc-note">The revaluation — everything counted loss, not because it had no value, but because Christ had more</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Interior Life — Philippians</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus."</div>
+          <div class="vc-footer"><span class="vc-ref">Philippians 4:6–7 · NIV</span><span class="vc-note">The mechanism — prayer as the garrison between threat and interior life</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I have learned the secret of being content in any and every situation, whether well fed or hungry, whether living in plenty or in want. I can do all this through him who gives me strength."</div>
+          <div class="vc-footer"><span class="vc-ref">Philippians 4:12–13 · NIV</span><span class="vc-note">Contentment as learned, not given — initiated through the conditions Paul was writing from</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Cost — 2 Corinthians</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Besides everything else, I face daily the pressure of my concern for all the churches. Who is weak, and I do not feel weak? Who is led into sin, and I do not inwardly burn?"</div>
+          <div class="vc-footer"><span class="vc-ref">2 Corinthians 11:28–29 · NIV</span><span class="vc-note">The hardest part named — daily relational weight, not the physical catalog</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"But he said to me, 'My grace is sufficient for you, for my power is made perfect in weakness.' Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Corinthians 12:9 · NIV</span><span class="vc-note">God's answer to the thorn — no to removal, yes to sufficiency</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Demas, because he loved this world, has deserted me and has gone to Thessalonica… Only Luke is with me."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 4:10–11 · NIV</span><span class="vc-note">The loneliness of the finish — nearly alone, cold, still writing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Integrity &amp; the Gospel</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Even if we or an angel from heaven should preach a gospel other than the one we preached to you, let them be under God's curse!"</div>
+          <div class="vc-footer"><span class="vc-ref">Galatians 1:8 · NIV</span><span class="vc-note">The benchmark — no negotiation, no modification, no exception</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Am I now trying to win the approval of human beings, or of God? Or am I trying to please people? If I were still trying to please people, I would not be a servant of Christ."</div>
+          <div class="vc-footer"><span class="vc-ref">Galatians 1:10 · NIV</span><span class="vc-note">The orientation question — the one that determines everything else about integrity</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I care very little if I am judged by you or by any human court; indeed, I do not even judge myself. My conscience is clear, but that does not make me innocent. It is the Lord who judges me."</div>
+          <div class="vc-footer"><span class="vc-ref">1 Corinthians 4:3–4 · NIV</span><span class="vc-note">Conscience oriented toward God — the source of Paul's leadership freedom and durability</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Finishing Well</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"For I am already being poured out like a drink offering, and the time for my departure is near. I have fought the good fight, I have finished the race, I have kept the faith. Now there is in store for me the crown of righteousness, which the Lord, the righteous Judge, will award to me on that day."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Timothy 4:6–8 · NIV</span><span class="vc-note">The final accounting — written at the finish line, in full</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and resources for deeper engagement with Paul's story and letters</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">σκόλοψ</div>
+        <div class="ws-transliteration">skólops</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">A thorn, stake, or pointed object. Used only once in the New Testament — 2 Corinthians 12:7, for Paul's "thorn in the flesh." In classical Greek the word was used for a stake used in impalement, a pointed piece of wood, or a sharp splinter. It conveys something more penetrating and persistent than the English word "thorn" suggests — not a minor irritant but something that impales and holds.</div>
+        <div class="ws-note">The force of the word matters for how we understand Paul's request. This was not a minor inconvenience he was asking to have adjusted. It was something that penetrated, that stayed, that he could not remove himself. And God said no to its removal. The severity of the word — stake, not splinter — gives the "my grace is sufficient" answer its full weight. The answer was proportionate to the need. It had to be, because the need was that serious.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἀσθένεια</div>
+        <div class="ws-transliteration">astheneia</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Weakness, frailty, incapacity, sickness. The word Paul builds his entire theology around in 2 Corinthians 12. Used for physical weakness, illness, and moral/spiritual incapacity throughout the New Testament. Jesus "took up our infirmities" (Matthew 8:17). The Spirit helps us in our weakness (Romans 8:26). Paul boasts in his astheneiai — the plural suggesting multiple, ongoing, specific weaknesses rather than a general disposition.</div>
+        <div class="ws-note">Paul's theology of weakness is built on a specific claim: that astheneia is the condition in which God's power (dunamis) is most perfectly (teleioō) expressed. The weaker the vessel, the clearer it is that the power is God's and not the vessel's. A strong vessel can obscure its contents. A weak one cannot. Paul concluded that his astheneiai were therefore not obstacles to his ministry but the very conditions that made it unmistakably God's rather than his own.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">μυέω</div>
+        <div class="ws-transliteration">myeō</div>
+        <div class="ws-pos">Greek verb · New Testament</div>
+        <div class="ws-definition">To initiate, to instruct in the mysteries, to be let into a secret. Used only once in the New Testament — Philippians 4:12, "I have learned the secret" (literally: "I have been initiated"). In the Greco-Roman world, myeō was the technical term for initiation into the mystery religions — being let into knowledge that was hidden from outsiders and only revealed through the process of initiation itself.</div>
+        <div class="ws-note">Paul chose a word his Philippian readers would have recognized from the mystery religions and applied it to contentment. The implication is deliberate: contentment is not publicly available knowledge that anyone can access by reading about it. It is initiation knowledge — something revealed through a process, only to those who go through the process. The process, for Paul, was the suffering catalog of 2 Corinthians 11. He was not describing a secret he had discovered. He was describing a reality he had been initiated into by thirty years of paid-in-full experience.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">τελέω</div>
+        <div class="ws-transliteration">teleō</div>
+        <div class="ws-pos">Greek verb · New Testament</div>
+        <div class="ws-definition">To finish, to complete, to bring to an end, to fulfill. Used in 2 Timothy 4:7 — "I have finished (teleō) the race." Also used in John 19:30 when Jesus said "It is finished" (tetelestai) from the cross — the same root, the perfect tense indicating a completed action with ongoing results. Teleō implies not just stopping but completing — reaching the intended end, fulfilling the purpose for which the race was run.</div>
+        <div class="ws-note">The word Paul used for finishing the race is the same root Jesus used for finishing the cross. That is almost certainly not coincidental — Paul knew the Gospels, knew the passion narrative, and chose his words precisely. He was claiming not just that his life was ending but that it had been completed — that the purpose for which he had been called, the race that had been set before him, had been run to its intended end. Finishing in that sense is more than surviving to the end. It is arriving at the destination the race was heading toward.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">δύναμις</div>
+        <div class="ws-transliteration">dunamis</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Power, might, strength, ability. Root of the English words "dynamic" and "dynamite." Used throughout the New Testament for miraculous power, the power of the resurrection, the power of the Spirit, and — in 2 Corinthians 12:9 — the power that is "made perfect in weakness." Paul's thorn passage hinges on this word: God's dunamis is most fully expressed (teleioō — same root as teleō above) precisely in the conditions of Paul's astheneia.</div>
+        <div class="ws-note">The connection between dunamis and astheneia in 2 Corinthians 12 is the theological spine of Paul's entire self-understanding as a leader. He was not powerful because he had overcome his weakness. He was powerful because God's dunamis filled the space his weakness created. The vessel matters. An already-full vessel cannot be filled. Paul's persistent weakness — the thorn, the sufferings, the limitations — kept him from the self-sufficiency that would have made him, in a very real sense, too full to be used.</div>
+      </div>
+
+    </div>
+
+    <h2>Paul's Arc — Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Acts 9:1–19</span><span class="ref-desc">The Damascus Road. Read both the event (vv. 1–9) and Ananias's conversation with God (vv. 10–16) carefully. The cost was named to Ananias before Paul had agreed to anything. Notice what Paul did for three days after: nothing. Blind, not eating, not drinking. Formation before deployment.</span></li>
+      <li class="ref-item"><span class="ref-book">Galatians 1:11–24</span><span class="ref-desc">Paul's account of his calling and the three years in Arabia. He insists the gospel was received directly from Christ, not from any human tradition. The Arabia years were theological formation at the source.</span></li>
+      <li class="ref-item"><span class="ref-book">Philippians 3:4–14</span><span class="ref-desc">Paul's credentials listed and then declared loss. The revaluation of everything in light of Christ. Read slowly — this is Paul's most personal statement of what his conversion actually cost him.</span></li>
+      <li class="ref-item"><span class="ref-book">Philippians 4:4–13</span><span class="ref-desc">The interior life in full — rejoice always, the peace garrison, the redirection of attention, the learned secret of contentment. Read as a unit, in the context of prison.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Corinthians 11:16–12:10</span><span class="ref-desc">The full boasting passage — the suffering catalog, then the thorn, then "my power is made perfect in weakness." Read the whole section without stopping. The structure is the argument.</span></li>
+      <li class="ref-item"><span class="ref-book">Galatians 1:6–2:14</span><span class="ref-desc">The gospel integrity passages — the curse on any modified gospel, the people-pleasing question, and the Antioch confrontation. The complete portrait of Paul's refusal to compromise.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Timothy 4:6–18</span><span class="ref-desc">The final letter. Read the whole passage — the "I have finished" claim, the list of who left and who stayed, the cloak request, the loneliness, and then the confident close. This is what the finish line actually looked like.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read 2 Corinthians 11:16–12:10 in one sitting — from the suffering catalog through the thorn to "my power is made perfect in weakness." What is Paul's argument? What does he conclude about the relationship between weakness and authority? How does that reframe a weakness you are currently carrying?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Paul said contentment is "learned" using the word for mystery-religion initiation (myeō). What has your life so far initiated you into? What do you know about contentment, resilience, or God's sufficiency that you could only have learned through what you have been through?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Write your own honest version of 2 Timothy 4:7 for where you are right now — not the aspirational version, but the accurate one. "I have _______ the good fight. I have _______ the race. I have _______ the faith." What does the honest version reveal about what needs to change?</div>
+        <textarea placeholder="I have... the good fight.\nI have... the race.\nI have... the faith."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

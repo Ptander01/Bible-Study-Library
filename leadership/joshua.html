@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshua — Portraits of Leadership</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #5a7a8a;
+  --accent-dim:   #2e4a5a;
+  --accent-lt:    #7a9aaa;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #080e12 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── SERIES BANNER ── */
+.series-banner { background: var(--surface-2); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 16px 22px; margin-bottom: 40px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.series-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); flex-shrink: 0; }
+.series-studies { display: flex; gap: 10px; flex-wrap: wrap; }
+.series-pill { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-lt); color: var(--muted); white-space: nowrap; text-decoration: none; }
+.series-pill.current { border-color: var(--accent-dim); color: var(--accent); background: #ffffff05; }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── COST / DETAIL GRID ── */
+.detail-grid { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.detail-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row:hover { background: #ffffff08; }
+.detail-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.detail-tag { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.detail-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.detail-body { background: var(--surface); padding: 18px 22px; }
+.detail-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.detail-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .detail-row { grid-template-columns: 1fr; } .detail-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin: 24px 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border-lt); }
+.tl-item { display: flex; gap: 24px; padding: 0 0 32px 0; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--accent-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 10px; color: var(--accent); position: relative; z-index: 1; }
+.tl-body { padding-top: 6px; }
+.tl-phase { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+.tl-title { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Portraits of Leadership · Study 2 of 7</div>
+  <div class="header-title"><span>Joshua</span></div>
+  <div class="header-verse">"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."</div>
+  <div class="header-ref">Joshua 1:9 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('portrait',this)">The Portrait</button>
+    <button class="tab-btn" onclick="switchTab('courage',this)">Courage</button>
+    <button class="tab-btn" onclick="switchTab('transition',this)">Transition</button>
+    <button class="tab-btn" onclick="switchTab('integrity',this)">Integrity &amp; Failure</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('tools',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PORTRAIT ═══════════ -->
+<div class="panel active" id="panel-portrait">
+  <div class="content-wrap">
+
+    <div class="series-banner">
+      <div class="series-label">Portraits of Leadership</div>
+      <div class="series-studies">
+        <div class="series-pill">Moses</div>
+        <div class="series-pill current">Joshua</div>
+        <div class="series-pill">David</div>
+        <div class="series-pill">Peter</div>
+        <div class="series-pill">Paul</div>
+        <div class="series-pill">Timothy · Titus</div>
+        <div class="series-pill">Jesus</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Portraits of Leadership · Study 2</div>
+      <div class="section-title">Joshua</div>
+      <div class="section-sub">Following a giant, crossing an impossible river, and learning that courage is not the absence of fear — it is obedience in the presence of it</div>
+    </div>
+
+    <h2>The Man in the Shadow</h2>
+    <p>Before Joshua was a leader, he was a servant. Exodus 33:11 records that when Moses would return from the tent of meeting, his young aide Joshua "did not leave the tent." That single detail is easy to overlook. It describes a man who was voluntarily present in the place of God's proximity even when his superior was gone — not because anyone required it, not because it advanced his career, but because he had developed the same hunger for God's presence that characterized Moses.</p>
+    <p>This is who Joshua was before he led anyone. A servant. An aide. A man who spent forty years following one of the most extraordinary leaders in history, carrying out orders, watching and learning, never the one at the front. When the moment of transition finally came — when Moses died on Mount Nebo and the mantle fell to Joshua — he was not a young man flush with ambition. He was probably in his eighties. Decades of formation in someone else's shadow had produced a man ready for what was coming, though he would not have felt ready.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Portrait in One Line</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">Joshua leads us to ask: what does it look like to step into a role that is bigger than you, after following someone larger than you, with a task in front of you that is impossible without God? His answer is not confidence. It is obedience. Those are not the same thing.</p>
+    </div>
+
+    <h2>Who Joshua Was — The Arc</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <div class="tl-phase">Early Life · Egypt &amp; Exodus</div>
+          <div class="tl-title">Born into Slavery, Formed in the Wilderness</div>
+          <div class="tl-desc">Joshua was born in Egypt as a slave. His name was originally Hoshea — "salvation." Moses renamed him Yehoshua — "the Lord saves" — a theological reframe before he led a single battle. He was among the generation who crossed the Red Sea, who ate manna, who heard the law at Sinai. His entire early identity was shaped by the experience of being delivered by someone else's leadership and God's power.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <div class="tl-phase">Military Command · Exodus 17</div>
+          <div class="tl-title">First Test: Amalek</div>
+          <div class="tl-desc">Joshua's first recorded act of leadership is military. Moses commands him to choose men and fight Amalek while Moses stood on the hill with the staff of God. Joshua obeyed without recorded objection or question. He fought the battle that was assigned to him while Moses handled the spiritual dimension above. He executed well. But the battle's outcome depended entirely on something Joshua couldn't control: whether Moses's arms stayed raised. He learned early that his competence alone was insufficient.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Twelve Spies · Numbers 13–14</div>
+          <div class="tl-title">Minority Report</div>
+          <div class="tl-desc">Sent with eleven others to scout Canaan, Joshua and Caleb came back with a minority report. Ten spies said the land was impossible — giants, fortified cities, certain defeat. Joshua and Caleb said: "The Lord is with us. Do not be afraid of them." The congregation threatened to stone them. They were right and they were nearly killed for it. They were the only two from their entire generation allowed to enter the promised land. Caleb was eighty-five when he finally claimed his portion. Joshua led the nation in. They had waited forty years for a verdict they gave in a day.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <div class="tl-phase">Servant &amp; Aide · Exodus–Deuteronomy</div>
+          <div class="tl-title">Forty Years as Second</div>
+          <div class="tl-desc">Between the spies' report and Moses's death, Joshua served as Moses's aide — present, faithful, learning, subordinate. He was not impatient. There is no record of him angling for position, lobbying for promotion, or growing restless in the shadow of Moses. He served the leader he was given and prepared himself for a role he did not yet have. That forty-year posture was the formation that made him qualified.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <div class="tl-phase">The Commission · Joshua 1</div>
+          <div class="tl-title">The Weight Arrives</div>
+          <div class="tl-desc">Moses dies. God speaks directly to Joshua for the first time as leader: "Moses my servant is dead. Now then, you and all these people, get ready to cross the Jordan River." No transition period. No overlap. No gradual handoff. Just: Moses is gone. You're next. Cross the river. The famous command — "be strong and courageous" — is given four times in Joshua 1. The repetition is not rhetorical flourish. It is evidence that God knew exactly how afraid Joshua was.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Why Joshua — What This Study Is For</h2>
+    <p>Joshua is the portrait for every man who has been handed something he didn't ask for, that is bigger than he feels capable of, following someone who cast a shadow he cannot fill. That is not a rare situation. It is one of the most common leadership transitions there is — in churches, in families, in organizations, in any situation where a man is called to step up after or instead of someone else.</p>
+    <p>Joshua also addresses something most men carry quietly: the belief that courage means not being afraid. It doesn't. God did not tell Joshua "don't feel fear." He told Joshua — repeatedly, insistently — to be strong and courageous anyway. The command assumes fear is present. The question is whether it will determine the outcome.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua spent forty years as second — faithful in someone else's shadow. Is there a season in your life right now where you are being asked to serve faithfully without being first? How are you carrying that?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua and Caleb gave the minority report and were nearly stoned for it. Have you ever been right and paid a social cost for it? What happened — and how did it shape how willing you are to say the unpopular true thing now?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">God told Joshua to be strong and courageous four times in one chapter. What does the repetition tell you about what God knew about Joshua's interior state? What does God keep repeating to you — and what does that reveal?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua was handed a role he didn't choose, after a leader he couldn't replace, with a task he couldn't complete in his own strength. Is there a leadership responsibility in your life right now that fits that description? What is your posture toward it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua stayed in the tent of meeting even after Moses left. What does that voluntary presence reveal about his character? What does it look like today to cultivate that same kind of hunger for God's presence before you're the one leading?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua served as second for forty years without any recorded impatience or angling for position. What makes that hard? What does faithfulness in the subordinate role actually look like in practice?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Ten out of twelve spies were wrong. The majority said "impossible." Joshua and Caleb said "the Lord is with us." How do you know when you are the courageous minority and when you are simply overconfident? What distinguishes the two?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God's commission to Joshua doesn't soften the difficulty — it just says "be strong and courageous" anyway. How is that different from the kind of encouragement most leaders receive? Is it more or less useful?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What is the "Jordan River" in front of you right now — the thing that seems impassable before you step into it? What would it look like to put your foot in the water?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ COURAGE ═══════════ -->
+<div class="panel" id="panel-courage">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Command</div>
+      <div class="section-title">Courage</div>
+      <div class="section-sub">What "be strong and courageous" actually means — and why God said it four times</div>
+    </div>
+
+    <h2>Four Times in One Chapter</h2>
+    <p>Joshua 1 contains the most concentrated command to courage in all of Scripture. God says some version of "be strong and courageous" four times in nineteen verses. Then the people of Israel say it to Joshua a fifth time. That repetition is not rhetorical decoration. It is diagnostic. When God repeats a command that many times in that short a space, he is addressing something real in the person he's speaking to.</p>
+    <p>Joshua was afraid. This is not an inference or an interpretation — it is what the repetition implies. A man who is not afraid does not need to be told four times. The commissioning of Joshua is one of the most honest portraits of a leader at the moment of calling in all of Scripture: God does not pretend the task is manageable, does not tell Joshua his feelings are wrong, does not offer a pep talk. He commands courage. Repeatedly. Because Joshua needed it. Repeatedly.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."</div>
+      <div class="verse-ref">Joshua 1:9 · NIV</div>
+    </div>
+
+    <h2>Courage Is a Command, Not a Feeling</h2>
+    <p>This is the central insight of Joshua's portrait for leadership: <strong>courage is not an emotional state. It is an act of obedience.</strong> God does not say "feel strong." He does not say "generate confidence." He says "be strong and courageous" — an imperative, a command, something done by an act of the will in submission to God regardless of what the emotions are doing.</p>
+    <p>This reframes the entire experience of fear in leadership. The man who believes courage means not being afraid will spend his leadership life trying to manage his emotional state — trying to feel ready, feel confident, feel up to the task. He will wait for the feeling before he acts. He will interpret fear as a signal that he is not the right man for the job.</p>
+    <p>The man who understands courage as commanded obedience has a completely different posture. He can be afraid and courageous simultaneously. The fear does not disqualify him. What matters is not whether fear is present but whether he obeys anyway. Joshua crossed the Jordan afraid. He walked around Jericho afraid. He divided the land afraid, probably. The fear was real. It did not determine the outcome.</p>
+
+    <h2>The Foundation of the Command</h2>
+    <p>The courage God commands is not a raw act of willpower. It is always grounded in a specific reality: <em>the Lord your God will be with you wherever you go.</em> This is the basis. God does not say "be courageous because you are capable." He says "be courageous because I am present." The command and the promise are inseparable. Strip away the promise and the command is cruelty — telling a frightened man to be brave with nothing to lean on. With the promise, it is invitation: act on what is actually true.</p>
+    <p>This is also why Joshua 1:8 appears immediately before the courage commands: "Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it." The Word is not a separate item on the leadership checklist. It is the mechanism by which the leader stays anchored to what is actually true when fear is doing its loudest work. The man who has not meditated on God's Word will have nothing to contradict the fear with when the Jordan rises to flood stage.</p>
+
+    <h2>The Jericho Problem — Courage Looks Foolish</h2>
+    <p>Joshua 6 is one of Scripture's clearest pictures of what obedient courage looks like from the outside: foolish. March around the city once a day for six days. Say nothing. On the seventh day, march around seven times, then blow trumpets and shout. That is the military strategy God gave for taking the most fortified city in Canaan.</p>
+    <p>There is no tactical logic to this. There is no military precedent. Any competent general looking at the plan would have serious concerns. Joshua implemented it exactly. Not because it made sense by any available metric, but because God had said to do it. That is courage in its clearest form: doing what God says when you cannot see why, when it looks absurd from the outside, when your own strategic instincts are raising objections.</p>
+    <p>The walls fell. But Joshua had to march six and a half days before he saw any evidence that the plan was working. Most leaders quit somewhere in the middle of day three.</p>
+
+    <h2>Courage Under Social Pressure — The Spies</h2>
+    <p>Before Joshua ever crossed the Jordan, he demonstrated a specific and costly form of courage: the willingness to say the true thing when the majority disagrees and the crowd is hostile. Numbers 13–14 records that all twelve spies saw the same land. Ten reported giants, fortified cities, and certain defeat. Joshua and Caleb reported the same giants and the same cities — and then said: "Do not be afraid of the people of the land, because we will devour them. Their protection is gone, but the Lord is with us."</p>
+    <p>The congregation's response was to threaten to stone them. This is the social cost of the minority report: not just being ignored, but being targeted. Joshua held his position. He was not right because he felt confident. He was right because he knew something the ten didn't: the Lord was with them. That knowledge — grounded in the Word and in long observation of what God could do — was more reliable than the majority's fear-based assessment.</p>
+    <p><strong>Every leader will eventually face a moment when the true thing and the popular thing are not the same thing.</strong> Joshua's courage in Numbers 14 is the preparation for Joshua's courage in Joshua 1. You do not develop the capacity to stand alone in front of two million people without having first stood alone in a room full of hostile colleagues.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">God commanded courage rather than promised a feeling of courage. Where in your leadership right now are you waiting to feel ready before you act? What would it look like to obey before the feeling arrives?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The Jericho strategy looked foolish by every military metric. Is there something God has asked you to do that makes no strategic sense — something you have been reluctant to implement because it looks absurd? What is it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua gave the minority report and was nearly stoned. Where in your current context is the true thing also the unpopular thing? What is the cost of saying it — and what is the cost of not saying it?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua 1:8 connects courage directly to meditating on the Word — because the Word is what you have to contradict fear with. How saturated is your mind with Scripture right now? Is it enough to hold you steady when fear is loudest?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God said "be strong and courageous" four times in one chapter. What does that tell you about how God treats human fear? Does he dismiss it, validate it, or something else?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study argues courage is obedience, not a feeling. Do you find that liberating or unsatisfying? What changes practically if you operate from that definition?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The Jericho plan looked foolish by every available metric. How do you discern the difference between God asking you to do something that looks foolish and something that is actually just foolish?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua stood by his minority report even when the crowd threatened to stone him. What is the social price of that kind of courage in your community? What happens to men who consistently say the unpopular true thing?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua 1:8 puts Scripture meditation right before the courage commands. In your experience, is there a real connection between how saturated you are in the Word and how courageous you are as a leader? What has that looked like?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Command and the Promise Together</div>
+      <div class="verse-text">"Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."</div>
+      <div class="verse-ref">Joshua 1:9 · NIV</div>
+      <div class="prayer-instruction">The command is inseparable from the promise. Ask God to make the promise more real to you than the fear is. Then take the step you have been postponing.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ TRANSITION ═══════════ -->
+<div class="panel" id="panel-transition">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Following a Giant</div>
+      <div class="section-title">Transition</div>
+      <div class="section-sub">What it costs to step into someone else's legacy — and how Joshua navigated it without being destroyed by the comparison</div>
+    </div>
+
+    <h2>The Shadow of Moses</h2>
+    <p>There is a particular kind of leadership burden that almost nobody talks about: being the one who follows someone extraordinary. Moses had parted the Red Sea. Moses had spoken with God face to face. Moses had given Israel the law. Moses was, by any measure, the greatest figure in Israelite history. And Joshua was the man who came next.</p>
+    <p>The comparison would have been relentless. It was probably made openly — there is something in human nature that mourns the predecessor and tests the successor, often simultaneously. "Moses would have done it this way." "Moses never made that mistake." "Moses would have known what to do here." Joshua led people who had watched something irreplaceable walk up a mountain and not come back down.</p>
+    <p>How Joshua handled this is instructive. There is no record of him trying to replicate Moses's style. There is no record of him being paralyzed by the comparison. He received his own direct commission from God — not "continue what Moses started" but "now then, you and all these people, get ready." He was given his own assignment. He executed it his own way. He crossed the Jordan by his own obedience.</p>
+
+    <h2>How God Established Joshua's Authority</h2>
+    <p>God did not leave Joshua to establish his own credibility through performance. He acted directly to confirm Joshua's leadership in ways that were unmistakably parallel to how he had confirmed Moses — and the parallels were almost certainly intentional.</p>
+
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Jordan</div>
+          <div class="detail-ref">Joshua 3–4</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Waters parted — echoing the Red Sea</div>
+          <div class="detail-desc">When the priests carrying the ark stepped into the Jordan at flood stage, the water piled up upstream and the people crossed on dry ground — exactly as their parents had crossed the Red Sea under Moses. The text in Joshua 4:14 is explicit: "That day the Lord exalted Joshua in the sight of all Israel; and they stood in awe of him, just as they had stood in awe of Moses all the days of his life." God was the one establishing Joshua's authority. Joshua did not have to campaign for it.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Holy Ground</div>
+          <div class="detail-ref">Joshua 5:13–15</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Remove your sandals — echoing Moses at the burning bush</div>
+          <div class="detail-desc">Before Jericho, Joshua encountered the commander of the Lord's army. The commander told him: "Take off your sandals, for the place where you are standing is holy." This is almost word-for-word the command given to Moses at the burning bush. It was not coincidental. God was communicating to Joshua — and to Israel watching — that the same God who had met Moses was meeting Joshua. The continuity was divine, not merely institutional.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Manna Ceases</div>
+          <div class="detail-ref">Joshua 5:10–12</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The provision of the wilderness era ends — a new season begins</div>
+          <div class="detail-desc">The day after Passover in Canaan, the manna that had fed Israel for forty years stopped. They ate from the produce of the land. This was not logistical — it was theological. The provision of the wilderness was finished. A new era had begun. Joshua was not leading a continuation of Moses's story. He was leading the opening chapter of something new. The transition was complete not when Moses died but when the manna stopped.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>What Joshua Did Not Do</h2>
+    <p>Perhaps as instructive as what Joshua did is what he did not do. He did not spend energy managing the comparison with Moses. He did not overexplain his decisions by invoking Moses's authority. He did not try to replicate Moses's style of leadership or Moses's relationship with God. He sought his own relationship with God directly — he was given his own commission, his own encounters, his own instructions. The God of Moses was also the God of Joshua. He approached him as such.</p>
+    <p>He also did not pretend the transition was easy. The people mourned Moses for thirty days before Joshua began leading — a full, official period of grief. The transition happened after the grief, not instead of it. There is wisdom in that sequencing. Trying to lead people who haven't finished mourning the previous leader is a specific kind of difficulty. Joshua waited. The mourning was honored. Then the work began.</p>
+
+    <h2>Transitional Leadership — The Principles</h2>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">Receive Your Own Commission</div>
+        <div class="phase-desc">Joshua did not inherit Moses's call. He received his own direct word from God. A leader who spends his tenure executing someone else's vision without developing his own relationship with God will eventually run out of borrowed fuel.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Let God Establish Your Authority</div>
+        <div class="phase-desc">Joshua did not campaign for credibility. He obeyed, and God exalted him in front of the people. Leaders who are constantly asserting their authority are usually insecure about it. The man whose authority is genuinely from God doesn't need to sell it.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Honor What Came Before</div>
+        <div class="phase-desc">Joshua never disparaged Moses or distanced himself from his legacy. He built on it while leading something new. Successors who define themselves primarily by contrast with their predecessors are usually more focused on their own identity than on the mission.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">Recognize When the Season Changes</div>
+        <div class="phase-desc">The manna stopped. Joshua recognized and led into the new season rather than trying to replicate the previous one. Every leadership transition involves a moment when something that worked before stops working. The leader's job is to notice and adjust, not to mourn and replicate.</div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Have you ever followed an extraordinary leader — in ministry, family, or work — and felt the weight of comparison? How did you handle it? How should you have?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">God established Joshua's authority directly — Joshua didn't campaign for it. In your leadership context, do you find yourself working to establish your own credibility, or trusting God to do that? What does the difference look like?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The manna stopped — God marked the transition clearly. Is there a season in your life or leadership where the old provision has stopped and something new is being required? Are you still waiting for the manna, or are you eating from the land?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua mourned Moses for thirty days before leading. Is there something in your past leadership experience — a loss, a failure, a transition — that you haven't fully grieved? What would it look like to honor that before moving forward?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Following an extraordinary leader is one of the hardest leadership situations there is. What makes it hard — what specifically is the temptation or the pressure? Have you seen it handled well or poorly?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">God established Joshua's authority through the Jordan crossing — explicitly echoing the Red Sea. What does it mean for God to establish a leader's authority? What does it look like when a leader tries to establish it himself?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua received his own direct commission rather than just inheriting Moses's. How important is that distinction for long-term leadership health? What happens to a leader who is executing someone else's vision without his own?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The manna stopped when the new season began. In your community or organization, are there provisions or methods from a previous era that need to stop — that you are holding onto past their time? What would it cost to let them go?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The mourning for Moses happened before Joshua began leading — it was honored, not skipped. What does it cost a community when leadership transitions happen without room to grieve? Have you seen this?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ INTEGRITY & FAILURE ═══════════ -->
+<div class="panel" id="panel-integrity">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Character Under Pressure</div>
+      <div class="section-title">Integrity &amp; Failure</div>
+      <div class="section-sub">Achan's sin, the Gibeonite deception, and what happens when a leader's integrity — or his people's — cracks under the weight of success</div>
+    </div>
+
+    <h2>Jericho Fell. Then This.</h2>
+    <p>After the walls of Jericho fell — one of the most dramatic military victories in Scripture — Israel was defeated at Ai. A small city. A battle they had every reason to win. Thirty-six men died. The text says Joshua tore his clothes and fell facedown before the ark of the Lord until evening, and the elders of Israel did the same. He cried out: "Why did you ever bring this people across the Jordan to deliver us into the hands of the Amorites to destroy us? If only we had been content to stay on the other side of the Jordan!"</p>
+    <p>It sounds, in the moment, like the fear from Joshua 1 returning. But God's response is sharp: "Stand up! What are you doing down on your face? Israel has sinned." The defeat was not a failure of courage or strategy. It was a consequence of hidden sin — Achan had taken devoted things from Jericho and buried them under his tent. One man's secret sin produced a corporate military defeat and thirty-six deaths.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Israel has sinned; they have violated my covenant, which I commanded them to keep. They have taken some of the devoted things; they have stolen, they have lied, they have put them with their own possessions."</div>
+      <div class="verse-ref">Joshua 7:11 · NIV</div>
+    </div>
+
+    <h2>The Achan Principle</h2>
+    <p>Achan's story is one of the most sobering in all of Joshua for leaders because it names something leaders tend to underestimate: <strong>hidden sin in the community has consequences that extend beyond the person hiding it.</strong> Achan did not think his private choice affected anyone else. He buried his treasure under his tent. He did not tell anyone. And thirty-six men died at Ai because of it.</p>
+    <p>The leader is not responsible for the hidden sins of every person under his care — he cannot search every tent. But he is responsible for creating a culture where concealment is not the default, where confession is possible, where integrity is genuinely valued and not just performed. Joshua's response when the sin was exposed was not to protect Achan or minimize the consequences. He confronted it directly, dealt with it fully, and moved forward. The community's integrity was restored. Israel then took Ai without difficulty.</p>
+    <p>The sequence is instructive: hidden sin → defeat → exposure → confrontation → restoration → victory. Leaders who short-circuit any step in that sequence by minimizing, concealing, or moving past sin too quickly will find the defeat recurring.</p>
+
+    <h2>The Gibeonite Deception — When Joshua Didn't Ask God</h2>
+    <p>Joshua 9 records one of Joshua's clearest failures — and it is a failure of a specific kind. The Gibeonites, fearing destruction, sent representatives dressed in worn-out clothes, carrying moldy bread and cracked wineskins, claiming to have traveled from a distant country. They asked for a peace treaty. Joshua 9:14 records the critical detail: "The Israelites sampled their provisions but did not inquire of the Lord."</p>
+    <p>Joshua made the treaty. Three days later he discovered they were neighbors — people he was supposed to drive out. The treaty was binding; he could not break it. He spent resources protecting and serving people he had been deceived into protecting. The consequences of that treaty followed Israel for generations.</p>
+    <p>The failure was not naivety. It was a failure of the interior discipline that had been the foundation of Joshua's leadership: <em>he didn't ask God.</em> After all the miraculous confirmations, after the Jordan and Jericho and Ai — in one moment of apparent success and apparent clarity, he acted on his own judgment without consulting the One whose judgment was the whole point. It is a recognizable failure. It happens most often not in crisis but in the middle of success, when a leader's confidence in his own reading of the situation quietly overtakes his dependence on God.</p>
+
+    <h2>What Integrity Requires of a Leader</h2>
+    <div class="detail-grid">
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Consistent Inquiry</div>
+          <div class="detail-ref">Joshua 9:14</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">The habit of asking God — especially when the answer seems obvious</div>
+          <div class="detail-desc">The Gibeonite failure happened when Joshua stopped asking. Integrity in leadership is not just moral uprightness — it includes the consistent discipline of seeking God's perspective even when your own seems sufficient. The moment a leader begins trusting his judgment more than God's is the moment the Gibeonite deception becomes possible.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Confronting Sin</div>
+          <div class="detail-ref">Joshua 7:16–26</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Dealing with failure fully rather than moving past it quickly</div>
+          <div class="detail-desc">Joshua did not minimize Achan's sin or protect him to preserve morale. He followed the process God prescribed, fully and publicly. Leaders who protect their communities from the full weight of confronting sin are not being merciful — they are producing a culture where concealment is rational. The short-term discomfort of full exposure is almost always preferable to the long-term damage of managed concealment.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">Owning Failure</div>
+          <div class="detail-ref">Joshua 7:6–9</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">Bringing the loss to God honestly rather than explaining it away</div>
+          <div class="detail-desc">After Ai, Joshua didn't blame strategy or circumstances. He fell facedown before God and cried out. His prayer is raw, even confused — "why did you bring us here to destroy us?" God's response was correction, not comfort, but Joshua received it. A leader who cannot be honest with God about failure cannot be corrected by God. The willingness to bring confusion and loss to God directly is itself an act of integrity.</div>
+        </div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label-col">
+          <div class="detail-tag">The Final Address</div>
+          <div class="detail-ref">Joshua 23–24</div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-what">A leader's integrity is confirmed by what he says at the end</div>
+          <div class="detail-desc">Joshua's farewell address in chapters 23–24 is the portrait of a man whose integrity held. He reviewed what God had done, held nothing back, warned the people clearly about the consequences of unfaithfulness, and then made his own position unmistakable: "As for me and my household, we will serve the Lord." He did not retire gracefully into ambiguity. He named his allegiance at the end as clearly as God had named the task at the beginning.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">The Achan principle: one person's hidden sin produced a corporate defeat. Is there something hidden in your life right now — not necessarily dramatic, but concealed — that is affecting the people around you in ways you haven't acknowledged?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua didn't ask God before making the Gibeonite treaty — he acted on his own judgment in a moment that seemed clear. Where are you most likely to stop asking God because the answer seems obvious? What has that cost you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua's final words were: "As for me and my household, we will serve the Lord." What would the honest version of that statement look like from you right now — not as aspiration, but as current reality?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua fell facedown after the Ai defeat and brought his confusion to God honestly. When you fail, do you bring it to God directly — including the confusion and the anger? Or do you explain it to yourself first and bring God a cleaned-up version?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Thirty-six men died at Ai because of Achan's hidden sin. That is a severe text. What does it mean for leaders and communities that individual hidden sin can have corporate consequences? How do you hold personal accountability and communal responsibility together?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua failed the Gibeonite test not because he was wicked but because he stopped asking God. In your experience, when are leaders most likely to stop asking God — during crisis or during success? Why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua confronted Achan fully and publicly. What happens in a community when leaders consistently protect people from the full consequences of their sin in order to preserve unity or morale? Have you seen this?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">"As for me and my household, we will serve the Lord." Joshua said this publicly at the end of his life. What makes that kind of declaration possible — and what makes most leaders unwilling to make it that clearly?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Joshua's integrity was confirmed at the end, not just at the beginning. What does faithfulness to the end look like? What most commonly causes leaders to drift in the final chapters of their leadership?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"As for me and my household, we will serve the Lord."</div>
+      <div class="verse-ref">Joshua 24:15 · NIV</div>
+      <div class="prayer-instruction">Joshua said this at the end of everything — not as aspiration but as settled conviction. Ask God to make it true of you: not just a statement you make, but a reality that holds all the way to the end.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages from Joshua's story and related reflections</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Commission — Courage Commanded</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Moses my servant is dead. Now then, you and all these people, get ready to cross the Jordan River into the land I am about to give to them — to the Israelites… Be strong and courageous, because you will lead these people to inherit the land I swore to their ancestors to give them."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 1:2, 6 · NIV</span><span class="vc-note">No transition period — the commission is immediate and direct</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 1:8 · NIV</span><span class="vc-note">Scripture meditation as the foundation of courage — the Word is what you have to contradict fear with</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 1:9 · NIV</span><span class="vc-note">The fourth courage command — the command and the promise inseparable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Minority Report — Courage Under Social Pressure</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Only do not rebel against the Lord. And do not be afraid of the people of the land, because we will devour them. Their protection is gone, but the Lord is with us. Do not be afraid of them."</div>
+          <div class="vc-footer"><span class="vc-ref">Numbers 14:9 · NIV</span><span class="vc-note">Joshua and Caleb's minority report — right, nearly stoned, vindicated forty years later</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Transition — God Establishes Joshua</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"That day the Lord exalted Joshua in the sight of all Israel; and they stood in awe of him, just as they had stood in awe of Moses all the days of his life."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 4:14 · NIV</span><span class="vc-note">God establishes the authority — Joshua does not have to campaign for it</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"The commander of the Lord's army replied, 'Take off your sandals, for the place where you are standing is holy.' And Joshua did so."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 5:15 · NIV</span><span class="vc-note">Echoing Moses at the burning bush — God confirming continuity and new commission simultaneously</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Integrity — Failure and the Final Word</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"The Israelites sampled their provisions but did not inquire of the Lord. Then Joshua made a treaty of peace with them to let them live, and the leaders of the assembly ratified it by oath."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 9:14–15 · NIV</span><span class="vc-note">The Gibeonite failure — one moment of not asking God, lasting consequences</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"But if serving the Lord seems undesirable to you, then choose for yourselves this day whom you will serve… But as for me and my household, we will serve the Lord."</div>
+          <div class="vc-footer"><span class="vc-ref">Joshua 24:15 · NIV</span><span class="vc-note">The final address — integrity confirmed at the end, not just the beginning</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-tools">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and resources for deeper engagement with Joshua's story</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">חָזַק</div>
+        <div class="ws-transliteration">chazaq</div>
+        <div class="ws-pos">Hebrew verb · Old Testament</div>
+        <div class="ws-definition">To be strong, to strengthen, to prevail, to harden, to hold fast. Used in Joshua 1:6, 7, 9, 18 — "be strong and courageous" (chazaq ve'ematz). Also used for Pharaoh's hardened heart in Exodus, for God strengthening individuals, and for taking firm hold of something. The same root appears in Ezra, Isaiah, and throughout the Psalms.</div>
+        <div class="ws-note">The word is active, not passive. It is not "be strong" in the sense of feeling powerful — it is the act of taking hold, gripping, not letting go. Courage in the Joshua sense is a grip you maintain even when everything in you wants to release it. The command assumes you will want to let go. The command says: hold on anyway.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">אָמַץ</div>
+        <div class="ws-transliteration">amatz</div>
+        <div class="ws-pos">Hebrew verb · Old Testament</div>
+        <div class="ws-definition">To be courageous, to be firm, to be alert, to be resolute. Paired with chazaq throughout Joshua 1 as "chazaq ve'ematz" — strong and courageous. Used in Deuteronomy 31:6–7 when Moses himself commissions Joshua in front of all Israel. Also in 1 Chronicles 28:20 when David commissions Solomon with the same words.</div>
+        <div class="ws-note">Amatz carries the sense of alertness and resolve — a posture of readiness rather than passive waiting. It appears in the phrase describing Caleb in Numbers 13:30: "Caleb silenced the people before Moses and said, 'We should go up and take possession of the land.'" Amatz is what Caleb did in the room — he was firm, alert, resolved, even when the crowd was pulling the other direction.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">יְהוֹשֻׁעַ</div>
+        <div class="ws-transliteration">Yehoshua</div>
+        <div class="ws-pos">Hebrew proper name</div>
+        <div class="ws-definition">Meaning "the Lord saves" or "the Lord is salvation." From YHWH (the Lord) + yasha (to save, deliver, rescue). Joshua's original name was Hoshea — simply "salvation." Moses renamed him Yehoshua in Numbers 13:16 before the spies were sent. The Greek form is Iesous — Jesus. The name Joshua and the name Jesus are the same name.</div>
+        <div class="ws-note">This is not a trivial detail. Joshua leads the people into the promised land — the land they could not enter under Moses (the law). Jesus leads his people into the rest the law could never give (Hebrews 4:8). The writer of Hebrews explicitly draws this parallel: "For if Joshua had given them rest, God would not have spoken later about another day." Joshua is a type — his name, his role, and his limitations all point forward to someone greater.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">חֵרֶם</div>
+        <div class="ws-transliteration">cherem</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Devoted thing, ban, sacred destruction. Items or people set apart for destruction as holy to God — not for human use or benefit. The devoted things from Jericho were cherem — they belonged entirely to God. Achan taking cherem was not simply theft; it was taking what belonged to God and treating it as personal property.</div>
+        <div class="ws-note">The Achan narrative hinges on cherem. Understanding the word clarifies the severity of the sin: it was not a man taking spoil — men were permitted spoil in other battles. It was a man taking what had been specifically and publicly consecrated as belonging to God. The leader's task is to understand what belongs to God and never treat it as available for personal use. That boundary, crossed quietly under a tent, produced a corporate defeat. The principle still holds.</div>
+      </div>
+
+    </div>
+
+    <h2>Joshua's Arc — Key Passages in Order</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Exodus 17:8–16</span><span class="ref-desc">First appearance — Joshua commands Israel's first military engagement against Amalek while Moses holds the staff. His competence alone is insufficient; the outcome depends on what Moses does on the hill.</span></li>
+      <li class="ref-item"><span class="ref-book">Exodus 33:11</span><span class="ref-desc">Joshua stays in the tent of meeting after Moses leaves. A single sentence — but the most revealing description of his interior life before he led anything.</span></li>
+      <li class="ref-item"><span class="ref-book">Numbers 13–14</span><span class="ref-desc">The spies' report. Joshua and Caleb's minority position, the crowd's response, the forty-year consequence. Read both chapters in sequence.</span></li>
+      <li class="ref-item"><span class="ref-book">Joshua 1</span><span class="ref-desc">The full commission — five courage commands in nineteen verses. Read slowly, counting each repetition. The repetition is the content.</span></li>
+      <li class="ref-item"><span class="ref-book">Joshua 3–4</span><span class="ref-desc">The Jordan crossing. God exalts Joshua explicitly in 4:14. The parallel to the Red Sea is intentional — God confirming the new leader publicly.</span></li>
+      <li class="ref-item"><span class="ref-book">Joshua 6–7</span><span class="ref-desc">Jericho falls; then Ai defeats Israel. The sequence of triumph and disaster — and what caused the difference. Read them back to back.</span></li>
+      <li class="ref-item"><span class="ref-book">Joshua 9</span><span class="ref-desc">The Gibeonite deception. Verse 14 is the hinge: they did not inquire of the Lord. A study in what happens when a leader stops asking God.</span></li>
+      <li class="ref-item"><span class="ref-book">Joshua 23–24</span><span class="ref-desc">The farewell address. Joshua's integrity confirmed at the end. Close with 24:15 — the statement that summarizes a life.</span></li>
+    </ul>
+
+    <h2>For Further Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Read Joshua 1 in one sitting, counting every time courage is commanded. Then sit with the question: what is God telling you to do that you have been postponing because you don't feel ready?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The name Yehoshua (Joshua) and Iesous (Jesus) are the same name. Joshua leads into the land; Jesus leads into rest. Read Hebrews 4:1–11 in light of that parallel. What does the rest Jesus offers have to do with the courage Joshua modeled?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Joshua's final statement — "as for me and my household, we will serve the Lord" — was made publicly and without qualification. Write your own honest version of that statement for where you actually are right now. Then write the version you want it to be in five years.</div>
+        <textarea placeholder="Now: ...\nIn five years: ..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
