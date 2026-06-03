@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work &amp; Calling — Bible Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #7a8a6a;
+  --accent-dim:   #3e4e34;
+  --accent-lt:    #a0b08a;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 32px 0 12px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #0a120a 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-divider { width: 1px; background: var(--border); margin: 10px 6px; flex-shrink: 0; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 6vw, 56px); font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+/* ── REF LIST ── */
+.ref-list { list-style: none; margin: 16px 0; }
+.ref-item { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.ref-item:last-child { border-bottom: none; }
+.ref-book { font-family: var(--font-display); font-size: 11px; letter-spacing: 1px; color: var(--accent); min-width: 140px; max-width: 180px; padding-top: 2px; flex-shrink: 0; }
+.ref-desc { font-size: 14px; color: var(--cream-dim); min-width: 0; }
+@media (max-width: 520px) { .ref-item { flex-direction: column; gap: 6px; } .ref-book { max-width: 100%; } }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── DISCUSSION QUESTIONS ── */
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-box .prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; }
+
+/* ── SCRIPTURE TAB ── */
+.scripture-section { margin: 36px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.verse-cards { display: flex; flex-direction: column; gap: 16px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.5vw, 20px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 12px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+/* ── WORD STUDY ── */
+.word-study-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.word-study { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; transition: border-color .2s; }
+.word-study:hover { border-color: var(--accent-dim); }
+.ws-original { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 40px); color: var(--accent); line-height: 1.2; margin-bottom: 6px; }
+.ws-transliteration { font-family: var(--font-body); font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 4px; }
+.ws-pos { font-family: var(--font-display); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.ws-definition { font-size: 14px; color: var(--cream); line-height: 1.65; margin-bottom: 10px; }
+.ws-note { font-size: 13px; color: var(--cream-dim); font-style: italic; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+/* ── TWO-COLUMN COMPARISON ── */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+@media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 24px; }
+.compare-card.danger { border-top: 3px solid var(--accent-dim); }
+.compare-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.compare-title { font-family: var(--font-serif); font-size: 22px; font-style: italic; color: var(--cream); margin-bottom: 14px; line-height: 1.3; }
+.compare-body { font-size: 14px; color: var(--cream-dim); line-height: 1.7; }
+.compare-body li { margin-bottom: 8px; padding-left: 16px; position: relative; }
+.compare-body li::before { content: '—'; position: absolute; left: 0; color: var(--accent-dim); }
+
+/* ── CALLING LAYERS ── */
+.calling-stack { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.calling-row { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.calling-row:last-child { border-bottom: none; }
+.calling-row:hover { background: #ffffff08; }
+.calling-label-col { background: var(--surface-2); padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+.calling-tag { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.calling-name { font-family: var(--font-serif); font-size: 14px; font-style: italic; color: var(--cream-dim); }
+.calling-body { background: var(--surface); padding: 18px 22px; }
+.calling-what { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+.calling-detail { font-size: 13px; color: var(--cream-dim); line-height: 1.6; margin: 0; }
+@media (max-width: 540px) { .calling-row { grid-template-columns: 1fr; } .calling-label-col { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── BE DO GO FRAMEWORK ── */
+.bdg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+@media (max-width: 560px) { .bdg-grid { grid-template-columns: 1fr; } }
+.bdg-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 28px 22px; text-align: center; position: relative; overflow: hidden; transition: border-color .2s; }
+.bdg-card:hover { border-color: var(--accent-dim); }
+.bdg-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.bdg-word { font-family: var(--font-display); font-size: clamp(28px, 4vw, 40px); font-weight: 700; color: var(--accent); letter-spacing: 4px; margin-bottom: 8px; }
+.bdg-question { font-family: var(--font-serif); font-size: 15px; font-style: italic; color: var(--cream); line-height: 1.5; margin-bottom: 14px; }
+.bdg-body { font-size: 13px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PHASES GRID ── */
+.phases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+.phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; }
+.phase-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.phase-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── BIBLICAL GALLERY (realm grid) ── */
+.realm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 24px 0; }
+.realm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 22px; position: relative; transition: border-color .2s; }
+.realm-card:hover { border-color: var(--accent-dim); }
+.realm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent-dim); border-radius: 6px 6px 0 0; }
+.realm-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.realm-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--muted); margin-bottom: 10px; }
+.realm-desc { font-size: 13px; color: var(--cream-dim); line-height: 1.65; }
+
+/* ── PASSAGE BLOCK ── */
+.passage-block { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 28px 32px; margin: 24px 0; }
+.passage-title { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.passage-text { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--cream); line-height: 1.85; }
+.passage-text .vn { font-style: normal; font-family: var(--font-display); font-size: 10px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 3px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Men's Study · Vocation &amp; Identity</div>
+  <div class="header-title">Work &amp; <span>Calling</span></div>
+  <div class="header-verse">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."</div>
+  <div class="header-ref">Colossians 3:23 · NIV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('main',this)">The Problem</button>
+    <button class="tab-btn" onclick="switchTab('vocation',this)">Vocation</button>
+    <button class="tab-btn" onclick="switchTab('distortions',this)">Idol &amp; Abdication</button>
+    <button class="tab-btn" onclick="switchTab('anchored',this)">Identity Anchored</button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn" onclick="switchTab('scripture',this)">Scripture</button>
+    <button class="tab-btn" onclick="switchTab('words',this)">Study Tools</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ THE PROBLEM ═══════════ -->
+<div class="panel active" id="panel-main">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Men's Study · Vocation &amp; Identity</div>
+      <div class="section-title">The Problem</div>
+      <div class="section-sub">Why men consistently find their worth in what they do — and what happens when that fails</div>
+    </div>
+
+    <h2>Two Men in the Same Church</h2>
+    <p>The first man is easy to spot. He arrives late, leaves early, answers texts during service. He works seventy hours a week, talks about his job the way other men talk about their families, and measures himself — and other men — by title, income, and output. His wife knows she comes second to his career. His kids know it too, though they wouldn't use those words. He is not a bad man. He is a man whose identity has been absorbed by his work, and he doesn't know it because every signal in his world tells him this is what a man is supposed to be.</p>
+
+    <p>The second man is harder to see. He shows up. He's friendly. But he has no real momentum. He drifts from job to job, avoids hard decisions, has a dozen half-started projects and no finished ones. He is not lazy in the conventional sense — he is paralyzed. Somewhere along the way he concluded, consciously or not, that it's safer not to try than to try and fail publicly. So he manages his exposure. He keeps his head down. He has checked out from any real sense of calling and told himself that's humility.</p>
+
+    <p>Both men are in trouble. And they are almost certainly sitting in the same room together right now.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Central Tension</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">The man who overidentifies with his work and the man who has abandoned any sense of purpose are not opposites. They are the same man at different points on the same trajectory — both using work (or its absence) as a way of managing fear.</p>
+    </div>
+
+    <h2>The Roots — Genesis 3</h2>
+    <p>Work existed before the fall. That matters. In Genesis 1–2, God works — he creates, names, forms, shapes — and then places image-bearing men and women in the garden to do the same. The mandate in Genesis 1:28 to "fill the earth and subdue it" is not a post-fall punishment. It is a pre-fall calling. Work is built into what it means to be human in God's image.</p>
+
+    <p>Genesis 3 does not eliminate work. It corrupts it. The curse is specific: <em>"Cursed is the ground because of you; through painful toil you will eat food from it all the days of your life. It will produce thorns and thistles for you… by the sweat of your brow you will eat your food."</em> (Genesis 3:17–19). The ground itself resists. Effort does not reliably produce results. Systems are broken. Relationships that once worked now strain. The work is real — and it is harder than it was designed to be.</p>
+
+    <p>Two predictable distortions emerge from this. Some men respond to the resistance by doubling down — working harder, achieving more, trying to force the cursed ground to cooperate through sheer effort and willpower. Their worth becomes their output. Others respond by giving up — concluding the resistance means their effort doesn't matter, that the ground will always produce thorns, that it's not worth trying. Both responses are understandable. Neither is the answer.</p>
+
+    <h2>The Question Beneath the Question</h2>
+    <p>When a man ties his identity to his career, the question he is actually asking is: <em>Am I enough?</em> The job title is his answer. The income is his evidence. The accomplishment is his justification. He needs the work to keep performing not just because he needs the money but because he needs the verdict — that he is a man of value, that he matters, that his existence is justified by what he produces.</p>
+
+    <p>When a man drifts without purpose, he is asking the same question from the other direction: <em>What if I try and the answer is no?</em> So he doesn't try. He waits. He opts out of the verdict by never submitting himself for judgment. It feels like low pressure. It is actually a prison. You cannot be defined by your failures if you never commit to anything fully enough to fail.</p>
+
+    <p><strong>Both men are letting work answer a question it was never designed to answer.</strong> Work cannot tell you who you are. It can tell you what you did. That is not the same thing.</p>
+
+    <h2>Key Scripture References</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Genesis 1:26–28</span><span class="ref-desc">The image of God and the pre-fall mandate to work — establishing that work is not a punishment but part of what it means to bear God's image.</span></li>
+      <li class="ref-item"><span class="ref-book">Genesis 2:15</span><span class="ref-desc">"The Lord God took the man and put him in the garden of Eden to work it and keep it." Work as responsibility and stewardship, before sin entered.</span></li>
+      <li class="ref-item"><span class="ref-book">Genesis 3:17–19</span><span class="ref-desc">The curse — not on work itself, but on the ground. Work becomes painful toil. The resistance men experience in their labor is real and has a cause.</span></li>
+      <li class="ref-item"><span class="ref-book">Ecclesiastes 2:18–23</span><span class="ref-desc">Qohelet's brutal assessment of work without transcendent purpose: "I hated all my toil… for I must leave it to the man who comes after me." The futility of building a legacy on work alone.</span></li>
+      <li class="ref-item"><span class="ref-book">Ecclesiastes 9:10</span><span class="ref-desc">"Whatever your hand finds to do, do it with all your might." Faithful engagement with work, even under the sun — not because it solves the problem, but because sloth is not wisdom either.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of the two men — the one who overidentifies with work, or the one who has checked out — do you recognize more in yourself? When did that pattern start?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What does your work tell you about yourself? What verdict does it give you — positive or negative — about your worth as a man?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">When work is hard or unrewarding, how do you respond? Do you press harder, pull back, or something else? What does that response reveal?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">If your job or career disappeared tomorrow, how would that change how you see yourself? What does your answer reveal about where your identity actually sits?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study describes two failure modes: the man absorbed by work and the man who has checked out. Which one does your community or workplace produce more often — and why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Work existed before the fall. How does knowing that work is part of God's original design — not a punishment — change the way you think about it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study claims both the workaholic and the drifter are "managing fear." Do you agree? What is each man afraid of?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If work cannot tell you who you are, what can? Where does a man go to find his identity if not his career?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Ecclesiastes 9:10 says to work with all your might, even though Qohelet has just said work is ultimately futile apart from God. How do you hold both of those truths together?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"Unless the Lord builds the house, the builders labor in vain."</div>
+      <div class="verse-ref">Psalm 127:1 · NIV</div>
+      <div class="prayer-instruction">Spend a moment asking honestly: what am I building, and who is building it? What would it look like to hand that over?</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ VOCATION ═══════════ -->
+<div class="panel" id="panel-vocation">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Theological Foundation</div>
+      <div class="section-title">Vocation</div>
+      <div class="section-sub">What Scripture means by work, calling, and the difference between a job and a purpose</div>
+    </div>
+
+    <h2>One Word for Three Things</h2>
+    <p>The Hebrew word <em>avodah</em> (עֲבֹדָה) means work. It also means service. It also means worship. These are not three separate words that happen to share a root — they are one word used for all three concepts across the Old Testament. The same word describes a craftsman building the tabernacle, a Levite serving in the temple, and a farmer working the soil.</p>
+    <p>This is not a linguistic accident. It is a theological statement. For a Hebrew-speaking person steeped in the Scriptures, the idea that your daily work and your worship of God were somehow separate categories would have been incoherent. Work done faithfully, in the right posture, toward the right end, <em>is</em> service to God. It is not practice for the sacred. It is not secular filler between the sacred moments. It is, in itself, a form of worship.</p>
+    <p>Most men have never been told this. They have been given, implicitly or explicitly, a two-tier map of reality: sacred things (prayer, church, Scripture) and ordinary things (work, sports, household tasks). Calling that divide into question is not liberalism — it is recovering something the Reformation fought to restore and the modern church has largely abandoned again.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+      <div class="verse-ref">Ephesians 2:10 · NIV</div>
+    </div>
+
+    <h2>Two Layers of Calling</h2>
+    <p>Theologians across the centuries have distinguished two dimensions of calling that every Christian carries. They are not competing — they are nested. Understanding both prevents the errors on either side.</p>
+
+    <div class="calling-stack">
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">Primary</div>
+          <div class="calling-name">The General Calling</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">Shared by every follower of Christ — non-negotiable, non-transferable</div>
+          <div class="calling-detail">To be a disciple who makes disciples. To love God and neighbor. To bear the image of Christ in every room you enter. This calling does not change with your job title, your season of life, or your bank account. It is your primary identity before anything else — including your career. A man who gets his secondary calling exactly right but neglects this one has missed the point entirely.</div>
+        </div>
+      </div>
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">Secondary</div>
+          <div class="calling-name">The Personal Calling</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">Unique to you — shaped by how God made you and where he has placed you</div>
+          <div class="calling-detail">Your specific gifts, abilities, passions, and circumstances. The particular work, relationships, and responsibilities that are yours to steward. This is the domain where vocation lives — not in competition with the primary calling, but as its expression. A man's career, family role, community involvement, and creative gifts are all potential channels for living out this secondary calling. The danger is when this layer gets promoted and the primary calling gets buried beneath it.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Difference Between a Job, a Career, and a Calling</h2>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-label">A Job</div>
+        <div class="phase-desc">What you do to pay the bills. There is no shame in this. Paul made tents. Jesus was a carpenter. Not every season of a man's work life is charged with transcendent purpose — sometimes faithfulness means showing up and doing the work in front of you, regardless of how it feels.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">A Career</div>
+        <div class="phase-desc">A long-term trajectory of skill-building and advancement in a particular domain. Good stewardship — developing your abilities, growing in expertise, leaving things better than you found them — is part of faithful living. The danger is when advancement becomes the end rather than the means.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">A Calling</div>
+        <div class="phase-desc">Work understood as participation in something larger than yourself. A calling can be expressed through a job or career — but it is not the same as either. It is the sense that what you are doing matters in kingdom terms, that your particular gifts are being deployed toward ends God cares about. This does not require a ministry title. It requires a posture.</div>
+      </div>
+    </div>
+
+    <h2>Paul's Tent-Making — A Case Study</h2>
+    <p>The apostle Paul was trained as a Pharisee. He was, by any measure, among the most educated, gifted, and theologically sophisticated men of his era. And he spent significant portions of his ministry making tents for money (Acts 18:3, 1 Corinthians 4:12, 1 Thessalonians 2:9).</p>
+    <p>He did this so he would not be a financial burden to the churches he planted. He did this so that no one could accuse him of profiting from the gospel. He did this as a conscious choice that served his primary calling. His tent-making was not separate from his apostolic mission. It was in service of it.</p>
+    <p>This matters because it dismantles the idea that a man has to choose between meaningful work and ordinary work. Paul did not find his identity in tent-making. He was not a tent-maker who did some ministry on the side. He was an apostle who made tents when the mission required it, without losing himself in the process.</p>
+
+    <h2>Men Who Got It Right</h2>
+    <p>Scripture gives us a gallery of men whose relationship to work models something different from both the idol and the abdication. They span every point on the spectrum — from highly skilled professionals to manual laborers, from men who excelled in their careers to men who walked away from them entirely. What they share is not a job type. It is a posture.</p>
+
+    <div class="realm-grid">
+
+      <div class="realm-card">
+        <div class="realm-title">Joseph</div>
+        <div class="realm-ref">Genesis 39–41</div>
+        <div class="realm-desc">Enslaved, falsely accused, imprisoned — and excellent in every role he was given anyway. In Potiphar's house and in prison, Joseph worked with such competence and integrity that authority was consistently placed in his hands. His excellence was not performance for approval. It preceded any reward and survived every injustice. He did not know he was being prepared for Pharaoh's court. He was simply faithful where he was.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Bezalel</div>
+        <div class="realm-ref">Exodus 31:1–5</div>
+        <div class="realm-desc">A craftsman filled with the Spirit of God specifically to build the tabernacle — with skill in metalwork, woodwork, and artistic design. God did not use a priest or a prophet for this task. He used a skilled artisan. The Spirit of God resting on a man for the sake of excellent craft is the clearest possible biblical statement that the sacred/secular distinction is a human invention, not a divine one.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Amos</div>
+        <div class="realm-ref">Amos 1:1, 7:14–15</div>
+        <div class="realm-desc">A shepherd and a grower of sycamore figs — by any measure, a working man with no religious credentials. When questioned about his authority to prophesy, Amos did not claim a theological pedigree. He said: "I was no prophet, nor a prophet's son, but I was a herdsman and a dresser of sycamore figs, and the Lord took me from following the flock." God called a successful agribusinessman. His work was not a waiting room for his calling. It was where his calling found him.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">The Temple Builders</div>
+        <div class="realm-ref">1 Kings 5–7 · Exodus 35–36</div>
+        <div class="realm-desc">Solomon's temple required the finest craftsmen in the ancient world — stonecutters, carpenters, metalworkers, weavers. These men were not doing sacred work in spite of their trade. Their trade was the sacred work. The same pattern repeats in the tabernacle: skilled workers called by name, their craftsmanship described in granular detail as an act of worship. Excellence in a material craft can be an offering.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">The Disciples</div>
+        <div class="realm-ref">Matthew 4:18–22 · Luke 5:1–11</div>
+        <div class="realm-desc">Fishermen. Tax collectors. Working men without formal religious training. Jesus did not call the theological elite. He called men who knew how to work — who understood nets, labor, early mornings, physical effort, and failure. When the call came, they left their boats. Not because their work had been worthless, but because something larger had arrived. Their work had shaped them into men capable of following.</div>
+      </div>
+
+      <div class="realm-card">
+        <div class="realm-title">Jesus</div>
+        <div class="realm-ref">Mark 6:3 · Luke 3:23</div>
+        <div class="realm-desc">A carpenter until approximately age thirty. The Son of God spent the vast majority of his earthly life doing manual trade work in an obscure village. He did not begin his public ministry until the Father's timing. Those thirty years were not wasted — they were worked. When he finally left carpentry for ministry, he did not abandon his identity. He carried it forward into a different expression of the same calling: to do his Father's work.</div>
+      </div>
+
+    </div>
+
+    <p>The pattern across all six: <strong>no distortion in either direction.</strong> Joseph excelled without collapsing into his role. The disciples worked faithfully and then left without clinging. Jesus built things with his hands for thirty years and was not diminished by it. Amos ran a farm and prophesied without needing to resolve the tension between them. Excellence and surrender, craft and calling, holding it loosely — these are not contradictions. They are the shape of a man who knows who he is.</p>
+
+    <h2>Key Scripture References</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Ephesians 2:10</span><span class="ref-desc">"We are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do." The foundation verse — personal calling rooted in creation and redemption.</span></li>
+      <li class="ref-item"><span class="ref-book">Proverbs 22:29</span><span class="ref-desc">"Do you see someone skilled in their work? They will serve before kings." Excellence in craft has inherent dignity and opens doors — vocation pursued with excellence matters.</span></li>
+      <li class="ref-item"><span class="ref-book">Exodus 31:1–5</span><span class="ref-desc">Bezalel filled with the Spirit of God "with skill, ability, and knowledge in all kinds of crafts." The Holy Spirit equipping a craftsman for artistic work — the sacred/secular distinction collapses here entirely.</span></li>
+      <li class="ref-item"><span class="ref-book">Acts 18:1–3</span><span class="ref-desc">Paul working alongside Aquila and Priscilla as a tent-maker. Ordinary labor as the vehicle for extraordinary mission.</span></li>
+      <li class="ref-item"><span class="ref-book">Amos 7:14–15</span><span class="ref-desc">"I was no prophet, nor a prophet's son, but I was a herdsman and a dresser of sycamore figs, and the Lord took me from following the flock." God called a working man from his work, not from a seminary.</span></li>
+      <li class="ref-item"><span class="ref-book">Matthew 4:18–22</span><span class="ref-desc">Jesus calling fishermen — working men with no formal religious training. Their labor had shaped them; he did not ask them to abandon who they were, but to redirect it.</span></li>
+      <li class="ref-item"><span class="ref-book">Colossians 3:23–24</span><span class="ref-desc">"Whatever you do, work at it with all your heart, as working for the Lord… since you know that you will receive an inheritance from the Lord as a reward." The audience for your work is larger than your employer.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">The Hebrew word avodah means work, service, and worship simultaneously. What would change about how you approach your work if you genuinely believed it was a form of worship?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Of the two layers of calling — primary (disciple who makes disciples) and secondary (your specific gifts and context) — which one are you more focused on? Which one gets more of your attention?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Where in your current work or responsibilities do you most sense that what you are doing matters in kingdom terms? Where does it feel most like obligation with no larger purpose?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is one step you will take this week to bring your primary calling — being a disciple who makes disciples — into your workplace or daily work context?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">How does it change things to know that the same Hebrew word covers work, service, and worship? Does that feel liberating or does it feel like a stretch?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study distinguishes between a primary calling (disciple-making) and a secondary calling (personal vocation). In your experience, which one does the church talk about more? Which one do most men actually think about more?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Bezalel was filled with the Holy Spirit to be an artist and craftsman. Does that surprise you? What does it imply about what kinds of work God considers significant?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The six men in the biblical gallery — Joseph, Bezalel, Amos, the temple builders, the disciples, Jesus — cover every point on the spectrum from professional excellence to manual labor to walking away from a career entirely. Which one do you identify with most, and why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Paul was an apostle who made tents — not a tent-maker who did some ministry. What is the difference between those two postures, practically? How would you describe your own?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What would it look like in your specific workplace or season of life to treat your work as your primary calling's mission field rather than as separate from it?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE IDOL & ABDICATION ═══════════ -->
+<div class="panel" id="panel-distortions">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Two Distortions</div>
+      <div class="section-title">Idol &amp; Abdication</div>
+      <div class="section-sub">How men distort their relationship to work — and what each distortion is actually protecting</div>
+    </div>
+
+    <h2>Two Distortions, One Root</h2>
+    <p>The idol and the abdication look nothing alike on the surface. One man is driven, ambitious, always pushing. The other is passive, disengaged, perpetually in a holding pattern. But beneath both patterns is the same problem: <strong>work has been elevated to carry a weight it cannot bear.</strong> Either a man is desperately propping up his sense of worth through his output, or he has concluded the cost of trying isn't worth the risk of exposure. Both are responses to the same fear.</p>
+    <p>Understanding what each distortion is actually protecting is more useful than just naming it. A man rarely changes because someone told him he was wrong. He changes when he sees what the wrong thing is costing him.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card danger">
+        <div class="compare-label">The Idol</div>
+        <div class="compare-title">Work as Identity</div>
+        <div class="compare-body">
+          <ul>
+            <li>Measures himself by title, income, and output</li>
+            <li>Treats family as secondary to professional commitments</li>
+            <li>Feels physically ill during seasons of underperformance</li>
+            <li>Cannot rest without guilt or anxiety</li>
+            <li>Interprets setbacks as verdicts on his worth as a man</li>
+            <li>Needs to be needed, needed to be respected</li>
+            <li>Looks at men with less success as lesser men</li>
+            <li>Uses work to avoid intimacy, presence, vulnerability</li>
+          </ul>
+        </div>
+      </div>
+      <div class="compare-card danger">
+        <div class="compare-label">The Abdication</div>
+        <div class="compare-title">Work Abandoned</div>
+        <div class="compare-body">
+          <ul>
+            <li>Avoids commitment to anything requiring public accountability</li>
+            <li>Has many half-started projects and no finished ones</li>
+            <li>Interprets "going with the flow" as a spiritual virtue</li>
+            <li>Has given up expecting his work to mean anything</li>
+            <li>Lets others carry responsibility he should bear</li>
+            <li>Performs contentment but secretly feels purposeless</li>
+            <li>Fears failure more than he desires success</li>
+            <li>Uses busyness (low-stakes activity) to avoid high-stakes engagement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h2>What the Idol Is Protecting</h2>
+    <p>The man whose identity is his work is protecting himself from a specific verdict: that he is not enough apart from what he produces. He has learned — often in childhood, often from a father who modeled it — that a man's worth is his output. So he outputs. Constantly. When the output is strong, he feels like a man. When it falters, something more than his career is in danger.</p>
+    <p>This man is not selfish in the simple sense. Many of these men work this hard because they genuinely believe they are providing for the people they love. But provision has become a substitute for presence. Productivity has become a substitute for relationship. He is working harder and harder to give his family everything except himself.</p>
+    <p>The idol is also a control mechanism. If I produce enough, I can be safe. If I achieve enough, the ground can't swallow me. It is the Genesis 3 response to the curse amplified: fight the resistant ground with sheer willpower, and never stop fighting.</p>
+
+    <h2>What the Abdication Is Protecting</h2>
+    <p>The man who has checked out is protecting himself from a different verdict, but no less terrifying: that if he commits fully and fails, there will be no recovery. Better to never fully show up than to show up completely and be found inadequate. The abdication is not laziness — it is a sophisticated risk management strategy. It just costs everything.</p>
+    <p>This man is often camouflaged. He is pleasant, agreeable, not obviously struggling. He may be genuinely engaged in low-stakes activities — hobbies, sports, casual friendships. But when something requires him to put his name on it, to be responsible for the outcome, to be seen trying — he finds reasons to wait. Next quarter. When things settle down. When I have more clarity.</p>
+    <p>The abdication can also masquerade as theology. Surrender, contentment, waiting on the Lord. These are real virtues — but in the hands of a man managing his exposure, they become a spiritualized version of fear. Elijah under the broom tree (1 Kings 19) was not practicing holy contentment. He was a man in collapse, and God did not praise him for it. He fed him, gave him rest, and sent him back.</p>
+
+    <h2>The Parable of the Talents — Revisited</h2>
+    <p>Matthew 25:14–30 is frequently read as a story about stewardship of money. It is more accurately a story about what men do with what God has given them when they are afraid.</p>
+    <p>The servant who buried his talent told his master: "I was afraid, and I went and hid your talent in the ground." The master's response was not patient understanding. It was sharp: "You wicked and slothful servant!" The one-talent servant did not squander his investment on foolishness. He did not misuse it. He managed his exposure. He made sure there was nothing to be ashamed of. And he was condemned for it.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"For to everyone who has, more will be given, and he will have an abundance. But from the one who has not, even what he has will be taken away."</div>
+      <div class="verse-ref">Matthew 25:29 · ESV</div>
+    </div>
+
+    <p>The logic of the kingdom is the opposite of the abdication's logic. The abdication says: don't risk what you have, and you won't lose it. Jesus says: what you don't invest, you lose anyway. The only way to protect what God has given you is to use it — which means accepting the risk of failure, of being seen trying, of not having a guaranteed outcome.</p>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Looking at the two lists honestly — which behaviors in either column do you recognize in yourself right now? Don't answer quickly.</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The idol uses work to avoid intimacy and vulnerability. The abdication uses passivity to avoid the risk of failure. Which of those two avoidance strategies are you more prone to?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The one-talent servant was condemned not for what he did with his talent, but for what he didn't do. Is there something God has given you — a gift, a responsibility, an opportunity — that you have buried rather than invested?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What would it cost you to change the pattern you identified? Who in your life would need to see you differently — and which of them matters too much to you right now?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study claims both the idol and the abdication are "managing fear." What specifically is each man afraid of? Do you think that's accurate?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The idol man is often seen as successful and respected. The abdication man is often seen as easygoing and unambitious. How does each man's community around him reinforce the distortion rather than confront it?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The abdication can hide behind spiritual language — surrender, contentment, waiting on God. How do you distinguish between genuine trust and spiritualized avoidance? What are the tells?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The one-talent servant was condemned not for sin but for not using what he was given. How does that change your understanding of what faithfulness actually requires?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If a man in your group had identified himself as clearly in one of these patterns, what would you say to him? What would you NOT say?</span></li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ═══════════ IDENTITY ANCHORED ═══════════ -->
+<div class="panel" id="panel-anchored">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Corrective</div>
+      <div class="section-title">Identity Anchored</div>
+      <div class="section-sub">What it looks like when a man's identity is rooted in Christ and his work flows from that — not toward it</div>
+    </div>
+
+    <h2>The Direction Matters</h2>
+    <p>The goal is not to work less. It is not to care less about quality, excellence, or results. It is not to treat your career as unimportant. The corrective to both the idol and the abdication is not mediocrity — it is a change in <em>direction.</em></p>
+    <p>The idol works <em>toward</em> identity. Every accomplishment is a deposit into the account of self-worth. Every setback is a withdrawal. The work is a machine that produces verdicts on whether the man is enough. The corrective is a man who works <em>from</em> identity — who already knows who he is before he arrives at the office, whose sense of worth is settled in Christ and therefore not available for the workplace to adjudicate.</p>
+    <p>This is not a minor adjustment. It is a complete reorientation. And it does not happen through willpower or self-help. It happens through genuine conviction, over time, that what God says about a man in Christ is more true and more stable than what his performance says about him.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Reorientation</div>
+      <p style="font-family:var(--font-serif);font-size:19px;font-style:italic;color:var(--cream);margin:0;">A man who works from his identity in Christ brings the same excellence, the same full effort, and the same responsibility — but he is not dependent on the outcome to tell him who he is. He can fail without collapsing. He can succeed without becoming arrogant. He can rest without guilt. He can work hard without it becoming a compulsion.</p>
+    </div>
+
+    <h2>The Be · Do · Go Framework</h2>
+    <p>Todd Wilson's framework from <em>More</em> gives a practical structure to this reorientation. The sequence is not incidental — the order matters.</p>
+
+    <div class="bdg-grid">
+      <div class="bdg-card">
+        <div class="bdg-word">BE</div>
+        <div class="bdg-question">Who are you created to be?</div>
+        <div class="bdg-body">Identity and design. A disciple of Jesus — that is the primary answer, before any career or role gets added. A man who knows who he is at the BE level is not dependent on the DO level for his sense of self. This is where the anchor goes down.</div>
+      </div>
+      <div class="bdg-card">
+        <div class="bdg-word">DO</div>
+        <div class="bdg-question">What are you created to do?</div>
+        <div class="bdg-body">Purpose and mission. The good works God prepared in advance (Ephesians 2:10). This includes your career but is not limited to it — it includes your family, your community, your gifts deployed for kingdom ends. The DO flows from the BE; it does not produce it.</div>
+      </div>
+      <div class="bdg-card">
+        <div class="bdg-word">GO</div>
+        <div class="bdg-question">Where are you called to go?</div>
+        <div class="bdg-body">Position and mission field. The specific context where your BE and DO are expressed — your workplace, your neighborhood, your community. The GO is where ordinary work and kingdom purpose meet. Every man already has a mission field. Most men haven't thought of it that way.</div>
+      </div>
+    </div>
+
+    <h2>What This Looks Like Practically</h2>
+    <p>A man with his identity anchored in Christ does not work less hard. He works differently. Some of what changes is invisible — the internal posture, the reason behind the effort. But some of it shows up in observable ways.</p>
+
+    <div class="calling-stack">
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">He can rest</div>
+          <div class="calling-name">Without guilt or anxiety</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">Sabbath as theology, not just scheduling</div>
+          <div class="calling-detail">A man who needs his output to justify his existence cannot stop producing without anxiety. A man whose worth is settled in Christ can stop. Sabbath becomes possible — not as a rule to follow but as a reality to inhabit. He is not less of a man on his day off.</div>
+        </div>
+      </div>
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">He can fail</div>
+          <div class="calling-name">Without collapsing</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">Resilience rooted in identity, not performance</div>
+          <div class="calling-detail">When a project fails, a client is lost, or a season of work is unrewarding, it does not constitute a verdict on who he is. He can absorb the loss, learn from it, and keep moving. Failure is painful but not catastrophic. His foundation was not there to begin with.</div>
+        </div>
+      </div>
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">He can be present</div>
+          <div class="calling-name">At home and at work</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">No competition between roles</div>
+          <div class="calling-detail">Because he is not running from himself at the office, he does not need work to be an escape. When he comes home, he actually arrives. He is not mentally still at his desk, still needing one more win. His family gets a man who is present because he is not chasing a verdict.</div>
+        </div>
+      </div>
+      <div class="calling-row">
+        <div class="calling-label-col">
+          <div class="calling-tag">He takes risks</div>
+          <div class="calling-name">Because the outcome isn't everything</div>
+        </div>
+        <div class="calling-body">
+          <div class="calling-what">Freed from the paralysis of guaranteed outcomes</div>
+          <div class="calling-detail">The abdication manages exposure because failure feels fatal. A man anchored in Christ can invest his talent — fully, publicly, with no guaranteed outcome — because failure does not define him. The one-talent servant's risk management is no longer necessary.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>The Long Work</h2>
+    <p>Reorienting your identity from your work to Christ is not a one-time decision. It is a slow renovation, done passage by passage, conversation by conversation, failure by failure. Most men have decades of conditioning telling them their worth is their output. That does not get undone in a study session.</p>
+    <p>What changes it, over time, is sustained exposure to what God actually says about a man in Christ — combined with the community of other men who are fighting for the same reorientation. You are more likely to believe what God says about you if someone standing next to you believes it and is living like it. That is what this kind of study is for.</p>
+
+    <h2>Key Scripture References</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">Ephesians 2:8–10</span><span class="ref-desc">Saved by grace, not works — so that we can do the good works God prepared. Identity comes first; work flows from it, not toward it.</span></li>
+      <li class="ref-item"><span class="ref-book">Colossians 3:23–24</span><span class="ref-desc">"Work at it with all your heart, as working for the Lord." Full effort, redirected audience. The work does not change; the reason for it does.</span></li>
+      <li class="ref-item"><span class="ref-book">Matthew 25:14–30</span><span class="ref-desc">The parable of the talents — investment, risk, and what faithfulness actually requires. The buried talent is not protected; it is lost.</span></li>
+      <li class="ref-item"><span class="ref-book">2 Thessalonians 3:10–12</span><span class="ref-desc">Paul's direct instruction: if a man won't work, he shouldn't eat. The corrective to abdication is not softened here. Faithful work is expected — not optional.</span></li>
+      <li class="ref-item"><span class="ref-book">Psalm 127:1–2</span><span class="ref-desc">"Unless the Lord builds the house, the builders labor in vain… he grants sleep to those he loves." Work and rest held together — both dependent on God, not on the man's output.</span></li>
+    </ul>
+
+    <h2>Personal Reflection</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Is your primary sense of identity anchored in Christ, or is it still being built daily out of your performance? How do you know?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Where in your life right now are you working toward identity rather than from it? What would it look like to make that shift in that specific context?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Of the four practical changes described — resting without guilt, failing without collapsing, being present, taking risks — which one feels most foreign to you right now? What would need to change for that to become true of you?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Who in your life is modeling work-from-identity rather than work-toward-identity? What do you see in that man that you want?</div>
+        <textarea placeholder="Your commitment..."></textarea>
+      </div>
+    </div>
+
+    <h2>Group Discussion</h2>
+    <ul class="dq-list">
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study says the corrective is a change in direction, not a change in work ethic. A man works just as hard — but from identity rather than toward it. Does that distinction feel real to you, or does it sound like a nice idea that's hard to live?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Which of the four practical markers — rest, resilience in failure, presence, risk-taking — is hardest to live out in your specific context? Why?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The Be·Do·Go framework says the GO — your mission field — is wherever you already are. What would it look like to treat your current workplace as your primary kingdom assignment?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The study ends by saying this change requires community — that you're more likely to believe what God says about you if someone next to you believes it and lives it. Who is playing that role in your life right now?</span></li>
+      <li class="dq-item"><span class="dq-num"></span><span class="dq-text">If the men in your community started living from identity rather than toward it, what would change in your households? Your workplace? Your church?</span></li>
+    </ul>
+
+    <div class="prayer-box">
+      <div class="prayer-label">Closing</div>
+      <div class="verse-text">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters, since you know that you will receive an inheritance from the Lord as a reward."</div>
+      <div class="verse-ref">Colossians 3:23–24 · NIV</div>
+      <div class="prayer-instruction">The audience is larger than your employer. The reward is more stable than your performance review. Work with everything you have — for the right reason, for the right audience. Ask God to make that real in the week ahead.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPTURE ═══════════ -->
+<div class="panel" id="panel-scripture">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Scripture</div>
+      <div class="section-sub">Key passages on work, vocation, calling, and identity</div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Work Before the Fall — The Original Design</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"So God created mankind in his own image, in the image of God he created them; male and female he created them. God blessed them and said to them, 'Be fruitful and increase in number; fill the earth and subdue it. Rule over the fish in the sea and the birds in the sky and over every living creature that moves on the ground.'"</div>
+          <div class="vc-footer"><span class="vc-ref">Genesis 1:27–28 · NIV</span><span class="vc-note">The pre-fall mandate — work as part of image-bearing</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"The Lord God took the man and put him in the Garden of Eden to work it and take care of it."</div>
+          <div class="vc-footer"><span class="vc-ref">Genesis 2:15 · NIV</span><span class="vc-note">Work as stewardship and responsibility before sin entered</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">The Curse — Why Work Is Hard</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Cursed is the ground because of you; through painful toil you will eat food from it all the days of your life. It will produce thorns and thistles for you, and you will eat the plants of the field. By the sweat of your brow you will eat your food until you return to the ground."</div>
+          <div class="vc-footer"><span class="vc-ref">Genesis 3:17–19 · NIV</span><span class="vc-note">The curse falls on the ground, not on work itself</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I hated all my toil in which I toil under the sun, seeing that I must leave it to the man who comes after me, and who knows whether he will be wise or a fool? Yet he will be master of all for which I toiled and used my wisdom under the sun. This also is vanity."</div>
+          <div class="vc-footer"><span class="vc-ref">Ecclesiastes 2:18–19 · ESV</span><span class="vc-note">The futility of building a legacy on work alone</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Calling &amp; Vocation</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+          <div class="vc-footer"><span class="vc-ref">Ephesians 2:10 · NIV</span><span class="vc-note">The foundational calling verse — identity first, then purpose</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I have filled him with the Spirit of God, with wisdom, with understanding, with knowledge and with all kinds of skills — to make artistic designs for work in gold, silver and bronze."</div>
+          <div class="vc-footer"><span class="vc-ref">Exodus 31:3–4 · NIV</span><span class="vc-note">The Spirit equipping a craftsman — the sacred/secular divide collapses</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Do you see someone skilled in their work? They will serve before kings; they will not serve before officials of low rank."</div>
+          <div class="vc-footer"><span class="vc-ref">Proverbs 22:29 · NIV</span><span class="vc-note">Excellence in craft has inherent dignity and opens doors</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Working for the Right Audience</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters, since you know that you will receive an inheritance from the Lord as a reward. It is the Lord Christ you are serving."</div>
+          <div class="vc-footer"><span class="vc-ref">Colossians 3:23–24 · NIV</span><span class="vc-note">Full effort, redirected audience — the key reorientation</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"Whatever your hand finds to do, do it with all your might, for in the realm of the dead, where you are going, there is neither working nor planning nor knowledge nor wisdom."</div>
+          <div class="vc-footer"><span class="vc-ref">Ecclesiastes 9:10 · NIV</span><span class="vc-note">Faithful engagement regardless of how the work feels</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"For even when we were with you, we gave you this rule: 'The one who is unwilling to work shall not eat.' We hear that some among you are idle and disruptive… We urge and command them in the Lord Jesus Christ to settle down and earn the food they eat."</div>
+          <div class="vc-footer"><span class="vc-ref">2 Thessalonians 3:10–12 · NIV</span><span class="vc-note">Paul's direct corrective to abdication — work is expected, not optional</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scripture-section">
+      <div class="scripture-section-title">Rest, Risk, and the Anchored Life</div>
+      <div class="verse-cards">
+        <div class="verse-card">
+          <div class="vc-text">"Unless the Lord builds the house, the builders labor in vain. Unless the Lord watches over the city, the guards stand watch in vain. In vain you rise early and stay up late, toiling for food to eat — for he grants sleep to those he loves."</div>
+          <div class="vc-footer"><span class="vc-ref">Psalm 127:1–2 · NIV</span><span class="vc-note">Work and rest held together — both dependent on God</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"His master replied, 'Well done, good and faithful servant! You have been faithful with a few things; I will put you in charge of many things. Come and share your master's happiness!'"</div>
+          <div class="vc-footer"><span class="vc-ref">Matthew 25:21 · NIV</span><span class="vc-note">The reward for faithful investment — not just accuracy, but full engagement</span></div>
+        </div>
+        <div class="verse-card">
+          <div class="vc-text">"I can do all this through him who gives me strength. Yet it was good of you to share in my troubles. Moreover, as you Philippians know, in the early days of your acquaintance with the gospel, when I set out from Macedonia, not one church shared with me in the matter of giving and receiving, except you only."</div>
+          <div class="vc-footer"><span class="vc-ref">Philippians 4:13–15 · NIV</span><span class="vc-note">Contentment and strength through Christ — not through circumstance</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ STUDY TOOLS ═══════════ -->
+<div class="panel" id="panel-words">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">Resource</div>
+      <div class="section-title">Study Tools</div>
+      <div class="section-sub">Original language word studies and resources for deeper engagement</div>
+    </div>
+
+    <h2>Word Studies</h2>
+
+    <div class="word-study-grid">
+
+      <div class="word-study">
+        <div class="ws-original">עֲבֹדָה</div>
+        <div class="ws-transliteration">avodah</div>
+        <div class="ws-pos">Hebrew noun · Old Testament</div>
+        <div class="ws-definition">Work, labor, service, worship. Used across the Old Testament for agricultural labor (Genesis 2:5), the work of the Levites in the tabernacle (Numbers 4:47), and the worship/service of God (Exodus 12:25–26). The same word covers all three domains without distinction.</div>
+        <div class="ws-note">The fact that one word covers work, service, and worship is the theological foundation of vocation. For the Hebrew mind, there was no secular/sacred divide in how God-honoring labor was categorized. Recovering this is not a modern innovation — it is a return to something Scripture assumed.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">κλῆσις</div>
+        <div class="ws-transliteration">klēsis</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">A calling, invitation, or summons. Used in the New Testament primarily for the divine call to salvation and discipleship (Romans 11:29, 1 Corinthians 1:26, Ephesians 4:1, 2 Timothy 1:9). Also appears in 1 Corinthians 7:20 — "Let each person remain in the calling in which he was called" — where it refers to one's station or position in life.</div>
+        <div class="ws-note">Paul's use in 1 Corinthians 7 is important for the primary/secondary calling distinction. The primary klēsis is the divine call to Christ. The secondary klēsis is the particular station — social, vocational, familial — in which you live that out. Neither replaces the other.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ἔργον</div>
+        <div class="ws-transliteration">ergon</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Work, deed, action, task. The root of the English word "ergonomics." Used broadly in the New Testament for human labor (John 6:27–29), the works of the law (Galatians 2:16), and the "good works" prepared for believers to walk in (Ephesians 2:10). Also used for God's own work (John 5:36).</div>
+        <div class="ws-note">Ephesians 2:10 is built around this word: we are created in Christ Jesus for good ergon. The works are real, concrete actions — not abstract religiosity. God prepared specific things for you to do. The question is whether you are doing them, or whether you have buried them.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">ποίημα</div>
+        <div class="ws-transliteration">poiēma</div>
+        <div class="ws-pos">Greek noun · New Testament</div>
+        <div class="ws-definition">Handiwork, workmanship, creation. Appears only twice in the New Testament — once in Romans 1:20 (God's creation as his handiwork) and once in Ephesians 2:10 ("we are God's poiēma"). Root of the English word "poem."</div>
+        <div class="ws-note">You are God's poem. His crafted work. The same word used for the visible creation is used for what God has made of you in Christ. A man who finds his identity in his own output has forgotten that he himself is someone else's output — and that the craftsman is God.</div>
+      </div>
+
+      <div class="word-study">
+        <div class="ws-original">שָׁבַת</div>
+        <div class="ws-transliteration">shavat</div>
+        <div class="ws-pos">Hebrew verb · Old Testament</div>
+        <div class="ws-definition">To cease, to rest, to stop. Root of the word "Sabbath" (shabbat). Used first in Genesis 2:2–3 when God "rested" (shavat) from all his work. Also used in Exodus 5:5 — Pharaoh accuses Moses of making the Israelites "stop working." The same word: God resting and slaves being freed from labor.</div>
+        <div class="ws-note">Sabbath is not laziness. It is a theological statement: the work is not what holds everything together. You can stop, and the world does not fall apart. For a man whose identity is his output, ceasing work feels dangerous. The inability to stop is diagnostic — it reveals what you think the work is actually doing.</div>
+      </div>
+
+    </div>
+
+    <h2>For Further Study</h2>
+    <ul class="ref-list">
+      <li class="ref-item"><span class="ref-book">More — Todd Wilson</span><span class="ref-desc">The Be·Do·Go framework for personal calling. Accessible, practical, built on Ephesians. Good for a man beginning to think about vocation theologically.</span></li>
+      <li class="ref-item"><span class="ref-book">Every Good Endeavor — Tim Keller</span><span class="ref-desc">The most thorough theological treatment of work available for a general audience. Covers creation mandate, fall, redemption, and how the gospel transforms work. Highly recommended for deeper study.</span></li>
+      <li class="ref-item"><span class="ref-book">The Call — Os Guinness</span><span class="ref-desc">A classic on vocation and calling. Guinness distinguishes primary from secondary calling with precision and applies it across every domain of life.</span></li>
+      <li class="ref-item"><span class="ref-book">Ecclesiastes</span><span class="ref-desc">The most honest book in Scripture about work, meaning, and the problem of building a life on output. Read it slowly. Do not skip the hard parts.</span></li>
+      <li class="ref-item"><span class="ref-book">Matthew 25:14–30</span><span class="ref-desc">The parable of the talents. Read it again in light of this study — focusing specifically on what the one-talent servant's fear-based reasoning actually cost him.</span></li>
+    </ul>
+
+    <h2>Questions for Personal Application</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Write down the three things you spend the most time on in a given week. For each one, ask: am I doing this to prove something, or because I believe it matters?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Using the Be·Do·Go framework — write a sentence or two for each. Who are you created to BE? What are you created to DO? Where is your current GO — your mission field?</div>
+        <textarea placeholder="Be: ...\nDo: ...\nGo: ..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What talent — skill, gift, opportunity, relationship — are you currently burying rather than investing? What would it cost to change that this month?</div>
+        <textarea placeholder="Your notes..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
