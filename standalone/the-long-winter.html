@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Long Winter — A Study for the Hard Season</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #6a7a8a;
+  --accent-dim:   #3a4a5a;
+  --accent-lt:    #8a9aaa;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.85; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); background-size: 150px; opacity: .5; }
+h2 { font-family: var(--font-display); font-size: clamp(12px, 2vw, 15px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+p { margin-bottom: 20px; color: var(--cream-dim); font-size: 16px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 740px; margin: 0 auto; padding: 52px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 32px 20px 60px; } }
+
+/* ── HEADER ── */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #090c14 0%, #0c0f18 70%); border-bottom: 1px solid var(--border); padding: 52px 40px 40px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 15%; right: 15%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 16px; }
+.header-title { font-family: var(--font-display); font-size: clamp(28px, 5vw, 48px); font-weight: 700; letter-spacing: 2px; line-height: 1.1; color: var(--cream); margin-bottom: 10px; }
+.header-title span { color: var(--accent-lt); }
+.header-sub { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-style: italic; color: var(--muted); margin-bottom: 22px; }
+.header-verse { font-family: var(--font-serif); font-size: clamp(15px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 620px; margin: 0 auto 8px; line-height: 1.7; }
+.header-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* ── TAB BAR ── */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 20px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent-lt); border-bottom-color: var(--accent); }
+
+/* ── VERSE BLOCK ── */
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(18px, 2.8vw, 23px); font-style: italic; color: var(--cream); line-height: 1.75; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent-dim); }
+
+/* ── CALLOUT ── */
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 22px 26px; margin: 24px 0; }
+.callout.accent { border-left: 3px solid var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.callout p { margin-bottom: 0; font-size: 15px; }
+
+/* ── PSALM BLOCK — for lament psalms ── */
+.psalm-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 28px 32px; margin: 28px 0; }
+.psalm-title { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.psalm-text { font-family: var(--font-serif); font-size: clamp(16px, 2.3vw, 20px); font-style: italic; color: var(--cream-dim); line-height: 1.9; }
+.psalm-text .psalm-vn { font-style: normal; font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--accent-dim); vertical-align: super; margin-right: 4px; }
+.psalm-text .psalm-stress { color: var(--cream); }
+
+/* ── REFLECTION ── */
+.reflection-set { display: flex; flex-direction: column; gap: 18px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.65; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 80px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+/* ── ANCHOR CARDS ── */
+.anchor-list { display: flex; flex-direction: column; gap: 3px; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.anchor-item { display: grid; grid-template-columns: 180px 1fr; border-bottom: 1px solid var(--border); transition: background .2s; }
+.anchor-item:last-child { border-bottom: none; }
+.anchor-item:hover { background: #ffffff06; }
+.anchor-label { background: var(--surface-2); padding: 18px 20px; border-right: 1px solid var(--border); }
+.anchor-tag { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.anchor-ref { font-family: var(--font-display); font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.anchor-body { background: var(--surface); padding: 18px 22px; }
+.anchor-verse { font-family: var(--font-serif); font-size: 15px; font-style: italic; color: var(--cream); line-height: 1.65; margin-bottom: 6px; }
+.anchor-note { font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+@media (max-width: 540px) { .anchor-item { grid-template-columns: 1fr; } .anchor-label { border-right: none; border-bottom: 1px solid var(--border); } }
+
+/* ── PRACTICE CARDS ── */
+.practice-grid { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+.practice-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-dim); border-radius: 6px; padding: 20px 24px; }
+.practice-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 8px; }
+.practice-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.7; margin-bottom: 0; }
+.practice-note { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+/* ── PRAYER BOX ── */
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 44px; }
+.prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(19px, 3vw, 26px); font-style: italic; color: var(--cream); line-height: 1.65; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent-dim); }
+.prayer-instruction { font-size: 13px; color: var(--muted); margin-top: 14px; font-style: italic; line-height: 1.65; }
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 48px); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); line-height: 1; margin-bottom: 12px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── LAMENT STEPS ── */
+.lament-steps { display: flex; flex-direction: column; gap: 0; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.lament-step { display: flex; align-items: stretch; border-bottom: 1px solid var(--border); }
+.lament-step:last-child { border-bottom: none; }
+.lament-num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--accent); opacity: .3; padding: 22px 18px; display: flex; align-items: center; flex-shrink: 0; min-width: 58px; justify-content: center; background: var(--surface-2); border-right: 1px solid var(--border); }
+.lament-body { padding: 18px 22px; background: var(--surface); }
+.lament-title { font-family: var(--font-display); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cream); margin-bottom: 6px; }
+.lament-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; margin: 0; }
+
+/* ── VERSE CARDS (scripture tab) ── */
+.scripture-section { margin: 32px 0; }
+.scripture-section-title { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+.verse-cards { display: flex; flex-direction: column; gap: 14px; }
+.verse-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 20px 24px; transition: border-color .2s; }
+.verse-card:hover { border-color: var(--accent-dim); }
+.verse-card .vc-text { font-family: var(--font-serif); font-size: clamp(16px, 2.3vw, 20px); font-style: italic; color: var(--cream); line-height: 1.75; margin-bottom: 10px; }
+.vc-footer { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+.vc-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent); flex-shrink: 0; }
+.vc-note { font-size: 12px; color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">A Study for the Long Season</div>
+  <div class="header-title">The Long <span>Winter</span></div>
+  <div class="header-sub">For the hard season that isn't ending yet</div>
+  <div class="header-verse">"My soul is cast down within me; therefore I remember you."</div>
+  <div class="header-ref">Psalm 42:6 · ESV</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('named',this)">You Are Not Lost</button>
+    <button class="tab-btn" onclick="switchTab('lament',this)">How to Grieve Well</button>
+    <button class="tab-btn" onclick="switchTab('anchors',this)">What Holds</button>
+    <button class="tab-btn" onclick="switchTab('drift',this)">The Slow Drift</button>
+    <button class="tab-btn" onclick="switchTab('today',this)">Just Today</button>
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ═══════════ YOU ARE NOT LOST ═══════════ -->
+<div class="panel active" id="panel-named">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Long Season</div>
+      <div class="section-title">You Are Not Lost</div>
+      <div class="section-sub">What it actually feels like to be in a long hard season — and why the numbness, the tiredness, and the distance from God are not signs that something has gone wrong with your faith</div>
+    </div>
+
+    <p>You are probably not here because things just got hard. You are here because things have been hard for a while — long enough that the initial crisis adrenaline wore off, long enough that the people around you have moved on to other concerns, long enough that you stopped being able to explain to yourself why it isn't getting better yet. The hard thing is still here. And you are tired in the specific way that only a long season produces: not just physically tired, but tired of being tired. Tired of adjusting. Tired of the gap between the life you expected and the one you are actually living.</p>
+
+    <p>This study is for that place. Not for the acute crisis — that needs different things. This is for the long middle, where the drama has subsided and what's left is just the dailyness of a hard thing that isn't resolving. The gray. The numb. The prayers that feel like they're going nowhere. The version of yourself that used to function differently, and doesn't anymore, and you don't know if that version is coming back.</p>
+
+    <h2>What You Are Probably Experiencing</h2>
+
+    <p>Long seasons tend to produce a recognizable set of internal experiences. Not everyone has all of them, but most people in a sustained hard season will recognize most of this list:</p>
+
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-title">Numbness</div>
+        <div class="practice-desc">Not depression exactly — more like the emotional volume has been turned down. You can still feel things, but everything requires more effort to reach. Worship doesn't move you the way it used to. Good things feel muted. You go through the motions without the sensation that used to accompany them.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Distance From God</div>
+        <div class="practice-desc">Not dramatic doubt or angry unbelief — just quiet. Prayer feels like talking into a room where you can't tell if anyone is listening. The sense of God's presence that used to feel accessible feels like something you have to work to find now, and sometimes the working doesn't produce it.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Cognitive and Physical Fog</div>
+        <div class="practice-desc">Your brain isn't working the way it should, whether from illness, exhaustion, grief, or all three. Reading is harder. Concentration is harder. The things that used to come easily now require effort that depletes you faster than they should. You are not imagining this. It is real, and it is part of what the season costs.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Loss of the Former Self</div>
+        <div class="practice-desc">You remember a version of yourself who had more energy, more capacity, more joy — and you don't know if that version is still in there or if it has been replaced permanently by this one. The grief of that loss is real and rarely gets named. You are not just grieving your circumstances. You are grieving yourself.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">The Pull Toward Escape</div>
+        <div class="practice-desc">Something — screen time, food, sexual release, alcohol, isolation, anything that offers a few minutes of not feeling this — has a stronger pull than it normally does. This is not a character failure. It is a sign that you are depleted and your nervous system is looking for relief. It becomes a problem when the escape starts costing you things that matter more than the relief is worth.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Guilt About the Struggle</div>
+        <div class="practice-desc">You know people have it worse. You know you are loved. You know the right things theologically. And you still feel this way — and then you feel guilty for feeling this way, which adds weight to an already heavy load. The guilt is not helpful. It is also not a sign of ingratitude. It is what happens when a person who cares about their faith can't seem to produce the faith they think they should have.</div>
+      </div>
+    </div>
+
+    <h2>This Is Not the Absence of Faith</h2>
+
+    <p>The most important thing to say at the beginning is this: <strong>what you are experiencing is not evidence that your faith has failed.</strong> The numbness, the distance, the fog, the pull toward escape — none of these are the spiritual state of a man who has lost his faith. They are the spiritual state of a man who is in a long hard season and is still here.</p>
+
+    <p>The Psalms were written by people who felt exactly what you are feeling. Psalm 42 is not a psalm of triumph — it is a psalm of a man whose soul is cast down, who is taunted by people asking where his God is, who is crying day and night, who is telling himself to hope in God while clearly not feeling the hope. He was not an unbeliever. He was a man of deep faith in a hard season, writing honestly about what that season felt like from the inside.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"Why are you cast down, O my soul, and why are you in turmoil within me? Hope in God; for I shall again praise him, my salvation and my God."</div>
+      <div class="verse-ref">Psalm 42:11 · ESV</div>
+    </div>
+
+    <p>He said "I shall again praise him" — future tense. He was not praising in that moment. He was telling himself to hold on. That is not weak faith. That is faith doing exactly what faith does in a long winter: it holds on without feeling like holding on. It says "I shall again" when the present moment doesn't have the again in it yet.</p>
+
+    <p>You are not lost. You are in the middle of something. Those are different.</p>
+
+    <h2>A Few Minutes with This</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Of the six experiences listed above — numbness, distance from God, cognitive fog, loss of the former self, the pull toward escape, guilt about the struggle — which one or two are most present for you right now? Just name them. You don't have to explain them.</div>
+        <textarea placeholder="What's most present right now..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">How long have you been in this season? Name it honestly — not just the medical or circumstantial part, but the internal experience. When did things start feeling like this, and what has it cost you that you haven't fully named?</div>
+        <textarea placeholder="How long... / What it has cost..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">The psalmist said "I shall again praise him" — future tense, from a place that didn't feel like praise. What is the "again" you are holding onto? What do you believe will be true on the other side of this, even if you can't feel it right now?</div>
+        <textarea placeholder="What I believe will be true again..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">You Can Start Here</div>
+      <div class="verse-text">"My soul is cast down within me; therefore I remember you."</div>
+      <div class="verse-ref">Psalm 42:6 · ESV</div>
+      <div class="prayer-instruction">You don't have to feel better to pray. You don't have to have the right words or the right emotional state. The psalmist's prayer started with "my soul is cast down" — and then turned toward God anyway. That turn is the prayer. Start there. Tell God where you are. He already knows. But you need to say it.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ HOW TO GRIEVE WELL ═══════════ -->
+<div class="panel" id="panel-lament">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Psalms of Descent</div>
+      <div class="section-title">How to Grieve Well</div>
+      <div class="section-sub">What lament is, why the Bible is full of it, and how to bring your grief to God without either suppressing it or spiraling in it</div>
+    </div>
+
+    <h2>The Permission You May Not Have Been Given</h2>
+
+    <p>Much of Christian culture handles suffering by moving as quickly as possible toward the resolution. Acknowledge the hard thing, apply the appropriate scripture, identify the lesson, move toward gratitude. The process is not wrong in itself — there is a time for all of those things. But it often skips something the Bible does not skip: <strong>the honest, extended, unresolved naming of grief in the presence of God.</strong> That is what lament is. And the Psalms — one third of which are lament psalms — suggest that God not only permits this but invited it.</p>
+
+    <p>Lament is not the same as despair. Despair has given up on God. Lament is still talking to God — still oriented toward him — but from the hard place, without pretending to be somewhere else. The lament psalms do not resolve neatly. Psalm 88 ends in darkness with no resolution. That psalm is in the Bible. God preserved it. He did not edit out the ending.</p>
+
+    <h2>The Structure of Biblical Lament</h2>
+    <p>The lament psalms follow a recognizable pattern that can be used as a framework for your own honest prayer in a long season.</p>
+
+    <div class="lament-steps">
+      <div class="lament-step">
+        <div class="lament-num">1</div>
+        <div class="lament-body">
+          <div class="lament-title">Address — Turn Toward God</div>
+          <div class="lament-desc">Even in the hard place, the psalmist turned toward God rather than away. "O God." "My God." "Lord." The address is the act of faith — it says: I am bringing this to you, not away from you. You start where you are, not where you think you should be.</div>
+        </div>
+      </div>
+      <div class="lament-step">
+        <div class="lament-num">2</div>
+        <div class="lament-body">
+          <div class="lament-title">Complaint — Name What Is Actually True</div>
+          <div class="lament-desc">The psalmists named their pain directly and specifically. "My tears have been my food day and night." "I am a worm, not a man." "Why have you forsaken me?" The complaint is not faithless — it is honest. God does not need you to protect him from the reality of your experience. Name it. All of it.</div>
+        </div>
+      </div>
+      <div class="lament-step">
+        <div class="lament-num">3</div>
+        <div class="lament-body">
+          <div class="lament-title">Ask — Bring the Specific Request</div>
+          <div class="lament-desc">"Hear me." "Do not be far from me." "Restore to me the joy of your salvation." The lament psalms ask specifically — not generically hoping God will do something, but naming what is needed. You are allowed to ask for what you actually want. God already knows. Asking is for your sake as much as his.</div>
+        </div>
+      </div>
+      <div class="lament-step">
+        <div class="lament-num">4</div>
+        <div class="lament-body">
+          <div class="lament-title">Remember — Call Up What You Know Is True</div>
+          <div class="lament-desc">"Yet you are holy." "I remember the days of old." "Your steadfast love never ceases." The psalmist turned from the present experience to the record of who God has been — not to cancel out the complaint, but to anchor it. You are not trying to feel better. You are reminding yourself of what is true regardless of how you feel.</div>
+        </div>
+      </div>
+      <div class="lament-step">
+        <div class="lament-num">5</div>
+        <div class="lament-body">
+          <div class="lament-title">Trust — Hold On Without Resolution</div>
+          <div class="lament-desc">"I shall again praise him." "My hope is in you." "Though he slay me, yet will I hope in him." The trust at the end of a lament psalm is not triumphant. It is quiet, deliberate, sometimes barely there. It does not require the feeling of trust — only the choice of it. "I don't feel this, but I am choosing it" is valid. It is in the Bible.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Psalm 42 — A Lament to Read Slowly</h2>
+
+    <div class="psalm-block">
+      <div class="psalm-title">Psalm 42:1–8 · ESV</div>
+      <div class="psalm-text">
+        <span class="psalm-vn">1</span>As a deer pants for flowing streams, so pants my soul for you, O God.<br><br>
+        <span class="psalm-vn">2</span>My soul <span class="psalm-stress">thirsts for God, for the living God.</span> When shall I come and appear before God?<br><br>
+        <span class="psalm-vn">3</span><span class="psalm-stress">My tears have been my food day and night,</span> while they say to me all the day long, "Where is your God?"<br><br>
+        <span class="psalm-vn">4</span>These things I remember, as I pour out my soul: how I would go with the throng and lead them in procession to the house of God with glad shouts and songs of praise, a multitude keeping festival.<br><br>
+        <span class="psalm-vn">5</span><span class="psalm-stress">Why are you cast down, O my soul, and why are you in turmoil within me?</span> Hope in God; for I shall again praise him, my salvation and my God.<br><br>
+        <span class="psalm-vn">6</span>My soul is cast down within me; <span class="psalm-stress">therefore I remember you.</span><br><br>
+        <span class="psalm-vn">7</span>Deep calls to deep at the roar of your waterfalls; all your breakers and your waves have gone over me.<br><br>
+        <span class="psalm-vn">8</span><span class="psalm-stress">By day the Lord commands his steadfast love, and at night his song is with me, a prayer to the God of my life.</span>
+      </div>
+    </div>
+
+    <p>Notice what verse 6 does: "My soul is cast down within me; <em>therefore</em> I remember you." The therefore is doing unexpected work. The soul being cast down is the reason for turning toward God — not the obstacle to it. He is not saying "despite my soul being cast down, I remember you." He is saying the downcast state itself is what drives him to remember. The hard place is the reason to turn toward God, not the reason to wait until you feel better to do it.</p>
+
+    <h2>Spiraling vs. Lamenting — The Difference</h2>
+    <p>Lament has a direction: it moves toward God. Spiraling moves inward and loops. The diagnostic is simple: after you have spent time with what is hard, are you more oriented toward God or less? Lament leaves you anchored differently than it found you — not necessarily feeling better, but more connected to the one who holds the season. Spiraling leaves you more exhausted, more isolated, more fixated on the pain. Both involve feeling the hard thing. Only one of them has somewhere to go with it.</p>
+
+    <h2>A Few Minutes with This</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Using the five-step lament framework as a guide — not a formula, just a structure — write a short honest lament right now. Address God, name what is actually true, ask for what you specifically need, remember something you know is true about him, and choose trust even if you can't feel it. A few sentences at each step is enough.</div>
+        <textarea placeholder="Address: O God...\nComplaint: What is true right now is...\nAsk: What I need is...\nRemember: What I know about you is...\nTrust: I am choosing to believe..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there something in your current season that you have been bringing to people but not to God — or to God but in a polished form, not the real version? What is the thing you have not said directly to him? Say it here first if that helps.</div>
+        <textarea placeholder="What I haven't fully said to God yet..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Permission</div>
+      <div class="verse-text">"I am weary with my moaning; every night I flood my bed with tears; I drench my couch with my weeping."</div>
+      <div class="verse-ref">Psalm 6:6 · ESV</div>
+      <div class="prayer-instruction">That is in the Bible. God preserved it. He did not edit it for a more triumphant version. Whatever you are carrying right now — however raw, however tired, however confused — it is allowed in his presence. You do not have to clean it up first. Bring the actual thing.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ WHAT HOLDS ═══════════ -->
+<div class="panel" id="panel-anchors">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Anchors</div>
+      <div class="section-title">What Holds</div>
+      <div class="section-sub">The things that are true regardless of how you feel — not to override the feeling, but to give you something to hold onto when the feeling is all there is</div>
+    </div>
+
+    <p>In a long season, feelings are not reliable guides. Not because feelings are unimportant — they are real, and this study takes them seriously. But a man in the long middle cannot navigate by his emotional state, because his emotional state is depleted, fogged, and sometimes actively misleading. He needs something that holds independent of how he feels. These are those things.</p>
+
+    <p>These are not meant to be read as a list of things you should feel. They are meant to be read as a list of things that are true. Truth and feeling are not the same thing. In a long winter, you hold onto the truth and wait for the feeling to catch up. Sometimes it doesn't catch up for a long time. You hold on anyway.</p>
+
+    <div class="anchor-list">
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">You Are Held</div>
+          <div class="anchor-ref">Isaiah 43:2</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"When you pass through the waters, I will be with you; and through the rivers, they shall not overwhelm you."</div>
+          <div class="anchor-note">God did not say the waters would not come. He said they would not overwhelm. You are in the water. The promise is not absence of the water — it is presence in it. He is in this season with you, not waiting on the other side of it.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">Nothing Can Separate</div>
+          <div class="anchor-ref">Romans 8:38–39</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"Neither death nor life, nor angels nor rulers, nor things present nor things to come, nor powers, nor height nor depth, nor anything else in all creation, will be able to separate us from the love of God in Christ Jesus."</div>
+          <div class="anchor-note">"Things present" is on the list. The current season — this specific hard thing in the present moment — is named and cannot separate you from his love. The distance you feel is not distance he has created. The love is still operative even when it is not felt.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">He Is Acquainted</div>
+          <div class="anchor-ref">Hebrews 4:15</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"For we do not have a high priest who is unable to sympathize with our weaknesses, but one who in every respect has been tempted as we are, yet without sin."</div>
+          <div class="anchor-note">Jesus is not observing your suffering from a distance. He is acquainted with it from the inside — with exhaustion, with the Father feeling silent (Gethsemane), with physical limitation, with the weight of a hard thing that had to be gone through. He knows what you are in.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">Weakness Is Not Disqualifying</div>
+          <div class="anchor-ref">2 Corinthians 12:9</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"My grace is sufficient for you, for my power is made perfect in weakness."</div>
+          <div class="anchor-note">Paul begged three times to have the hard thing removed. God said no, and gave him this instead. The weakness you are experiencing is not a problem God needs you to overcome before he can work. It is the condition he specifically said he works through. You do not have to be well to be used. You do not have to be strong to be held.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">The Suffering Is Not Waste</div>
+          <div class="anchor-ref">Romans 5:3–5</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"We rejoice in our sufferings, knowing that suffering produces endurance, and endurance produces character, and character produces hope."</div>
+          <div class="anchor-note">Paul was not celebrating the pain. He was naming what it is producing — even when the production is invisible from the inside. You cannot see the character being formed in a long season while you are in it. That does not mean nothing is happening. The winter does its work underground before anything is visible above.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">The End Is Not Ambiguous</div>
+          <div class="anchor-ref">Revelation 21:4</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"He will wipe away every tear from their eyes, and death shall be no more, neither shall there be mourning, nor crying, nor pain anymore, for the former things have passed away."</div>
+          <div class="anchor-note">This is not a metaphor. It is a promise about the actual future of the actual world. Whatever this season contains — the body that isn't working, the thing that isn't resolving, the grief that isn't lifting — it has an end, and the end is this. Hold onto the ending when the middle is unbearable.</div>
+        </div>
+      </div>
+
+      <div class="anchor-item">
+        <div class="anchor-label">
+          <div class="anchor-tag">He Does Not Change</div>
+          <div class="anchor-ref">Lamentations 3:22–23</div>
+        </div>
+        <div class="anchor-body">
+          <div class="anchor-verse">"The steadfast love of the Lord never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness."</div>
+          <div class="anchor-note">This was written by Jeremiah after Jerusalem was destroyed. Not in the easy season. In the middle of the worst thing that had happened to his people. The "new every morning" was written by a man who had watched everything fall. The faithfulness was not what he felt — it was what he chose to hold onto when everything else had gone.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h2>A Few Minutes with This</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Which of these anchors do you most need right now — the one that addresses the specific place where you feel most unmoored? Read that one again slowly. What does it say to you today, specifically, about your situation?</div>
+        <textarea placeholder="The anchor I need: ... / What it says to me today..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Is there an anchor on this list that you find hard to believe right now — not intellectually, but in your gut? Which one? What would it mean to choose to hold onto it anyway, even while not feeling it?</div>
+        <textarea placeholder="The one that's hard to believe... / What choosing it anyway would look like..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Anchor</div>
+      <div class="verse-text">"We have this as a sure and steadfast anchor of the soul, a hope that enters into the inner place behind the curtain."</div>
+      <div class="verse-ref">Hebrews 6:19 · ESV</div>
+      <div class="prayer-instruction">An anchor does not feel like security — it feels like weight and restraint. The value of an anchor is not how it feels when you are floating in calm water. It is what it does when the storm comes and everything in you wants to drift. You are not drifting. You are anchored. Even when you cannot feel it.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ THE SLOW DRIFT ═══════════ -->
+<div class="panel" id="panel-drift">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Honest Tab</div>
+      <div class="section-title">The Slow Drift</div>
+      <div class="section-sub">What happens when a depleted man reaches for things that offer relief but cost more than they give — and how to stay tethered when the pull is strong</div>
+    </div>
+
+    <h2>This Is the Tab That Needed to Be Here</h2>
+
+    <p>Long seasons create conditions where escape is particularly appealing. When a man is exhausted and his nervous system is chronically taxed — by illness, by chronic pain, by the relentlessness of hard circumstances — his brain starts looking for relief. This is not a moral failure. It is biology operating under sustained stress. The problem is not the desire for relief; it is that the things the depleted brain reaches for most readily are often the things that provide the least actual relief and create the most actual damage.</p>
+
+    <p>Pornography and sexual sin have a particular pull in hard seasons — not because a man has lost his character, but because they offer something that the depleted man desperately needs: a moment of feeling good that he has full control over, that requires nothing from anyone, that doesn't ask anything of him, and that will reliably deliver a sensation when almost nothing else in his life feels reliable. The offer is real. The cost is also real. And the cost tends to be paid by the relationships and the internal life that are already under the most pressure.</p>
+
+    <div class="callout accent">
+      <div class="callout-label">What the Escape Costs</div>
+      <p>Not shame as punishment — shame is not the goal here. But clarity: the man who uses pornography during a long hard season is adding a layer of isolation, secrecy, and spiritual damage to a life that is already carrying too much. It doesn't relieve the depleted state — it deepens it. And it makes the God who is the actual answer feel further away, not closer.</p>
+    </div>
+
+    <h2>The Mechanics of Drift in a Hard Season</h2>
+
+    <p>Drift in a long season rarely looks like a dramatic decision. It looks like small movements, each individually defensible, that accumulate over time into a position far from where the man intended to be.</p>
+
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-title">The Prayer Life Goes Quiet First</div>
+        <div class="practice-desc">Not a decision to stop praying — just a gradual reduction. Too tired in the morning. Too distracted at night. The conversations with God that used to be regular become occasional, then rare. The man doesn't notice the silence has grown until it has been there for weeks. This is usually the first indicator that drift is happening.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Isolation Feels Easier Than Community</div>
+        <div class="practice-desc">Being with people requires things — energy, attention, the performance of being okay when you're not, or the vulnerability of admitting you're not. Both are exhausting. Staying home, staying on the phone, staying in the shallow end of every interaction feels like self-preservation. It is actually acceleration of the drift.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Escape Becomes the Primary Coping Mechanism</div>
+        <div class="practice-desc">Whatever the escape is — screens, food, sexual release, substances, obsessive productivity — it starts small and becomes large. The man knows it isn't actually helping. He does it anyway because he needs something to work, and this is the thing that consistently delivers a sensation. The escalation is gradual. By the time it's a problem, it has been building for a while.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">The Internal Monologue Gets Dark</div>
+        <div class="practice-desc">"This is never going to get better." "I am not the man I thought I was." "God is not actually doing anything." These thoughts arrive quietly and get repeated until they start to feel like conclusions rather than fears. The man stops challenging them because he is too tired, and because part of him has started to believe them.</div>
+      </div>
+    </div>
+
+    <h2>What Tethers You</h2>
+    <p>The answer to drift is not heroic willpower applied to each individual temptation. It is staying connected to the things that tether — the practices and people that keep orienting you back toward God and back toward who you are, even when the feelings are not cooperating.</p>
+
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-title">One Honest Person</div>
+        <div class="practice-desc">Not a support group — one person who knows what is actually happening. Not the managed version, the real one. The pull toward pornography. The numbness in prayer. The fear that this is permanent. One person who gets the real story and will ask you about it. This is not optional in a long season. Isolation is the enemy's primary tool. Community is the primary antidote.</div>
+        <div class="practice-note">If you don't have this person: name who is closest to being that person in your life, and take one step toward a more honest conversation with them.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Minimum Viable Prayer</div>
+        <div class="practice-desc">Not the full devotional practice you had when you had more capacity. The smallest honest version of turning toward God that you can sustain. A few minutes in the morning with nothing but the honest state of your soul offered to him. The lament structure on the previous tab. One psalm read slowly. The goal is not impressive — the goal is connected. Stay in contact even when the contact feels thin.</div>
+        <div class="practice-note">What is the smallest version of a prayer practice you could actually do today, given your real capacity right now?</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">Naming the Pull Before Acting on It</div>
+        <div class="practice-desc">The pull toward escape has more power when it is unnamed. When the urge toward pornography or the numbing behavior arrives — before acting on it, name it out loud or in writing: "I am feeling depleted and I want to escape right now." The naming creates a small amount of space between the impulse and the action. That space is where the choice lives.</div>
+        <div class="practice-note">You are not trying to make the urge disappear. You are trying to make the choice conscious rather than automatic.</div>
+      </div>
+      <div class="practice-card">
+        <div class="practice-title">The Body Needs What It Needs</div>
+        <div class="practice-desc">Sleep, food, sunlight, movement — these are not luxuries. They are the conditions that make everything else possible. A man who is chronically sleep-deprived and isolated and physically sedentary is fighting every spiritual battle at a significant disadvantage. Taking care of the body in a long season is not indulgence. It is stewardship of the instrument God is going to use to get you through this.</div>
+        <div class="practice-note">What is the most neglected physical need right now? What would it take to address it this week?</div>
+      </div>
+    </div>
+
+    <h2>A Few Minutes with This</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">Where in the drift pattern are you right now — prayer gone quiet, isolation, escape as primary coping, dark internal monologue, or some combination? Be specific about what form it is taking in your actual daily life.</div>
+        <textarea placeholder="Where the drift is happening..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is the specific escape that has the strongest pull right now? Name it directly. Then name what it is actually offering you — what need it is meeting, however temporarily. Then name what it costs. Write all three.</div>
+        <textarea placeholder="The escape: ...\nWhat it offers: ...\nWhat it costs: ..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">Who is the one person who could know the real version of what you are in right now? Not who you wish were available — who actually exists in your life that you could move toward? What would a more honest conversation with them look like?</div>
+        <textarea placeholder="The person: ... / What I would tell them..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Honest Prayer</div>
+      <div class="verse-text">"I am weary, O God; I am weary, O God, and worn out."</div>
+      <div class="verse-ref">Proverbs 30:1 · ESV</div>
+      <div class="prayer-instruction">Agur's prayer in Proverbs 30 starts with exhaustion — he is tired, he is worn out, he doesn't have the strength he needs. And then he asks God for what he actually needs. That is available to you right now. Not the strong version of the prayer. The honest one. Bring the weary, worn-out, tempted, depleted version of yourself. God is not waiting for the recovered version. He wants this one.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ JUST TODAY ═══════════ -->
+<div class="panel" id="panel-today">
+  <div class="content-wrap">
+
+    <div class="section-header">
+      <div class="section-eyebrow">The Smallest Faithful Step</div>
+      <div class="section-title">Just Today</div>
+      <div class="section-sub">You don't have to get through the whole season today. You only have to be faithful with today. Here is what that can look like when you have very little.</div>
+    </div>
+
+    <h2>The Problem with the Long View</h2>
+
+    <p>One of the specific difficulties of a long season is that it is long — and looking at the whole of it at once is paralyzing. If you try to hold the full weight of everything that has been hard and everything that might still be ahead, the load is crushing. The men who do not make it through long seasons are often not undone by any single hard day; they are undone by trying to carry all the days at once.</p>
+
+    <p>Jesus addressed this directly: "Do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own" (Matthew 6:34). This is not advice to be irresponsible about the future. It is a prescription for the specific psychological and spiritual danger of carrying tomorrow's weight today. You cannot be faithful to tomorrow today. You can only be faithful to today.</p>
+
+    <div class="verse-block">
+      <div class="verse-text">"This is the day that the Lord has made; let us rejoice and be glad in it."</div>
+      <div class="verse-ref">Psalm 118:24 · ESV</div>
+    </div>
+
+    <p>This verse is often used as a morning affirmation — a call to enthusiasm. In context, it was written by a man who had been severely afflicted, pushed to the point of falling, and surrounded by enemies. "This is the day that the Lord has made" was not the statement of a man whose circumstances were good. It was the statement of a man who had decided that this day — this specific hard day — was still the Lord's, and that was enough to stand on.</p>
+
+    <h2>What Faithfulness Looks Like With Very Little</h2>
+    <p>In a long season, faithfulness does not look like what it looks like when you have full capacity. That is not failure — it is calibration to reality. Here is what faithfulness can look like when your tank is mostly empty:</p>
+
+    <div class="practice-grid">
+
+      <div class="practice-card">
+        <div class="practice-title">Show Up Without Performing</div>
+        <div class="practice-desc">Go to the gathering, the prayer, the meal — without requiring yourself to feel it or produce it. Presence is faithfulness. You are not responsible for your emotional state in worship; you are responsible for showing up. Let God do what he does with your presence. Your job is to be there.</div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">Receive Without Earning</div>
+        <div class="practice-desc">In a depleted season, you will need to receive things — help, care, grace, rest — that you cannot reciprocate immediately. This is very hard for men who define themselves by what they give. The long season is often the season where God is teaching a man to receive. Let people care for you. Let the community carry some of your weight. This is not weakness; it is the Body of Christ functioning as it was designed to.</div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">One Small Obedience</div>
+        <div class="practice-desc">Not the full practice. Not the recovered version of your spiritual life. One small, specific obedience today — one honest prayer, one honest conversation, one choice not to drift, one moment of gratitude for something specific. The small obedience is not less than the big one. In a depleted season, it may require more.</div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">Name One Good Thing</div>
+        <div class="practice-desc">Not toxic positivity — not pretending the hard things aren't hard. But once a day, name one specific thing that is genuinely good. A person. A moment. The fact that you are still here and still trying. Not to cancel out the grief, but to tell the truth about the whole of the day. Gratitude and grief can coexist. Both are honest. Both are allowed.</div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">Take the Break Without Guilt</div>
+        <div class="practice-desc">If your body or brain requires rest — take it. Not as defeat, not as spiritual failure, not with the commentary that you should be able to do more. As stewardship. A man who destroys his capacity fighting the long season will not be available for what comes on the other side of it. Rest is not quitting. In a long season, rest is often the most faithful thing available.</div>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-title">End the Day With the Doxology</div>
+        <div class="practice-desc">Not necessarily the words — but the posture. At the end of the day, however it went, offer it back to God. The good parts and the failed parts and the parts you are not sure about. "This day was yours. I did what I could. I am giving it back to you." Then sleep. Tomorrow is not your problem yet.</div>
+      </div>
+
+    </div>
+
+    <h2>For the Moment When You Have Nothing Left</h2>
+    <p>There will be moments in a long season — maybe today, maybe tonight — when you genuinely have nothing. No words for prayer. No capacity for effort. No emotional resource to draw on. For that moment, here is the smallest faithful thing:</p>
+
+    <div class="callout accent">
+      <div class="callout-label">The Smallest Prayer</div>
+      <p style="font-family:var(--font-serif);font-size:20px;color:var(--cream);font-style:italic;margin:0;line-height:1.7;">"I have nothing. I am here. You are God."</p>
+    </div>
+
+    <p>That is a complete prayer. It has address, honest complaint, and trust — compressed into three sentences for a man who cannot produce more. It is enough. The Spirit intercedes for us "with groanings too deep for words" (Romans 8:26). You do not have to find the words. You have to show up. God will do the rest.</p>
+
+    <h2>A Few Minutes with This</h2>
+    <div class="reflection-set">
+      <div class="reflection-card">
+        <div class="reflection-q">What is one specific small faithfulness available to you today — given your real capacity right now, not the capacity you wish you had? Name it concretely. Not "be more disciplined" but something specific you can actually do before tonight.</div>
+        <textarea placeholder="One small faithful thing today..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">What is one genuinely good thing from today or this week — specific, not general? Name it. Let it be true alongside everything hard that is also true.</div>
+        <textarea placeholder="One good thing..."></textarea>
+      </div>
+      <div class="reflection-card">
+        <div class="reflection-q">When this season is over — on the other side of the winter — what do you want to be true about how you walked through it? Not what you want to have accomplished, but who you want to have been. Write that as a prayer.</div>
+        <textarea placeholder="On the other side of this, I want it to be true that I..."></textarea>
+      </div>
+    </div>
+
+    <div class="prayer-box">
+      <div class="prayer-label">The Promise for the Long Season</div>
+      <div class="verse-text">"He gives power to the faint, and to him who has no might he increases strength. They who wait for the Lord shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint."</div>
+      <div class="verse-ref">Isaiah 40:29, 31 · ESV</div>
+      <div class="prayer-instruction">Notice the sequence: eagles, then running, then walking. Most people read it as an escalation — wings, then running, then even walking. But in the context of a long season, the most costly faithfulness is the last one. Eagles soar on adrenaline. Running is the crisis response. Walking is the long middle — one foot in front of the other, for a long time, without the adrenaline. He promises strength for that too. Even for walking. Even for just today.</div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
