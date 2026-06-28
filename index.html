@@ -126,6 +126,45 @@ body::before {
   color: var(--muted);
 }
 
+/* ── BROWSE ALL SECTIONS (collapsible TOC) ───────────── */
+.toc-wrap {
+  position: relative; z-index: 5;
+  max-width: 1040px; margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 600px) { .toc-wrap { padding: 0 20px; } }
+.toc-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border-lt);
+  border-radius: 6px; padding: 14px 20px; margin-top: 28px;
+  cursor: pointer; transition: background .2s, border-color .2s;
+  font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cream-dim);
+}
+.toc-toggle:hover { background: var(--surface-2); border-color: var(--accent-dim); color: var(--cream); }
+.toc-toggle-icon { font-size: 10px; transition: transform .25s; color: var(--accent-dim); }
+.toc-toggle.open .toc-toggle-icon { transform: rotate(180deg); }
+.toc-panel {
+  display: none;
+  background: var(--surface); border: 1px solid var(--border-lt); border-top: none;
+  border-radius: 0 0 6px 6px;
+  padding: 28px 32px 8px;
+  margin-bottom: 4px;
+}
+.toc-panel.open { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px 32px; }
+@media (max-width: 700px) { .toc-panel.open { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .toc-panel.open { grid-template-columns: 1fr; } }
+.toc-col-title {
+  font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent-dim); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.toc-link {
+  display: block; font-family: var(--font-body); font-size: 13px; color: var(--cream-dim);
+  text-decoration: none; padding: 6px 0; transition: color .15s, padding-left .15s;
+  border-bottom: 1px solid transparent;
+}
+.toc-link:hover { color: var(--accent); padding-left: 4px; }
+
 /* ── BODY LAYOUT ──────────────────────────────────────── */
 .library-body {
   position: relative; z-index: 1;
@@ -732,6 +771,38 @@ body::before {
   </div>
 </header>
 
+<div class="toc-wrap">
+  <button class="toc-toggle" id="toc-toggle" onclick="toggleTOC()">
+    <span>Browse All Sections</span>
+    <span class="toc-toggle-icon" id="toc-icon">▾</span>
+  </button>
+  <div class="toc-panel" id="toc-panel">
+    <div class="toc-col">
+      <div class="toc-col-title">I · Foundations</div>
+      <a href="#sec-first-principles" class="toc-link" onclick="closeTOC()">First Principles</a>
+      <a href="#sec-core-four" class="toc-link" onclick="closeTOC()">The Core Four</a>
+      <a href="#sec-discipleship-tools" class="toc-link" onclick="closeTOC()">Discipleship Tools</a>
+      <a href="#sec-foundational-theology" class="toc-link" onclick="closeTOC()">Foundational Theology</a>
+    </div>
+    <div class="toc-col">
+      <div class="toc-col-title">II · The Christian Life</div>
+      <a href="#sec-spiritual-disciplines" class="toc-link" onclick="closeTOC()">Spiritual Disciplines</a>
+      <a href="#sec-warfare-suffering" class="toc-link" onclick="closeTOC()">Warfare &amp; Suffering</a>
+      <a href="#sec-mens-studies" class="toc-link" onclick="closeTOC()">Men's Studies</a>
+      <a href="#sec-womens-studies" class="toc-link" onclick="closeTOC()">Women's Studies</a>
+      <a href="#sec-stage-of-life" class="toc-link" onclick="closeTOC()">Stage of Life</a>
+      <a href="#sec-portraits" class="toc-link" onclick="closeTOC()">Portraits of Leadership</a>
+      <a href="#sec-bible-book-studies" class="toc-link" onclick="closeTOC()">Bible Book Studies</a>
+    </div>
+    <div class="toc-col">
+      <div class="toc-col-title">III · Series &amp; Resources</div>
+      <a href="#sec-active-series" class="toc-link" onclick="closeTOC()">Active Series</a>
+      <a href="#sec-interactive-companions" class="toc-link" onclick="closeTOC()">Interactive Companions</a>
+      <a href="#sec-pre-system" class="toc-link" onclick="closeTOC()">Pre-System Studies</a>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════ MAIN -->
 <main class="library-body">
 
@@ -749,7 +820,7 @@ body::before {
   </div>
 
   <!-- ── First Principles ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-first-principles">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Sequential Discipleship Series</div>
@@ -843,7 +914,7 @@ body::before {
   </section>
 
   <!-- ── Core Four ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-core-four">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Vision &amp; Identity Series</div>
@@ -884,7 +955,7 @@ body::before {
   </section>
 
   <!-- ── Discipleship Tools ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-discipleship-tools">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Standalone · Self-Assessment</div>
@@ -903,7 +974,7 @@ body::before {
   </section>
 
   <!-- ── Foundational Theology ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-foundational-theology">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Standalone · Deep Dives</div>
@@ -943,7 +1014,7 @@ body::before {
   </div>
 
   <!-- ── Spiritual Disciplines ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-spiritual-disciplines">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Practices &amp; Rhythms</div>
@@ -968,7 +1039,7 @@ body::before {
   </section>
 
   <!-- ── Spiritual Warfare & Suffering ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-warfare-suffering">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Hard Terrain</div>
@@ -999,7 +1070,7 @@ body::before {
   </section>
 
   <!-- ── Men's Studies ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-mens-studies">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">For Men</div>
@@ -1030,7 +1101,7 @@ body::before {
   </section>
 
   <!-- ── Women's Studies ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-womens-studies">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">For Women</div>
@@ -1079,7 +1150,7 @@ body::before {
   </section>
 
   <!-- ── Stage of Life ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-stage-of-life">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Seasons &amp; Relationships</div>
@@ -1110,7 +1181,7 @@ body::before {
   </section>
 
   <!-- ── Portraits of Leadership ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-portraits">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Series · 7 Studies</div>
@@ -1222,7 +1293,7 @@ body::before {
   </section>
 
   <!-- ── Bible Book Studies ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-bible-book-studies">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Old Testament · Whole-Book Studies</div>
@@ -1240,8 +1311,53 @@ body::before {
     </div>
   </section>
 
+
+</div><!-- end parent CHRISTIAN LIFE -->
+
+<!-- ╔═══════════════════════════════════════════════════════╗ -->
+<!-- ║  PARENT 3 · SERIES & RESOURCES                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════╝ -->
+<div class="parent-section">
+  <div class="parent-header">
+    <div class="parent-number">III</div>
+    <div class="parent-header-text">
+      <div class="parent-eyebrow">Ongoing &amp; In-Progress</div>
+      <div class="parent-title">Series &amp; Resources</div>
+      <div class="parent-desc">Active teaching series, interactive companion tools, and earlier studies. The pre-system studies are fully functional — visual updates to the current design system are planned.</div>
+    </div>
+  </div>
+
+  <!-- ── Word of God Series ── -->
+  <section class="lib-section" id="sec-active-series">
+    <div class="lib-section-head">
+      <div>
+        <div class="lib-section-eyebrow">Men's Midweek · Summer 2026</div>
+        <div class="lib-section-title">Active Series</div>
+        <div class="lib-section-desc">The current teaching series — study guides keyed to weekly messages, designed for mid-week reflection and group discussion.</div>
+      </div>
+    </div>
+    <a href="resource-series/WordOfGod_SeriesGuide_1.html" class="series-card" style="--card-accent:#c9a84c;">
+      <div class="series-card-left">
+        <div class="series-card-eyebrow">Men's Midweek · Summer 2026 · 4-Week Series</div>
+        <div class="series-card-title">The Word of God</div>
+        <div class="series-card-verse">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, so that the man of God may be complete, equipped for every good work."</div>
+        <div class="series-card-ref">2 Timothy 3:16–17</div>
+        <div class="fp-card-words" style="margin-top:12px;">
+          <span class="fp-word">theopneustos</span><span class="fp-word">graphē</span><span class="fp-word">dabar</span><span class="fp-word">logos</span>
+        </div>
+      </div>
+      <div class="series-card-right">
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 1 · Useful</span></div>
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 2 · Teaching</span></div>
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 3 · Correction</span></div>
+        <div class="series-week"><span class="week-dot"></span><span class="week-label">Week 4 · Coming Soon</span></div>
+        <div class="series-card-cta">Open Series →</div>
+      </div>
+    </a>
+  </section>
+
   <!-- ── Interactive Companions ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-interactive-companions">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Beyond the Page · Hosted Apps</div>
@@ -1340,52 +1456,8 @@ body::before {
     </div>
   </section>
 
-</div><!-- end parent CHRISTIAN LIFE -->
-
-<!-- ╔═══════════════════════════════════════════════════════╗ -->
-<!-- ║  PARENT 3 · SERIES & RESOURCES                       ║ -->
-<!-- ╚═══════════════════════════════════════════════════════╝ -->
-<div class="parent-section">
-  <div class="parent-header">
-    <div class="parent-number">III</div>
-    <div class="parent-header-text">
-      <div class="parent-eyebrow">Ongoing &amp; In-Progress</div>
-      <div class="parent-title">Series &amp; Resources</div>
-      <div class="parent-desc">Active teaching series and earlier interactive studies. The pre-system studies are fully functional — visual updates to the current design system are planned.</div>
-    </div>
-  </div>
-
-  <!-- ── Word of God Series ── -->
-  <section class="lib-section">
-    <div class="lib-section-head">
-      <div>
-        <div class="lib-section-eyebrow">Men's Midweek · Summer 2026</div>
-        <div class="lib-section-title">Active Series</div>
-        <div class="lib-section-desc">The current teaching series — study guides keyed to weekly messages, designed for mid-week reflection and group discussion.</div>
-      </div>
-    </div>
-    <a href="resource-series/WordOfGod_SeriesGuide_1.html" class="series-card" style="--card-accent:#c9a84c;">
-      <div class="series-card-left">
-        <div class="series-card-eyebrow">Men's Midweek · Summer 2026 · 4-Week Series</div>
-        <div class="series-card-title">The Word of God</div>
-        <div class="series-card-verse">"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, so that the man of God may be complete, equipped for every good work."</div>
-        <div class="series-card-ref">2 Timothy 3:16–17</div>
-        <div class="fp-card-words" style="margin-top:12px;">
-          <span class="fp-word">theopneustos</span><span class="fp-word">graphē</span><span class="fp-word">dabar</span><span class="fp-word">logos</span>
-        </div>
-      </div>
-      <div class="series-card-right">
-        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 1 · Useful</span></div>
-        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 2 · Teaching</span></div>
-        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Week 3 · Correction</span></div>
-        <div class="series-week"><span class="week-dot"></span><span class="week-label">Week 4 · Coming Soon</span></div>
-        <div class="series-card-cta">Open Series →</div>
-      </div>
-    </a>
-  </section>
-
   <!-- ── Pre-System Studies ── -->
-  <section class="lib-section">
+  <section class="lib-section" id="sec-pre-system">
     <div class="lib-section-head">
       <div>
         <div class="lib-section-eyebrow">Earlier Builds</div>
@@ -1470,6 +1542,25 @@ const statObs = new IntersectionObserver((entries) => {
 
 const statsEl = document.querySelector('.lib-stats');
 if (statsEl) statObs.observe(statsEl);
+
+function toggleTOC() {
+  var panel = document.getElementById('toc-panel');
+  var toggle = document.getElementById('toc-toggle');
+  var icon = document.getElementById('toc-icon');
+  var isOpen = panel.classList.contains('open');
+  if (isOpen) {
+    panel.classList.remove('open');
+    toggle.classList.remove('open');
+  } else {
+    panel.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+
+function closeTOC() {
+  document.getElementById('toc-panel').classList.remove('open');
+  document.getElementById('toc-toggle').classList.remove('open');
+}
 </script>
 
 </body>
