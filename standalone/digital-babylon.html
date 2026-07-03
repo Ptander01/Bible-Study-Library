@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Babylon — Know the Times</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:           #0c0f18;
+  --surface:      #13182a;
+  --surface-2:    #1a2035;
+  --surface-3:    #212842;
+  --accent:       #5a6a9a;
+  --accent-dim:   #2a3258;
+  --accent-lt:    #8a9ac8;
+  --cream:        #ede8dc;
+  --cream-dim:    #a09a8e;
+  --muted:        #5c6078;
+  --border:       #232a42;
+  --border-lt:    #2e3858;
+  --warning-dim:  #6b2c2c;
+  --font-body:    'Lora', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: var(--font-body); font-size: 16px; line-height: 1.75; min-height: 100vh; }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 150px; opacity: .5;
+}
+
+h2 { font-family: var(--font-display); font-size: clamp(13px, 2.5vw, 17px); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin: 44px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-child { margin-top: 0; }
+h3 { font-family: var(--font-body); font-size: 17px; font-weight: 500; color: var(--cream); margin: 28px 0 10px; }
+p { margin-bottom: 18px; color: var(--cream-dim); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--cream); font-weight: 500; }
+em { color: var(--cream-dim); }
+
+.panels { position: relative; z-index: 1; }
+.panel { display: none; }
+.panel.active { display: block; }
+.content-wrap { max-width: 820px; margin: 0 auto; padding: 56px 32px 80px; }
+@media (max-width: 600px) { .content-wrap { padding: 36px 20px 60px; } }
+
+/* HEADER */
+.site-header { position: relative; z-index: 10; background: linear-gradient(160deg, #0a0d1a 0%, #0c0f18 60%); border-bottom: 1px solid var(--border); padding: 48px 40px 36px; text-align: center; }
+.site-header::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-dim), transparent); }
+.header-eyebrow { font-family: var(--font-display); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 14px; }
+.header-title { font-family: var(--font-display); font-size: clamp(26px, 5vw, 46px); font-weight: 700; letter-spacing: 2px; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+.header-title span { color: var(--accent); }
+.header-verse { font-family: var(--font-serif); font-size: clamp(14px, 2.2vw, 19px); font-style: italic; color: var(--cream-dim); max-width: 680px; margin: 0 auto 6px; line-height: 1.65; }
+.header-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 3px; color: var(--accent-dim); margin-top: 10px; }
+
+/* TABS */
+.tab-bar-wrap { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.tab-bar-wrap::-webkit-scrollbar { display: none; }
+.tab-bar { display: flex; align-items: stretch; min-width: max-content; padding: 0 24px; }
+.tab-btn { background: none; border: none; cursor: pointer; font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 18px 22px 16px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--cream-dim); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* COMPONENTS */
+.section-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.section-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 10px; }
+.section-title { font-family: var(--font-display); font-size: clamp(28px, 5.5vw, 50px); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); line-height: 1.05; margin-bottom: 14px; }
+.section-sub { font-family: var(--font-body); font-style: italic; font-size: 13px; color: var(--muted); }
+
+.verse-block { background: var(--surface); border: 1px solid var(--border-lt); border-left: 3px solid var(--accent); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
+.verse-block .verse-text { font-family: var(--font-serif); font-size: clamp(17px, 2.5vw, 21px); font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 10px; }
+.verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+.pullquote { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 32px 36px; margin: 30px 0; }
+.pullquote .quote-text { font-family: var(--font-serif); font-size: clamp(18px, 3vw, 24px); font-style: italic; color: var(--cream); line-height: 1.65; margin-bottom: 14px; }
+.pullquote .quote-attr { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-dim); }
+
+.callout { background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 6px; padding: 24px 28px; margin: 24px 0; }
+.callout.accent { border-color: var(--accent-dim); }
+.callout-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 12px; }
+.callout p { margin-bottom: 0; }
+
+.three-step { display: flex; flex-direction: column; gap: 2px; margin: 24px 0; border: 1px solid var(--border-lt); border-radius: 6px; overflow: hidden; }
+.step-card { display: grid; grid-template-columns: 64px 1fr; background: var(--surface); }
+.step-card:nth-child(even) { background: var(--surface-2); }
+.step-num { padding: 20px 12px; font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--accent); opacity: .5; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); }
+.step-body { padding: 20px 24px; }
+.step-title { font-family: var(--font-display); font-size: 14px; letter-spacing: 1px; color: var(--cream); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.65; }
+@media (max-width: 480px) { .step-card { grid-template-columns: 48px 1fr; } .step-num { font-size: 18px; padding: 18px 8px; } }
+
+.quencher-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.quencher { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning-dim); border-radius: 4px; padding: 16px 20px; }
+.quencher strong { color: var(--cream); display: block; font-size: 14px; margin-bottom: 4px; }
+.quencher p { font-size: 13px; margin: 0; }
+
+.passage-stack { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+.passage-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-dim); border-radius: 4px; padding: 18px 22px; }
+.passage-ref { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent-dim); margin-bottom: 8px; }
+.passage-text { font-family: var(--font-serif); font-size: 15px; font-style: italic; color: var(--cream-dim); line-height: 1.65; margin-bottom: 8px; }
+.passage-note { font-size: 13px; color: var(--muted); }
+
+.method-card { background: var(--surface-2); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 26px 28px; margin: 20px 0; }
+.method-title { font-family: var(--font-display); font-size: 14px; letter-spacing: 1px; color: var(--accent-lt); margin-bottom: 14px; }
+.method-steps { display: flex; flex-direction: column; gap: 10px; }
+.method-step { display: flex; gap: 14px; align-items: flex-start; }
+.method-step-label { font-family: var(--font-display); font-size: 10px; letter-spacing: 2px; color: var(--accent); min-width: 90px; flex-shrink: 0; padding-top: 3px; }
+.method-step-desc { font-size: 14px; color: var(--cream-dim); line-height: 1.6; }
+
+.reflection-set { display: flex; flex-direction: column; gap: 20px; margin: 20px 0; }
+.reflection-card { background: var(--surface); border: 1px solid var(--border-lt); border-radius: 6px; padding: 20px 24px; }
+.reflection-q { font-family: var(--font-serif); font-size: 17px; font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.reflection-card textarea { width: 100%; min-height: 90px; background: var(--surface-2); border: 1px solid var(--border-lt); border-radius: 4px; color: var(--cream-dim); font-family: var(--font-body); font-size: 14px; padding: 12px 14px; resize: vertical; line-height: 1.6; }
+.reflection-card textarea:focus { outline: none; border-color: var(--accent-dim); }
+.reflection-card textarea::placeholder { color: var(--muted); }
+
+.dq-list { list-style: none; margin: 16px 0; counter-reset: dq; }
+.dq-item { counter-increment: dq; display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.dq-item:last-child { border-bottom: none; }
+.dq-num { font-family: var(--font-display); font-size: 13px; color: var(--accent-dim); flex-shrink: 0; width: 24px; padding-top: 3px; }
+.dq-num::before { content: counter(dq); }
+.dq-text { font-size: 15px; color: var(--cream-dim); line-height: 1.7; }
+
+.prayer-box { background: linear-gradient(135deg, var(--surface-2), var(--surface-3)); border: 1px solid var(--accent-dim); border-radius: 8px; padding: 36px; text-align: center; margin-top: 40px; }
+.prayer-label { font-family: var(--font-display); font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 18px; }
+.prayer-box .verse-text { font-family: var(--font-serif); font-size: clamp(20px, 3.5vw, 28px); font-style: italic; color: var(--cream); line-height: 1.6; margin-bottom: 14px; }
+.prayer-box .verse-ref { font-family: var(--font-display); font-size: 11px; letter-spacing: 2px; color: var(--accent-dim); }
+
+@media print {
+  body { background: white; color: #111; }
+  body::before { display: none; }
+  .tab-bar-wrap { display: none; }
+  .panel { display: block !important; page-break-before: always; }
+  .panel:first-child { page-break-before: avoid; }
+  textarea { border: 1px solid #ccc; min-height: 60px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-eyebrow">Spiritual Disciplines · Congregational Midweek</div>
+  <div class="header-title"><span>Digital</span> Babylon</div>
+  <div class="header-verse">"From the sons of Issachar, men who understood the times, with knowledge of what Israel should do."</div>
+  <div class="header-ref">1 Chronicles 12:32 · CSB</div>
+</header>
+
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('times', this)">Know the Times</button>
+    <button class="tab-btn" onclick="switchTab('war', this)">The War for Attention</button>
+    <button class="tab-btn" onclick="switchTab('slow', this)">Slow Down</button>
+    <button class="tab-btn" onclick="switchTab('focus', this)">Focus</button>
+    <button class="tab-btn" onclick="switchTab('obey', this)">Obey God</button>
+    <button class="tab-btn" onclick="switchTab('practice', this)">Practices</button>
+  </div>
+</div>
+
+<div class="panels">
+
+  <!-- ═══════════ KNOW THE TIMES ═══════════ -->
+  <div class="panel active" id="panel-times">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">1 Chronicles 12:32 · Romans 13:11</div>
+        <div class="section-title">Know the Times</div>
+        <div class="section-sub">The sons of Issachar didn't just know what was happening — they knew what to do about it</div>
+      </div>
+
+      <p>When David was consolidating the kingdom after Saul's death, tribe after tribe came to him at Hebron. Most are counted simply by their numbers — thousands of fighting men, skilled in war. The sons of Issachar get a different description entirely: 200 men who "understood the times, with knowledge of what Israel should do." In an army of hundreds of thousands, 200 men are notable not for their weapons but for their wisdom.</p>
+
+      <p>That kind of wisdom — knowing what season you're in and what it actually requires — is exactly what the current moment demands. And it's exactly what the current moment is most aggressively working against.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Besides this, you know the time, that the hour has come for you to wake from sleep. For salvation is nearer to us now than when we first believed. The night is far gone; the day is at hand."</div>
+        <div class="verse-ref">Romans 13:11–12</div>
+      </div>
+
+      <p>Paul assumes that believers can miss the moment they're in — that sleep is a real danger, not just a metaphor. The call to wake up implies that drifting under isn't impossible. In fact, given the right conditions, it happens quietly, incrementally, and with very little resistance from the person drifting.</p>
+
+      <h2>What Season Are We Actually In?</h2>
+
+      <div class="pullquote">
+        <div class="quote-text">"We have allowed our technology to outdistance our theology, and it has left us with guided missiles and misguided men."</div>
+        <div class="quote-attr">Dr. Martin Luther King Jr.</div>
+      </div>
+
+      <p>MLK spoke that line into a different technological moment, but the diagnosis has only intensified. Means have continued to outpace ends. The tools have gotten sharper while the purpose they serve has gotten blurrier — and the people wielding them have not grown proportionally wiser about what the tools are doing to them.</p>
+
+      <div class="pullquote">
+        <div class="quote-text">"Digital Babylon is not a physical place. It is the pagan but spiritual, hyperstimulated, multicultural, imperial crossroads that is the virtual home of everyone with wifi. In Digital Babylon, the Bible is one of many voices that interpret human experience; it is no longer viewed as the central authority over people and society. Today, if someone drops 'the Bible says' in a media interview, they sound as if they have just disembarked from a time machine."</div>
+        <div class="quote-attr">David Kinnaman</div>
+      </div>
+
+      <p>Babylon in Scripture wasn't just a city — it was a civilizational posture organized against the purposes of God: a culture that glorifies human achievement, pride, power, prestige, and pleasure above all else. The digital version isn't a place you travel to. It's the environment most of us live inside by default.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Put on the full armor of God so that you can stand against the schemes of the devil."</div>
+        <div class="verse-ref">Ephesians 6:11</div>
+      </div>
+
+      <p>The armor of God assumes an enemy with schemes — not blunt force attacks but tactical, patient strategies designed to exploit specific weaknesses. Understanding the times isn't paranoia. It's the basic reconnaissance that lets you know what you're actually wearing armor against.</p>
+
+      <div class="callout accent">
+        <div class="callout-label">Worth Sitting With</div>
+        <p>The sons of Issachar are described as knowing both the times and what to do. It's a two-part description. You can be culturally aware and still have no idea what obedience looks like in that awareness. Both halves matter.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ THE WAR FOR ATTENTION ═══════════ -->
+  <div class="panel" id="panel-war">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Romans 6:16</div>
+        <div class="section-title">The War for Attention</div>
+        <div class="section-sub">You are always becoming what you habitually attend to</div>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"Don't you know that if you offer yourselves to someone as obedient slaves, you are slaves of that one you obey — either of sin leading to death or of obedience leading to righteousness?"</div>
+        <div class="verse-ref">Romans 6:16</div>
+      </div>
+
+      <p>Paul isn't describing a dramatic, one-time choice between two well-marked paths. He's describing the ordinary mechanics of how people become what they become — through repeated, habitual offering of themselves to whatever they consistently obey. The word "obey" here carries its full weight: to listen to, to follow, to orient your life around.</p>
+
+      <div class="callout accent">
+        <div class="callout-label">The News Flash</div>
+        <p>If you follow, subscribe, ingest, and begin to agree with what someone or something is consistently posting — you are obeying it. The platform doesn't call it that. But Paul would.</p>
+      </div>
+
+      <h2>What Digital Consumption Actually Does</h2>
+
+      <div class="quencher-list">
+        <div class="quencher">
+          <strong>It makes you a slave to people you've never met</strong>
+          <p>Today it's easy to trust people you know through screens — who feel familiar, who speak your language, who seem to know you — more than the people who actually do know you. The relationship is an illusion shaped to maximize your engagement, not your growth.</p>
+        </div>
+        <div class="quencher">
+          <strong>It lulls you to sleep</strong>
+          <p>Ingesting information and content at volume doesn't make you more aware. It makes you intellectually and spiritually passive — flabby, in the language of the lesson. Consuming is not the same as thinking. Scrolling is not the same as studying.</p>
+        </div>
+        <div class="quencher">
+          <strong>It sells your attention to someone else's agenda</strong>
+          <p>As John Mark Comer puts it: "Your phone doesn't work for you. It works for a billion-dollar company in California that is selling your attention and your well-being." Your attention is not neutral. It is a resource, and someone is extracting it.</p>
+        </div>
+        <div class="quencher">
+          <strong>It gradually re-centers your world</strong>
+          <p>The more authority you give to digital voices, the more the Bible becomes one option among many — another perspective to factor in, rather than the authoritative word of God over your life. That shift usually happens slowly enough that you don't notice it happening.</p>
+        </div>
+      </div>
+
+      <h2>In Contrast</h2>
+
+      <div class="verse-block">
+        <div class="verse-text">"Be diligent to present yourself approved to God, a worker who doesn't need to be ashamed, correctly teaching the word of truth. But avoid irreverent, empty speech, for this will produce an even greater measure of godlessness."</div>
+        <div class="verse-ref">2 Timothy 2:15–16</div>
+      </div>
+
+      <p>Paul's counter to "empty speech" — which describes exactly the category of content most platforms are optimized to produce — is diligent, active engagement with the word of truth. Not passive consumption. Not absorption by osmosis. Work. An approved worker who handles the word correctly is someone who has given their attention to the right thing and practiced with it long enough to become competent.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Make every effort to enter through the narrow door."</div>
+        <div class="verse-ref">Luke 13:24</div>
+      </div>
+
+      <p>The narrow door doesn't just stay narrow for entry — it requires intentional navigation. The broad way is broad partly because it has the least friction. Going with the current of the digital age, consuming what everyone else consumes, having your attention shaped by whatever shows up next in the feed — that's the wide road. The narrow one requires more.</p>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ SLOW DOWN ═══════════ -->
+  <div class="panel" id="panel-slow">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Practical One</div>
+        <div class="section-title">Slow Down</div>
+        <div class="section-sub">The world applauds the loudest, the quickest, and the most extreme — none of which is wisdom</div>
+      </div>
+
+      <p>The digital environment rewards speed above almost everything else. First to post, quickest to react, most extreme take — these get traction. Thoughtfulness doesn't trend. Slow consideration doesn't get shared. There is a built-in pressure in the medium toward reaction rather than reflection. And that pressure is working on you every time you open the feed.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"My dear brothers and sisters, understand this: Everyone should be quick to listen, slow to speak, and slow to anger."</div>
+        <div class="verse-ref">James 1:19</div>
+      </div>
+
+      <p>This verse runs directly against the grain of the attention economy. Quick to listen — which is the opposite of quick to react. Slow to speak — which costs you the race to be first. Slow to anger — which is the least shareable emotional register.</p>
+
+      <h2>Slowing Down Across Multiple Horizons</h2>
+
+      <div class="passage-stack">
+        <div class="passage-item">
+          <div class="passage-ref">Matthew 6:33–34</div>
+          <div class="passage-text">"Seek first the kingdom of God and his righteousness, and all these things will be provided for you. Therefore don't worry about tomorrow, because tomorrow will worry about itself."</div>
+          <div class="passage-note">Slow down about the future — it isn't yours yet. Today's faithfulness is the work.</div>
+        </div>
+        <div class="passage-item">
+          <div class="passage-ref">Psalm 118:24</div>
+          <div class="passage-text">"This is the day the Lord has made; let us rejoice and be glad in it."</div>
+          <div class="passage-note">One day. This one. The practice of being present to it is an act of trust.</div>
+        </div>
+        <div class="passage-item">
+          <div class="passage-ref">Philippians 3:13</div>
+          <div class="passage-text">"Brothers and sisters, I do not consider myself to have taken hold of it. But one thing I do: Forgetting what is behind and reaching forward to what is ahead, I pursue as my goal the prize promised by God's heavenly call in Christ Jesus."</div>
+          <div class="passage-note">Slow down about the past — it is finished. One thing, not many things.</div>
+        </div>
+        <div class="passage-item">
+          <div class="passage-ref">Hebrews 3:15</div>
+          <div class="passage-text">"Today, if you hear his voice, do not harden your hearts as in the rebellion."</div>
+          <div class="passage-note">Slowing down is also about what you do with what you hear. Hardening happens incrementally, by repeated inattention to what God says today.</div>
+        </div>
+        <div class="passage-item">
+          <div class="passage-ref">Psalm 46:10</div>
+          <div class="passage-text">"Be still and know that I am God."</div>
+          <div class="passage-note">The knowledge of God requires stillness that the digital environment is specifically designed to prevent. Stillness isn't emptiness — it's orientation.</div>
+        </div>
+      </div>
+
+      <div class="callout accent">
+        <div class="callout-label">An Honest Question</div>
+        <p>In the last 24 hours, what's the longest you've gone without looking at a screen? Was it intentional? What determined it?</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ FOCUS ═══════════ -->
+  <div class="panel" id="panel-focus">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Practical Two</div>
+        <div class="section-title">Focus</div>
+        <div class="section-sub">"One thing is needed" — and the distraction economy depends on you never quite believing that</div>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"Martha, Martha, you are worried and upset about many things, but one thing is needed. Mary has made the right choice, and it will not be taken away from her."</div>
+        <div class="verse-ref">Luke 10:41–42</div>
+      </div>
+
+      <p>Martha isn't in the wrong for wanting to care for her guests. She's in the wrong for being "worried and upset about many things" while the one thing needful was available in the next room. The issue is attentional scattering — genuine tasks, real responsibilities, even legitimate concerns, all competing for space with what actually matters most. Sound familiar.</p>
+
+      <h2>People Who Refused to Be Drawn Away</h2>
+
+      <div class="quencher-list">
+        <div class="quencher">
+          <strong>Nehemiah (Nehemiah 6:2–4)</strong>
+          <p>Sanballat and Geshem tried four times to draw Nehemiah away from building the wall — each time with a different compelling reason, a reasonable-sounding invitation. Each time, Nehemiah replied the same way: "I am doing a great work and cannot come down. Why should the work stop while I leave it and come to you?" He wasn't rude. He wasn't unaware. He just refused to let a thing that could wait become urgent through repetition.</p>
+        </div>
+        <div class="quencher">
+          <strong>Joseph (Genesis 39:10)</strong>
+          <p>Potiphar's wife didn't try once. She came back day after day. The temptation wasn't a single decisive moment — it was the accumulated pressure of repeated distraction from what he was supposed to be doing. Joseph held his focus not by winning one battle but by not negotiating with the distraction at all.</p>
+        </div>
+      </div>
+
+      <div class="callout accent">
+        <div class="callout-label">John Mark Comer</div>
+        <p>"Your phone doesn't work for you. It works for a billion-dollar company in California that is selling your attention and your well-being." The companies are not neutral parties. The design is intentional. The scroll doesn't stop by accident.</p>
+      </div>
+
+      <h2>What Focus Actually Requires</h2>
+      <p>The single most important thing about Nehemiah's focus isn't that he was strong-willed — it's that he knew what the work was. He had clarity about the great work he was doing, which made the invitation away from it obviously smaller. If you don't have a clear sense of what your actual work is right now — the thing God has called you to in this season — everything else will seem comparably important, and everything will be a potential interruption of everything else.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"I am doing a great work and cannot come down. Why should the work stop while I leave it and come to you?"</div>
+        <div class="verse-ref">Nehemiah 6:3</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ OBEY GOD ═══════════ -->
+  <div class="panel" id="panel-obey">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Practical Three</div>
+        <div class="section-title">Obey God</div>
+        <div class="section-sub">The culture that convinced itself it knew better — and what happened next</div>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"The Israelites lived according to the customs of the nations that the Lord had dispossessed before them... The Israelites secretly served idols and did evil things, provoking the Lord."</div>
+        <div class="verse-ref">2 Kings 17:7–8, 11</div>
+      </div>
+
+      <p>Israel didn't abandon God dramatically or all at once. They just started living "according to the customs of the nations" — following the rhythms and habits and values of the surrounding culture. The word "secretly" is revealing: this wasn't a loud, public rejection. It was private drift. Gradual accommodation. The kind that feels fine until you look up and realize you've traveled a very long way from where you started.</p>
+
+      <p>It's easy to tell ourselves that God's commands are too narrow, that we'll trust our own moral instincts to navigate what He seems to be missing, that the culture has figured out some things the church hasn't caught up to. This is as old as Saul deciding the sacrifice couldn't wait, as old as Israel deciding the nations' gods looked more effective than the invisible one.</p>
+
+      <div class="callout accent">
+        <div class="callout-label">The Actual Temptation</div>
+        <p>It's not usually "let me go do something obviously evil." It's "God seems narrow here — but WE can make the world better." The confidence that you see something God has missed is the oldest move in the playbook.</p>
+      </div>
+
+      <div class="verse-block">
+        <div class="verse-text">"Everyone then who hears these words of mine and does them will be like a wise man who built his house on the rock."</div>
+        <div class="verse-ref">Matthew 7:24</div>
+      </div>
+
+      <p>The difference between the wise builder and the foolish one isn't knowledge — both of them heard the same words. The difference is doing. The house that stands is the one built by someone who took the actual next action, not just had the right information.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Let us lay aside every weight and the sin that so easily ensnares us. Let us run with endurance the race that lies before us, keeping our eyes on Jesus, the source and perfecter of our faith, who for the joy that lay before him endured the cross and despised the shame and has sat down at the right hand of God's throne."</div>
+        <div class="verse-ref">Hebrews 12:1–2</div>
+      </div>
+
+      <p>"Every weight" — not just sin, but any encumbrance. Things that aren't wrong in themselves but add drag. That category is important because it includes things the culture would never identify as problems. They're only problems because of the race you're trying to run.</p>
+
+      <div class="verse-block">
+        <div class="verse-text">"Teach me your way, Lord, and I will walk in your truth. Give me an undivided heart, that I may fear your name."</div>
+        <div class="verse-ref">Psalm 86:11</div>
+      </div>
+
+      <p>The request for an "undivided heart" is an honest acknowledgment that a divided one is the default. David doesn't assume wholeness — he asks for it. That's the posture: knowing the pull of many things, and asking God for the grace to be oriented around the one.</p>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ PRACTICES ═══════════ -->
+  <div class="panel" id="panel-practice">
+    <div class="content-wrap">
+
+      <div class="section-header">
+        <div class="section-eyebrow">Putting It Into Practice</div>
+        <div class="section-title">Practices</div>
+        <div class="section-sub">Slow, Focus, Obey — but what does that actually look like this week?</div>
+      </div>
+
+      <p>The content in this study is not going to sink in and be applied from a single hearing. It never works that way. It has to be ingested slowly, returned to, meditated on — and eventually, actually done. Here are two proven methods for turning the Bible from something you consume into something that forms you.</p>
+
+      <div class="method-card">
+        <div class="method-title">Discovery Bible Study Method</div>
+        <div class="method-steps">
+          <div class="method-step">
+            <div class="method-step-label">Read</div>
+            <div class="method-step-desc">Read a short passage — a paragraph, not a chapter. Read it more than once. Slow down enough that you actually read every word.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Retell</div>
+            <div class="method-step-desc">Put it in your own words, as simply as possible. If you can't retell it, you don't yet understand it.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Discover</div>
+            <div class="method-step-desc">What does this tell me about God? What does it tell me about people?</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Apply</div>
+            <div class="method-step-desc">Based on this passage, what is one thing I will do this week? Specific. Concrete. Named.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Share</div>
+            <div class="method-step-desc">Who can I tell what I found — and who can I tell what I plan to do?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-title">Lectio Divina — Sacred Reading</div>
+        <div class="method-steps">
+          <div class="method-step">
+            <div class="method-step-label">Lectio · Read</div>
+            <div class="method-step-desc">Read the passage slowly, aloud if possible. Notice which word or phrase catches your attention.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Meditatio · Reflect</div>
+            <div class="method-step-desc">Sit with what caught your attention. Repeat it. Let it sink. Let it interact with your actual life.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Oratio · Respond</div>
+            <div class="method-step-desc">Respond to God with what arose in you — gratitude, confession, request, silence. This is prayer growing directly out of the word.</div>
+          </div>
+          <div class="method-step">
+            <div class="method-step-label">Contemplatio · Rest</div>
+            <div class="method-step-desc">Simply be present with God. No agenda. No more words unless they come. This is the stillness Psalm 46:10 is describing.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Reflection Questions</h2>
+      <div class="reflection-set">
+        <div class="reflection-card">
+          <div class="reflection-q">Where in your daily life is Digital Babylon's voice the loudest — and have you noticed it shaping how you think about anything specific?</div>
+          <textarea placeholder="Your notes..."></textarea>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-q">Romans 6:16 says you become a slave to whatever you habitually obey. What are you actually obeying most consistently right now with your attention?</div>
+          <textarea placeholder="Your notes..."></textarea>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-q">Which of the three practicals — slow, focus, obey — is the hardest for you personally right now, and what would one concrete change look like?</div>
+          <textarea placeholder="Your notes..."></textarea>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-q">Do you have a current season of life equivalent to Nehemiah's "great work" — something you know God has called you to that deserves your best attention? Name it.</div>
+          <textarea placeholder="Your commitment..."></textarea>
+        </div>
+      </div>
+
+      <h2>Group Discussion Questions</h2>
+      <ul class="dq-list">
+        <li class="dq-item"><span class="dq-num"></span><span class="dq-text">The sons of Issachar understood the times and knew what Israel should do. What's your honest assessment of your own understanding of the current moment — not just culturally, but spiritually? What season are we in?</span></li>
+        <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Is there a voice you've been giving consistent attention to — a podcast, a person, a platform — that you would describe as genuinely forming you? What's it forming you toward?</span></li>
+        <li class="dq-item"><span class="dq-num"></span><span class="dq-text">Nehemiah had to say no to reasonable-sounding invitations, four times over. What in your life keeps drawing you away from the "great work" — and what's your equivalent of "I cannot come down"?</span></li>
+        <li class="dq-item"><span class="dq-num"></span><span class="dq-text">What would it practically look like for you to build more silence and solitude into your current life stage? What's the actual obstacle?</span></li>
+      </ul>
+
+      <div class="prayer-box">
+        <div class="prayer-label">Closing Prayer</div>
+        <div class="verse-text">"Teach me your way, Lord, and I will walk in your truth. Give me an undivided heart, that I may fear your name."</div>
+        <div class="verse-ref">Psalm 86:11</div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /panels -->
+
+<script>
+function switchTab(panelId, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + panelId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
