@@ -134,6 +134,16 @@ em { color: var(--cream-dim); }
 </style>
 </head>
 <body>
+<!-- Return to Library button (site-wide navigation) -->
+<style>
+.return-to-library{position:fixed;bottom:22px;left:22px;z-index:200;display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;background:var(--surface-2,#1a2035);border:1px solid var(--border-lt,#2e3858);color:var(--accent-lt,#a090d0);text-decoration:none;font-family:var(--font-display,'Cinzel',Georgia,serif);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;box-shadow:0 4px 18px rgba(0,0,0,.4);transition:background .2s,color .2s,border-color .2s,transform .2s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+.return-to-library:hover{background:var(--surface-3,#212842);color:var(--cream,#ede8dc);border-color:var(--accent,#7a6aaa);transform:translateY(-1px);}
+.return-to-library .rtl-arrow{font-size:14px;line-height:1;}
+@media(max-width:600px){.return-to-library{bottom:16px;left:16px;padding:9px 14px;font-size:10px;gap:6px;}}
+@media print{.return-to-library{display:none !important;}}
+</style>
+<a class="return-to-library" href="../index.html" aria-label="Return to the study library"><span class="rtl-arrow">&#8592;</span><span>Return to Library</span></a>
+
 
 <header class="site-header">
   <div class="header-eyebrow">Old Testament · The Minor Prophets</div>
