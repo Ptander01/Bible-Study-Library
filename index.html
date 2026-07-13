@@ -1371,7 +1371,8 @@ body::before {
         <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Session 1 · Inside Out</span></div>
         <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Session 2 · Advances</span></div>
         <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Session 3 · Humility</span></div>
-        <div class="series-week"><span class="week-dot"></span><span class="week-label">Session 4 · Coming Soon</span></div>
+        <div class="series-week active"><span class="week-dot active"></span><span class="week-label">Session 4 · Shine</span></div>
+        <div class="series-week"><span class="week-dot"></span><span class="week-label">Session 5 · Coming Soon</span></div>
         <div class="series-card-cta">Open Series →</div>
       </div>
     </a>
@@ -1472,6 +1473,49 @@ body::before {
           <div class="app-card-title">Bible Timeline</div>
           <div class="app-card-desc">Every book, every era, every life laid out in chronological order — scroll to zoom, click any event for detail.</div>
           <div class="app-card-meta">Hosted App · bible-timeline-pink.vercel.app</div>
+        </div>
+      </a>
+
+      <a href="https://jesus-world.vercel.app" target="_blank" rel="noopener" class="app-card" style="--card-accent:#4a8a6a;">
+        <div class="app-card-badge">Interactive Map ↗</div>
+        <div class="app-card-icon-wrap" style="background:linear-gradient(160deg,#0d1f16 0%,#162b1e 100%);border-bottom-color:#1e3d28;">
+          <svg class="app-card-icon" viewBox="0 0 240 90" xmlns="http://www.w3.org/2000/svg">
+            <!-- MAP SECTION: journey routes from Galilee to Jerusalem -->
+            <path d="M38,8 Q72,18 100,28 Q130,38 162,50" fill="none" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.85"></path>
+            <path d="M38,8 Q55,24 68,38 Q84,50 100,56" fill="none" stroke="var(--card-accent)" stroke-width="1.5" opacity="0.9"></path>
+            <path d="M38,8 Q80,12 112,20 Q145,28 162,50" fill="none" stroke="#8a9ac8" stroke-width="1.2" opacity="0.7" stroke-dasharray="3 3"></path>
+            <!-- Location dots -->
+            <circle cx="38" cy="8" r="3" fill="#c9a84c"></circle>
+            <circle cx="100" cy="28" r="2" fill="#c9a84c" opacity="0.75"></circle>
+            <circle cx="100" cy="56" r="2" fill="var(--card-accent)" opacity="0.8"></circle>
+            <circle cx="162" cy="50" r="4.5" fill="var(--card-accent)"></circle>
+            <circle cx="162" cy="50" r="2" fill="#0d1f16"></circle>
+            <!-- Compass rose top right -->
+            <line x1="210" y1="7" x2="210" y2="22" stroke="#c9a84c" stroke-width="1" opacity="0.4"></line>
+            <line x1="203" y1="14" x2="217" y2="14" stroke="#c9a84c" stroke-width="1" opacity="0.4"></line>
+            <circle cx="210" cy="14" r="2.5" fill="none" stroke="#c9a84c" stroke-width="0.75" opacity="0.35"></circle>
+            <!-- Divider -->
+            <line x1="12" y1="62" x2="228" y2="62" stroke="#2e4a38" stroke-width="1"></line>
+            <!-- TIMELINE SECTION: ministry era bands -->
+            <rect x="12" y="68" width="30" height="6" rx="3" fill="#c9a84c" opacity="0.75"></rect>
+            <rect x="45" y="68" width="50" height="6" rx="3" fill="var(--card-accent)" opacity="0.8"></rect>
+            <rect x="98" y="68" width="35" height="6" rx="3" fill="#8a9ac8" opacity="0.7"></rect>
+            <rect x="136" y="68" width="42" height="6" rx="3" fill="#c08850" opacity="0.75"></rect>
+            <rect x="181" y="68" width="46" height="6" rx="3" fill="#8a4a4a" opacity="0.7"></rect>
+            <!-- Event dots on timeline -->
+            <circle cx="27" cy="82" r="2" fill="#c9a84c" opacity="0.85"></circle>
+            <circle cx="52" cy="82" r="2.5" fill="var(--card-accent)"></circle>
+            <circle cx="88" cy="82" r="2" fill="var(--card-accent)" opacity="0.8"></circle>
+            <circle cx="115" cy="82" r="2" fill="#8a9ac8" opacity="0.85"></circle>
+            <circle cx="157" cy="82" r="2.5" fill="#c08850"></circle>
+            <circle cx="195" cy="82" r="3" fill="#8a4a4a"></circle>
+            <circle cx="218" cy="82" r="2" fill="#8a4a4a" opacity="0.7"></circle>
+          </svg>
+        </div>
+        <div class="app-card-body">
+          <div class="app-card-title">Jesus's World</div>
+          <div class="app-card-desc">Every journey, event, parable, and miracle mapped across the land of Israel — Journeys, Events, and Parables tabs with a playable ministry timeline.</div>
+          <div class="app-card-meta">Hosted App · jesus-world.vercel.app</div>
         </div>
       </a>
     </div>
